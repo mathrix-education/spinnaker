@@ -8,6 +8,11 @@ targets:
         options:
           schema_mapping:
             - schema: schema.graphql
-              queries_glob: lib/core/graphql/queries*.graphql
-
+              queries_glob: lib/core/graphql/queries/*.graphql
               output: lib/graphql_api.dart
+#          scalar_mapping:
+#            - graphql_type: Date
+#              dart_type: DateTime
+#              use_custom_parser: true
+#            - graphql_type: Silicate
+#              dart_type: List

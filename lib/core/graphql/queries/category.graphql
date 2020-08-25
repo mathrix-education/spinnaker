@@ -2,9 +2,9 @@ fragment BasicCategory on Category {
   id
   name
   slug
-  posts {
-    ...BasicPost
-  }
+#  posts {
+#    ...BasicPost
+#  }
 }
 
 query ListCategories {

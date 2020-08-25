@@ -1,9 +1,0 @@
-fragment BasicPost on Post {
-  id
-  content
-  order
-  slug
-  title
-  visible
-  video_id
-}
