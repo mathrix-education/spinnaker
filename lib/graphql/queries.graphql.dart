@@ -99,3 +99,105 @@ class ListCategoriesQuery
   ListCategories$Query parse(Map<String, dynamic> json) =>
       ListCategories$Query.fromJson(json);
 }
+
+mixin ListDisciplines$BasicDisciplineMixin {
+  String id;
+  bool beta;
+  String name;
+  String slug;
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListDisciplines$Query$Discipline
+    with EquatableMixin, ListDisciplines$BasicDisciplineMixin {
+  ListDisciplines$Query$Discipline();
+
+  factory ListDisciplines$Query$Discipline.fromJson(
+          Map<String, dynamic> json) =>
+      _$ListDisciplines$Query$DisciplineFromJson(json);
+
+  @override
+  List<Object> get props => [id, beta, name, slug];
+  Map<String, dynamic> toJson() =>
+      _$ListDisciplines$Query$DisciplineToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListDisciplines$Query with EquatableMixin {
+  ListDisciplines$Query();
+
+  factory ListDisciplines$Query.fromJson(Map<String, dynamic> json) =>
+      _$ListDisciplines$QueryFromJson(json);
+
+  List<ListDisciplines$Query$Discipline> listDisciplines;
+
+  @override
+  List<Object> get props => [listDisciplines];
+  Map<String, dynamic> toJson() => _$ListDisciplines$QueryToJson(this);
+}
+
+class ListDisciplinesQuery
+    extends GraphQLQuery<ListDisciplines$Query, JsonSerializable> {
+  ListDisciplinesQuery();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ListDisciplines'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'listDisciplines'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FragmentSpreadNode(
+                    name: NameNode(value: 'BasicDiscipline'), directives: [])
+              ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicDiscipline'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(
+                name: NameNode(value: 'Discipline'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'beta'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'slug'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null)
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ListDisciplines';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  ListDisciplines$Query parse(Map<String, dynamic> json) =>
+      ListDisciplines$Query.fromJson(json);
+}
