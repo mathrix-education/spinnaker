@@ -1,0 +1,62 @@
+fragment BasicLabel on Label {
+  id
+  name
+  color
+}
+
+query ListLabels {
+  listLabels {
+    ...BasicLabel
+  }
+}
+
+
+query AllLabels($gradeId: ID!) {
+  readGrade(id: $gradeId) {
+    themes {
+      id
+      chapters {
+        id
+        theme {
+          id
+          discipline {
+            id
+          }
+        }
+        summary {
+          id
+          courses {
+            labels {
+              ...BasicLabel
+            }
+          }
+        }
+        notions {
+          courses {
+            id
+            labels {
+              ...BasicLabel
+            }
+          }
+          subjects {
+            exercises {
+              labels {
+                ...BasicLabel
+              }
+            }
+          }
+        }
+        exams {
+          labels {
+            ...BasicLabel
+          }
+        }
+        flashcards {
+          labels {
+            ...BasicLabel
+          }
+        }
+      }
+    }
+  }
+}

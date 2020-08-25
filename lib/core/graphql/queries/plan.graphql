@@ -1,0 +1,15 @@
+fragment BasicPlan on Plan {
+  id
+  period {
+    length
+    unit
+  }
+  price
+}
+
+query ListPlans {
+  listPlans {
+    ...BasicPlan
+  }
+}
+

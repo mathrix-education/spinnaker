@@ -1,0 +1,24 @@
+fragment BasicCoupon on Coupon{
+    id
+    type
+    value
+    counter
+    expires_at
+    created_at
+    updated_at
+    expired
+    exhausted
+    valid
+}
+
+query listCoupons {
+    listCoupons {
+        ...BasicCoupon
+    }
+}
+
+query readCoupon($id: ID!){
+    readCoupon(id:$id){
+        ...BasicCoupon
+    }
+}

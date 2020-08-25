@@ -1,0 +1,22 @@
+fragment BasicLesson on Lesson {
+  id
+  name
+  content
+  visible
+  order
+}
+
+query ReadLesson($id: ID!) {
+  readLesson(id: $id) {
+    ...BasicLesson
+    section{
+      ...BasicSection
+      lessons{
+        ...BasicLesson
+      }
+      training{
+        ...BasicTraining
+      }
+    }
+  }
+}

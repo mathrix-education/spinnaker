@@ -1,0 +1,34 @@
+fragment BasicTraining on Training {
+  id
+  name
+  slug
+  duration
+  image
+  available
+  content
+  order
+  visible
+  price
+  grades {
+    id
+    name
+  }
+}
+
+query ListTrainings {
+  listTrainings {
+    ...BasicTraining
+  }
+}
+
+query ReadTraining($id: ID!) {
+  readTraining(id: $id) {
+    ...BasicTraining
+    sections {
+      ...BasicSection
+      lessons {
+        ...BasicLesson
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+fragment BasicInteraction on Interaction {
+  comprehension
+  interactable_id
+  interactable_type
+  score
+  total
+  user_id
+  watchtime
+}
+
+mutation interact($input: CreateInteraction!) {
+  interact(input: $input)
+}

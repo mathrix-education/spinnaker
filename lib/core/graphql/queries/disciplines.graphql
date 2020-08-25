@@ -1,0 +1,83 @@
+fragment BasicDiscipline on Discipline {
+  id
+  beta
+  name
+  slug
+}
+
+query DisciplineResolver($gradeSlug: String!, $disciplineSlug: String!){
+  readGrade(slug: $gradeSlug) {
+    ...BasicGrade
+  }
+
+  listThemes(gradeSlug: $gradeSlug, disciplineSlug: $disciplineSlug){
+    ...BasicTheme
+    chapters{
+      ...BasicChapter
+      notions {
+        id
+        name
+      }
+    }
+    discipline {
+      ...BasicDiscipline
+    }
+  }
+
+  readDiscipline(slug: $disciplineSlug) {
+    ...BasicDiscipline
+  }
+}
+
+query LoadGauge($gradeSlug: String!, $disciplineSlug: String!){
+  listThemes(gradeSlug: $gradeSlug, disciplineSlug: $disciplineSlug){
+    chapters{
+      id
+      notions {
+        courses{
+          interaction {
+            comprehension
+            watchtime
+          }
+        }
+        subjects {
+          exercises{
+            interaction{
+              score
+            }
+          }
+        }
+      }
+      flashcards {
+        interaction {
+          comprehension
+        }
+      }
+      exams{
+        interaction{
+          score
+          total
+          watchtime
+        }
+      }
+    }
+  }
+}
+
+query ListDisciplinesResolver($gradeSlug: String, $withInvisible: Boolean) {
+  listDisciplines(gradeSlug: $gradeSlug, withInvisible: $withInvisible){
+    ...BasicDiscipline
+  }
+  readGrade(slug: $gradeSlug) {
+    ...BasicGrade
+  }
+}
+
+query ListDisciplines {
+  listDisciplines {
+    ...BasicDiscipline
+  }
+}
+
+
+

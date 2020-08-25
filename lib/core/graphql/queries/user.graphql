@@ -1,0 +1,80 @@
+fragment BasicUser on User {
+  id
+  username
+  firstname
+  lastname
+  email
+  created_at
+  updated_at
+  permissions
+  premium
+  statistics {
+    interactions
+    watchtime
+  }
+  premium_bypass
+  trainings {
+    id
+  }
+  sessions {
+    chapter {
+      ...BasicChapter
+      theme{
+        id
+        grade {
+          ...BasicGrade
+        }
+      }
+    }
+    discipline {
+      ...BasicDiscipline
+    }
+  }
+  grade{
+    ...BasicGrade
+  }
+  trainings{
+    id
+  }
+}
+
+query me {
+  me {
+    ...BasicUser
+  }
+}
+
+query searchUsers($query: String!, $first: Int!, $page: Int!){
+  searchUsers(query: $query, first: $first, page:$page){
+    paginatorInfo{
+      ...PaginatorInfo
+    }
+    data{
+      ...AdminUser
+    }
+  }
+}
+
+fragment AdminUser on User{
+  id
+  username
+  firstname
+  lastname
+  email
+  created_at
+  updated_at
+  permissions
+  premium
+  braintree_id
+  stripe_id
+  premium_bypass
+  grade{
+    id
+  }
+}
+
+query ReadUser($id: ID!){
+  readUser(id: $id) {
+    ...AdminUser
+  }
+}

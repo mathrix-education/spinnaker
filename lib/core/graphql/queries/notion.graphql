@@ -1,0 +1,23 @@
+fragment BasicNotion on Notion {
+  id
+  name
+  order
+  visible
+  type
+}
+
+fragment CourseNotion on Notion {
+  ...BasicNotion
+  chapter {
+    ...ChapterWithInfos
+    notions {
+      ...BasicNotion
+    }
+    summary {
+      id
+    }
+  }
+}
+
+
+

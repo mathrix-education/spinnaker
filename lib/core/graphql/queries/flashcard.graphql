@@ -1,0 +1,33 @@
+fragment BasicFlashcard on Flashcard {
+  id
+  name
+  order
+  visible
+  updated_at
+  premium
+  protected
+  owned
+}
+
+fragment FlashcardWithContent on Flashcard{
+  ...BasicFlashcard
+  content {
+    front
+    back
+  }
+}
+
+query ReadFlashcard($id: ID!){
+  readFlashcard(id: $id){
+    ...FlashcardWithContent
+    #    comments {
+    #      ...BasicComment
+    #    }
+    interaction {
+      ...BasicInteraction
+    }
+    chapter {
+      ...ChapterWithInfos
+    }
+  }
+}

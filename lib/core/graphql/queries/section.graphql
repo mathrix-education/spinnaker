@@ -1,0 +1,15 @@
+fragment BasicSection on Section {
+  id
+  name
+  slug
+  visible
+  order
+}
+
+query ReadSection (
+  $sectionId: ID!
+) {
+  readSection(id: $sectionId){
+    ...BasicSection
+  }
+}

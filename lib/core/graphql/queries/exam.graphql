@@ -1,0 +1,31 @@
+fragment BasicExam on Exam {
+  id
+  name
+  premium
+  owned
+  protected
+  order
+  duration
+  visible
+  interaction{
+    ...BasicInteraction
+  }
+}
+
+query ReadExam($id: ID!) {
+  readExam(id: $id) {
+    ...BasicExam
+    content
+    chapter {
+      ...ChapterWithInfos
+    }
+  }
+}
+
+query ReadExamInteraction($id: ID!){
+  readExam(id: $id){
+    interaction{
+      ...BasicInteraction
+    }
+  }
+}

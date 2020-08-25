@@ -1,0 +1,38 @@
+fragment BasicComment on Comment {
+  ...CommentInfos
+  children {
+    ...CommentInfos
+  }
+}
+
+fragment CommentInfos on Comment {
+  id
+  score
+  created_at
+  content
+  parent{
+    id
+  }
+  user{
+    id
+    username
+  }
+  vote{
+    value
+    user{
+      id
+    }
+  }
+}
+
+mutation UpdateComment($input: UpdateComment!) {
+  updateComment(input: $input) {
+    ...BasicComment
+  }
+}
+
+mutation DeleteComment($id: ID!) {
+  deleteComment(id: $id) {
+    ...BasicComment
+  }
+}

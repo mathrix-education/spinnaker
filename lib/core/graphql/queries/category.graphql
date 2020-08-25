@@ -1,0 +1,14 @@
+fragment BasicCategory on Category {
+  id
+  name
+  slug
+  posts {
+    ...BasicPost
+  }
+}
+
+query ListCategories {
+  listCategories {
+    ...BasicCategory
+  }
+}

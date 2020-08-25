@@ -1,0 +1,31 @@
+mutation login($email: String!, $password: String!) {
+  loginBasic(email: $email, password: $password) {
+    token
+  }
+}
+
+mutation loginWithGoogle($accessToken: String!) {
+  loginWithGoogle(accessToken: $accessToken) {
+    token
+  }
+}
+
+mutation loginWithFacebook($accessToken: String!) {
+  loginWithFacebook(accessToken: $accessToken) {
+    token
+  }
+}
+
+mutation register($email: String!$password: String!){
+  registerBasic(email: $email, password: $password){
+    token
+  }
+}
+
+mutation forgotPassword($email: String!) {
+  forgotPassword(email: $email)
+}
+
+mutation resetPassword($token: String!, $newPassword: String!) {
+  resetPassword( token: $token, newPassword: $newPassword)
+}

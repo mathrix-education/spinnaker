@@ -1,0 +1,11 @@
+fragment BasicSubject on Subject {
+  id
+  name
+  slug
+  order
+  visible
+  premium
+  interaction {
+    ...BasicInteraction
+  }
+}

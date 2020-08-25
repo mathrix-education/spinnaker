@@ -1,0 +1,38 @@
+fragment BasicTheme on Theme {
+  id
+  name
+  order
+  visible
+}
+
+query ListThemes($gradeSlug: String, $disciplineSlug: String) {
+  listThemes(gradeSlug: $gradeSlug, disciplineSlug: $disciplineSlug) {
+    ...BasicTheme
+    chapters {
+      ...BasicChapter
+    }
+  }
+
+  readGrade(slug: $gradeSlug) {
+    ...BasicGrade
+  }
+
+  readDiscipline(slug: $disciplineSlug) {
+    ...BasicDiscipline
+  }
+}
+
+
+query ReadThemeChapters($id: ID!) {
+  readTheme(id: $id) {
+    chapters {
+      id
+      name
+    }
+    discipline {
+      id
+      name
+    }
+  }
+}
+

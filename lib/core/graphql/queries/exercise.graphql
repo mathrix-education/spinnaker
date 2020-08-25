@@ -1,0 +1,34 @@
+fragment BasicExercise on Exercise {
+  id
+  premium
+  protected
+  owned
+  order
+  visible
+  interaction {
+    score
+  }
+  updated_at
+}
+
+query ReadExercises($id: ID!) {
+  readExercise(id: $id) {
+    id
+    subject {
+      exercises {
+        ...BasicExercise
+      }
+    }
+  }
+}
+
+query ReadExercises($id: ID!) {
+  readExercise(id: $id) {
+    id
+    subject {
+      exercises {
+        ...BasicExercise
+      }
+    }
+  }
+}
