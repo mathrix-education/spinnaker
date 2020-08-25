@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mathrix_education_app/screens/login.dart';
+import './screens/login.dart';
 
 void main() {
   runApp(MyApp());

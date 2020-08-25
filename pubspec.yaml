@@ -20,6 +20,10 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+# Tracked by: https://github.com/flutter/flutter/issues/62240#issuecomment-663978057
+dependency_overrides:
+  analyzer: '0.39.14'
+
 dependencies:
   graphql_flutter: ^3.0.0
   flutter:
@@ -42,7 +46,6 @@ dev_dependencies:
     sdk: flutter
   artemis: '>=5.0.0 <6.0.0'
   build_runner: ^1.5.0
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

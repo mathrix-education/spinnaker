@@ -2,17 +2,15 @@ targets:
   $default:
     sources:
       - lib/**
-      - schema.graphql
+      - graphql/**
     builders:
       artemis:
         options:
+          fragments_glob: graphql/fragments/*.graphql
           schema_mapping:
-            - schema: schema.graphql
-              queries_glob: lib/core/graphql/queries/*.graphql
-              output: lib/graphql_api.dart
-#          scalar_mapping:
-#            - graphql_type: Date
-#              dart_type: DateTime
-#              use_custom_parser: true
-#            - graphql_type: Silicate
-#              dart_type: List
+            - schema: graphql/schema.graphql
+              queries_glob: graphql/queries/*.graphql
+              output: lib/graphql/queries.dart
+          scalar_mapping:
+            - graphql_type: Color
+              dart_type: String

@@ -5,7 +5,7 @@ import 'package:artemis/artemis.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gql/ast.dart';
-part 'graphql_api.graphql.g.dart';
+part 'queries.graphql.g.dart';
 
 mixin ListCategories$BasicCategoryMixin {
   String id;
@@ -46,6 +46,22 @@ class ListCategoriesQuery
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ListCategories'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'listCategories'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FragmentSpreadNode(
+                    name: NameNode(value: 'BasicCategory'), directives: [])
+              ]))
+        ])),
     FragmentDefinitionNode(
         name: NameNode(value: 'BasicCategory'),
         typeCondition: TypeConditionNode(
@@ -71,22 +87,6 @@ class ListCategoriesQuery
               arguments: [],
               directives: [],
               selectionSet: null)
-        ])),
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'ListCategories'),
-        variableDefinitions: [],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'listCategories'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FragmentSpreadNode(
-                    name: NameNode(value: 'BasicCategory'), directives: [])
-              ]))
         ]))
   ]);
 

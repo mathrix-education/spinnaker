@@ -1,0 +1,2551 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+interface Notification {
+    "When the notification was created"
+    created_at: DateTime!
+    "The notification id, which is an UUID4."
+    id: ID!
+    "When the notification was read by the user"
+    read_at: DateTime
+    "The notification type."
+    type: NotificationType!
+    "When the notification was last updated"
+    updated_at: DateTime!
+}
+
+interface Ownable {
+    owned: Boolean!
+}
+
+interface Sellable {
+    available: Boolean!
+    name: String!
+    visible: Boolean!
+}
+
+union Commentable = Course | Exam | Exercise | Flashcard
+
+union Notable = Course | Exam | Exercise | Flashcard
+
+union Reportable = Course | Exam | Exercise | Flashcard
+
+type Acquisition {
+    created_at: DateTime!
+    id: ID!
+    product_id: ID!
+    product_type: String!
+    transaction_id: ID
+    updated_at: DateTime!
+    user: User
+}
+
+type Card {
+    brand: CardType!
+    "Two-digit number representing the card’s expiration month with leading zero if necessary."
+    exp_month: String!
+    "Four-digit number representing the card’s expiration year."
+    exp_year: String!
+    "The last four digits of the card."
+    last4: String!
+    "The name of the card owner."
+    name: String
+}
+
+type Cart {
+    lines: [Line!]!
+    subTotal: Int!
+    total: Int!
+}
+
+type Category {
+    created_at: DateTime!
+    id: ID!
+    name: String!
+    posts: [Post]!
+    slug: String!
+    updated_at: DateTime!
+}
+
+type Chapter implements Ownable & Sellable {
+    available: Boolean!
+    created_at: DateTime!
+    exams: [Exam!]!
+    flashcards: [Flashcard!]!
+    id: ID!
+    name: String!
+    notions: [Notion!]!
+    order: Int!
+    owned: Boolean!
+    "The chapter price **in cents**. May be null if the chapter is not sellable."
+    price: Int
+    sessions: [Session!]!
+    slug: String!
+    summary: Notion
+    theme: Theme!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+"A paginated list of Chapter items."
+type ChapterPaginator {
+    "A list of Chapter items."
+    data: [Chapter!]!
+    "Pagination information about the list of items."
+    paginatorInfo: PaginatorInfo!
+}
+
+type Comment {
+    children: [Comment!]!
+    commentable: Commentable!
+    content: String!
+    created_at: DateTime!
+    id: ID!
+    parent: Comment
+    score: Int!
+    updated_at: DateTime!
+    user: User!
+    vote: Vote
+    votes: [Vote!]!
+}
+
+"A paginated list of Comment items."
+type CommentPaginator {
+    "A list of Comment items."
+    data: [Comment!]!
+    "Pagination information about the list of items."
+    paginatorInfo: PaginatorInfo!
+}
+
+type CommentReplyNotification implements Notification {
+    "When the notification was created"
+    created_at: DateTime!
+    data: CommentReplyNotificationPayload
+    "The notification id, which is an UUID4."
+    id: ID!
+    "When the notification was read by the user"
+    read_at: DateTime
+    "The notification type."
+    type: NotificationType!
+    "When the notification was last updated"
+    updated_at: DateTime!
+}
+
+type CommentReplyNotificationPayload {
+    new_comment: Comment!
+    user_comment: Comment!
+}
+
+type Coupon {
+    counter: Int!
+    created_at: DateTime!
+    exhausted: Boolean!
+    expired: Boolean!
+    expires_at: DateTime
+    id: ID!
+    type: CouponType!
+    updated_at: DateTime!
+    valid: Boolean!
+    value: Int!
+}
+
+type Course implements Ownable {
+    comments: [Comment!]
+    content: Silicate!
+    created_at: DateTime!
+    "If the course is frozen. Requires the \"courses:freeze\" to override."
+    frozen_at: DateTime
+    id: ID!
+    interaction: Interaction
+    "The course administrative labels. Requires the \"labels:read\" permission."
+    labels: [Label!]
+    name: String!
+    "The course administrative notes. Requires the \"notes:read\" permission."
+    notes: [Note!]
+    notion: Notion!
+    order: Int!
+    owned: Boolean!
+    "If the course is premium-locked."
+    premium: Boolean!
+    "If the course is protected (is part of a sellable Chapter and is not free)."
+    protected: Boolean!
+    seo_description: String
+    seo_index: Boolean!
+    seo_keywords: String
+    seo_title: String
+    slug: String!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+"A paginated list of Course items."
+type CoursePaginator {
+    "A list of Course items."
+    data: [Course!]!
+    "Pagination information about the list of items."
+    paginatorInfo: PaginatorInfo!
+}
+
+type Directory {
+    basename: String!
+    dirname: String!
+    path: String!
+    url: String!
+}
+
+type DirectoryContent {
+    directories: [Directory!]!
+    files: [File!]!
+    metadata: Directory
+}
+
+type Discipline {
+    beta: Boolean!
+    created_at: DateTime!
+    grades: [Grade!]!
+    id: ID!
+    name: String!
+    sessions: [Session!]!
+    slug: String!
+    updated_at: DateTime!
+}
+
+type Email {
+    email: String!
+}
+
+type Exam implements Ownable {
+    chapter: Chapter!
+    comments: [Comment!]
+    content: Silicate
+    created_at: DateTime!
+    duration: Int
+    "If the exam is frozen. Requires the \"exams:freeze\" to override."
+    frozen_at: DateTime
+    id: ID!
+    interaction: Interaction
+    "The exam administrative labels. Requires the \"labels:read\" permission."
+    labels: [Label!]
+    name: String!
+    "The exam administrative notes. Requires the \"notes:read\" permission."
+    notes: [Note!]
+    order: Int!
+    owned: Boolean!
+    "If the exam is premium-locked."
+    premium: Boolean!
+    "If the exam is protected (is part of a sellable Chapter and is not free)."
+    protected: Boolean!
+    slug: String!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type Exercise implements Ownable {
+    comments: [Comment!]
+    content: Silicate!
+    created_at: DateTime!
+    "If the exercise is frozen. Requires the \"exercises:freeze\" to override."
+    frozen_at: DateTime
+    id: ID!
+    interaction: Interaction
+    "The exercise administrative labels. Requires the \"labels:read\" permission."
+    labels: [Label!]
+    "The exercise administrative notes. Requires the \"notes:read\" permission."
+    notes: [Note!]
+    order: Int!
+    owned: Boolean!
+    "If the exercise is premium-locked."
+    premium: Boolean!
+    "If the exercise is protected (is part of a sellable Chapter and is not free)."
+    protected: Boolean!
+    subject: Subject!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type File {
+    "The file basename (the file name)."
+    basename: String!
+    "The file dirname (the parent directory)."
+    dirname: String!
+    "The file mimetype."
+    mimetype: String!
+    "The file absolute path in the bucket."
+    path: String!
+    "The file size in bytes."
+    size: Int!
+    "The date/time when the file was last updated."
+    updated_at: DateTime!
+    "The file publicly acessible url."
+    url: String!
+}
+
+type Flashcard implements Ownable {
+    chapter: Chapter!
+    comments: [Comment!]
+    content: [FlashcardContent!]!
+    created_at: DateTime!
+    "If the flashcard is frozen. Requires the \"flashcards:freeze\" to override."
+    frozen_at: DateTime
+    id: ID!
+    interaction: Interaction
+    "The flashcard administrative labels. Requires the \"labels:read\" permission."
+    labels: [Label!]
+    name: String!
+    "The flashcard administrative notes. Requires the \"notes:read\" permission."
+    notes: [Note!]
+    order: Int!
+    owned: Boolean!
+    "If the flashcard is premium-locked."
+    premium: Boolean!
+    "If the flashcard is protected (is part of a sellable Chapter and is not free)."
+    protected: Boolean!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type FlashcardContent {
+    back: Silicate!
+    front: Silicate!
+}
+
+type Grade {
+    disciplines: [Discipline!]!
+    id: ID!
+    name: String!
+    order: Int!
+    parent: Grade
+    slug: String!
+    themes: [Theme!]!
+    trainings: [Training!]!
+    visible: Boolean!
+}
+
+type Interaction {
+    comprehension: InteractionComprehension
+    created_at: DateTime!
+    interactable_id: Int!
+    interactable_type: InteractionType!
+    score: Int
+    total: Int
+    updated_at: DateTime!
+    user_id: Int!
+    watchtime: Int
+}
+
+type Invoice {
+    amount_paid: Int!
+    hosted_invoice_url: String
+    id: ID!
+    invoice_pdf: String
+    number: String!
+    payment_intent: PaymentIntent
+    status: InvoiceStatus!
+}
+
+type JWT {
+    "The JWT token serialized and base64-encoded"
+    token: String!
+}
+
+type Label {
+    color: Color!
+    courses: [Course!]!
+    created_at: DateTime!
+    exams: [Exam!]!
+    exercises: [Exercise!]!
+    flashcards: [Flashcard!]!
+    id: ID!
+    name: String!
+    updated_at: DateTime!
+}
+
+type Lesson implements Ownable {
+    comments: [Comment!]
+    content: Silicate!
+    created_at: DateTime!
+    id: ID!
+    "The lesson administrative labels. Requires the \"labels:read\" permission."
+    labels: [Label!]
+    name: String!
+    "The lesson administrative notes. Requires the \"notes:read\" permission."
+    notes: [Note!]
+    order: Int!
+    owned: Boolean!
+    section: Section!
+    slug: String!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type Line {
+    description: String!
+    price: Int!
+}
+
+type Mutation {
+    """
+
+    Checkout a cart using a payment method id.
+    A new payment method has to be created using Stripe.js
+    [createPaymentMethod](https://stripe.com/docs/js/payment_methods/create_payment_method).
+
+    This mutation may return a ThreeDSecureException error (category: `billing`, code: `THREE_D_SECURE`) containing the
+    extensions:
+    ```
+    {
+    "type": "setup_intent",
+    "client_secret": "seti_foobar",
+    }
+    ```
+
+    In this case, the `client_secret` must be passed to Stripe.js using
+    [confirmCardPayment](https://stripe.com/docs/js/payment_intents/confirm_card_payment).
+    """
+    checkout(cart: CartInput!, paymentMethodId: String!): Invoice!
+    "Create a new category."
+    createCategory(input: CreateCategory!): Category!
+    "Create a new chapter."
+    createChapter(input: CreateChapter!): Chapter!
+    "Create a new comment"
+    createComment(input: CreateComment!): Comment!
+    "Create a new coupon"
+    createCoupon(input: CreateCoupon!): Coupon
+    "Create a new course."
+    createCourse(input: CreateCourse!): Course
+    "Create a new exam."
+    createExam(input: CreateExam!): Exam
+    "Create a new exercise."
+    createExercise(input: CreateExercise!): Exercise
+    """
+
+    Create a file. There is no `createBlob` nor `createDirectory` because directories only exists if they contain at
+    least one file. This mutation requires to use **multipart/form-data** request.
+    """
+    createFile(file: Upload!, path: String!): File!
+    "Create a new flashcard."
+    createFlashcard(input: CreateFlashcard!): Flashcard
+    "Create a new label."
+    createLabel(input: CreateLabel): Label
+    "Create a new lesson."
+    createLesson(input: CreateLesson!): Lesson!
+    "Create a new note."
+    createNote(input: CreateNote!): Note
+    "Create a new notion."
+    createNotion(input: CreateNotion!): Notion!
+    "Create new a pack."
+    createPack(input: CreatePack!): Pack
+    "Create a new posts."
+    createPost(input: CreatePost!): Post
+    "Create a new report."
+    createReport(input: CreateReport!): Report!
+    "Create a new section."
+    createSection(input: CreateSection!): Section!
+    "Create a new subject."
+    createSubject(input: CreateSubject!): Subject!
+    "Create a new theme."
+    createTheme(input: CreateTheme!): Theme!
+    "Create a new training."
+    createTraining(input: CreateTraining!): Training
+    createUser(input: CreateUser!): User
+    "Delete an existing category."
+    deleteCategory(id: ID!): Category
+    "Delete an existing chapter."
+    deleteChapter(id: ID!): Chapter
+    "Delete an existing comment"
+    deleteComment(id: ID!): Comment
+    "Delete an existing coupon"
+    deleteCoupon(id: ID!): Coupon
+    "Delete an existing course."
+    deleteCourse(id: ID!): Course
+    "Delete an existing exam."
+    deleteExam(id: ID!): Exam
+    "Delete an existing exercise."
+    deleteExercise(id: ID!): Exercise
+    "Delete a file. **Once a file has been deleetd, it cannot be restored.**"
+    deleteFile(path: String!): File!
+    "Delete an existing flashcard."
+    deleteFlashcard(id: ID!): Flashcard
+    "Delete an existing label."
+    deleteLabel(id: ID!): Label
+    "Delete an existing lesson."
+    deleteLesson(id: ID!): Lesson
+    "Delete an existing note."
+    deleteNote(id: ID!): Note!
+    "Delete an existing notion."
+    deleteNotion(id: ID!): Notion
+    "Delete an existing pack."
+    deletePack(id: ID!): Pack
+    "Delete an existing post."
+    deletePost(id: ID!): Post
+    "Delete an existing report."
+    deleteReport(id: ID!): Report
+    "Delete an existing section."
+    deleteSection(id: ID!): Section!
+    "Delete an existing subject."
+    deleteSubject(id: ID!): Subject
+    "Delete an existing theme."
+    deleteTheme(id: ID!): Theme
+    "Delete an existing traiting."
+    deleteTraining(id: ID!): Training
+    "Delete an existing user."
+    deleteUser(id: ID!): User
+    "Delete a vote."
+    deleteVote(comment_id: ID!): Vote!
+    "Mark all notifications as read."
+    dismissAllNotifications(
+        "Limits number of fetched elements. Maximum allowed value: 100."
+        first: Int!,
+        "The offset from which elements are returned."
+        page: Int
+    ): NotificationPaginator
+    "Mark a notification as read."
+    dismissNotification(id: ID!): Notification
+    """
+
+    Send a password reset email to the given email address, if it exists. **No error** whill be thrown if the email does
+    not exists in the database for security purposes. Furthermore, a additionnal random delay will be added to the
+    request to mitigate the side-channel timing attacks.
+    """
+    forgotPassword(email: String!): Boolean!
+    "Interact with a content model."
+    interact(input: CreateInteraction!): Boolean!
+    "Login a user into the application using email/password credentials."
+    loginBasic(email: String!, password: String!): JWT!
+    """
+
+    Login a user into the application using its Facebook token.
+    A token can be retrieved using the
+    [Facebook JS SDK](https://developers.facebook.com/docs/php/howto/example_access_token_from_javascript).
+    """
+    loginWithFacebook(accessToken: String!): JWT!
+    """
+
+    Login a user into the application using its Google identity token or auth code.
+    A token can be retrieved using the [Google JS SDK](https://developers.google.com/identity/sign-in/web/sign-in).
+    """
+    loginWithGoogle(accessToken: String!): JWT!
+    "Move a file to another name or location."
+    moveFile(
+        destination: String!,
+        "Override the destination if exists."
+        override: Boolean = false,
+        source: String!
+    ): File!
+    "Register a new user into the application using email/password credentials."
+    registerBasic(email: String!, password: String!): JWT!
+    """
+
+    Using the token which can be found in the query string `token`, change the password of the token account owner.
+    *In debug mode, for testing purposes, passing the user id instead of the token allow to select the targeted user.*
+    """
+    resetPassword(newPassword: String!, token: String!): Boolean!
+    "Update an existing category."
+    updateCategory(input: UpdateCategory!): Category
+    "Update an existing chapter."
+    updateChapter(input: UpdateChapter!): Chapter
+    "Update an existing comment"
+    updateComment(input: UpdateComment!): Comment
+    "Update an existing coupon"
+    updateCoupon(input: UpdateCoupon!): Coupon
+    "Update an existing course."
+    updateCourse(input: UpdateCourse!): Course
+    "Update an existing exam."
+    updateExam(input: UpdateExam!): Exam
+    "Update an existing exercise."
+    updateExercise(input: UpdateExercise!): Exercise
+    "Update an existing flashcard."
+    updateFlashcard(input: UpdateFlashcard!): Flashcard
+    "Update an existing label."
+    updateLabel(input: UpdateLabel): Label
+    "Update an existing lesson."
+    updateLesson(input: UpdateLesson!): Lesson!
+    "Update the current user."
+    updateMe(input: UpdateMe!): User
+    "Update an existing note."
+    updateNote(input: UpdateNote): Note!
+    "Update an existing notion."
+    updateNotion(input: UpdateNotion!): Notion
+    "Update an existing pack."
+    updatePack(input: UpdatePack!): Pack
+    "Update an existing post."
+    updatePost(input: UpdatePost!): Post
+    "Update an existing report."
+    updateReport(input: UpdateReport!): Report
+    "Update an existing section."
+    updateSection(input: UpdateSection!): Section!
+    "Update an existing subject."
+    updateSubject(input: UpdateSubject!): Subject
+    """
+
+    Update an existing subscription payment method.
+    A new payment method has to be created using Stripe.js
+    [createPaymentMethod](https://stripe.com/docs/js/payment_methods/create_payment_method).
+
+    This mutation may return a ThreeDSecureException error (category: `billing`, code: `THREE_D_SECURE`) containing the
+    extensions:
+    ```
+    {
+    "type": "setup_intent",
+    "client_secret": "seti_foobar",
+    }
+    ```
+
+    In this case, the `client_secret` must be passed to Stripe.js using
+    [confirmCardSetup](https://stripe.com/docs/js/setup_intents/confirm_card_setup).
+    """
+    updateSubscription(input: UpdateSubscription!): Subscription_!
+    "Update an existing theme."
+    updateTheme(input: UpdateTheme!): Theme
+    "Update an existing training."
+    updateTraining(input: UpdateTraining!): Training
+    updateUser(input: UpdateUser!): User
+    "Create a vote."
+    upsertVote(input: CreateVote!): Vote!
+}
+
+type Note {
+    brick_id: String
+    content: Silicate!
+    created_at: DateTime!
+    id: ID!
+    notable: Notable!
+    updated_at: DateTime!
+    user: User!
+}
+
+"A paginated list of Notification items."
+type NotificationPaginator {
+    "A list of Notification items."
+    data: [Notification!]!
+    "Pagination information about the list of items."
+    paginatorInfo: PaginatorInfo!
+}
+
+type Notion implements Ownable {
+    chapter: Chapter!
+    courses: [Course!]!
+    created_at: DateTime!
+    id: ID!
+    name: String!
+    order: Int!
+    owned: Boolean!
+    subjects: [Subject!]!
+    type: NotionType!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type Pack implements Ownable & Sellable {
+    available: Boolean!
+    created_at: DateTime!
+    id: ID!
+    name: String!
+    order: Int!
+    owned: Boolean!
+    price: Int!
+    slug: String!
+    trainings: [Training!]!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+"Pagination information about the corresponding list of items."
+type PageInfo {
+    "Count of nodes in current request."
+    count: Int
+    "Current page of request."
+    currentPage: Int
+    "When paginating forwards, the cursor to continue."
+    endCursor: String
+    "When paginating forwards, are there more items?"
+    hasNextPage: Boolean!
+    "When paginating backwards, are there more items?"
+    hasPreviousPage: Boolean!
+    "Last page in connection."
+    lastPage: Int
+    "When paginating backwards, the cursor to continue."
+    startCursor: String
+    "Total number of node in connection."
+    total: Int
+}
+
+"Pagination information about the corresponding list of items."
+type PaginatorInfo {
+    "Total count of available items in the page."
+    count: Int!
+    "Current pagination page."
+    currentPage: Int!
+    "Index of first item in the current page."
+    firstItem: Int
+    "If collection has more pages."
+    hasMorePages: Boolean!
+    "Index of last item in the current page."
+    lastItem: Int
+    "Last page number of the collection."
+    lastPage: Int!
+    "Number of items per page in the collection."
+    perPage: Int!
+    "Total items available in the collection."
+    total: Int!
+}
+
+type PaymentIntent {
+    client_secret: String!
+    status: PaymentIntentStatus!
+}
+
+type Plan {
+    "The plan [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) currency code. In our case, always \"eur\"."
+    currency: String!
+    "The plan identifier."
+    id: ID!
+    "The plan human-readable name."
+    name: String!
+    "The plan period details"
+    period: PlanPeriod!
+    "The plan price per period **in cents.**"
+    price: Int!
+}
+
+type PlanPeriod {
+    "The plan period length multiplier."
+    length: Int!
+    "The plan period unit."
+    unit: PlanInterval!
+}
+
+type Post {
+    category: Category!
+    content: Silicate!
+    created_at: DateTime!
+    id: ID!
+    order: Int!
+    slug: String!
+    title: String!
+    updated_at: DateTime!
+    video_id: String!
+    visible: Boolean!
+}
+
+type Query {
+    "Validate a cart."
+    cart(cart: CartInput!): Cart!
+    "List all categories."
+    listCategories: [Category!]!
+    "List all coupons."
+    listCoupons: [Coupon!]!
+    """
+
+    List all disciplines.
+
+    - `gradeSlug` allow to filter disciplines for a given grade.
+    - `withInvisible` allow to include invisible disciplines for the given grade.
+    """
+    listDisciplines(gradeSlug: String, withInvisible: Boolean = false): [Discipline!]!
+    "List files in a **directory**."
+    listFiles(path: String!): DirectoryContent!
+    "List all the existing grades."
+    listGrades: [Grade!]!
+    "List the available labels."
+    listLabels: [Label!]!
+    "List all packs."
+    listPacks: [Pack!]!
+    "List all the available scubrciption plans."
+    listPlans: [Plan!]!
+    """
+
+    List themes matching a given criteria.
+    The available options (mutually exclusive) are:
+
+    - `gradeId` AND `disciplineId`
+    - `gradeSlug` AND `disciplineSlug`
+    """
+    listThemes(disciplineId: ID, disciplineSlug: String, gradeId: ID, gradeSlug: String): [Theme!]!
+    "List all trainings."
+    listTrainings: [Training!]!
+    "Read the current authenticated user."
+    me: User
+    "Paginate the comments."
+    paginateComments(
+        "Limits number of fetched elements. Maximum allowed value: 100."
+        first: Int = 10,
+        "The offset from which elements are returned."
+        page: Int
+    ): CommentPaginator
+    "Paginate the users."
+    paginateUsers(
+        "Limits number of fetched elements. Maximum allowed value: 100."
+        first: Int = 10,
+        "The offset from which elements are returned."
+        page: Int
+    ): UserPaginator
+    "Read a category."
+    readCategory(id: ID!): Category
+    """
+
+    Read chapter matching a given criteria.
+    The available options (mutually exclusive) are:
+
+    - `id`
+    - `chapterSlug` AND `disciplineSlug` AND `gradeSlug`
+    """
+    readChapter(chapterSlug: String, disciplineSlug: String, gradeSlug: String, id: ID): Chapter
+    "Read an existing comment."
+    readComment(id: ID!): Comment
+    "Read an existing coupon."
+    readCoupon(id: ID!): Coupon
+    "Read an existing course."
+    readCourse(id: ID): Course
+    "Read an existing discipline."
+    readDiscipline(id: ID, slug: String): Discipline
+    "Read an existing exam."
+    readExam(id: ID): Exam
+    "Read an existing exercise."
+    readExercise(id: ID): Exercise
+    "Get a file metadata."
+    readFile(path: String!): File!
+    "Read an existing flashcard."
+    readFlashcard(id: ID): Flashcard
+    "Read an existing grade."
+    readGrade(id: ID, slug: String): Grade
+    "Read an existing label."
+    readLabel(id: ID!): Label
+    "Read an existing lesson."
+    readLesson(id: ID): Lesson
+    "Read an existing notion."
+    readNotion(id: ID): Notion
+    "Read an existing pack."
+    readPack(id: ID): Pack
+    "Read an existing post."
+    readPost(id: ID): Post
+    "Read an existing report."
+    readReport(id: ID): Report
+    "Read an existing section."
+    readSection(id: ID): Section
+    "Read an existing subject."
+    readSubject(id: ID): Subject
+    "Read an existing theme."
+    readTheme(id: ID): Theme
+    "Read an existing training."
+    readTraining(id: ID): Training
+    "Read an existing user."
+    readUser(id: ID): User
+    "Search for chapters."
+    searchChapters(
+        "Limits number of fetched elements. Maximum allowed value: 100."
+        first: Int!,
+        grade_id: ID!,
+        "The offset from which elements are returned."
+        page: Int,
+        query: String!
+    ): ChapterPaginator
+    "Search for courses."
+    searchCourses(
+        "Limits number of fetched elements. Maximum allowed value: 100."
+        first: Int!,
+        grade_id: ID!,
+        "The offset from which elements are returned."
+        page: Int,
+        query: String!
+    ): CoursePaginator
+    "Search for users."
+    searchUsers(
+        "Limits number of fetched elements. Maximum allowed value: 100."
+        first: Int!,
+        "The offset from which elements are returned."
+        page: Int,
+        query: String!
+    ): UserPaginator
+}
+
+type Report {
+    content: String
+    created_at: DateTime!
+    id: ID!
+    reportable: Reportable!
+    status: String
+    type: String
+    updated_at: DateTime!
+}
+
+type Section implements Ownable {
+    created_at: DateTime!
+    id: ID!
+    lessons: [Lesson!]!
+    name: String!
+    order: Int!
+    owned: Boolean!
+    slug: String!
+    training: Training!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type Session {
+    chapter: Chapter!
+    discipline: Discipline!
+    updated_at: DateTime!
+    user: User!
+}
+
+type Subject implements Ownable {
+    created_at: DateTime!
+    exercises: [Exercise!]!
+    id: ID!
+    interaction: Interaction
+    name: String!
+    notion: Notion!
+    order: Int!
+    owned: Boolean!
+    "If the subject is premium-locked."
+    premium: Boolean!
+    "If the subject is protected (is part of a sellable Chapter and is not free)."
+    protected: Boolean!
+    slug: String!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type Subscription_ {
+    canceled_at: DateTime
+    "The subscription card details."
+    card: Card
+    created_at: DateTime
+    current_period_end: DateTime
+    current_period_start: DateTime
+    customer_id: String!
+    id: ID!
+    "The subscription latest invoice."
+    latest_invoice: Invoice
+    plan: ID!
+    status: SubscriptionStatus!
+    updated_at: DateTime
+}
+
+type Theme {
+    chapters: [Chapter!]!
+    created_at: DateTime!
+    discipline: Discipline
+    grade: Grade!
+    id: ID!
+    name: String!
+    order: Int!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type Training implements Ownable & Sellable {
+    available: Boolean!
+    content: Silicate!
+    created_at: DateTime!
+    duration: Int!
+    grades: [Grade!]!
+    id: ID!
+    image: String
+    name: String!
+    order: Int!
+    owned: Boolean!
+    packs: [Pack!]!
+    price: Int!
+    sections: [Section!]!
+    slug: String!
+    updated_at: DateTime!
+    visible: Boolean!
+}
+
+type UpcomingInvoice {
+    amount_paid: Int
+    hosted_invoice_url: String
+    id: ID
+    invoice_pdf: String
+    number: String
+    payment_intent: PaymentIntent
+    status: InvoiceStatus
+}
+
+type User {
+    braintree_id: String
+    created_at: DateTime!
+    email: String!
+    firstname: String
+    grade: Grade
+    id: ID!
+    lastname: String
+    notifications(
+        "Limits number of fetched elements. Maximum allowed value: 100."
+        first: Int!,
+        "The offset from which elements are returned."
+        page: Int
+    ): NotificationPaginator
+    packs: [Pack!]!
+    permissions: [String!]!
+    """
+
+    If the user has access to premium content.
+    Notice: **may cause an additional delay**.
+    """
+    premium: Boolean!
+    premium_bypass: Boolean!
+    premium_bypass_expires_at: DateTime
+    "**Deprecated: use `permissions` instead. Will be removed in version 8.0.0.**"
+    scopes: [String!]! @deprecated(reason : "Use `permissions` instead. Will be removed in version 8.0.0.")
+    sessions: [Session!]!
+    statistics: UserStatistics!
+    stripe_id: String
+    subscriptions: [Subscription_!]!
+    trainings: [Training!]!
+    updated_at: DateTime!
+    username: String
+}
+
+"A paginated list of User items."
+type UserPaginator {
+    "A list of User items."
+    data: [User!]!
+    "Pagination information about the list of items."
+    paginatorInfo: PaginatorInfo!
+}
+
+type UserStatistics {
+    "The number of interactions for the user."
+    interactions: Int
+    "The sum of the user interaction watchtime."
+    watchtime: Int
+}
+
+type Vote {
+    comment: Comment!
+    created_at: DateTime!
+    id: ID!
+    updated_at: DateTime!
+    user: User!
+    value: VoteValue!
+}
+
+enum CardType {
+    amex
+    diners
+    discover
+    jcb
+    mastercard
+    unionpay
+    unknown
+    visa
+}
+
+enum CommentableType {
+    course
+    exam
+    exercise
+    flashcard
+}
+
+"See \\App\\Models\\Coupon:TYPES"
+enum CouponType {
+    absolute
+    percentage
+}
+
+enum InteractionComprehension {
+    blur
+    clear
+}
+
+enum InteractionType {
+    course
+    exam
+    exercise
+    flashcard
+    subject
+}
+
+enum InvoiceStatus {
+    deleted
+    draft
+    open
+    paid
+    uncollectible
+    void
+}
+
+enum NotableType {
+    course
+    exam
+    exercise
+    flashcard
+}
+
+enum NotificationType {
+    """
+
+    - user_comment: Comment!
+    - new_comment: Comment!
+    """
+    comment_reply
+}
+
+enum NotionType {
+    standard
+    summary
+}
+
+enum PaymentIntentStatus {
+    canceled
+    processing
+    requires_action
+    requires_capture
+    requires_confirmation
+    requires_payment_method
+    succeeded
+}
+
+enum PlanInterval {
+    day
+    month
+    week
+    year
+}
+
+enum ReportType {
+    course
+    exam
+    exercise
+    flashcard
+}
+
+enum SubscriptionStatus {
+    active
+    canceled
+    incomplete
+    incomplete_expired
+    past_due
+    trialing
+    unpaid
+}
+
+enum VoteValue {
+    down
+    up
+}
+
+"Manage the related models."
+input BelongsToMany {
+    "Add the passed ids to the linked model."
+    add: [ID!]
+    "Replace the related models. Any previously linked model which is not in the passed [ID] will be detached."
+    replace: [ID!]
+}
+
+input CartInput {
+    chapters: [ID!]
+    coupon: ID
+    packs: [ID!]
+    plan: ID
+    trainings: [ID!]
+}
+
+input CreateCategory {
+    """
+
+    The category human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The category slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+}
+
+input CreateChapter {
+    """
+
+    The chapter human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The chapter order. If not set, the chapter will be placed in the last position of the group [grade/discipline].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    "The chapter price **in cents** if applicable. Setting a non-null value implies that the chapter is **sellable**."
+    price: Int
+    """
+
+    The chapter slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    """
+
+    The chapter related theme ID.
+    Must be a valid theme ID.
+    """
+    theme_id: ID!
+    """
+
+    If the chapter should be displayed to the end users.
+    Requires the permission `chapters:write:visible`.
+    """
+    visible: Boolean!
+}
+
+input CreateComment {
+    "The related model ID."
+    commentable_id: ID!
+    "The related model type."
+    commentable_type: CommentableType!
+    """
+
+    The comment content text.
+    Maxiumum 40000 caracters.
+    """
+    content: String!
+    """
+
+    The comment parent ID. May only be provided if the comment is an answer to another comment.
+    Must be a valid comment ID.
+    """
+    parent_id: ID
+}
+
+input CreateCoupon {
+    """
+
+    The coupon counter. The coupons is considered as *exhausted* when the counter reaches zero.
+    Unlimited use coupons requires the counter to be set to -1.
+    """
+    counter: Int!
+    "The coupon expiration date. Set to null to disable expiration."
+    expires_at: DateTime
+    """
+
+    The coupon ID, which must be unique. The ID is the code which has to be provided to the end customer.
+    Maximum 60 caracters.
+    """
+    id: ID!
+    """
+
+    The coupon type. Absolute coupons are a flat discount on a total price, while percentage applies a propertional
+    discount.
+    """
+    type: CouponType!
+    """
+
+    The coupon value.
+    - absolute coupons: the flat discount expressed in **cents**
+    - percentage coupons; the discount expressed in percent [0-100]
+    In all cases, must be strictly positive (i.e. >=1).
+    """
+    value: Int!
+}
+
+input CreateCourse {
+    "The course content."
+    content: Silicate!
+    """
+
+    The course frozen date. If set, only the users with the permission `course:freeze` will be allowed to edit the
+    course. Set to `null` to disable.
+    Requires the permission `courses:freeze`.
+    """
+    frozen_at: DateTime
+    "The course associated labels."
+    labels: BelongsToMany
+    """
+
+    The course human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The course related notion ID.
+    Must be a valid notion ID.
+    """
+    notion_id: ID!
+    """
+
+    The course order. If not set, the chapter will be placed in the last position of the group [notion].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the course is only accessible for premium users. Default value is `null`.
+    Requires the permission `courses:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the course is only accessible for users who bought the parent chapter. Default value is `null`.
+    Requires the permission `courses:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    The course description for SEO. Default value is `null`.
+    Requires the permission `courses:write:seo_description`.
+    """
+    seo_description: String
+    """
+
+    If the course should be included in the sitemap. Default value is `false`.
+    Requires the permission `courses:write:seo_index`.
+    """
+    seo_index: Boolean
+    """
+
+    The course keywords for SEO. Default value is `null`.
+    Requires the permission `courses:write:seo_keywords`.
+    """
+    seo_keywords: String
+    """
+
+    The course title for SEO. Default value is `null`.
+    Requires the permission `courses:write:seo_title`.
+    """
+    seo_title: String
+    """
+
+    The course slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    """
+
+    If the course should be displayed to the end users. Default value is `false`.
+    Requires the permission `courses:write:visible`.
+    """
+    visible: Boolean
+}
+
+input CreateExam {
+    "The exam related chapter ID."
+    chapter_id: ID!
+    "The exam content."
+    content: Silicate!
+    "The exam duration in minutes. If set, must be greater than 0."
+    duration: Int
+    """
+
+    The exam frozen date. If set, only the users with the permission `exams:freeze` will be allowed to edit the exam.
+    Set to `null` to disable.
+    Requires the permission `exams:freeze`.
+    """
+    frozen_at: DateTime
+    "The exam associated labels."
+    labels: BelongsToMany
+    """
+
+    The exam human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The exam order. If not set, the chapter will be placed in the last position of the group [chapter].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the exam is only accessible for premium users. Default value is `false`.
+    Requires the permission `exams:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the exam is only accessible for users who bought the parent chapter. Default value is `null`.
+    Requires the permission `exam:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    The exam slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    """
+
+    If the exam should be displayed to the end users.
+    Requires the permission `exams:write:visible`.
+    """
+    visible: Boolean
+}
+
+input CreateExercise {
+    "The exercise content."
+    content: Silicate!
+    """
+
+    The exercise frozen date. If set, only the users with the permission `exercises:freeze` will be allowed to edit the
+    exercise. Set to `null` to disable.
+    Requires the permission `exercises:freeze`.
+    """
+    frozen_at: DateTime
+    "The exercise associated labels."
+    labels: BelongsToMany
+    """
+
+    The exercise order. If not set, the chapter will be placed in the last position of the group [subject].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    "The exercise related subject ID."
+    subject_id: ID!
+    """
+
+    If the exercise should be displayed to the end users. Default value is `false`.
+    Requires the permission `exercises:write:visible`.
+    """
+    visible: Boolean
+}
+
+input CreateFlashcard {
+    "The flashcard related chapter ID."
+    chapter_id: ID!
+    "The flashcard content. Cannot be empty."
+    content: [FlashcardContentInput!]!
+    """
+
+    The flashcard frozen date. If set, only the users with the permission `flashcards:freeze` will be allowed to edit
+    the flashcard. Set to `null` to disable.
+    Requires the permission `flashcards:freeze`.
+    """
+    frozen_at: DateTime
+    "The flashcard associated labels."
+    labels: BelongsToMany
+    """
+
+    The flashcard human-redable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The flashcard order. If not set, the chapter will be placed in the last position of the group [chapter].
+    Must be positive (i.e. >=0).
+    """
+    order: Int!
+    """
+
+    If the flashcard is only accessible for premium users. Default value is `false`.
+    Requires the permission `flashcards:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the flashcard is only accessible for users who bought the parent chapter. Default value is `false`.
+    Requires the permission `exam:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    If the flashcard should be displayed to the end users. Default value is `false`.
+    Requires the permission `flashcards:write:visible`.
+    """
+    visible: Boolean
+}
+
+input CreateInteraction {
+    "The interaction comprehesion level."
+    comprehension: InteractionComprehension
+    "The model id related to the interaction."
+    interactable_id: ID!
+    "The model type related to the interaction."
+    interactable_type: InteractionType!
+    "The interaction score. Maximum value is 255."
+    score: Int
+    "The interaction total score. Maximum value is 255."
+    total: Int
+    "The interaction watchtime. Maximum value is 65535."
+    watchtime: Int
+}
+
+input CreateLabel {
+    "The label hexadecimal color code, with the hash."
+    color: Color!
+    """
+
+    The label human readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+}
+
+input CreateLesson {
+    "The lesson content."
+    content: Silicate!
+    "The flashcard associated labels."
+    labels: BelongsToMany
+    """
+
+    The lesson human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The lesson order. If not set, the chapter will be placed in the last position of the group [section].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    "The lesson related section ID."
+    section_id: ID
+    """
+
+    The lesson slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    "If the lesson should be displayed to the end users."
+    visible: Boolean!
+}
+
+input CreateNote {
+    "The note content."
+    content: Silicate!
+    "The note related model id."
+    notable_id: ID!
+    "The note related model type."
+    notable_type: NotableType!
+}
+
+input CreateNotion {
+    "The notion related chapter ID."
+    chapter_id: ID!
+    """
+
+    The notion human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The notion order. If not set, the chapter will be placed in the last position of the group [chapter].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    "The notion type."
+    type: NotionType!
+    """
+
+    If the notion should be displayed to the end users.
+    Requires the permission `notions:write:visible`.
+    """
+    visible: Boolean!
+}
+
+input CreatePack {
+    "If the pack is available for sale."
+    available: Boolean!
+    """
+
+    The pack human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The pack order. If not set, the chapter will be placed in the last position.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The pack price in **cents**.
+    Must be stricly positive.
+    """
+    price: Int!
+    """
+
+    The pack slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    "The pack type."
+    type: NotionType!
+    "If the pack should be displayed to the end users."
+    visible: Boolean!
+}
+
+input CreatePost {
+    "The post related category ID."
+    category_id: ID
+    "The post content."
+    content: Silicate!
+    """
+
+    The post order. If not set, the chapter will be placed in the last position of the group [category].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The post slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    """
+
+    The post human-readable name.
+    Maximum 150 caracters.
+    """
+    title: String!
+    "If the post should be displayed to the end users."
+    visible: Boolean!
+}
+
+input CreateReport {
+    content: String!
+    reportable_id: ID!
+    reportable_type: String!
+    status: String!
+    type: String!
+}
+
+input CreateSection {
+    """
+
+    The section human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The section order. If not set, the section will be placed in the last position of the group [training].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The section slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    "The section related training ID."
+    training_id: ID!
+    "If the section should be displayed to the end users."
+    visible: Boolean!
+}
+
+input CreateSubject {
+    """
+
+    The subject human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    "The subject related notion ID."
+    notion_id: ID!
+    """
+
+    The subject order. If not set, the section will be placed in the last position of the group [notion].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the subject is only accessible for premium users. Default value is `false`.
+    Requires the permission `subjects:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the exam is only accessible for users who bought the parent chapter. Default value is `false`.
+    Requires the permission `exam:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    The subject slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    """
+
+    If the subject should be displayed to the end users. Default value is `false`.
+    Requires the permission `subjects:write:visible`.
+    """
+    visible: Boolean
+}
+
+input CreateTheme {
+    """
+
+    The theme related discipline ID.
+    Must be a valid discipline ID.
+    """
+    discipline_id: ID!
+    """
+
+    The theme related grade ID.
+    Must be a valid grade ID.
+    """
+    grade_id: ID!
+    """
+
+    The theme human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The theme order. If not set, the theme will be placed in the last position of the group [grade/discipline].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the theme should be displayed to the end users.
+    Requires the permission `themes:write:visible`.
+    """
+    visible: Boolean!
+}
+
+input CreateTraining {
+    "If the training is avalaible for sale."
+    available: Boolean!
+    "The training description."
+    content: Silicate!
+    """
+
+    The training duration in minutes.
+    Must be strictly positive (i.e. >0).
+    """
+    duration: Int!
+    "The training associated labels."
+    grades: BelongsToMany
+    "The training image."
+    image: String
+    """
+
+    The training human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String!
+    """
+
+    The training order. If not set, the section will be placed in the last position.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The training price in cents.
+    Must be strictly positive (i.e. >0).
+    """
+    price: Int!
+    """
+
+    The training slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String!
+    "If the training should be displayed to the end users."
+    visible: Boolean!
+}
+
+input CreateUser {
+    """
+
+    The user email.
+    Must be unique.
+    Must be a valid email address.
+    Maximum 150 caracters.
+    """
+    email: String!
+    """
+
+    The user first name.
+    Maximum 60 caracters.
+    """
+    firstname: String
+    "The user related grade ID."
+    grade_id: ID
+    """
+
+    The user last name.
+    Maximum 60 caracters.
+    """
+    lastname: String
+    "The user password."
+    password: String!
+    """
+
+    The user permissions.
+    Requires the permission `*`.
+    """
+    permissions: [String!]
+    """
+
+    **Deprecated: use `permissions` instead. Will be removed in version 8.0.0.**
+    The user permissions.
+    Requires the permission `*`.
+    """
+    scopes: [String!]
+    """
+
+    The user username.
+    Must be unique.
+    Maximum 60 caracters.
+    """
+    username: String!
+}
+
+input CreateVote {
+    "The vote related comment ID."
+    comment_id: ID!
+    "The vote value."
+    value: VoteValue!
+}
+
+input FlashcardContentInput {
+    back: Silicate!
+    front: Silicate!
+}
+
+input UpdateCategory {
+    "The targeted category ID."
+    id: ID!
+    """
+
+    The new category human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The new category slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+}
+
+input UpdateChapter {
+    "The targeted chapter ID."
+    id: ID!
+    """
+
+    The chapter new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The chapter new order. Status quo if not set.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    "The chapter price **in cents** if applicable. Setting a non-null value implies that the chapter is **sellable**."
+    price: Int
+    """
+
+    The chapter new slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+    """
+
+    The chapter new related theme ID.
+    Must be a valid theme ID.
+    """
+    theme_id: ID
+    """
+
+    If the chapter should be displayed to the end users.
+    Requires the permission `chapters:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdateComment {
+    """
+
+    The comment new content text.
+    Maxiumum 40000 caracters.
+    """
+    content: String!
+    "The targeted comment ID."
+    id: ID!
+}
+
+input UpdateCoupon {
+    """
+
+    The coupon new counter. The coupons is considered as *exhausted* when the counter reaches zero.
+    Unlimited use coupons requires the counter to be set to -1.
+    """
+    counter: Int
+    "The coupon new expiration date. Set to null to disable expiration."
+    expires_at: DateTime
+    "The targeted coupon ID."
+    id: ID!
+    """
+
+    The coupon new type. Absolute coupons are a flat discount on a total price, while percentage applies a propertional
+    discount.
+    """
+    type: CouponType
+    """
+
+    The coupon new value.
+    - absolute coupons: the flat discount expressed in **cents**
+    - percentage coupons; the discount expressed in percent [0-100]
+    In all cases, must be strictly positive.
+    """
+    value: Int
+}
+
+input UpdateCourse {
+    "The course new content."
+    content: Silicate
+    """
+
+    The course frozen date. If set, only the users with the permission `course:freeze` will be allowed to edit the
+    course. Set to `null` to disable.
+    Requires the permission `courses:freeze`.
+    """
+    frozen_at: DateTime
+    "The targeted course ID."
+    id: ID!
+    "The course associated labels."
+    labels: BelongsToMany
+    """
+
+    The course new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The course new related notion ID.
+    Must be a valid notion ID.
+    """
+    notion_id: ID
+    """
+
+    The course order. If not set, the chapter will be placed in the last position of the group [notion].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the course is only accessible for premium users.
+    Requires the permission `courses:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the course is only accessible for users who bought the parent chapter. Default value is `null`.
+    Requires the permission `courses:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    The course description for SEO.
+    Requires the permission `courses:write:seo_description`.
+    """
+    seo_description: String
+    """
+
+    If the course should be included in the sitemap.
+    Requires the permission `courses:write:seo_index`.
+    """
+    seo_index: Boolean
+    """
+
+    The course keywords for SEO.
+    Requires the permission `courses:write:seo_keywords`.
+    """
+    seo_keywords: String
+    """
+
+    The course title for SEO.
+    Requires the permission `courses:write:seo_title`.
+    """
+    seo_title: String
+    """
+
+    The new course slug, which will be used in the URL generation.
+    Requires the permission `courses:write:slug`.
+    Maximum 150 caracters.
+    """
+    slug: String
+    """
+
+    If the course should be displayed to the end users.
+    Requires the permission `courses:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdateExam {
+    "The exam new related chapter ID."
+    chapter_id: ID
+    "The exam new content."
+    content: Silicate
+    "The exam new duration in minutes. If set, must be greater than 0."
+    duration: Int
+    """
+
+    The exam frozen date. If set, only the users with the permission `exams:freeze` will be allowed to edit the exam.
+    Set to `null` to disable.
+    Requires the permission `exams:freeze`.
+    """
+    frozen_at: DateTime
+    "The targeted exam ID."
+    id: ID!
+    "The exam associated labels."
+    labels: BelongsToMany
+    """
+
+    The exam new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The exam new order.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the exam is only accessible for premium users.
+    Requires the permission `exams:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the exam is only accessible for users who bought the parent chapter. Default value is `null`.
+    Requires the permission `exam:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    The exam new slug, which will be used in the URL generation.
+    Requires the permission `exams:write:slug`.
+    Maximum 150 caracters.
+    """
+    slug: String
+    """
+
+    If the exam should be displayed to the end users.
+    Requires the permission `exams:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdateExercise {
+    "The exercise content."
+    content: Silicate
+    """
+
+    The exercise frozen date. If set, only the users with the permission `exercises:freeze` will be allowed to edit the
+    exercise. Set to `null` to disable.
+    Requires the permission `exercises:freeze`.
+    """
+    frozen_at: DateTime
+    "The targeted exercise ID."
+    id: ID!
+    "The exercise associated labels."
+    labels: BelongsToMany
+    """
+
+    The exercise new order.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    "The exercise new related subject ID."
+    subject_id: ID
+    """
+
+    If the exercise should be displayed to the end users.
+    Requires the permission `exercises:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdateFlashcard {
+    "The flashcard new related chapter ID."
+    chapter_id: ID
+    "The flashcard content. Cannot be empty."
+    content: [FlashcardContentInput!]
+    """
+
+    The flashcard frozen date. If set, only the users with the permission `flashcards:freeze` will be allowed to edit
+    the flashcard. Set to `null` to disable.
+    Requires the permission `exercises:freeze`.
+    """
+    frozen_at: DateTime
+    "The related flashcard ID."
+    id: ID!
+    "The flashcard associated labels."
+    labels: BelongsToMany
+    """
+
+    The flashcard new human-redable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The flashcard new order.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the flashcard is only accessible for premium users.
+    Requires the permission `flashcards:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the flashcard is only accessible for users who bought the parent chapter. Default value is `false`.
+    Requires the permission `exam:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    The flashcard new slug, which will be used in the URL generation.
+    Requires the permission `flashcards:write:slug`.
+    Maximum 150 caracters.
+    """
+    slug: String
+    """
+
+    If the flashcard should be displayed to the end users.
+    Requires the permission `flashcards:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdateLabel {
+    "The label hexadecimal color code, with the hash."
+    color: Color
+    "The target label ID."
+    id: ID!
+    """
+
+    The label human readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+}
+
+input UpdateLesson {
+    "The lesson new content."
+    content: Silicate
+    "The targeted lesson ID."
+    id: ID!
+    "The flashcard associated labels."
+    labels: BelongsToMany
+    """
+
+    The lesson new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The lesson new order. If not set, the chapter will be placed in the last position of the group [section].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    "The lesson related section ID."
+    section_id: ID
+    """
+
+    The lesson new slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+    "If the lesson should be displayed to the end users."
+    visible: Boolean
+}
+
+input UpdateMe {
+    """
+
+    The user new email.
+    Must be a valid email address.
+    Maximum 150 caracters.
+    """
+    email: String
+    """
+
+    The user new first name.
+    Maximum 60 caracters.
+    """
+    firstname: String
+    "The user new related grade ID."
+    grade_id: ID
+    """
+
+    The user new last name.
+    Maximum 60 caracters.
+    """
+    lastname: String
+    "The user new password."
+    password: String
+    """
+
+    The user new username.
+    Must be unique.
+    Maximum 60 caracters.
+    """
+    username: String
+}
+
+input UpdateNote {
+    "The note new content."
+    content: Silicate
+    "The targeted note ID."
+    id: ID!
+}
+
+input UpdateNotion {
+    "The notion related chapter ID."
+    chapter_id: ID
+    "The targeted notion ID."
+    id: ID!
+    """
+
+    The notion new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The notion order. If not set, the chapter will be placed in the last position of the group [chapter].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The notion new human-readable name.
+    Maximum 150 caracters.
+    """
+    type: NotionType
+    """
+
+    If the notion should be displayed to the end users.
+    Requires the permission `notions:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdatePack {
+    "If the pack is available for sale."
+    available: Boolean
+    "The targeted pack ID."
+    id: ID!
+    """
+
+    The pack human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The pack order. If not set, the chapter will be placed in the last position.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The pack price in **cents**.
+    Must be stricly positive.
+    """
+    price: Int!
+    """
+
+    The pack slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+    "If the pack should be displayed to the end users."
+    visible: Boolean
+}
+
+input UpdatePost {
+    "The post new related category ID."
+    category_id: ID
+    "The post new content."
+    content: Silicate
+    "The target post ID."
+    id: ID!
+    """
+
+    The post order. If not set, the chapter will be placed in the last position of the group [category].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The post new slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+    """
+
+    The post new human-readable name.
+    Maximum 150 caracters.
+    """
+    title: String
+    "If the post should be displayed to the end users."
+    visible: Boolean
+}
+
+input UpdateReport {
+    content: String
+    id: ID!
+    reportable_id: ID
+    reportable_type: String
+    status: String
+    type: String
+}
+
+input UpdateSection {
+    "The targeted section ID."
+    id: ID!
+    """
+
+    The section new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The section order. If not set, the section will be placed in the last position of the group [training].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The section new slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+    "The section new related training ID."
+    training_id: ID
+    "If the section should be displayed to the end users."
+    visible: Boolean
+}
+
+input UpdateSubject {
+    "The targeted subject ID."
+    id: ID!
+    """
+
+    The subject human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    "The subject related notion ID."
+    notion_id: ID
+    """
+
+    The subject order. If not set, the section will be placed in the last position of the group [notion].
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the subject is only accessible for premium users.
+    Requires the permission `subjects:write:premium`.
+    """
+    premium: Boolean
+    """
+
+    If the exam is only accessible for users who bought the parent chapter. Default value is `false`.
+    Requires the permission `exam:write:protected`.
+    """
+    protected: Boolean
+    """
+
+    The subject slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+    """
+
+    If the subject should be displayed to the end users.
+    Requires the permission `subjects:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdateSubscription {
+    "The targeted subscription ID."
+    id: ID!
+    "The payment method ID."
+    paymentMethodId: String!
+}
+
+input UpdateTheme {
+    """
+
+    The theme new related discipline ID.
+    Must be a valid discipline ID.
+    """
+    discipline_id: ID
+    """
+
+    The theme new related grade ID.
+    Must be a valid grade ID.
+    """
+    grade_id: ID
+    "The targeted theme ID."
+    id: ID!
+    """
+
+    The theme new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The theme new order. Status quo if not set.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    If the theme should be displayed to the end users.
+    Requires the permission `themes:write:visible`.
+    """
+    visible: Boolean
+}
+
+input UpdateTraining {
+    "If the training is avalaible for sale."
+    available: Boolean
+    "The training description."
+    content: Silicate
+    """
+
+    The training duration in minutes.
+    Must be strictly positive (i.e. >0).
+    """
+    duration: Int
+    "The training associated labels."
+    grades: BelongsToMany
+    "The targeted training ID."
+    id: ID!
+    "The training image."
+    image: String
+    """
+
+    The training new human-readable name.
+    Maximum 150 caracters.
+    """
+    name: String
+    """
+
+    The training order. If not set, the section will be placed in the last position.
+    Must be positive (i.e. >=0).
+    """
+    order: Int
+    """
+
+    The training price in cents.
+    Must be strictly positive (i.e. >0).
+    """
+    price: Int
+    """
+
+    The training new slug, which will be used in the URL generation.
+    Maximum 150 caracters.
+    """
+    slug: String
+    "If the training should be displayed to the end users."
+    visible: Boolean
+}
+
+input UpdateUser {
+    """
+
+    The user new email.
+    Must be unique.
+    Must be a valid email address.
+    Maximum 150 caracters.
+    """
+    email: String
+    """
+
+    The user new first name.
+    Maximum 60 caracters.
+    """
+    firstname: String
+    "The user new related grade ID."
+    grade_id: ID
+    "The targeted user iD."
+    id: ID!
+    """
+
+    The user new last name.
+    Maximum 60 caracters.
+    """
+    lastname: String
+    "The user new password."
+    password: String
+    """
+
+    The user new permissions.
+    Requires the permission `*`.
+    """
+    permissions: [String]
+    """
+
+    **Deprecated: use `permissions` instead. Will be removed in version 8.0.0.**
+    The user new permissions.
+    Requires the permission `*`.
+    """
+    scopes: [String!]
+    """
+
+    The user new username.
+    Must be unique.
+    Maximum 60 caracters.
+    """
+    username: String
+}
+
+
+"An RFC3339 date/time string."
+scalar DateTime
+
+"Silicate wall plain object."
+scalar Silicate
+
+"""
+A standard valid hexadecimal color; colors may use the short format.
+Examples: `#ff00aa`, `#5a2`
+"""
+scalar Color
+
+"""
+Can be used as an argument to upload files using the [GraphQL Multipart Specification][1]
+
+[1]: https://github.com/jaydenseric/graphql-multipart-request-spec
+"""
+scalar Upload
+
+"An arbitrary object."
+scalar Any
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date
