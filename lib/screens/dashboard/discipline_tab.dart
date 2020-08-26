@@ -31,17 +31,16 @@ class _DisciplineTabState extends State<DisciplineTab> {
           );
         }
 
-        final disciplines =
-            ListDisciplines$Query$Discipline.fromJson(result.data);
+        final disciplines = ListDisciplines$Query.fromJson(result.data);
 
         return ListView.builder(
           itemBuilder: (_, index) {
             return ListTile(
               leading: Icon(Icons.card_travel),
-              title: Text('TEXT INSIDE'), // TODO disciplines are in result.data (cf debuger, but not yet displayed, implement that)
+              title: Text(disciplines.listDisciplines[index].name),
             );
           },
-          // itemCount: disciplines.length,
+          itemCount: disciplines.listDisciplines.length,
         );
       },
     );
