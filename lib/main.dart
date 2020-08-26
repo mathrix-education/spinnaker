@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mathrix_education_app/screens/dashboard/dashboard.dart';
-import './screens/login.dart';
+import 'package:mathrix_education_app/route_generator.dart';
+import 'package:mathrix_education_app/screens/dashboard/dashboard_screen.dart';
+import 'screens/login/login_screen.dart';
 import 'graphql/graphql_client.dart';
 
 void main() {
@@ -12,13 +13,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mathrix',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return GraphQLProvider(
+      client: graphqlClient(),
+      child: MaterialApp(
+        title: 'Mathrix',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: MyHomePage(),
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
       ),
-      home: MyHomePage(),
     );
   }
 }
@@ -33,15 +39,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return GraphQLProvider(
-      client: graphqlClient(),
-      child: Dashboard(),
-    );
+    return LoginScreen();
   }
 }
