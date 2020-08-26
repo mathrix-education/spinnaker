@@ -1,18 +1,3 @@
-fragment BasicGrade on Grade {
-  id
-  name
-  order
-  slug
-  visible
-}
-
-fragment GradeWithDiscipline on Grade{
-  ...BasicGrade
-  disciplines{
-    ...BasicDiscipline
-  }
-}
-
 query ListGrades {
   listGrades {
     ...BasicGrade

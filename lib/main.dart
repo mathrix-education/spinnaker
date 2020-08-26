@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/route_generator.dart';
+import 'package:mathrix_education_app/screens/dashboard/dashboard_screen.dart';
 import 'graphql/graphql_client.dart';
 import 'screens/login/login_screen.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
-void main() => runApp(
-      GraphQLProvider(
-        client: graphQLConfiguration.client,
-        child: CacheProvider(child: MyApp()),
-      ),
-    );
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    GraphQLProvider(
+      client: graphQLConfiguration.client,
+      child: CacheProvider(child: MyApp()),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -40,6 +44,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    GraphQLConfiguration.setToken();
+    return GraphQLConfiguration.isLogged() ? Dashboard() : LoginScreen();
+//    load(context).then((value) => value);
+  }
+
+  Future<Widget> load(BuildContext context) async { // TODO 
+    await GraphQLConfiguration.setToken();
+    return GraphQLConfiguration.isLogged() ? Dashboard() : LoginScreen();
   }
 }

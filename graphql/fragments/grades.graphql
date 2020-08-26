@@ -1,0 +1,7 @@
+fragment BasicGrade on Grade {
+  id
+  name
+  order
+  slug
+  visible
+}

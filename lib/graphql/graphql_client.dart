@@ -34,6 +34,7 @@ class GraphQLConfiguration {
   }
 
   static bool isLogged() {
+    print('call$token');
     return token !=
         ''; // TODO externalise the token mechanism and use token validity information.
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/screens/dashboard/dashboard_screen.dart';
 import 'screens/login/login_screen.dart';
 
@@ -8,6 +9,10 @@ class RouteGenerator {
     final args = settings.arguments;
     switch (settings.name) {
       case '/':
+        if (GraphQLConfiguration.isLogged()) {
+          print('sulfateuse');
+          return generateRoute(RouteSettings(name: '/dashboard'));
+        }
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/dashboard':
         return MaterialPageRoute(

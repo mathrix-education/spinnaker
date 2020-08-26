@@ -11,11 +11,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart';
 
 class LoginForm extends StatelessWidget {
-  // Create a global key that uniquely identifies the Form widget and allows form validation.
-
   LoginForm({Key key}) : super(key: key);
 
-  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  /// The global formBuilder key.
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
 
   final _client = graphQLConfiguration.graphQLClient();
 
@@ -23,7 +22,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return FormBuilder(
-      key: _fbKey,
+      key: _formKey,
       initialValue: {'email': '', 'password': ''},
       autovalidate: true, // todo, validate pristine
       child: Center(
@@ -63,12 +62,10 @@ class LoginForm extends StatelessWidget {
   }
 
   _validate(BuildContext context) async {
-    var form = _fbKey.currentState;
+    var form = _formKey.currentState;
     form.save();
     if (form.validate()) {
-      Map<String, String> value = form.value;
-      print(value['email']);
-      print(value['password']);
+      Map<String, dynamic> value = form.value;
 
       MutationOptions options = MutationOptions(
         documentNode: LoginMutation().document,
@@ -85,10 +82,15 @@ class LoginForm extends StatelessWidget {
       } else {
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
         SharedPreferences prefs = await SharedPreferences.getInstance();
-
         prefs.setString(mathrixToken, login$mutation.loginBasic.token);
         GraphQLConfiguration.setToken();
-        Navigator.of(context).pushNamed('/dashboard');
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          '/dashboard',
+          (route) => false,
+        );
+
+        print(mathrixToken);
+        print(prefs.getString(mathrixToken));
       }
     }
   }
