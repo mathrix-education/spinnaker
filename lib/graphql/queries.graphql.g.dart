@@ -73,3 +73,38 @@ Map<String, dynamic> _$ListDisciplines$QueryToJson(
       'listDisciplines':
           instance.listDisciplines?.map((e) => e?.toJson())?.toList(),
     };
+
+Login$Mutation$JWT _$Login$Mutation$JWTFromJson(Map<String, dynamic> json) {
+  return Login$Mutation$JWT()..token = json['token'] as String;
+}
+
+Map<String, dynamic> _$Login$Mutation$JWTToJson(Login$Mutation$JWT instance) =>
+    <String, dynamic>{
+      'token': instance.token,
+    };
+
+Login$Mutation _$Login$MutationFromJson(Map<String, dynamic> json) {
+  return Login$Mutation()
+    ..loginBasic = json['loginBasic'] == null
+        ? null
+        : Login$Mutation$JWT.fromJson(
+            json['loginBasic'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$Login$MutationToJson(Login$Mutation instance) =>
+    <String, dynamic>{
+      'loginBasic': instance.loginBasic?.toJson(),
+    };
+
+LoginArguments _$LoginArgumentsFromJson(Map<String, dynamic> json) {
+  return LoginArguments(
+    email: json['email'] as String,
+    password: json['password'] as String,
+  );
+}
+
+Map<String, dynamic> _$LoginArgumentsToJson(LoginArguments instance) =>
+    <String, dynamic>{
+      'email': instance.email,
+      'password': instance.password,
+    };

@@ -1,0 +1,9 @@
+mutation login($email: String!, $password: String!) {
+  loginBasic(email: $email, password: $password) {
+    token
+  }
+}
+
+#mutation ResetPassword($token: String!, $newPassword: String!) {
+#  resetPassword( token: $token, newPassword: $newPassword)
+#}

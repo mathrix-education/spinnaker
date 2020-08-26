@@ -2,20 +2,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mathrix_education_app/environment/environment.dart';
+import 'package:mathrix_education_app/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/graphql/queries.dart';
 import 'package:mathrix_education_app/ui/layouts/wigets/form_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../main.dart';
 
-class LoginForm extends StatefulWidget {
-  @override
-  LoginFormState createState() {
-    return LoginFormState();
-  }
-}
-
-// Define a corresponding State class.
-// This class holds data related to the form.
-class LoginFormState extends State<LoginForm> {
+class LoginForm extends StatelessWidget {
   // Create a global key that uniquely identifies the Form widget and allows form validation.
+
+  LoginForm({Key key}) : super(key: key);
+
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+
+  final _client = graphQLConfiguration.graphQLClient();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class LoginFormState extends State<LoginForm> {
     return FormBuilder(
       key: _fbKey,
       initialValue: {'email': '', 'password': ''},
-      autovalidate: true,
+      autovalidate: true, // todo, validate pristine
       child: Center(
         child: Column(
           children: [
@@ -36,7 +38,7 @@ class LoginFormState extends State<LoginForm> {
                 textInputType: TextInputType.emailAddress,
                 validators: [
                   FormBuilderValidators.email(),
-                  FormBuilderValidators.required()
+                  FormBuilderValidators.required(),
                 ],
               ),
             ),
@@ -51,8 +53,8 @@ class LoginFormState extends State<LoginForm> {
               ],
             ),
             RaisedButton(
-              onPressed: () => _validate(),
-              child: Text('Connexion'),
+              onPressed: () => _validate(context),
+              child: Text('Se connecter'),
             ),
           ],
         ),
@@ -60,13 +62,34 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 
-  _validate() {
+  _validate(BuildContext context) async {
     var form = _fbKey.currentState;
-    print(form.validate());
-    print(form.initialValue);
-    print(form.value);
+    form.save();
     if (form.validate()) {
-      print('CKFKF');
+      Map<String, String> value = form.value;
+      print(value['email']);
+      print(value['password']);
+
+      MutationOptions options = MutationOptions(
+        documentNode: LoginMutation().document,
+        variables: <String, String>{
+          'email': value['email'],
+          'password': value['password'],
+        },
+      );
+      final QueryResult result = await _client.mutate(options);
+
+      if (result.hasException) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text('Combinaison invalide')));
+      } else {
+        Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        prefs.setString(mathrixToken, login$mutation.loginBasic.token);
+        GraphQLConfiguration.setToken();
+        Navigator.of(context).pushNamed('/dashboard');
+      }
     }
   }
 }

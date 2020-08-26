@@ -6,10 +6,6 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Get arguments passed with Navigator.pushNamed
     final args = settings.arguments;
-
-    print(settings.name);
-    print(settings.arguments);
-
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => LoginScreen());
