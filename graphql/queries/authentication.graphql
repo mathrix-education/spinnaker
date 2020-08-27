@@ -3,7 +3,3 @@ mutation login($email: String!, $password: String!) {
     token
   }
 }
-
-#mutation ResetPassword($token: String!, $newPassword: String!) {
-#  resetPassword( token: $token, newPassword: $newPassword)
-#}

@@ -7,6 +7,110 @@ import 'package:equatable/equatable.dart';
 import 'package:gql/ast.dart';
 part 'queries.graphql.g.dart';
 
+@JsonSerializable(explicitToJson: true)
+class Login$Mutation$JWT with EquatableMixin {
+  Login$Mutation$JWT();
+
+  factory Login$Mutation$JWT.fromJson(Map<String, dynamic> json) =>
+      _$Login$Mutation$JWTFromJson(json);
+
+  String token;
+
+  @override
+  List<Object> get props => [token];
+  Map<String, dynamic> toJson() => _$Login$Mutation$JWTToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class Login$Mutation with EquatableMixin {
+  Login$Mutation();
+
+  factory Login$Mutation.fromJson(Map<String, dynamic> json) =>
+      _$Login$MutationFromJson(json);
+
+  Login$Mutation$JWT loginBasic;
+
+  @override
+  List<Object> get props => [loginBasic];
+  Map<String, dynamic> toJson() => _$Login$MutationToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoginArguments extends JsonSerializable with EquatableMixin {
+  LoginArguments({@required this.email, @required this.password});
+
+  factory LoginArguments.fromJson(Map<String, dynamic> json) =>
+      _$LoginArgumentsFromJson(json);
+
+  final String email;
+
+  final String password;
+
+  @override
+  List<Object> get props => [email, password];
+  Map<String, dynamic> toJson() => _$LoginArgumentsToJson(this);
+}
+
+class LoginMutation extends GraphQLQuery<Login$Mutation, LoginArguments> {
+  LoginMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'login'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'email')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'password')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'loginBasic'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'email'),
+                    value: VariableNode(name: NameNode(value: 'email'))),
+                ArgumentNode(
+                    name: NameNode(value: 'password'),
+                    value: VariableNode(name: NameNode(value: 'password')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'token'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'login';
+
+  @override
+  final LoginArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  Login$Mutation parse(Map<String, dynamic> json) =>
+      Login$Mutation.fromJson(json);
+}
+
 mixin ListCategories$BasicCategoryMixin {
   String id;
   String name;
@@ -202,106 +306,345 @@ class ListDisciplinesQuery
       ListDisciplines$Query.fromJson(json);
 }
 
-@JsonSerializable(explicitToJson: true)
-class Login$Mutation$JWT with EquatableMixin {
-  Login$Mutation$JWT();
-
-  factory Login$Mutation$JWT.fromJson(Map<String, dynamic> json) =>
-      _$Login$Mutation$JWTFromJson(json);
-
-  String token;
-
-  @override
-  List<Object> get props => [token];
-  Map<String, dynamic> toJson() => _$Login$Mutation$JWTToJson(this);
+mixin ListGrades$BasicGradeMixin {
+  String id;
+  String name;
+  int order;
+  String slug;
+  bool visible;
 }
 
 @JsonSerializable(explicitToJson: true)
-class Login$Mutation with EquatableMixin {
-  Login$Mutation();
+class ListGrades$Query$Grade with EquatableMixin, ListGrades$BasicGradeMixin {
+  ListGrades$Query$Grade();
 
-  factory Login$Mutation.fromJson(Map<String, dynamic> json) =>
-      _$Login$MutationFromJson(json);
-
-  Login$Mutation$JWT loginBasic;
+  factory ListGrades$Query$Grade.fromJson(Map<String, dynamic> json) =>
+      _$ListGrades$Query$GradeFromJson(json);
 
   @override
-  List<Object> get props => [loginBasic];
-  Map<String, dynamic> toJson() => _$Login$MutationToJson(this);
+  List<Object> get props => [id, name, order, slug, visible];
+  Map<String, dynamic> toJson() => _$ListGrades$Query$GradeToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class LoginArguments extends JsonSerializable with EquatableMixin {
-  LoginArguments({@required this.email, @required this.password});
+class ListGrades$Query with EquatableMixin {
+  ListGrades$Query();
 
-  factory LoginArguments.fromJson(Map<String, dynamic> json) =>
-      _$LoginArgumentsFromJson(json);
+  factory ListGrades$Query.fromJson(Map<String, dynamic> json) =>
+      _$ListGrades$QueryFromJson(json);
 
-  final String email;
-
-  final String password;
+  List<ListGrades$Query$Grade> listGrades;
 
   @override
-  List<Object> get props => [email, password];
-  Map<String, dynamic> toJson() => _$LoginArgumentsToJson(this);
+  List<Object> get props => [listGrades];
+  Map<String, dynamic> toJson() => _$ListGrades$QueryToJson(this);
 }
 
-class LoginMutation extends GraphQLQuery<Login$Mutation, LoginArguments> {
-  LoginMutation({this.variables});
+class ListGradesQuery extends GraphQLQuery<ListGrades$Query, JsonSerializable> {
+  ListGradesQuery();
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
-        type: OperationType.mutation,
-        name: NameNode(value: 'login'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'email')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'password')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
+        type: OperationType.query,
+        name: NameNode(value: 'ListGrades'),
+        variableDefinitions: [],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
-              name: NameNode(value: 'loginBasic'),
+              name: NameNode(value: 'listGrades'),
               alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'email'),
-                    value: VariableNode(name: NameNode(value: 'email'))),
-                ArgumentNode(
-                    name: NameNode(value: 'password'),
-                    value: VariableNode(name: NameNode(value: 'password')))
-              ],
+              arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'token'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null)
+                FragmentSpreadNode(
+                    name: NameNode(value: 'BasicGrade'), directives: [])
               ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicGrade'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(
+                name: NameNode(value: 'Grade'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'order'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'slug'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'visible'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null)
         ]))
   ]);
 
   @override
-  final String operationName = 'login';
+  final String operationName = 'ListGrades';
 
   @override
-  final LoginArguments variables;
+  List<Object> get props => [document, operationName];
+  @override
+  ListGrades$Query parse(Map<String, dynamic> json) =>
+      ListGrades$Query.fromJson(json);
+}
+
+mixin Me$BasicUserMixin {
+  String id;
+  String username;
+  String firstname;
+  String lastname;
+  String email;
+  DateTime created_at;
+  DateTime updated_at;
+  bool premium;
+  bool premium_bypass;
+  List<Me$Query$User$Training> trainings;
+  Me$Query$User$Grade grade;
+}
+mixin Me$BasicGradeMixin {
+  String id;
+  String name;
+  int order;
+  String slug;
+  bool visible;
+}
+
+@JsonSerializable(explicitToJson: true)
+class Me$Query$User with EquatableMixin, Me$BasicUserMixin {
+  Me$Query$User();
+
+  factory Me$Query$User.fromJson(Map<String, dynamic> json) =>
+      _$Me$Query$UserFromJson(json);
 
   @override
-  List<Object> get props => [document, operationName, variables];
+  List<Object> get props => [
+        id,
+        username,
+        firstname,
+        lastname,
+        email,
+        created_at,
+        updated_at,
+        premium,
+        premium_bypass,
+        trainings,
+        grade
+      ];
+  Map<String, dynamic> toJson() => _$Me$Query$UserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class Me$Query with EquatableMixin {
+  Me$Query();
+
+  factory Me$Query.fromJson(Map<String, dynamic> json) =>
+      _$Me$QueryFromJson(json);
+
+  Me$Query$User me;
+
   @override
-  Login$Mutation parse(Map<String, dynamic> json) =>
-      Login$Mutation.fromJson(json);
+  List<Object> get props => [me];
+  Map<String, dynamic> toJson() => _$Me$QueryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class Me$Query$User$Training with EquatableMixin {
+  Me$Query$User$Training();
+
+  factory Me$Query$User$Training.fromJson(Map<String, dynamic> json) =>
+      _$Me$Query$User$TrainingFromJson(json);
+
+  String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$Me$Query$User$TrainingToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class Me$Query$User$Grade with EquatableMixin, Me$BasicGradeMixin {
+  Me$Query$User$Grade();
+
+  factory Me$Query$User$Grade.fromJson(Map<String, dynamic> json) =>
+      _$Me$Query$User$GradeFromJson(json);
+
+  @override
+  List<Object> get props => [id, name, order, slug, visible];
+  Map<String, dynamic> toJson() => _$Me$Query$User$GradeToJson(this);
+}
+
+class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
+  MeQuery();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'me'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'me'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FragmentSpreadNode(
+                    name: NameNode(value: 'BasicUser'), directives: [])
+              ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicUser'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(name: NameNode(value: 'User'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'username'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'firstname'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'lastname'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'email'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'created_at'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'updated_at'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'premium'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'premium_bypass'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'trainings'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ])),
+          FieldNode(
+              name: NameNode(value: 'grade'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FragmentSpreadNode(
+                    name: NameNode(value: 'BasicGrade'), directives: [])
+              ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicGrade'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(
+                name: NameNode(value: 'Grade'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'order'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'slug'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'visible'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null)
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'me';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  Me$Query parse(Map<String, dynamic> json) => Me$Query.fromJson(json);
 }
