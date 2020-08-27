@@ -11,6 +11,7 @@ class DisciplineTab extends StatefulWidget {
 }
 
 class _DisciplineTabState extends State<DisciplineTab> {
+  /// The slug map that maps disciplines to the icon name.
   final Map<String, String> slugMap = {
     'physique-chimie': 'physique',
     'tecno': 'sicence-ingenieur',
@@ -46,6 +47,9 @@ class _DisciplineTabState extends State<DisciplineTab> {
             return Padding(
               padding: EdgeInsets.only(bottom: 8.0),
               child: MathrixCard(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/themes');
+                },
                 child: SizedBox(
                   height: 80,
                   child: Row(

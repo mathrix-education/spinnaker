@@ -411,6 +411,178 @@ class ListGradesQuery extends GraphQLQuery<ListGrades$Query, JsonSerializable> {
       ListGrades$Query.fromJson(json);
 }
 
+mixin ListThemesChaptersFromDisciplines$BasicThemeMixin {
+  String id;
+  String name;
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListThemesChaptersFromDisciplines$Query$Theme$Chapter
+    with EquatableMixin {
+  ListThemesChaptersFromDisciplines$Query$Theme$Chapter();
+
+  factory ListThemesChaptersFromDisciplines$Query$Theme$Chapter.fromJson(
+          Map<String, dynamic> json) =>
+      _$ListThemesChaptersFromDisciplines$Query$Theme$ChapterFromJson(json);
+
+  String id;
+
+  String name;
+
+  @override
+  List<Object> get props => [id, name];
+  Map<String, dynamic> toJson() =>
+      _$ListThemesChaptersFromDisciplines$Query$Theme$ChapterToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListThemesChaptersFromDisciplines$Query$Theme
+    with EquatableMixin, ListThemesChaptersFromDisciplines$BasicThemeMixin {
+  ListThemesChaptersFromDisciplines$Query$Theme();
+
+  factory ListThemesChaptersFromDisciplines$Query$Theme.fromJson(
+          Map<String, dynamic> json) =>
+      _$ListThemesChaptersFromDisciplines$Query$ThemeFromJson(json);
+
+  List<ListThemesChaptersFromDisciplines$Query$Theme$Chapter> chapters;
+
+  @override
+  List<Object> get props => [id, name, chapters];
+  Map<String, dynamic> toJson() =>
+      _$ListThemesChaptersFromDisciplines$Query$ThemeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListThemesChaptersFromDisciplines$Query with EquatableMixin {
+  ListThemesChaptersFromDisciplines$Query();
+
+  factory ListThemesChaptersFromDisciplines$Query.fromJson(
+          Map<String, dynamic> json) =>
+      _$ListThemesChaptersFromDisciplines$QueryFromJson(json);
+
+  List<ListThemesChaptersFromDisciplines$Query$Theme> listThemes;
+
+  @override
+  List<Object> get props => [listThemes];
+  Map<String, dynamic> toJson() =>
+      _$ListThemesChaptersFromDisciplines$QueryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListThemesChaptersFromDisciplinesArguments extends JsonSerializable
+    with EquatableMixin {
+  ListThemesChaptersFromDisciplinesArguments(
+      {@required this.gradeId, @required this.disciplineId});
+
+  factory ListThemesChaptersFromDisciplinesArguments.fromJson(
+          Map<String, dynamic> json) =>
+      _$ListThemesChaptersFromDisciplinesArgumentsFromJson(json);
+
+  final String gradeId;
+
+  final String disciplineId;
+
+  @override
+  List<Object> get props => [gradeId, disciplineId];
+  Map<String, dynamic> toJson() =>
+      _$ListThemesChaptersFromDisciplinesArgumentsToJson(this);
+}
+
+class ListThemesChaptersFromDisciplinesQuery extends GraphQLQuery<
+    ListThemesChaptersFromDisciplines$Query,
+    ListThemesChaptersFromDisciplinesArguments> {
+  ListThemesChaptersFromDisciplinesQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ListThemesChaptersFromDisciplines'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'gradeId')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'disciplineId')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'listThemes'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'gradeId'),
+                    value: VariableNode(name: NameNode(value: 'gradeId'))),
+                ArgumentNode(
+                    name: NameNode(value: 'disciplineId'),
+                    value: VariableNode(name: NameNode(value: 'disciplineId')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FragmentSpreadNode(
+                    name: NameNode(value: 'BasicTheme'), directives: []),
+                FieldNode(
+                    name: NameNode(value: 'chapters'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'id'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicTheme'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(
+                name: NameNode(value: 'Theme'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null)
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ListThemesChaptersFromDisciplines';
+
+  @override
+  final ListThemesChaptersFromDisciplinesArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ListThemesChaptersFromDisciplines$Query parse(Map<String, dynamic> json) =>
+      ListThemesChaptersFromDisciplines$Query.fromJson(json);
+}
+
 mixin Me$BasicUserMixin {
   String id;
   String username;

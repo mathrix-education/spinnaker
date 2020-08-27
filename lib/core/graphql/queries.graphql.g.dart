@@ -143,6 +143,78 @@ Map<String, dynamic> _$ListGrades$QueryToJson(ListGrades$Query instance) =>
       'listGrades': instance.listGrades?.map((e) => e?.toJson())?.toList(),
     };
 
+ListThemesChaptersFromDisciplines$Query$Theme$Chapter
+    _$ListThemesChaptersFromDisciplines$Query$Theme$ChapterFromJson(
+        Map<String, dynamic> json) {
+  return ListThemesChaptersFromDisciplines$Query$Theme$Chapter()
+    ..id = json['id'] as String
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic>
+    _$ListThemesChaptersFromDisciplines$Query$Theme$ChapterToJson(
+            ListThemesChaptersFromDisciplines$Query$Theme$Chapter instance) =>
+        <String, dynamic>{
+          'id': instance.id,
+          'name': instance.name,
+        };
+
+ListThemesChaptersFromDisciplines$Query$Theme
+    _$ListThemesChaptersFromDisciplines$Query$ThemeFromJson(
+        Map<String, dynamic> json) {
+  return ListThemesChaptersFromDisciplines$Query$Theme()
+    ..id = json['id'] as String
+    ..name = json['name'] as String
+    ..chapters = (json['chapters'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ListThemesChaptersFromDisciplines$Query$Theme$Chapter.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ListThemesChaptersFromDisciplines$Query$ThemeToJson(
+        ListThemesChaptersFromDisciplines$Query$Theme instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'chapters': instance.chapters?.map((e) => e?.toJson())?.toList(),
+    };
+
+ListThemesChaptersFromDisciplines$Query
+    _$ListThemesChaptersFromDisciplines$QueryFromJson(
+        Map<String, dynamic> json) {
+  return ListThemesChaptersFromDisciplines$Query()
+    ..listThemes = (json['listThemes'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ListThemesChaptersFromDisciplines$Query$Theme.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ListThemesChaptersFromDisciplines$QueryToJson(
+        ListThemesChaptersFromDisciplines$Query instance) =>
+    <String, dynamic>{
+      'listThemes': instance.listThemes?.map((e) => e?.toJson())?.toList(),
+    };
+
+ListThemesChaptersFromDisciplinesArguments
+    _$ListThemesChaptersFromDisciplinesArgumentsFromJson(
+        Map<String, dynamic> json) {
+  return ListThemesChaptersFromDisciplinesArguments(
+    gradeId: json['gradeId'] as String,
+    disciplineId: json['disciplineId'] as String,
+  );
+}
+
+Map<String, dynamic> _$ListThemesChaptersFromDisciplinesArgumentsToJson(
+        ListThemesChaptersFromDisciplinesArguments instance) =>
+    <String, dynamic>{
+      'gradeId': instance.gradeId,
+      'disciplineId': instance.disciplineId,
+    };
+
 Me$Query$User _$Me$Query$UserFromJson(Map<String, dynamic> json) {
   return Me$Query$User()
     ..id = json['id'] as String

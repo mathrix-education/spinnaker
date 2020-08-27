@@ -9,6 +9,8 @@ import 'package:redux/redux.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
+
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
