@@ -10,7 +10,7 @@ targets:
           schema_mapping:
             - schema: graphql/schema.graphql
               queries_glob: graphql/queries/*.graphql
-              output: lib/graphql/queries.dart
+              output: lib/core/graphql/queries.dart
           scalar_mapping:
             - graphql_type: Color
               dart_type: String

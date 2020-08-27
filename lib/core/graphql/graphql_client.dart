@@ -1,6 +1,6 @@
+import '../environment/environment.dart'; // TODO
 import "package:flutter/material.dart";
 import "package:graphql_flutter/graphql_flutter.dart";
-import 'package:mathrix_education_app/environment/environment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GraphQLConfiguration {
@@ -29,7 +29,7 @@ class GraphQLConfiguration {
 
   static loadAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    token =  prefs.getString(mathrixToken) ?? '';
+    token = prefs.getString(mathrixToken) ?? '';
   }
 
   static bool isLogged() {

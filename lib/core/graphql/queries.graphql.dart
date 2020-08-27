@@ -424,6 +424,12 @@ mixin Me$BasicUserMixin {
   List<Me$Query$User$Training> trainings;
   Me$Query$User$Grade grade;
 }
+mixin Me$BasicDisciplineMixin {
+  String id;
+  bool beta;
+  String name;
+  String slug;
+}
 mixin Me$BasicGradeMixin {
   String id;
   String name;
@@ -485,14 +491,29 @@ class Me$Query$User$Training with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
+class Me$Query$User$Grade$Discipline
+    with EquatableMixin, Me$BasicDisciplineMixin {
+  Me$Query$User$Grade$Discipline();
+
+  factory Me$Query$User$Grade$Discipline.fromJson(Map<String, dynamic> json) =>
+      _$Me$Query$User$Grade$DisciplineFromJson(json);
+
+  @override
+  List<Object> get props => [id, beta, name, slug];
+  Map<String, dynamic> toJson() => _$Me$Query$User$Grade$DisciplineToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class Me$Query$User$Grade with EquatableMixin, Me$BasicGradeMixin {
   Me$Query$User$Grade();
 
   factory Me$Query$User$Grade.fromJson(Map<String, dynamic> json) =>
       _$Me$Query$User$GradeFromJson(json);
 
+  List<Me$Query$User$Grade$Discipline> disciplines;
+
   @override
-  List<Object> get props => [id, name, order, slug, visible];
+  List<Object> get props => [id, name, order, slug, visible, disciplines];
   Map<String, dynamic> toJson() => _$Me$Query$User$GradeToJson(this);
 }
 
@@ -597,8 +618,50 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FragmentSpreadNode(
-                    name: NameNode(value: 'BasicGrade'), directives: [])
+                    name: NameNode(value: 'BasicGrade'), directives: []),
+                FieldNode(
+                    name: NameNode(value: 'disciplines'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FragmentSpreadNode(
+                          name: NameNode(value: 'BasicDiscipline'),
+                          directives: [])
+                    ]))
               ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicDiscipline'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(
+                name: NameNode(value: 'Discipline'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'beta'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'slug'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null)
         ])),
     FragmentDefinitionNode(
         name: NameNode(value: 'BasicGrade'),

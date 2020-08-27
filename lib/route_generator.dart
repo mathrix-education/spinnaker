@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mathrix_education_app/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/screens/dashboard/dashboard_screen.dart';
 import 'screens/login/login_screen.dart';
 

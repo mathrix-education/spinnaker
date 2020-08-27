@@ -30,28 +30,45 @@ class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
 
   Widget _bottomNavigationBar(int selectedIndex) => BottomNavigationBar(
-    onTap: (int index) => setState(() => _selectedIndex = index),
-    currentIndex: selectedIndex,
-    items: const <BottomNavigationBarItem>[
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        title: Text('Matières'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.whatshot),
-        title: Text('Motivation'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.school),
-        title: Text('Formation'),
-      ),
-    ],
-  );
+        onTap: (int index) => setState(() => _selectedIndex = index),
+        currentIndex: selectedIndex,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Matières'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.whatshot),
+            title: Text('Motivation'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            title: Text('Formation'),
+          ),
+        ],
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _bottomNavigationBar(_selectedIndex),
+      appBar: AppBar(
+        title: Text('Bienvenue'),
+        actions: [
+          Icon(
+            Icons.menu,
+            size: 40.0,
+          ),
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0.1, 0.90],
+                  colors: <Color>[Color(0xFF229A87), Color(0xFF77CABA)])),
+        ),
+      ),
       body: PageStorage(
         child: pages[_selectedIndex],
         bucket: bucket,

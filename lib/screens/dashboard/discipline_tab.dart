@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mathrix_education_app/graphql/queries.dart';
+import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
 
 class DisciplineTab extends StatefulWidget {
   DisciplineTab({Key key}) : super(key: key);
@@ -14,7 +15,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
   Widget build(BuildContext context) {
     return Query(
       options: QueryOptions(
-        documentNode: ListDisciplinesQuery().document,
+        documentNode: MeQuery().document,
       ),
       builder: (
         QueryResult result, {
@@ -31,16 +32,20 @@ class _DisciplineTabState extends State<DisciplineTab> {
           );
         }
 
-        final disciplines = ListDisciplines$Query.fromJson(result.data);
+        final disciplines = Me$Query.fromJson(result.data).me.grade.disciplines;
 
         return ListView.builder(
           itemBuilder: (_, index) {
-            return ListTile(
-              leading: Icon(Icons.card_travel),
-              title: Text(disciplines.listDisciplines[index].name),
+            return Padding(
+              padding: EdgeInsets.all(8),
+              child: MathrixCard(
+                  child: SizedBox(
+                height: 80,
+                child: Text(disciplines[index].name),
+              )),
             );
           },
-          itemCount: disciplines.listDisciplines.length,
+          itemCount: disciplines.length,
         );
       },
     );

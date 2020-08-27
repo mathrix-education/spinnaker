@@ -36,7 +36,7 @@ dependencies:
   meta: '>=1.0.0 <2.0.0' # only if you have non nullable fields
   gql: '>=0.7.3 <1.0.0'
   flutter_form_builder: ^3.13.3
-  # The following adds the Cupertino Icons font to your application.
+  flutter_redux: ^0.6.0
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 

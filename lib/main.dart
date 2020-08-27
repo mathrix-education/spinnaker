@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/route_generator.dart';
-import 'package:mathrix_education_app/screens/dashboard/dashboard_screen.dart';
-import 'graphql/graphql_client.dart';
 import 'screens/login/login_screen.dart';
+import 'package:redux/redux.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
@@ -12,7 +14,11 @@ void main() {
   runApp(
     GraphQLProvider(
       client: graphQLConfiguration.client,
-      child: CacheProvider(child: MyApp()),
+      child: CacheProvider(
+          child: StoreProvider<AppState>(
+        store: Store(appReducer),
+        child: MyApp(),
+      )),
     ),
   );
 }
@@ -27,21 +33,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: HomePage(),
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GraphQLConfiguration.loadAuthToken().then((_) {

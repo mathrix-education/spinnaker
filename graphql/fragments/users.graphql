@@ -8,10 +8,13 @@ fragment BasicUser on User {
   updated_at
   premium
   premium_bypass
-    trainings {
-      id
+  trainings {
+    id
+  }
+  grade{
+    ...BasicGrade
+    disciplines {
+      ...BasicDiscipline
     }
-    grade{
-      ...BasicGrade
-    }
+  }
 }

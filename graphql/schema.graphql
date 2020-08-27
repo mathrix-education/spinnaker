@@ -2540,7 +2540,7 @@ scalar Color
 """
 Can be used as an argument to upload files using the [GraphQL Multipart Specification][1]
 
-[1]: https://github.com/jaydenseric/graphql-multipart-request-spec
+[1]: https://github.com/jaydenseric/core.environment.graphql-multipart-request-spec
 """
 scalar Upload
 

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mathrix_education_app/environment/environment.dart';
-import 'package:mathrix_education_app/graphql/graphql_client.dart';
-import 'package:mathrix_education_app/graphql/queries.dart';
-import 'package:mathrix_education_app/ui/layouts/wigets/form_field.dart';
+import 'package:mathrix_education_app/core/environment/environment.dart';
+import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/ui/widgets/form_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart';
 
@@ -81,16 +81,16 @@ class LoginForm extends StatelessWidget {
             .showSnackBar(SnackBar(content: Text('Combinaison invalide')));
       } else {
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString(mathrixToken, login$mutation.loginBasic.token);
+
         GraphQLConfiguration.loadAuthToken();
+
         Navigator.of(context).pushNamedAndRemoveUntil(
           '/dashboard',
           (route) => false,
         );
-
-        print(mathrixToken);
-        print(prefs.getString(mathrixToken));
       }
     }
   }
