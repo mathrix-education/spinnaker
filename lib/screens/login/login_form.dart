@@ -83,7 +83,7 @@ class LoginForm extends StatelessWidget {
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString(mathrixToken, login$mutation.loginBasic.token);
-        GraphQLConfiguration.setToken();
+        GraphQLConfiguration.loadAuthToken();
         Navigator.of(context).pushNamedAndRemoveUntil(
           '/dashboard',
           (route) => false,

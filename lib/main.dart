@@ -44,13 +44,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    GraphQLConfiguration.setToken();
-    return GraphQLConfiguration.isLogged() ? Dashboard() : LoginScreen();
-//    load(context).then((value) => value);
-  }
-
-  Future<Widget> load(BuildContext context) async { // TODO 
-    await GraphQLConfiguration.setToken();
-    return GraphQLConfiguration.isLogged() ? Dashboard() : LoginScreen();
+    GraphQLConfiguration.loadAuthToken().then((_) {
+      String routeName = (GraphQLConfiguration.isLogged()) ? "/dashboard" : "/";
+      return Navigator.of(context)
+          .pushNamedAndRemoveUntil(routeName, (_) => false);
+    });
+    return LoginScreen(); // TODO: maybe a loading animation
   }
 }

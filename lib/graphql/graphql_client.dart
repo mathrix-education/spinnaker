@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class GraphQLConfiguration {
   static String token = '';
 
-  static final HttpLink httpLink = HttpLink(
+  static final HttpLink _httpLink = HttpLink(
     uri: "https://edge.mathrix.tech/graphql",
   );
 
@@ -14,11 +14,11 @@ class GraphQLConfiguration {
     getToken: () async => isLogged() ? 'Bearer $token' : null,
   );
 
-  //  final Link link = authLink.concat(httpLink);
+  static final Link _link = _authLink.concat(_httpLink);
 
   ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
-      link: httpLink,
+      link: _link,
       cache: InMemoryCache(),
     ),
   );
@@ -27,15 +27,13 @@ class GraphQLConfiguration {
     return client.value;
   }
 
-  static setToken() async {
+  static loadAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String tokenFromStorage = prefs.getString(mathrixToken) ?? '';
-    token = tokenFromStorage;
+    token =  prefs.getString(mathrixToken) ?? '';
   }
 
   static bool isLogged() {
-    print('call$token');
-    return token !=
-        ''; // TODO externalise the token mechanism and use token validity information.
+    return token != '';
+    // TODO externalise the token mechanism and use token validity information.
   }
 }

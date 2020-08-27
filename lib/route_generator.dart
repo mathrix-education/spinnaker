@@ -10,7 +10,6 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         if (GraphQLConfiguration.isLogged()) {
-          print('sulfateuse');
           return generateRoute(RouteSettings(name: '/dashboard'));
         }
         return MaterialPageRoute(builder: (_) => LoginScreen());
