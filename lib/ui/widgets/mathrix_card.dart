@@ -12,8 +12,14 @@ class MathrixCard extends StatelessWidget {
     return Card(
       elevation: 6,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0))),
-      child: child,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: InkWell(
+        child: child,
+        borderRadius: BorderRadius.circular(8.0),
+        onTap: () {
+        },
+      ),
     );
   }
 }

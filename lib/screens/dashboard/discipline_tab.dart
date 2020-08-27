@@ -11,6 +11,12 @@ class DisciplineTab extends StatefulWidget {
 }
 
 class _DisciplineTabState extends State<DisciplineTab> {
+  final Map<String, String> slugMap = {
+    'physique-chimie': 'physique',
+    'tecno': 'sicence-ingenieur',
+    'maths-expertes': 'maths',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -36,18 +42,34 @@ class _DisciplineTabState extends State<DisciplineTab> {
 
         return ListView.builder(
           itemBuilder: (_, index) {
+            String slug = _slugTransform(disciplines[index].slug);
             return Padding(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.only(bottom: 8.0),
               child: MathrixCard(
-                  child: SizedBox(
-                height: 80,
-                child: Text(disciplines[index].name),
-              )),
+                child: SizedBox(
+                  height: 80,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: Text(disciplines[index].name,
+                            style: Theme.of(context).textTheme.headline4),
+                      ),
+                      Image(image: AssetImage('assets/disciplines/$slug.png'))
+                    ],
+                  ),
+                ),
+              ),
             );
           },
           itemCount: disciplines.length,
         );
       },
     );
+  }
+
+  _slugTransform(String slug) {
+    return slugMap[slug] ?? slug;
   }
 }

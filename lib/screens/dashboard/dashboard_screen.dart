@@ -53,7 +53,10 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       bottomNavigationBar: _bottomNavigationBar(_selectedIndex),
       appBar: AppBar(
-        title: Text('Bienvenue'),
+        title: Text(
+          'Bienvenue',
+          style: Theme.of(context).textTheme.headline4.apply(color: Colors.white),
+        ),
         actions: [
           Icon(
             Icons.menu,

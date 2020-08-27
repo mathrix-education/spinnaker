@@ -30,8 +30,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mathrix',
       theme: ThemeData(
+        splashFactory: InkRipple.splashFactory,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Open Sans',
+        textTheme: TextTheme(
+          headline4: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+        ),
       ),
       home: HomePage(),
       initialRoute: '/',
@@ -45,8 +55,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     GraphQLConfiguration.loadAuthToken().then((_) {
       String routeName = (GraphQLConfiguration.isLogged()) ? "/dashboard" : "/";
-      return Navigator.of(context)
-          .pushNamedAndRemoveUntil(routeName, (_) => false);
+      if (ModalRoute.of(context).settings.name != "/") {
+        Navigator.of(context).pushNamedAndRemoveUntil(routeName, (_) => false);
+      }
     });
     return LoginScreen(); // TODO: maybe a loading animation
   }
