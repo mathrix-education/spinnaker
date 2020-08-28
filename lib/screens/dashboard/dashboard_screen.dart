@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
+import 'package:mathrix_education_app/ui/layouts/mathrix_page.dart';
 import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
 import 'discipline_tab.dart';
 import 'motivation_tab.dart';
@@ -69,8 +70,10 @@ class _DashboardState extends State<Dashboard> {
         flexibleSpace: AppBarFlexibleSpace(),
       ),
       body: PageStorage(
-        child: pages[_selectedIndex],
         bucket: bucket,
+        child: MathrixPage(
+          body: pages[_selectedIndex],
+        ),
       ),
     );
   }

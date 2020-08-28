@@ -39,16 +39,24 @@ class _DisciplineTabState extends State<DisciplineTab> {
           );
         }
 
+        final Me$Query$User me = Me$Query.fromJson(result.data).me;
         final disciplines = Me$Query.fromJson(result.data).me.grade.disciplines;
 
         return ListView.builder(
           itemBuilder: (_, index) {
             String slug = _slugTransform(disciplines[index].slug);
+            Map<String, dynamic> arguments = {
+              'discipline': disciplines[index],
+              'grade': me.grade,
+            };
             return Padding(
               padding: EdgeInsets.only(bottom: 8.0),
               child: MathrixCard(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/themes');
+                  Navigator.of(context).pushNamed(
+                    '/themes',
+                    arguments: arguments,
+                  );
                 },
                 child: SizedBox(
                   height: 80,

@@ -7,12 +7,17 @@ import 'package:mathrix_education_app/ui/layouts/mathrix_page.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class ThemePage extends StatelessWidget {
+  final Me$Query$User$Grade$Discipline discipline;
+  final Me$Query$User$Grade grade;
+
+  ThemePage({Key key, this.discipline, this.grade}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Query(
         options: QueryOptions(
           documentNode: ListThemesChaptersFromDisciplinesQuery().document,
-          variables: {'gradeId': '8', 'disciplineId': '1'},
+          variables: {'gradeId': grade.id, 'disciplineId': discipline.id},
         ),
         builder: (
           QueryResult result, {
@@ -35,7 +40,9 @@ class ThemePage extends StatelessWidget {
                   .listThemes;
 
           return Scaffold(
-            appBar: CustomAppBar(textTitle: 'Maths',),
+            appBar: CustomAppBar(
+              textTitle: discipline.name,
+            ),
             body: MathrixPage(
               body: ListView.builder(
                 itemBuilder: (_, index) {
