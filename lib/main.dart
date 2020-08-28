@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
-import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/route_generator.dart';
+import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'screens/login/login_screen.dart';
-import 'package:redux/redux.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
@@ -15,10 +13,8 @@ void main() {
     GraphQLProvider(
       client: graphQLConfiguration.client,
       child: CacheProvider(
-          child: StoreProvider<AppState>(
-        store: Store(appReducer),
         child: MyApp(),
-      )),
+      ),
     ),
   );
 }
@@ -31,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Mathrix',
       theme: ThemeData(
         splashFactory: InkRipple.splashFactory,
-        primarySwatch: Colors.blue,
+        primarySwatch: mathrixColors,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Open Sans',
         textTheme: TextTheme(

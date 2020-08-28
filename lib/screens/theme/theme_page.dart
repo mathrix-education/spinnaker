@@ -3,11 +3,13 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/screens/theme/chapters.dart';
 import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
-import 'package:mathrix_education_app/ui/layouts/mathrix_page.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class ThemePage extends StatelessWidget {
+  /// The discipline.
   final Me$Query$User$Grade$Discipline discipline;
+
+  /// The grade which belongs the discipline.
   final Me$Query$User$Grade grade;
 
   ThemePage({Key key, this.discipline, this.grade}) : super(key: key);
@@ -19,8 +21,7 @@ class ThemePage extends StatelessWidget {
           documentNode: ListThemesChaptersFromDisciplinesQuery().document,
           variables: {'gradeId': grade.id, 'disciplineId': discipline.id},
         ),
-        builder: (
-          QueryResult result, {
+        builder: (QueryResult result, {
           Future<QueryResult> Function() refetch,
           FetchMore fetchMore,
         }) {
@@ -36,32 +37,35 @@ class ThemePage extends StatelessWidget {
           }
 
           final List<ListThemesChaptersFromDisciplines$Query$Theme> themes =
-              ListThemesChaptersFromDisciplines$Query.fromJson(result.data)
+              ListThemesChaptersFromDisciplines$Query
+                  .fromJson(result.data)
                   .listThemes;
 
           return Scaffold(
             appBar: CustomAppBar(
               textTitle: discipline.name,
             ),
-            body: MathrixPage(
-              body: ListView.builder(
-                itemBuilder: (_, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
+            body: ListView.builder(
+              itemBuilder: (_, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                      child: Text(
                         themes[index].name,
-                        style: Theme.of(context)
+                        style: Theme
+                            .of(context)
                             .textTheme
                             .headline3
                             .apply(color: green),
                       ),
-                      Chapters(chapters: themes[index].chapters),
-                    ],
-                  );
-                },
-                itemCount: themes.length,
-              ),
+                    ),
+                    Chapters(chapters: themes[index].chapters),
+                  ],
+                );
+              },
+              itemCount: themes.length,
             ),
           );
         });

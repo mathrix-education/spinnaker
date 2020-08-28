@@ -19,6 +19,11 @@ class Chapters extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.only(bottom: 8.0),
           child: MathrixCard(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                '/menu',
+              );
+            },
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Column(

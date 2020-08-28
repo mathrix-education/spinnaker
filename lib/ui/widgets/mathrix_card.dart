@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class MathrixCard extends StatelessWidget {
   /// The card content.
   final Widget child;
+
   /// The onTap callback.
   final GestureTapCallback onTap;
 
@@ -11,17 +12,20 @@ class MathrixCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: InkWell(
-        child: child,
-        borderRadius: BorderRadius.circular(8.0),
-        onTap: () {
-          onTap();
-        },
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      child: Card(
+        elevation: 6,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: InkWell(
+          child: child,
+          borderRadius: BorderRadius.circular(8.0),
+          onTap: () {
+            onTap();
+          },
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/screens/dashboard/dashboard_screen.dart';
+import 'package:mathrix_education_app/screens/menu/menu_page.dart';
 import 'package:mathrix_education_app/screens/theme/theme_page.dart';
 import 'screens/login/login_screen.dart';
 
@@ -17,15 +18,17 @@ class RouteGenerator {
       case '/dashboard':
         return MaterialPageRoute(builder: (_) => Dashboard());
       case '/themes':
-        print(args.toString());
         return MaterialPageRoute(
           builder: (_) => ThemePage(
             discipline: args['discipline'],
             grade: args['grade'],
           ),
         );
-      // TODO error route?
-
+      case '/menu':
+        return MaterialPageRoute(
+          builder: (_) => MenuPage(),
+        );
     }
   }
+// TODO error route?
 }
