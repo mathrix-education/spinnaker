@@ -73,6 +73,158 @@ Map<String, dynamic> _$ListCategories$QueryToJson(
           instance.listCategories?.map((e) => e?.toJson())?.toList(),
     };
 
+ReadChaptersInformations$Query$Chapter$Notion$Course
+    _$ReadChaptersInformations$Query$Chapter$Notion$CourseFromJson(
+        Map<String, dynamic> json) {
+  return ReadChaptersInformations$Query$Chapter$Notion$Course()
+    ..id = json['id'] as String
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic>
+    _$ReadChaptersInformations$Query$Chapter$Notion$CourseToJson(
+            ReadChaptersInformations$Query$Chapter$Notion$Course instance) =>
+        <String, dynamic>{
+          'id': instance.id,
+          'name': instance.name,
+        };
+
+ReadChaptersInformations$Query$Chapter$Notion
+    _$ReadChaptersInformations$Query$Chapter$NotionFromJson(
+        Map<String, dynamic> json) {
+  return ReadChaptersInformations$Query$Chapter$Notion()
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(
+        _$ReadChaptersInformations$Query$Chapter$Notion$NotionTypeEnumMap,
+        json['type'],
+        unknownValue: ReadChaptersInformations$Query$Chapter$Notion$NotionType
+            .ARTEMIS_UNKNOWN)
+    ..courses = (json['courses'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadChaptersInformations$Query$Chapter$Notion$Course.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ReadChaptersInformations$Query$Chapter$NotionToJson(
+        ReadChaptersInformations$Query$Chapter$Notion instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': _$ReadChaptersInformations$Query$Chapter$Notion$NotionTypeEnumMap[
+          instance.type],
+      'courses': instance.courses?.map((e) => e?.toJson())?.toList(),
+    };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$ReadChaptersInformations$Query$Chapter$Notion$NotionTypeEnumMap = {
+  ReadChaptersInformations$Query$Chapter$Notion$NotionType.standard: 'standard',
+  ReadChaptersInformations$Query$Chapter$Notion$NotionType.summary: 'summary',
+  ReadChaptersInformations$Query$Chapter$Notion$NotionType.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
+ReadChaptersInformations$Query$Chapter$Flashcard
+    _$ReadChaptersInformations$Query$Chapter$FlashcardFromJson(
+        Map<String, dynamic> json) {
+  return ReadChaptersInformations$Query$Chapter$Flashcard()
+    ..id = json['id'] as String
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic> _$ReadChaptersInformations$Query$Chapter$FlashcardToJson(
+        ReadChaptersInformations$Query$Chapter$Flashcard instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+    };
+
+ReadChaptersInformations$Query$Chapter
+    _$ReadChaptersInformations$Query$ChapterFromJson(
+        Map<String, dynamic> json) {
+  return ReadChaptersInformations$Query$Chapter()
+    ..name = json['name'] as String
+    ..notions = (json['notions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadChaptersInformations$Query$Chapter$Notion.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..flashcards = (json['flashcards'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadChaptersInformations$Query$Chapter$Flashcard.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ReadChaptersInformations$Query$ChapterToJson(
+        ReadChaptersInformations$Query$Chapter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'notions': instance.notions?.map((e) => e?.toJson())?.toList(),
+      'flashcards': instance.flashcards?.map((e) => e?.toJson())?.toList(),
+    };
+
+ReadChaptersInformations$Query _$ReadChaptersInformations$QueryFromJson(
+    Map<String, dynamic> json) {
+  return ReadChaptersInformations$Query()
+    ..readChapter = json['readChapter'] == null
+        ? null
+        : ReadChaptersInformations$Query$Chapter.fromJson(
+            json['readChapter'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadChaptersInformations$QueryToJson(
+        ReadChaptersInformations$Query instance) =>
+    <String, dynamic>{
+      'readChapter': instance.readChapter?.toJson(),
+    };
+
+ReadChaptersInformationsArguments _$ReadChaptersInformationsArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return ReadChaptersInformationsArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadChaptersInformationsArgumentsToJson(
+        ReadChaptersInformationsArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
 ListDisciplines$Query$Discipline _$ListDisciplines$Query$DisciplineFromJson(
     Map<String, dynamic> json) {
   return ListDisciplines$Query$Discipline()

@@ -5,6 +5,8 @@ Color green = Color(0xff229a87);
 Color yellow = Color(0xfff9ed35);
 Color yellowLight = Color(0xfffdfac2);
 
+Color greyActivityText = Color(0xffb7c2bf);
+
 Map<int, Color> mathrixColorSwatch = {
   50: Color.fromRGBO(0x22, 0x9a, 0x87, .1),
   100: Color.fromRGBO(0x22, 0x9a, 0x87, .1),
@@ -17,6 +19,5 @@ Map<int, Color> mathrixColorSwatch = {
   800: Color.fromRGBO(0x22, 0x9a, 0x87, .9),
   900: Color.fromRGBO(0x22, 0x9a, 0x87, 1),
 };
-
 
 MaterialColor mathrixColors = MaterialColor(0xff229a87, mathrixColorSwatch);

@@ -204,6 +204,231 @@ class ListCategoriesQuery
       ListCategories$Query.fromJson(json);
 }
 
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Notion$Course with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion$Course();
+
+  factory ReadChaptersInformations$Query$Chapter$Notion$Course.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$CourseFromJson(json);
+
+  String id;
+
+  String name;
+
+  @override
+  List<Object> get props => [id, name];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$CourseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Notion with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion();
+
+  factory ReadChaptersInformations$Query$Chapter$Notion.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$NotionFromJson(json);
+
+  String name;
+
+  @JsonKey(
+      unknownEnumValue: ReadChaptersInformations$Query$Chapter$Notion$NotionType
+          .ARTEMIS_UNKNOWN)
+  ReadChaptersInformations$Query$Chapter$Notion$NotionType type;
+
+  List<ReadChaptersInformations$Query$Chapter$Notion$Course> courses;
+
+  @override
+  List<Object> get props => [name, type, courses];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$NotionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Flashcard with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Flashcard();
+
+  factory ReadChaptersInformations$Query$Chapter$Flashcard.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$FlashcardFromJson(json);
+
+  String id;
+
+  String name;
+
+  @override
+  List<Object> get props => [id, name];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$FlashcardToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter();
+
+  factory ReadChaptersInformations$Query$Chapter.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$ChapterFromJson(json);
+
+  String name;
+
+  List<ReadChaptersInformations$Query$Chapter$Notion> notions;
+
+  List<ReadChaptersInformations$Query$Chapter$Flashcard> flashcards;
+
+  @override
+  List<Object> get props => [name, notions, flashcards];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$ChapterToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query with EquatableMixin {
+  ReadChaptersInformations$Query();
+
+  factory ReadChaptersInformations$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$QueryFromJson(json);
+
+  ReadChaptersInformations$Query$Chapter readChapter;
+
+  @override
+  List<Object> get props => [readChapter];
+  Map<String, dynamic> toJson() => _$ReadChaptersInformations$QueryToJson(this);
+}
+
+enum ReadChaptersInformations$Query$Chapter$Notion$NotionType {
+  standard,
+  summary,
+  ARTEMIS_UNKNOWN,
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformationsArguments extends JsonSerializable
+    with EquatableMixin {
+  ReadChaptersInformationsArguments({this.id});
+
+  factory ReadChaptersInformationsArguments.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformationsArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformationsArgumentsToJson(this);
+}
+
+class ReadChaptersInformationsQuery extends GraphQLQuery<
+    ReadChaptersInformations$Query, ReadChaptersInformationsArguments> {
+  ReadChaptersInformationsQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ReadChaptersInformations'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type:
+                  NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readChapter'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'notions'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'type'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'courses'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'flashcards'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'id'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ReadChaptersInformations';
+
+  @override
+  final ReadChaptersInformationsArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadChaptersInformations$Query parse(Map<String, dynamic> json) =>
+      ReadChaptersInformations$Query.fromJson(json);
+}
+
 mixin ListDisciplines$BasicDisciplineMixin {
   String id;
   bool beta;

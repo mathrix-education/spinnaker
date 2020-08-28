@@ -22,9 +22,7 @@ class MathrixCard extends StatelessWidget {
         child: InkWell(
           child: child,
           borderRadius: BorderRadius.circular(8.0),
-          onTap: () {
-            onTap();
-          },
+          onTap: () => onTap(),
         ),
       ),
     );

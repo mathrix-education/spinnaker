@@ -54,6 +54,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/disciplines/
+    - assets/activities/
   fonts:
     - family: Open Sans
       fonts:

@@ -47,6 +47,14 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w500,
             color: Colors.black,
           ),
+          bodyText1: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+          ),
+          subtitle1: TextStyle(
+            fontSize: 14.0,
+            color: greyActivityText,
+          ),
         ),
       ),
       home: HomePage(),

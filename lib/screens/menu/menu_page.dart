@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/screens/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
 import 'package:mathrix_education_app/ui/widgets/CustomNavigationBarITem.dart';
+
+import 'course_tab.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -41,13 +46,33 @@ class _MenuPageState extends State<MenuPage> {
         appBar: CustomAppBar(
           textTitle: 'Menu :D',
         ),
-        body: PageView(
-          controller: _controller,
-          children: [
-            Text('AAAAAAAAAAAAAAAAAAA'),
-            Text('BBBBBBBBBBBBBBBBB'),
-          ],
-        ),
+        body: Query(
+            options: QueryOptions(
+              documentNode: ReadChaptersInformationsQuery().document,
+              variables: {'id': "30"},
+            ),
+            builder: (
+              QueryResult result, {
+              Future<QueryResult> Function() refetch,
+              FetchMore fetchMore,
+            }) {
+              if (result.hasException) {}
+
+              ReadChaptersInformations$Query$Chapter chapter =
+                  ReadChaptersInformations$Query.fromJson(result.data)
+                      .readChapter;
+
+              List<ReadChaptersInformations$Query$Chapter$Notion> notions =
+                  chapter.notions;
+
+              return PageView(
+                controller: _controller,
+                children: [
+                  CourseTab(notions: notions),
+                  ExamPrepareTab(),
+                ],
+              );
+            }),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _pageIndex,
           onTap: (index) {
