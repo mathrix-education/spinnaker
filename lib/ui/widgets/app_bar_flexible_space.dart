@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
-class AppBarFlexibleSpace extends StatelessWidget {
+class AppBarFlexibleSpace extends StatefulWidget {
+  @override
+  _AppBarFlexibleSpaceState createState() => _AppBarFlexibleSpaceState();
+}
+
+class _AppBarFlexibleSpaceState extends State<AppBarFlexibleSpace> {
   @override
   Widget build(BuildContext context) {
     return Container(

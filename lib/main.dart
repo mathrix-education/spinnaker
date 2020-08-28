@@ -3,6 +3,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/route_generator.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
+import 'package:provider/provider.dart';
+import 'core/store/session.state.dart';
 import 'screens/login/login_screen.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -13,7 +15,10 @@ void main() {
     GraphQLProvider(
       client: graphQLConfiguration.client,
       child: CacheProvider(
-        child: MyApp(),
+        child: MultiProvider(
+          providers: [ChangeNotifierProvider(create: (context) => AppState())],
+          child: MyApp(),
+        ),
       ),
     ),
   );
@@ -55,6 +60,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GraphQLConfiguration.loadAuthToken().then((_) {
+      Provider.of<AppState>(context, listen: false).loadUser();
       String routeName = (GraphQLConfiguration.isLogged()) ? "/dashboard" : "/";
       if (ModalRoute.of(context).settings.name != "/") {
         Navigator.of(context).pushNamedAndRemoveUntil(routeName, (_) => false);
