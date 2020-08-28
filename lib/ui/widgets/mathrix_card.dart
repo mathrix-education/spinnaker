@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class MathrixCard extends StatelessWidget {
   /// The card content.
   final Widget child;
+  /// The onTap callback.
   final GestureTapCallback onTap;
 
   MathrixCard({Key key, this.child, this.onTap}) : super(key: key);

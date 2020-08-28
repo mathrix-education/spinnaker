@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/screens/theme/chapters.dart';
+import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
+import 'package:mathrix_education_app/ui/layouts/mathrix_page.dart';
+import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class ThemePage extends StatelessWidget {
   @override
@@ -31,16 +34,27 @@ class ThemePage extends StatelessWidget {
               ListThemesChaptersFromDisciplines$Query.fromJson(result.data)
                   .listThemes;
 
-          print(result.data.toString());
-          print(result.exception.toString());
-
-          print(themes.toString());
           return Scaffold(
-            body: ListView.builder(
-              itemBuilder: (_, index) {
-                return Chapters(chapters: themes[index].chapters);
-              },
-              itemCount: themes.length,
+            appBar: CustomAppBar(textTitle: 'Maths',),
+            body: MathrixPage(
+              body: ListView.builder(
+                itemBuilder: (_, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        themes[index].name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            .apply(color: green),
+                      ),
+                      Chapters(chapters: themes[index].chapters),
+                    ],
+                  );
+                },
+                itemCount: themes.length,
+              ),
             ),
           );
         });

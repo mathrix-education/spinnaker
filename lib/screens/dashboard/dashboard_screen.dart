@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
+import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
 import 'discipline_tab.dart';
 import 'motivation_tab.dart';
 import 'trainings_tab.dart';
@@ -55,7 +57,8 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         title: Text(
           'Bienvenue',
-          style: Theme.of(context).textTheme.headline4.apply(color: Colors.white),
+          style:
+              Theme.of(context).textTheme.headline4.apply(color: Colors.white),
         ),
         actions: [
           Icon(
@@ -63,14 +66,7 @@ class _DashboardState extends State<Dashboard> {
             size: 40.0,
           ),
         ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0.1, 0.90],
-                  colors: <Color>[Color(0xFF229A87), Color(0xFF77CABA)])),
-        ),
+        flexibleSpace: AppBarFlexibleSpace(),
       ),
       body: PageStorage(
         child: pages[_selectedIndex],

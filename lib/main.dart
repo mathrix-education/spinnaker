@@ -9,8 +9,6 @@ import 'package:redux/redux.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
-
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
@@ -37,6 +35,11 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Open Sans',
         textTheme: TextTheme(
+          headline3: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 22.0,
+            fontWeight: FontWeight.w600,
+          ),
           headline4: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 18.0,
