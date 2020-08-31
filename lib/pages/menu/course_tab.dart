@@ -47,7 +47,7 @@ class CourseTab extends StatelessWidget {
           activityList: courseExerciseList,
           activityTapped: (ActivityListItem activity) {
             if (activity.type == ActivityType.Course) {
-              Map<String, String> arguments = {'courseId': activity.id, 'courseName': activity.name};
+              Map<String, String> arguments = {'id': activity.id, 'name': activity.name};
               Navigator.of(context).pushNamed(
                 '/course',
                 arguments: arguments,

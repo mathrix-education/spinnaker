@@ -509,6 +509,99 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
       ReadChaptersInformations$Query.fromJson(json);
 }
 
+@JsonSerializable(explicitToJson: true)
+class ReadCourse$Query$Course with EquatableMixin {
+  ReadCourse$Query$Course();
+
+  factory ReadCourse$Query$Course.fromJson(Map<String, dynamic> json) =>
+      _$ReadCourse$Query$CourseFromJson(json);
+
+  List<dynamic> content;
+
+  @override
+  List<Object> get props => [content];
+  Map<String, dynamic> toJson() => _$ReadCourse$Query$CourseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadCourse$Query with EquatableMixin {
+  ReadCourse$Query();
+
+  factory ReadCourse$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadCourse$QueryFromJson(json);
+
+  ReadCourse$Query$Course readCourse;
+
+  @override
+  List<Object> get props => [readCourse];
+  Map<String, dynamic> toJson() => _$ReadCourse$QueryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadCourseArguments extends JsonSerializable with EquatableMixin {
+  ReadCourseArguments({@required this.id});
+
+  factory ReadCourseArguments.fromJson(Map<String, dynamic> json) =>
+      _$ReadCourseArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$ReadCourseArgumentsToJson(this);
+}
+
+class ReadCourseQuery
+    extends GraphQLQuery<ReadCourse$Query, ReadCourseArguments> {
+  ReadCourseQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ReadCourse'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readCourse'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'content'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ReadCourse';
+
+  @override
+  final ReadCourseArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadCourse$Query parse(Map<String, dynamic> json) =>
+      ReadCourse$Query.fromJson(json);
+}
+
 mixin ListDisciplines$BasicDisciplineMixin {
   String id;
   bool beta;
@@ -1187,97 +1280,4 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
   List<Object> get props => [document, operationName];
   @override
   Me$Query parse(Map<String, dynamic> json) => Me$Query.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class ReadCourse$Query$Course with EquatableMixin {
-  ReadCourse$Query$Course();
-
-  factory ReadCourse$Query$Course.fromJson(Map<String, dynamic> json) =>
-      _$ReadCourse$Query$CourseFromJson(json);
-
-  Map<String, dynamic> content;
-
-  @override
-  List<Object> get props => [content];
-  Map<String, dynamic> toJson() => _$ReadCourse$Query$CourseToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class ReadCourse$Query with EquatableMixin {
-  ReadCourse$Query();
-
-  factory ReadCourse$Query.fromJson(Map<String, dynamic> json) =>
-      _$ReadCourse$QueryFromJson(json);
-
-  ReadCourse$Query$Course readCourse;
-
-  @override
-  List<Object> get props => [readCourse];
-  Map<String, dynamic> toJson() => _$ReadCourse$QueryToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class ReadCourseArguments extends JsonSerializable with EquatableMixin {
-  ReadCourseArguments({@required this.id});
-
-  factory ReadCourseArguments.fromJson(Map<String, dynamic> json) =>
-      _$ReadCourseArgumentsFromJson(json);
-
-  final String id;
-
-  @override
-  List<Object> get props => [id];
-  Map<String, dynamic> toJson() => _$ReadCourseArgumentsToJson(this);
-}
-
-class ReadCourseQuery
-    extends GraphQLQuery<ReadCourse$Query, ReadCourseArguments> {
-  ReadCourseQuery({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'ReadCourse'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'id')),
-              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'readCourse'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'id'),
-                    value: VariableNode(name: NameNode(value: 'id')))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'content'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null)
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'ReadCourse';
-
-  @override
-  final ReadCourseArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  ReadCourse$Query parse(Map<String, dynamic> json) =>
-      ReadCourse$Query.fromJson(json);
 }

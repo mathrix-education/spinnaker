@@ -13,4 +13,4 @@ targets:
               output: lib/core/graphql/queries.dart
           scalar_mapping:
             - graphql_type: Silicate
-              dart_type: Map<String, dynamic>
+              dart_type: List<dynamic>

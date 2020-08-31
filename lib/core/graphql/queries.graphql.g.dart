@@ -258,6 +258,42 @@ Map<String, dynamic> _$ReadChaptersInformationsArgumentsToJson(
       'id': instance.id,
     };
 
+ReadCourse$Query$Course _$ReadCourse$Query$CourseFromJson(
+    Map<String, dynamic> json) {
+  return ReadCourse$Query$Course()..content = json['content'] as List;
+}
+
+Map<String, dynamic> _$ReadCourse$Query$CourseToJson(
+        ReadCourse$Query$Course instance) =>
+    <String, dynamic>{
+      'content': instance.content,
+    };
+
+ReadCourse$Query _$ReadCourse$QueryFromJson(Map<String, dynamic> json) {
+  return ReadCourse$Query()
+    ..readCourse = json['readCourse'] == null
+        ? null
+        : ReadCourse$Query$Course.fromJson(
+            json['readCourse'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadCourse$QueryToJson(ReadCourse$Query instance) =>
+    <String, dynamic>{
+      'readCourse': instance.readCourse?.toJson(),
+    };
+
+ReadCourseArguments _$ReadCourseArgumentsFromJson(Map<String, dynamic> json) {
+  return ReadCourseArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadCourseArgumentsToJson(
+        ReadCourseArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
 ListDisciplines$Query$Discipline _$ListDisciplines$Query$DisciplineFromJson(
     Map<String, dynamic> json) {
   return ListDisciplines$Query$Discipline()
@@ -504,41 +540,4 @@ Map<String, dynamic> _$Me$Query$User$GradeToJson(
       'slug': instance.slug,
       'visible': instance.visible,
       'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
-    };
-
-ReadCourse$Query$Course _$ReadCourse$Query$CourseFromJson(
-    Map<String, dynamic> json) {
-  return ReadCourse$Query$Course()
-    ..content = json['content'] as Map<String, dynamic>;
-}
-
-Map<String, dynamic> _$ReadCourse$Query$CourseToJson(
-        ReadCourse$Query$Course instance) =>
-    <String, dynamic>{
-      'content': instance.content,
-    };
-
-ReadCourse$Query _$ReadCourse$QueryFromJson(Map<String, dynamic> json) {
-  return ReadCourse$Query()
-    ..readCourse = json['readCourse'] == null
-        ? null
-        : ReadCourse$Query$Course.fromJson(
-            json['readCourse'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$ReadCourse$QueryToJson(ReadCourse$Query instance) =>
-    <String, dynamic>{
-      'readCourse': instance.readCourse?.toJson(),
-    };
-
-ReadCourseArguments _$ReadCourseArgumentsFromJson(Map<String, dynamic> json) {
-  return ReadCourseArguments(
-    id: json['id'] as String,
-  );
-}
-
-Map<String, dynamic> _$ReadCourseArgumentsToJson(
-        ReadCourseArguments instance) =>
-    <String, dynamic>{
-      'id': instance.id,
     };

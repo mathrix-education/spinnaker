@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.1.0"
+  catex:
+    dependency: "direct main"
+    description:
+      name: catex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+6"
   characters:
     dependency: transitive
     description:

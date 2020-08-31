@@ -1,17 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
+import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
+import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
 
-class CoursePage extends StatelessWidget {
-  final String courseName;
-  final String courseId;
-
-  const CoursePage({Key key, this.courseName, this.courseId}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return StandardPage(
-      title: courseName,
-      body: Text('COURSE'),
-    );
-  }
+Widget courseBuilder({dynamic data}) {
+  List<dynamic> content = ReadCourse$Query
+      .fromJson(data)
+      .readCourse
+      .content;
+  return Column(children: content.map((e) => TextBrick(text: 'HOHO')).toList());
 }
