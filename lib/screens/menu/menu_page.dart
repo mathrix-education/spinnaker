@@ -71,15 +71,19 @@ class _MenuPageState extends State<MenuPage> {
               }).courses;
 
               return PageView(
-                controller: _controller,
-                children: [
-                  CourseTab(notions: notions),
-                  ExamPrepareTab(
-                    flashcards: chapter.flashcards,
-                    summaries: summaries,
-                  ),
-                ],
-              );
+                  controller: _controller,
+                  children: [
+                    CourseTab(notions: notions),
+                    ExamPrepareTab(
+                      flashcards: chapter.flashcards,
+                      summaries: summaries,
+                    ),
+                  ],
+                  onPageChanged: (index) {
+                    setState(() {
+                      _pageIndex = index;
+                    });
+                  });
             }),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _pageIndex,
