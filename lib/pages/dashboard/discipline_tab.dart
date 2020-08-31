@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
 
 class DisciplineTab extends StatefulWidget {
@@ -36,9 +37,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
         }
 
         if (result.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return LoadingBody();
         }
 
         final Me$Query$User me = Me$Query.fromJson(result.data).me;

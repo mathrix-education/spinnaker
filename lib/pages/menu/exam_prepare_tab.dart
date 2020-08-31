@@ -15,16 +15,16 @@ class ExamPrepareTab extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ActivityListItem> flashcardList = flashcards.map((e) {
       return ActivityListItem(
-        activityType: ActivityType.Flashcard,
-        activityName: e.name,
+        type: ActivityType.Flashcard,
+        name: e.name,
         premium: e.premium,
       );
     }).toList();
 
     List<ActivityListItem> summaryList = summaries.map((e) {
       return ActivityListItem(
-        activityType: ActivityType.Summary,
-        activityName: e.name,
+        type: ActivityType.Summary,
+        name: e.name,
         premium: e.premium,
       );
     }).toList();

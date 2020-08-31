@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/screens/menu/exam_prepare_tab.dart';
+import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
+import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
+import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/widgets/CustomNavigationBarITem.dart';
 import 'course_tab.dart';
 
@@ -46,10 +48,8 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppBar(
-          textTitle: widget.chapterName,
-        ),
+    return StandardPage(
+        title: widget.chapterName,
         body: Query(
             options: QueryOptions(
               documentNode: ReadChaptersInformationsQuery().document,
@@ -63,9 +63,7 @@ class _MenuPageState extends State<MenuPage> {
               if (result.hasException) {}
 
               if (result.loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return LoadingBody();
               }
 
               ReadChaptersInformations$Query$Chapter chapter =

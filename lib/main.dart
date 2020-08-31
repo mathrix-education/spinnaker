@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/pages/login/login_page.dart';
 import 'package:mathrix_education_app/route_generator.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:provider/provider.dart';
 import 'core/store/session.state.dart';
-import 'screens/login/login_screen.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
@@ -74,6 +74,6 @@ class HomePage extends StatelessWidget {
         Navigator.of(context).pushNamedAndRemoveUntil(routeName, (_) => false);
       }
     });
-    return LoginScreen(); // TODO: maybe a loading animation
+    return LoginPage(); // TODO: maybe a loading animation
   }
 }

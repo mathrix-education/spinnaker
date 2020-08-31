@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mathrix_education_app/screens/login/login_form.dart';
+import 'login_form.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

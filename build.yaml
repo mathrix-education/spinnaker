@@ -12,5 +12,5 @@ targets:
               queries_glob: graphql/queries/*.graphql
               output: lib/core/graphql/queries.dart
           scalar_mapping:
-            - graphql_type: Color
-              dart_type: String
+            - graphql_type: Silicate
+              dart_type: Map<String, dynamic>

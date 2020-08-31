@@ -7,14 +7,14 @@ import 'discipline_tab.dart';
 import 'motivation_tab.dart';
 import 'trainings_tab.dart';
 
-class Dashboard extends StatefulWidget {
-  Dashboard({Key key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  DashboardPage({Key key}) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardPageState extends State<DashboardPage> {
   final List<Widget> pages = [
     DisciplineTab(
       key: PageStorageKey('discipline-tab'),

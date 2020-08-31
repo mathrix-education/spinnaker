@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/screens/theme/chapters.dart';
+import 'package:mathrix_education_app/pages/theme/chapters.dart';
+import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
@@ -32,9 +33,7 @@ class ThemePage extends StatelessWidget {
           }
 
           if (result.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return LoadingBody();
           }
 
           final List<ListThemesChaptersFromDisciplines$Query$Theme> themes =
@@ -42,7 +41,7 @@ class ThemePage extends StatelessWidget {
 
           return Scaffold(
             appBar: CustomAppBar(
-              textTitle: discipline.name,
+              title: discipline.name,
             ),
             body: ListView.builder(
               itemBuilder: (_, index) {

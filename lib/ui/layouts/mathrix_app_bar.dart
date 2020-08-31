@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  CustomAppBar({Key key, this.textTitle})
-      : preferredSize = Size.fromHeight(kToolbarHeight),
-        super(key: key);
+  /// The app bar title.
+  final String title;
 
   @override
   final Size preferredSize; // default is 56.0
 
-  final String textTitle;
+  CustomAppBar({
+    Key key,
+    @required this.title,
+  })  : preferredSize = Size.fromHeight(kToolbarHeight),
+        super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -20,7 +23,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        widget.textTitle,
+        widget.title,
         style: Theme.of(context).textTheme.headline4.apply(color: Colors.white),
       ),
       flexibleSpace: AppBarFlexibleSpace(),
