@@ -31,6 +31,25 @@ extension ActivitySlug on ActivityType {
         return 'video';
     }
   }
+
+  String get name {
+    switch (this) {
+      case ActivityType.Course:
+        return 'Cours';
+      case ActivityType.Summary:
+        return 'Fiche résumé';
+      case ActivityType.Exercise:
+        return 'Exercise';
+      case ActivityType.Flashcard:
+        return 'Flashcard';
+      case ActivityType.Exam:
+        return 'Interrogation';
+      case ActivityType.ExamVideo:
+        return 'Correction vidéo';
+      default:
+        return '';
+    }
+  }
 }
 
 class ActivityCard extends StatelessWidget {
@@ -42,9 +61,7 @@ class ActivityCard extends StatelessWidget {
 
   final GestureTapCallback onTap;
 
-  const ActivityCard(
-      {Key key, this.name, this.premium, this.activityType, this.onTap})
-      : super(key: key);
+  const ActivityCard({Key key, this.name, this.premium, this.activityType, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,20 +79,21 @@ class ActivityCard extends StatelessWidget {
                 child: Image(
                   image: AssetImage('assets/activities/$assetSlug.png'),
                   height: 30,
+                  fit: BoxFit.cover,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Cours', style: Theme.of(context).textTheme.subtitle1),
-                  Text(
-                    name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1, // TODO fix OVERFLOW PROBLEM
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(activityType.name, style: Theme.of(context).textTheme.subtitle1),
+                    Text(
+                      name,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

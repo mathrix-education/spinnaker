@@ -5,7 +5,6 @@ import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/screens/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
 import 'package:mathrix_education_app/ui/widgets/CustomNavigationBarITem.dart';
-
 import 'course_tab.dart';
 
 class MenuPage extends StatefulWidget {
@@ -59,17 +58,26 @@ class _MenuPageState extends State<MenuPage> {
               if (result.hasException) {}
 
               ReadChaptersInformations$Query$Chapter chapter =
-                  ReadChaptersInformations$Query.fromJson(result.data)
-                      .readChapter;
+                  ReadChaptersInformations$Query.fromJson(result.data).readChapter;
 
-              List<ReadChaptersInformations$Query$Chapter$Notion> notions =
-                  chapter.notions;
+              List<ReadChaptersInformations$Query$Chapter$Notion> notions = chapter.notions;
+
+              List<ReadChaptersInformations$Query$Chapter$Notion$Course> summaries = chapter.notions.firstWhere(
+                  (e) => e.type == ReadChaptersInformations$Query$Chapter$Notion$NotionType.summary, orElse: () {
+                ReadChaptersInformations$Query$Chapter$Notion empty =
+                    new ReadChaptersInformations$Query$Chapter$Notion();
+                empty.courses = [];
+                return empty;
+              }).courses;
 
               return PageView(
                 controller: _controller,
                 children: [
                   CourseTab(notions: notions),
-                  ExamPrepareTab(),
+                  ExamPrepareTab(
+                    flashcards: chapter.flashcards,
+                    summaries: summaries,
+                  ),
                 ],
               );
             }),
@@ -85,8 +93,7 @@ class _MenuPageState extends State<MenuPage> {
   void bottomTapped(int index) {
     setState(() {
       _pageIndex = index;
-      _controller.animateToPage(index,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+      _controller.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.ease);
     });
   }
 }

@@ -16,6 +16,8 @@ class _DisciplineTabState extends State<DisciplineTab> {
     'physique-chimie': 'physique',
     'tecno': 'sicence-ingenieur',
     'maths-expertes': 'maths',
+    'maths-complementaires': 'maths',
+    'enseignement-scientifique': 'maths', // TODO, change the discipline map here
   };
 
   @override
@@ -65,8 +67,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: 16.0),
-                        child: Text(disciplines[index].name,
-                            style: Theme.of(context).textTheme.headline4),
+                        child: Text(disciplines[index].name, style: Theme.of(context).textTheme.headline4),
                       ),
                       Image(image: AssetImage('assets/disciplines/$slug.png'))
                     ],

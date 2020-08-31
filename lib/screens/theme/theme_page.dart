@@ -21,7 +21,8 @@ class ThemePage extends StatelessWidget {
           documentNode: ListThemesChaptersFromDisciplinesQuery().document,
           variables: {'gradeId': grade.id, 'disciplineId': discipline.id},
         ),
-        builder: (QueryResult result, {
+        builder: (
+          QueryResult result, {
           Future<QueryResult> Function() refetch,
           FetchMore fetchMore,
         }) {
@@ -37,9 +38,7 @@ class ThemePage extends StatelessWidget {
           }
 
           final List<ListThemesChaptersFromDisciplines$Query$Theme> themes =
-              ListThemesChaptersFromDisciplines$Query
-                  .fromJson(result.data)
-                  .listThemes;
+              ListThemesChaptersFromDisciplines$Query.fromJson(result.data).listThemes;
 
           return Scaffold(
             appBar: CustomAppBar(
@@ -54,11 +53,7 @@ class ThemePage extends StatelessWidget {
                       margin: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
                       child: Text(
                         themes[index].name,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .headline3
-                            .apply(color: green),
+                        style: Theme.of(context).textTheme.headline3.apply(color: green),
                       ),
                     ),
                     Chapters(chapters: themes[index].chapters),

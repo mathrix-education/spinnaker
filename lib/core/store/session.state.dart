@@ -11,8 +11,7 @@ class AppState extends ChangeNotifier {
       documentNode: MeQuery().document,
     );
 
-    QueryResult result =
-        await graphQLConfiguration.graphQLClient().query(options);
+    QueryResult result = await graphQLConfiguration.graphQLClient().query(options);
 
     if (!result.hasException) {
       user = Me$Query.fromJson(result.data).me;

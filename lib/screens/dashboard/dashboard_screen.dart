@@ -65,10 +65,7 @@ class _DashboardState extends State<Dashboard> {
             children: [
               Text(
                 'Bienvenue $name',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4
-                    .apply(color: Colors.white),
+                style: Theme.of(context).textTheme.headline4.apply(color: Colors.white),
               ),
               Text(grade, style: tinyBold),
             ],

@@ -46,10 +46,7 @@ class LoginForm extends StatelessWidget {
               attribute: 'password',
               obscureText: true,
               textInputType: TextInputType.visiblePassword,
-              validators: [
-                FormBuilderValidators.required(),
-                FormBuilderValidators.minLength(6)
-              ],
+              validators: [FormBuilderValidators.required(), FormBuilderValidators.minLength(6)],
             ),
             RaisedButton(
               onPressed: () => _validate(context),
@@ -77,8 +74,7 @@ class LoginForm extends StatelessWidget {
       final QueryResult result = await _client.mutate(options);
 
       if (result.hasException) {
-        Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text('Combinaison invalide')));
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Combinaison invalide')));
       } else {
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
 
