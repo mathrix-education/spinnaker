@@ -26,7 +26,10 @@ class RouteGenerator {
         );
       case '/menu':
         return MaterialPageRoute(
-          builder: (_) => MenuPage(),
+          builder: (_) => MenuPage(
+            chapterId: args['chapterId'],
+            chapterName: args['chapterName'],
+          ),
         );
     }
   }

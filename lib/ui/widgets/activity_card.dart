@@ -79,7 +79,6 @@ class ActivityCard extends StatelessWidget {
                 child: Image(
                   image: AssetImage('assets/activities/$assetSlug.png'),
                   height: 30,
-                  fit: BoxFit.cover,
                 ),
               ),
               Expanded(

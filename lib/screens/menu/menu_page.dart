@@ -8,6 +8,11 @@ import 'package:mathrix_education_app/ui/widgets/CustomNavigationBarITem.dart';
 import 'course_tab.dart';
 
 class MenuPage extends StatefulWidget {
+  final String chapterName;
+  final String chapterId;
+
+  const MenuPage({Key key, this.chapterName, this.chapterId}) : super(key: key);
+
   @override
   _MenuPageState createState() => _MenuPageState();
 }
@@ -43,12 +48,12 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
-          textTitle: 'Menu :D',
+          textTitle: widget.chapterName,
         ),
         body: Query(
             options: QueryOptions(
               documentNode: ReadChaptersInformationsQuery().document,
-              variables: {'id': "30"},
+              variables: {'id': widget.chapterId},
             ),
             builder: (
               QueryResult result, {
@@ -56,6 +61,12 @@ class _MenuPageState extends State<MenuPage> {
               FetchMore fetchMore,
             }) {
               if (result.hasException) {}
+
+              if (result.loading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
               ReadChaptersInformations$Query$Chapter chapter =
                   ReadChaptersInformations$Query.fromJson(result.data).readChapter;

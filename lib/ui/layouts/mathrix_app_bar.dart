@@ -24,6 +24,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
         style: Theme.of(context).textTheme.headline4.apply(color: Colors.white),
       ),
       flexibleSpace: AppBarFlexibleSpace(),
+      leading: new IconButton(
+        icon: Image(
+          image: AssetImage('assets/icons/left.png'),
+          height: 30,
+        ),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+      automaticallyImplyLeading: false,
     );
   }
 }

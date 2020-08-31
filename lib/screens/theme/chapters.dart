@@ -16,12 +16,17 @@ class Chapters extends StatelessWidget {
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       itemBuilder: (_, index) {
+        Map<String, String> arguments = {
+          'chapterId': chapters[index].id,
+          'chapterName': chapters[index].name,
+        };
         return Padding(
           padding: EdgeInsets.only(bottom: 8.0),
           child: MathrixCard(
             onTap: () {
               Navigator.of(context).pushNamed(
                 '/menu',
+                arguments: arguments,
               );
             },
             child: Padding(
