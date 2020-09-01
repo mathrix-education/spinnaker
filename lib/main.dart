@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
             color: greyActivityText,
           ),
         ),
+        dividerColor: green,
       ),
       home: HomePage(),
       initialRoute: '/',

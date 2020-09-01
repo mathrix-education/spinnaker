@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
@@ -53,7 +54,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.only(left: 16.0),
-                          child: Text(disciplines[index].name, style: Theme.of(context).textTheme.headline4),
+                          child: Headline4(text: disciplines[index].name),
                         ),
                       ),
                       Image(image: AssetImage('assets/disciplines/$slug.png'))

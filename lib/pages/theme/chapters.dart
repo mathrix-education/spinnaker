@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
 import 'package:mathrix_education_app/ui/widgets/progress_bar.dart';
 
@@ -34,10 +35,7 @@ class Chapters extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    chapters[index].name,
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
+                  Headline4(text: chapters[index].name),
                   Container(
                     margin: EdgeInsets.only(top: 8.0),
                     child: ProgressBar(value: 0.3),

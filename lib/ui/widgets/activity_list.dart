@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
 
 class ActivityListItem {
@@ -26,14 +27,10 @@ class ActivityList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String displayedText = activityList.length > 0 ? name : '';
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         padding: EdgeInsets.all(8.0),
-        child: Text(
-          '$displayedText',
-          style: Theme.of(context).textTheme.headline4,
-        ),
+        child: Headline4(text: activityList.length > 0 ? name : ''),
       ),
       ListView.builder(
         shrinkWrap: true,

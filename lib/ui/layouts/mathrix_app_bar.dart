@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -22,9 +23,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(
-        widget.title,
-        style: Theme.of(context).textTheme.headline4.apply(color: Colors.white),
+      title: Headline4(
+        text: widget.title,
+        color: Colors.white,
       ),
       flexibleSpace: AppBarFlexibleSpace(),
       leading: new IconButton(
