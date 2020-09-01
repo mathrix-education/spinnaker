@@ -1,0 +1,17 @@
+query ListTrainings {
+  listTrainings {
+    ...BasicTraining
+  }
+}
+#
+#query ReadTraining($id: ID!) {
+#  readTraining(id: $id) {
+#    ...BasicTraining
+#    sections {
+#      ...BasicSection
+#      lessons {
+#        ...BasicLesson
+#      }
+#    }
+#  }
+#}

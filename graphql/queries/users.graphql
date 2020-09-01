@@ -1,0 +1,11 @@
+query me {
+  me {
+    ...BasicUser
+  }
+}
+
+#mutation UpdateMe($input: UpdateMe!){
+#  updateMe(input: $input) {
+#    ...BasicUser
+#  }
+#}

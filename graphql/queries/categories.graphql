@@ -1,0 +1,10 @@
+query ListCategories {
+  listCategories {
+    name
+    posts{
+      title
+      video_id
+      content
+    }
+  }
+}

@@ -1,0 +1,16 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - graphql/**
+    builders:
+      artemis:
+        options:
+          fragments_glob: graphql/fragments/*.graphql
+          schema_mapping:
+            - schema: graphql/schema.graphql
+              queries_glob: graphql/queries/*.graphql
+              output: lib/core/graphql/queries.dart
+          scalar_mapping:
+            - graphql_type: Silicate
+              dart_type: List<dynamic>

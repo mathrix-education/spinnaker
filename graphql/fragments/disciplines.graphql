@@ -1,0 +1,6 @@
+fragment BasicDiscipline on Discipline {
+  id
+  beta
+  name
+  slug
+}

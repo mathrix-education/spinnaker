@@ -1,0 +1,7 @@
+query ListGrades {
+  listGrades {
+    ...BasicGrade
+  }
+}
+
+

@@ -1,0 +1,5 @@
+query ReadCourse($id: ID!){
+  readCourse(id: $id){
+    content
+  }
+}

@@ -1,0 +1,26 @@
+query ReadChaptersInformations($id: ID){
+  readChapter(id: $id) {
+    name
+    notions {
+      name
+      type
+      courses {
+        id
+        name
+        premium
+        order
+      }
+      subjects {
+        id
+        name
+        premium
+        order
+      }
+    }
+    flashcards {
+      id
+      name
+      premium
+    }
+  }
+}
