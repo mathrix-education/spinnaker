@@ -15,7 +15,7 @@ class QueryContainer extends StatelessWidget {
   /// The widget builder.
   final WidgetBuilder builder;
 
-  QueryContainer({Key key, this.variables, @required this.document, this.builder}) : super(key: key);
+  QueryContainer({this.variables, this.document, this.builder});
 
   @override
   Widget build(BuildContext context) {

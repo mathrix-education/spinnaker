@@ -1,0 +1,13 @@
+fragment BasicTraining on Training {
+  id
+  name
+  duration
+  image
+  available
+  owned
+  content
+  price
+  grades {
+    name
+  }
+}

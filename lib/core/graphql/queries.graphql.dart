@@ -1001,6 +1001,165 @@ class ListThemesChaptersFromDisciplinesQuery extends GraphQLQuery<
       ListThemesChaptersFromDisciplines$Query.fromJson(json);
 }
 
+mixin ListTrainings$BasicTrainingMixin {
+  String id;
+  String name;
+  int duration;
+  String image;
+  bool available;
+  bool owned;
+  List<dynamic> content;
+  int price;
+  List<ListTrainings$Query$Training$Grade> grades;
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListTrainings$Query$Training
+    with EquatableMixin, ListTrainings$BasicTrainingMixin {
+  ListTrainings$Query$Training();
+
+  factory ListTrainings$Query$Training.fromJson(Map<String, dynamic> json) =>
+      _$ListTrainings$Query$TrainingFromJson(json);
+
+  @override
+  List<Object> get props =>
+      [id, name, duration, image, available, owned, content, price, grades];
+  Map<String, dynamic> toJson() => _$ListTrainings$Query$TrainingToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListTrainings$Query with EquatableMixin {
+  ListTrainings$Query();
+
+  factory ListTrainings$Query.fromJson(Map<String, dynamic> json) =>
+      _$ListTrainings$QueryFromJson(json);
+
+  List<ListTrainings$Query$Training> listTrainings;
+
+  @override
+  List<Object> get props => [listTrainings];
+  Map<String, dynamic> toJson() => _$ListTrainings$QueryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListTrainings$Query$Training$Grade with EquatableMixin {
+  ListTrainings$Query$Training$Grade();
+
+  factory ListTrainings$Query$Training$Grade.fromJson(
+          Map<String, dynamic> json) =>
+      _$ListTrainings$Query$Training$GradeFromJson(json);
+
+  String name;
+
+  @override
+  List<Object> get props => [name];
+  Map<String, dynamic> toJson() =>
+      _$ListTrainings$Query$Training$GradeToJson(this);
+}
+
+class ListTrainingsQuery
+    extends GraphQLQuery<ListTrainings$Query, JsonSerializable> {
+  ListTrainingsQuery();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ListTrainings'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'listTrainings'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FragmentSpreadNode(
+                    name: NameNode(value: 'BasicTraining'), directives: [])
+              ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicTraining'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(
+                name: NameNode(value: 'Training'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'duration'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'image'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'available'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'owned'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'content'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'price'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'grades'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ListTrainings';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  ListTrainings$Query parse(Map<String, dynamic> json) =>
+      ListTrainings$Query.fromJson(json);
+}
+
 mixin Me$BasicUserMixin {
   String id;
   String username;

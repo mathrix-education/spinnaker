@@ -16,7 +16,7 @@ class StandardQueryPage extends StatelessWidget {
   /// The widget builder.
   final builder;
 
-  const StandardQueryPage({Key key, this.modelId, this.modelName, this.document, this.builder}) : super(key: key);
+  const StandardQueryPage({this.modelId, this.modelName, this.document, this.builder});
 
   @override
   Widget build(BuildContext context) {
