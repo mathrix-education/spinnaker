@@ -111,22 +111,39 @@ class LoginMutation extends GraphQLQuery<Login$Mutation, LoginArguments> {
       Login$Mutation.fromJson(json);
 }
 
-mixin ListCategories$BasicCategoryMixin {
-  String id;
-  String name;
-  String slug;
+@JsonSerializable(explicitToJson: true)
+class ListCategories$Query$Category$Post with EquatableMixin {
+  ListCategories$Query$Category$Post();
+
+  factory ListCategories$Query$Category$Post.fromJson(
+          Map<String, dynamic> json) =>
+      _$ListCategories$Query$Category$PostFromJson(json);
+
+  String title;
+
+  String video_id;
+
+  List<dynamic> content;
+
+  @override
+  List<Object> get props => [title, video_id, content];
+  Map<String, dynamic> toJson() =>
+      _$ListCategories$Query$Category$PostToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class ListCategories$Query$Category
-    with EquatableMixin, ListCategories$BasicCategoryMixin {
+class ListCategories$Query$Category with EquatableMixin {
   ListCategories$Query$Category();
 
   factory ListCategories$Query$Category.fromJson(Map<String, dynamic> json) =>
       _$ListCategories$Query$CategoryFromJson(json);
 
+  String name;
+
+  List<ListCategories$Query$Category$Post> posts;
+
   @override
-  List<Object> get props => [id, name, slug];
+  List<Object> get props => [name, posts];
   Map<String, dynamic> toJson() => _$ListCategories$Query$CategoryToJson(this);
 }
 
@@ -162,35 +179,38 @@ class ListCategoriesQuery
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
-                FragmentSpreadNode(
-                    name: NameNode(value: 'BasicCategory'), directives: [])
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'posts'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'title'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'video_id'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'content'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
               ]))
-        ])),
-    FragmentDefinitionNode(
-        name: NameNode(value: 'BasicCategory'),
-        typeCondition: TypeConditionNode(
-            on: NamedTypeNode(
-                name: NameNode(value: 'Category'), isNonNull: false)),
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null),
-          FieldNode(
-              name: NameNode(value: 'name'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null),
-          FieldNode(
-              name: NameNode(value: 'slug'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null)
         ]))
   ]);
 

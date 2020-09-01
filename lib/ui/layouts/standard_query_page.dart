@@ -4,17 +4,17 @@ import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class StandardQueryPage extends StatelessWidget {
-  /// The model idd.
+  /// The model id.
   final String modelId;
 
-  /// The model name, which is also the title of the page.
+  /// The model name.
   final String modelName;
 
   /// The query document.
   final DocumentNode document;
 
   /// The widget builder.
-  final  builder;
+  final builder;
 
   const StandardQueryPage({Key key, this.modelId, this.modelName, this.document, this.builder}) : super(key: key);
 

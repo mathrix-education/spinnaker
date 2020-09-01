@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
@@ -15,7 +15,7 @@ class QueryContainer extends StatelessWidget {
   /// The widget builder.
   final WidgetBuilder builder;
 
-  const QueryContainer({Key key, @required this.variables, @required this.document, this.builder}) : super(key: key);
+  QueryContainer({Key key, this.variables, @required this.document, this.builder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,11 @@ class TextBrick extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(text);
+
+    List<dynamic> castedText = this.text.split(new RegExp(r'\$[^$]*\$'));
+    print(castedText);
+
     return CaTeX(r'\epsilon = \frac 2 {3 + 2}');
   }
 }

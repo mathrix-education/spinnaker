@@ -1,5 +1,10 @@
 query ListCategories {
-    listCategories {
-        ...BasicCategory
+  listCategories {
+    name
+    posts{
+      title
+      video_id
+      content
     }
+  }
 }

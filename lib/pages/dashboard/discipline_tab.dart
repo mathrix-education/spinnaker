@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
+import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class DisciplineTab extends StatefulWidget {
   DisciplineTab({Key key}) : super(key: key);
@@ -23,25 +22,12 @@ class _DisciplineTabState extends State<DisciplineTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Query(
-      options: QueryOptions(
-        documentNode: MeQuery().document,
-      ),
-      builder: (
-        QueryResult result, {
-        Future<QueryResult> Function() refetch,
-        FetchMore fetchMore,
-      }) {
-        if (result.hasException) {
-          return Text(result.exception.toString());
-        }
-
-        if (result.loading) {
-          return LoadingBody();
-        }
-
-        final Me$Query$User me = Me$Query.fromJson(result.data).me;
-        final disciplines = Me$Query.fromJson(result.data).me.grade.disciplines;
+    return QueryContainer(
+      variables: {},
+      document: MeQuery().document,
+      builder: ({dynamic data}) {
+        final Me$Query$User me = Me$Query.fromJson(data).me;
+        final disciplines = Me$Query.fromJson(data).me.grade.disciplines;
 
         return ListView.builder(
           itemBuilder: (_, index) {
@@ -64,9 +50,11 @@ class _DisciplineTabState extends State<DisciplineTab> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 16.0),
-                        child: Text(disciplines[index].name, style: Theme.of(context).textTheme.headline4),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.0),
+                          child: Text(disciplines[index].name, style: Theme.of(context).textTheme.headline4),
+                        ),
                       ),
                       Image(image: AssetImage('assets/disciplines/$slug.png'))
                     ],

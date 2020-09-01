@@ -41,20 +41,39 @@ Map<String, dynamic> _$LoginArgumentsToJson(LoginArguments instance) =>
       'password': instance.password,
     };
 
+ListCategories$Query$Category$Post _$ListCategories$Query$Category$PostFromJson(
+    Map<String, dynamic> json) {
+  return ListCategories$Query$Category$Post()
+    ..title = json['title'] as String
+    ..video_id = json['video_id'] as String
+    ..content = json['content'] as List;
+}
+
+Map<String, dynamic> _$ListCategories$Query$Category$PostToJson(
+        ListCategories$Query$Category$Post instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'video_id': instance.video_id,
+      'content': instance.content,
+    };
+
 ListCategories$Query$Category _$ListCategories$Query$CategoryFromJson(
     Map<String, dynamic> json) {
   return ListCategories$Query$Category()
-    ..id = json['id'] as String
     ..name = json['name'] as String
-    ..slug = json['slug'] as String;
+    ..posts = (json['posts'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ListCategories$Query$Category$Post.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$ListCategories$Query$CategoryToJson(
         ListCategories$Query$Category instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'name': instance.name,
-      'slug': instance.slug,
+      'posts': instance.posts?.map((e) => e?.toJson())?.toList(),
     };
 
 ListCategories$Query _$ListCategories$QueryFromJson(Map<String, dynamic> json) {

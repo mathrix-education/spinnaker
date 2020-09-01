@@ -15,6 +15,7 @@ class ExamPrepareTab extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ActivityListItem> flashcardList = flashcards.map((e) {
       return ActivityListItem(
+        id: e.id,
         type: ActivityType.Flashcard,
         name: e.name,
         premium: e.premium,
@@ -23,6 +24,7 @@ class ExamPrepareTab extends StatelessWidget {
 
     List<ActivityListItem> summaryList = summaries.map((e) {
       return ActivityListItem(
+        id: e.id,
         type: ActivityType.Summary,
         name: e.name,
         premium: e.premium,
