@@ -22,8 +22,8 @@ class TrainingCardContent extends StatelessWidget {
       child: Column(
         children: [
           StandardRoundedWidget(
-            child: Image(
-              image: AssetImage('assets/trainings/formations.png'),
+            child: const Image(
+              image: const AssetImage('assets/trainings/formations.png'),
             ),
           ),
           Container(
@@ -35,8 +35,8 @@ class TrainingCardContent extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Image(
-                    image: AssetImage('assets/icons/time.png'),
+                  const Image(
+                    image: const AssetImage('assets/icons/time.png'),
                     width: 30.0,
                   ),
                   Text('$hours heures'),
@@ -44,7 +44,7 @@ class TrainingCardContent extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Image(
+                  const Image(
                     image: AssetImage('assets/icons/read.png'),
                     width: 30.0,
                   ),

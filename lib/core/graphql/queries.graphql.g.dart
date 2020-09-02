@@ -735,3 +735,151 @@ Map<String, dynamic> _$ReadLessonArgumentsToJson(
     <String, dynamic>{
       'id': instance.id,
     };
+
+UpdateMe$Mutation$User _$UpdateMe$Mutation$UserFromJson(
+    Map<String, dynamic> json) {
+  return UpdateMe$Mutation$User()
+    ..id = json['id'] as String
+    ..username = json['username'] as String
+    ..firstname = json['firstname'] as String
+    ..lastname = json['lastname'] as String
+    ..email = json['email'] as String
+    ..created_at = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String)
+    ..updated_at = json['updated_at'] == null
+        ? null
+        : DateTime.parse(json['updated_at'] as String)
+    ..premium = json['premium'] as bool
+    ..premium_bypass = json['premium_bypass'] as bool
+    ..trainings = (json['trainings'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UpdateMe$Mutation$User$Training.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..grade = json['grade'] == null
+        ? null
+        : UpdateMe$Mutation$User$Grade.fromJson(
+            json['grade'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UpdateMe$Mutation$UserToJson(
+        UpdateMe$Mutation$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'username': instance.username,
+      'firstname': instance.firstname,
+      'lastname': instance.lastname,
+      'email': instance.email,
+      'created_at': instance.created_at?.toIso8601String(),
+      'updated_at': instance.updated_at?.toIso8601String(),
+      'premium': instance.premium,
+      'premium_bypass': instance.premium_bypass,
+      'trainings': instance.trainings?.map((e) => e?.toJson())?.toList(),
+      'grade': instance.grade?.toJson(),
+    };
+
+UpdateMe$Mutation _$UpdateMe$MutationFromJson(Map<String, dynamic> json) {
+  return UpdateMe$Mutation()
+    ..updateMe = json['updateMe'] == null
+        ? null
+        : UpdateMe$Mutation$User.fromJson(
+            json['updateMe'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UpdateMe$MutationToJson(UpdateMe$Mutation instance) =>
+    <String, dynamic>{
+      'updateMe': instance.updateMe?.toJson(),
+    };
+
+UpdateMe$UpdateMe _$UpdateMe$UpdateMeFromJson(Map<String, dynamic> json) {
+  return UpdateMe$UpdateMe(
+    email: json['email'] as String,
+    firstname: json['firstname'] as String,
+    grade_id: json['grade_id'] as String,
+    lastname: json['lastname'] as String,
+    password: json['password'] as String,
+    username: json['username'] as String,
+  );
+}
+
+Map<String, dynamic> _$UpdateMe$UpdateMeToJson(UpdateMe$UpdateMe instance) =>
+    <String, dynamic>{
+      'email': instance.email,
+      'firstname': instance.firstname,
+      'grade_id': instance.grade_id,
+      'lastname': instance.lastname,
+      'password': instance.password,
+      'username': instance.username,
+    };
+
+UpdateMe$Mutation$User$Training _$UpdateMe$Mutation$User$TrainingFromJson(
+    Map<String, dynamic> json) {
+  return UpdateMe$Mutation$User$Training()..id = json['id'] as String;
+}
+
+Map<String, dynamic> _$UpdateMe$Mutation$User$TrainingToJson(
+        UpdateMe$Mutation$User$Training instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+UpdateMe$Mutation$User$Grade$Discipline
+    _$UpdateMe$Mutation$User$Grade$DisciplineFromJson(
+        Map<String, dynamic> json) {
+  return UpdateMe$Mutation$User$Grade$Discipline()
+    ..id = json['id'] as String
+    ..beta = json['beta'] as bool
+    ..name = json['name'] as String
+    ..slug = json['slug'] as String;
+}
+
+Map<String, dynamic> _$UpdateMe$Mutation$User$Grade$DisciplineToJson(
+        UpdateMe$Mutation$User$Grade$Discipline instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'beta': instance.beta,
+      'name': instance.name,
+      'slug': instance.slug,
+    };
+
+UpdateMe$Mutation$User$Grade _$UpdateMe$Mutation$User$GradeFromJson(
+    Map<String, dynamic> json) {
+  return UpdateMe$Mutation$User$Grade()
+    ..id = json['id'] as String
+    ..name = json['name'] as String
+    ..order = json['order'] as int
+    ..slug = json['slug'] as String
+    ..visible = json['visible'] as bool
+    ..disciplines = (json['disciplines'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UpdateMe$Mutation$User$Grade$Discipline.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$UpdateMe$Mutation$User$GradeToJson(
+        UpdateMe$Mutation$User$Grade instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'order': instance.order,
+      'slug': instance.slug,
+      'visible': instance.visible,
+      'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
+    };
+
+UpdateMeArguments _$UpdateMeArgumentsFromJson(Map<String, dynamic> json) {
+  return UpdateMeArguments(
+    input: json['input'] == null
+        ? null
+        : UpdateMe$UpdateMe.fromJson(json['input'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$UpdateMeArgumentsToJson(UpdateMeArguments instance) =>
+    <String, dynamic>{
+      'input': instance.input?.toJson(),
+    };

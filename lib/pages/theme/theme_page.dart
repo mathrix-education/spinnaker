@@ -26,8 +26,6 @@ class ThemePage extends StatelessWidget {
           builder: (data) {
             final List<ListThemesChaptersFromDisciplines$Query$Theme> themes =
                 ListThemesChaptersFromDisciplines$Query.fromJson(data).listThemes;
-            print(themes.length);
-
 
             return SingleChildScrollView(
                 child: Column(

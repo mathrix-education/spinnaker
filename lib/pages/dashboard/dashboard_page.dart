@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
+import 'package:mathrix_education_app/pages/dashboard/settings_dialog.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/variables/text_styles.dart';
 import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
@@ -73,9 +74,17 @@ class _DashboardPageState extends State<DashboardPage> {
           );
         }),
         actions: [
-          Icon(
-            Icons.menu,
-            size: 40.0,
+          IconButton(
+            icon: Icon(
+              Icons.menu,
+              size: 40.0,
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => SettingsDialog(),
+              );
+            },
           ),
         ],
         flexibleSpace: AppBarFlexibleSpace(),
