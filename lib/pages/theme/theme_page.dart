@@ -1,67 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/pages/theme/chapters.dart';
-import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
-import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
-import 'package:mathrix_education_app/ui/variables/colors.dart';
+import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
+import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
+import 'package:mathrix_education_app/ui/texts/title_green.dart';
+import 'package:mathrix_education_app/ui/widgets/progress_bar.dart';
+import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class ThemePage extends StatelessWidget {
-  /// The discipline.
-  final Me$Query$User$Grade$Discipline discipline;
+  final String disciplineId;
 
-  /// The grade which belongs the discipline.
-  final Me$Query$User$Grade grade;
+  final String disciplineName;
 
-  ThemePage({Key key, this.discipline, this.grade}) : super(key: key);
+  final String gradeId;
+
+  ThemePage({Key key, this.disciplineId, this.disciplineName, this.gradeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Query(
-        options: QueryOptions(
-          documentNode: ListThemesChaptersFromDisciplinesQuery().document,
-          variables: {'gradeId': grade.id, 'disciplineId': discipline.id},
-        ),
-        builder: (
-          QueryResult result, {
-          Future<QueryResult> Function() refetch,
-          FetchMore fetchMore,
-        }) {
-          if (result.hasException) {
-            // TODO
-            return Text(result.exception.toString());
-          }
+    return StandardPage(
+      title: disciplineName,
+      body: QueryContainer(
+          document: ListThemesChaptersFromDisciplinesQuery().document,
+          variables: {'gradeId': gradeId, 'disciplineId': disciplineId},
+          builder: (data) {
+            final List<ListThemesChaptersFromDisciplines$Query$Theme> themes =
+                ListThemesChaptersFromDisciplines$Query.fromJson(data).listThemes;
+            print(themes.length);
 
-          if (result.loading) {
-            return LoadingBody();
-          }
 
-          final List<ListThemesChaptersFromDisciplines$Query$Theme> themes =
-              ListThemesChaptersFromDisciplines$Query.fromJson(result.data).listThemes;
-
-          return Scaffold(
-            appBar: CustomAppBar(
-              title: discipline.name,
-            ),
-            body: ListView.builder(
-              itemBuilder: (_, index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
-                      child: Text(
-                        themes[index].name,
-                        style: Theme.of(context).textTheme.headline3.apply(color: green),
-                      ),
+            return SingleChildScrollView(
+                child: Column(
+                    children: themes.map((theme) {
+              return CardListWithTitle<ListThemesChaptersFromDisciplines$Query$Theme$Chapter>(
+                itemList: theme.chapters,
+                title: TitleGreen(text: theme.name),
+                builder: (chapter) {
+                  return Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Headline4(text: chapter.name),
+                        Container(
+                          margin: EdgeInsets.only(top: 8.0),
+                          child: ProgressBar(value: 0.3),
+                        ),
+                      ],
                     ),
-                    Chapters(chapters: themes[index].chapters),
-                  ],
-                );
-              },
-              itemCount: themes.length,
-            ),
-          );
-        });
+                  );
+                },
+                onItemTap: (chapter) {
+                  Navigator.of(context).pushNamed(
+                    '/menu',
+                    arguments: {
+                      'chapterId': chapter.id,
+                      'chapterName': chapter.name,
+                    },
+                  );
+                },
+              );
+            }).toList()));
+          }),
+    );
   }
 }

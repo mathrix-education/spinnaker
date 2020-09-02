@@ -23,8 +23,9 @@ class RouteGenerator {
       case '/themes':
         return MaterialPageRoute(
           builder: (_) => ThemePage(
-            discipline: args['discipline'],
-            grade: args['grade'],
+            disciplineId: args['disciplineId'],
+            disciplineName: args['disciplineName'],
+            gradeId: args['gradeId'],
           ),
         );
       case '/menu':
