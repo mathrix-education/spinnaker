@@ -3,7 +3,7 @@ import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 
-typedef WidgetBuilder = Widget Function({dynamic data});
+typedef WidgetBuilder = Widget Function(dynamic data);
 
 class QueryContainer extends StatelessWidget {
   /// The query variables.
@@ -34,7 +34,7 @@ class QueryContainer extends StatelessWidget {
             return LoadingBody();
           }
 
-          return builder(data: result.data);
+          return builder(result.data);
         });
   }
 }

@@ -620,3 +620,118 @@ Map<String, dynamic> _$Me$Query$User$GradeToJson(
       'visible': instance.visible,
       'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
     };
+
+ReadTraining$Query$Training$Section$Lesson
+    _$ReadTraining$Query$Training$Section$LessonFromJson(
+        Map<String, dynamic> json) {
+  return ReadTraining$Query$Training$Section$Lesson()
+    ..name = json['name'] as String
+    ..id = json['id'] as String;
+}
+
+Map<String, dynamic> _$ReadTraining$Query$Training$Section$LessonToJson(
+        ReadTraining$Query$Training$Section$Lesson instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'id': instance.id,
+    };
+
+ReadTraining$Query$Training$Section
+    _$ReadTraining$Query$Training$SectionFromJson(Map<String, dynamic> json) {
+  return ReadTraining$Query$Training$Section()
+    ..name = json['name'] as String
+    ..lessons = (json['lessons'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadTraining$Query$Training$Section$Lesson.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ReadTraining$Query$Training$SectionToJson(
+        ReadTraining$Query$Training$Section instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'lessons': instance.lessons?.map((e) => e?.toJson())?.toList(),
+    };
+
+ReadTraining$Query$Training _$ReadTraining$Query$TrainingFromJson(
+    Map<String, dynamic> json) {
+  return ReadTraining$Query$Training()
+    ..name = json['name'] as String
+    ..sections = (json['sections'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadTraining$Query$Training$Section.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ReadTraining$Query$TrainingToJson(
+        ReadTraining$Query$Training instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'sections': instance.sections?.map((e) => e?.toJson())?.toList(),
+    };
+
+ReadTraining$Query _$ReadTraining$QueryFromJson(Map<String, dynamic> json) {
+  return ReadTraining$Query()
+    ..readTraining = json['readTraining'] == null
+        ? null
+        : ReadTraining$Query$Training.fromJson(
+            json['readTraining'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadTraining$QueryToJson(ReadTraining$Query instance) =>
+    <String, dynamic>{
+      'readTraining': instance.readTraining?.toJson(),
+    };
+
+ReadTrainingArguments _$ReadTrainingArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return ReadTrainingArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadTrainingArgumentsToJson(
+        ReadTrainingArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+ReadLesson$Query$Lesson _$ReadLesson$Query$LessonFromJson(
+    Map<String, dynamic> json) {
+  return ReadLesson$Query$Lesson()..content = json['content'] as List;
+}
+
+Map<String, dynamic> _$ReadLesson$Query$LessonToJson(
+        ReadLesson$Query$Lesson instance) =>
+    <String, dynamic>{
+      'content': instance.content,
+    };
+
+ReadLesson$Query _$ReadLesson$QueryFromJson(Map<String, dynamic> json) {
+  return ReadLesson$Query()
+    ..readLesson = json['readLesson'] == null
+        ? null
+        : ReadLesson$Query$Lesson.fromJson(
+            json['readLesson'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadLesson$QueryToJson(ReadLesson$Query instance) =>
+    <String, dynamic>{
+      'readLesson': instance.readLesson?.toJson(),
+    };
+
+ReadLessonArguments _$ReadLessonArgumentsFromJson(Map<String, dynamic> json) {
+  return ReadLessonArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadLessonArgumentsToJson(
+        ReadLessonArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };

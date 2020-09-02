@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/training_card_content.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
-import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
-import 'package:mathrix_education_app/ui/variables/colors.dart';
-import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
-import 'package:mathrix_education_app/ui/widgets/standard_rounded_widget.dart';
 
 class TrainingsTab extends StatefulWidget {
   TrainingsTab({Key key}) : super(key: key);
@@ -21,14 +17,13 @@ class _TrainingsTabState extends State<TrainingsTab> {
   Widget build(BuildContext context) {
     return QueryContainer(
       document: ListTrainingsQuery().document,
-      builder: ({dynamic data}) {
+      builder: (dynamic data) {
         List<ListTrainings$Query$Training> trainings = ListTrainings$Query.fromJson(data).listTrainings;
 
         List<ListTrainings$Query$Training> availableTrainings =
             trainings.where((element) => element.available).toList();
 
-        List<ListTrainings$Query$Training> ownedTrainings =
-            trainings.where((element) => element.owned && false).toList();
+        List<ListTrainings$Query$Training> ownedTrainings = trainings.where((element) => element.owned).toList();
 
         return SingleChildScrollView(
           child: Column(children: [
@@ -40,6 +35,12 @@ class _TrainingsTabState extends State<TrainingsTab> {
                       return TrainingCardContent(
                         training: training,
                         actionText: 'Accéder',
+                      );
+                    },
+                    onItemTap: (item) {
+                      Navigator.of(context).pushNamed(
+                        '/training',
+                        arguments: {'trainingId': item.id, 'trainingName': item.name},
                       );
                     },
                   )

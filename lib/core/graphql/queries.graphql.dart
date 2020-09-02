@@ -1460,3 +1460,259 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
   @override
   Me$Query parse(Map<String, dynamic> json) => Me$Query.fromJson(json);
 }
+
+@JsonSerializable(explicitToJson: true)
+class ReadTraining$Query$Training$Section$Lesson with EquatableMixin {
+  ReadTraining$Query$Training$Section$Lesson();
+
+  factory ReadTraining$Query$Training$Section$Lesson.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadTraining$Query$Training$Section$LessonFromJson(json);
+
+  String name;
+
+  String id;
+
+  @override
+  List<Object> get props => [name, id];
+  Map<String, dynamic> toJson() =>
+      _$ReadTraining$Query$Training$Section$LessonToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadTraining$Query$Training$Section with EquatableMixin {
+  ReadTraining$Query$Training$Section();
+
+  factory ReadTraining$Query$Training$Section.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadTraining$Query$Training$SectionFromJson(json);
+
+  String name;
+
+  List<ReadTraining$Query$Training$Section$Lesson> lessons;
+
+  @override
+  List<Object> get props => [name, lessons];
+  Map<String, dynamic> toJson() =>
+      _$ReadTraining$Query$Training$SectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadTraining$Query$Training with EquatableMixin {
+  ReadTraining$Query$Training();
+
+  factory ReadTraining$Query$Training.fromJson(Map<String, dynamic> json) =>
+      _$ReadTraining$Query$TrainingFromJson(json);
+
+  String name;
+
+  List<ReadTraining$Query$Training$Section> sections;
+
+  @override
+  List<Object> get props => [name, sections];
+  Map<String, dynamic> toJson() => _$ReadTraining$Query$TrainingToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadTraining$Query with EquatableMixin {
+  ReadTraining$Query();
+
+  factory ReadTraining$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadTraining$QueryFromJson(json);
+
+  ReadTraining$Query$Training readTraining;
+
+  @override
+  List<Object> get props => [readTraining];
+  Map<String, dynamic> toJson() => _$ReadTraining$QueryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadTrainingArguments extends JsonSerializable with EquatableMixin {
+  ReadTrainingArguments({@required this.id});
+
+  factory ReadTrainingArguments.fromJson(Map<String, dynamic> json) =>
+      _$ReadTrainingArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$ReadTrainingArgumentsToJson(this);
+}
+
+class ReadTrainingQuery
+    extends GraphQLQuery<ReadTraining$Query, ReadTrainingArguments> {
+  ReadTrainingQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ReadTraining'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readTraining'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'sections'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'lessons'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ReadTraining';
+
+  @override
+  final ReadTrainingArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadTraining$Query parse(Map<String, dynamic> json) =>
+      ReadTraining$Query.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadLesson$Query$Lesson with EquatableMixin {
+  ReadLesson$Query$Lesson();
+
+  factory ReadLesson$Query$Lesson.fromJson(Map<String, dynamic> json) =>
+      _$ReadLesson$Query$LessonFromJson(json);
+
+  List<dynamic> content;
+
+  @override
+  List<Object> get props => [content];
+  Map<String, dynamic> toJson() => _$ReadLesson$Query$LessonToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadLesson$Query with EquatableMixin {
+  ReadLesson$Query();
+
+  factory ReadLesson$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadLesson$QueryFromJson(json);
+
+  ReadLesson$Query$Lesson readLesson;
+
+  @override
+  List<Object> get props => [readLesson];
+  Map<String, dynamic> toJson() => _$ReadLesson$QueryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadLessonArguments extends JsonSerializable with EquatableMixin {
+  ReadLessonArguments({@required this.id});
+
+  factory ReadLessonArguments.fromJson(Map<String, dynamic> json) =>
+      _$ReadLessonArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$ReadLessonArgumentsToJson(this);
+}
+
+class ReadLessonQuery
+    extends GraphQLQuery<ReadLesson$Query, ReadLessonArguments> {
+  ReadLessonQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ReadLesson'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readLesson'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'content'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ReadLesson';
+
+  @override
+  final ReadLessonArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadLesson$Query parse(Map<String, dynamic> json) =>
+      ReadLesson$Query.fromJson(json);
+}

@@ -1,4 +1,0 @@
-fragment BasicSection on Section {
-  id
-  name
-}

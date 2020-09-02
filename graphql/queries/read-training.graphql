@@ -1,0 +1,12 @@
+query ReadTraining($id: ID!) {
+  readTraining(id: $id) {
+    name
+    sections {
+      name
+      lessons {
+        name
+        id
+      }
+    }
+  }
+}

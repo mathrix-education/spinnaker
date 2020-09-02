@@ -5,7 +5,7 @@ class Headline4 extends StatelessWidget {
   final String text;
   final Color color;
 
-  Headline4({this.text, this.color = Colors.black});
+  const Headline4({this.text, this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {

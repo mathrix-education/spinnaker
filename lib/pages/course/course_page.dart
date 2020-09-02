@@ -15,7 +15,7 @@ class CoursePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StandardQueryPage(
-      builder: ({dynamic data}) {
+      builder: (dynamic data) {
         List<dynamic> content = ReadCourse$Query.fromJson(data).readCourse.content;
         return Column(
             children: content.map((brick) {

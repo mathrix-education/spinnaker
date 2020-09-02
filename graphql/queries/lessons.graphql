@@ -1,0 +1,5 @@
+query ReadLesson($id: ID!){
+  readLesson(id: $id){
+    content
+  }
+}

@@ -26,7 +26,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
     return QueryContainer(
       variables: {},
       document: MeQuery().document,
-      builder: ({dynamic data}) {
+      builder: (dynamic data) {
         final Me$Query$User me = Me$Query.fromJson(data).me;
         final disciplines = Me$Query.fromJson(data).me.grade.disciplines;
 

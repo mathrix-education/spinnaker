@@ -4,7 +4,6 @@ import 'package:mathrix_education_app/pages/dashboard/youtube_dialog.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
-import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 import 'package:mathrix_education_app/ui/widgets/standard_rounded_widget.dart';
 
@@ -20,7 +19,7 @@ class _MotivationTabState extends State<MotivationTab> {
   Widget build(BuildContext context) {
     return QueryContainer(
       document: ListCategoriesQuery().document,
-      builder: ({dynamic data}) {
+      builder: (dynamic data) {
         ListCategories$Query$Category category = ListCategories$Query.fromJson(data).listCategories[0];
         List<ListCategories$Query$Category$Post> posts = category.posts;
 

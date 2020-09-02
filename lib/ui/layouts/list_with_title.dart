@@ -13,9 +13,15 @@ class CardListWithTitle<T> extends StatelessWidget {
   /// The item list.
   final List<T> itemList;
 
+  /// On item tap event.
   final Function(T item) onItemTap;
 
-  const CardListWithTitle({this.title, this.builder, this.itemList, this.onItemTap});
+  const CardListWithTitle({
+    this.title,
+    this.builder,
+    this.itemList,
+    this.onItemTap,
+  });
 
   @override
   Widget build(BuildContext context) {

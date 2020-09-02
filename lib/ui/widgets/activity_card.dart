@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'mathrix_card.dart';
-
 enum ActivityType {
   Course,
   Summary,
@@ -61,41 +59,38 @@ class ActivityCard extends StatelessWidget {
 
   final GestureTapCallback onTap;
 
-  const ActivityCard({Key key, this.name, this.premium, this.activityType, this.onTap}) : super(key: key);
+  const ActivityCard({this.name, this.premium, this.activityType, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     String assetSlug = activityType.slug;
-    return MathrixCard(
-      onTap: () => onTap(),
+    return Container(
+      padding: EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.all(8.0),
-        child: Container(
-          margin: EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(right: 8.0),
-                child: Image(
-                  image: AssetImage('assets/activities/$assetSlug.png'),
-                  height: 30,
-                ),
+        margin: EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 8.0),
+              child: Image(
+                image: AssetImage('assets/activities/$assetSlug.png'),
+                height: 30,
               ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(activityType.name, style: Theme.of(context).textTheme.subtitle1),
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ],
-                ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(activityType.name, style: Theme.of(context).textTheme.subtitle1),
+                  Text(
+                    name,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
