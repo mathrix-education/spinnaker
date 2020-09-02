@@ -25,7 +25,10 @@ class SettingsDialog extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text('Paramètres', style: style),
+            GestureDetector(
+              child: Text('Paramètres', style: style),
+              onTap: () => Navigator.of(context).pushNamed('/settings'),
+            ),
             const SizedBox(height: 16),
             Text('Déconnexion', style: style),
           ],

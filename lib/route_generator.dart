@@ -5,6 +5,7 @@ import 'package:mathrix_education_app/pages/dashboard/dashboard_page.dart';
 import 'package:mathrix_education_app/pages/lesson/lesson_page.dart';
 import 'package:mathrix_education_app/pages/login/login_page.dart';
 import 'package:mathrix_education_app/pages/menu/menu_page.dart';
+import 'package:mathrix_education_app/pages/settings/settings.dart';
 import 'package:mathrix_education_app/pages/theme/theme_page.dart';
 import 'package:mathrix_education_app/pages/training/training_page.dart';
 
@@ -48,12 +49,17 @@ class RouteGenerator {
             trainingId: args['trainingId'],
             trainingName: args['trainingName'],
           );
-        });case '/lesson':
+        });
+      case '/lesson':
         return MaterialPageRoute(builder: (_) {
           return LessonPage(
             lessonId: args['lessonId'],
             lessonName: args['lessonName'],
           );
+        });
+      case '/settings':
+        return MaterialPageRoute(builder: (_) {
+          return SettingsPage();
         });
     }
   }
