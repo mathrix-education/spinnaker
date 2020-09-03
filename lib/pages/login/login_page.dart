@@ -7,8 +7,9 @@ import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/main.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
+import 'package:mathrix_education_app/ui/buttons/social_button.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
-import 'package:mathrix_education_app/ui/widgets/primaryTextButton.dart';
+import 'file:///C:/Mathrix/spinnaker/lib/ui/buttons/primary_text_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_form.dart';
 
@@ -26,47 +27,45 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 24),
-          Text(widget.primaryText, style: Theme.of(context).textTheme.headline1.apply(color: green)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(widget.subtitleText, style: Theme.of(context).textTheme.bodyText1),
-              SizedBox(width: 8.0),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
-                  });
-                },
-                child: Text(
-                  widget.actionText,
-                  style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Text(widget.primaryText, style: Theme.of(context).textTheme.headline1.apply(color: green)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(widget.subtitleText, style: Theme.of(context).textTheme.bodyText1),
+                    SizedBox(width: 8.0),
+                    GestureDetector(
+                      onTap: () => setState(() {
+                        widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
+                      }),
+                      child: Text(
+                        widget.actionText,
+                        style:
+                            TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Expanded(
-              child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              ],
+            ),
+            Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 LoginForm(formKey: loginFormKey),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        widget.mode = LoginMode.RecoverPassword;
-                      });
-                    },
+                    onTap: () => setState(() {
+                      widget.mode = LoginMode.RecoverPassword;
+                    }),
                     child: Text(
                       widget.mode == LoginMode.Login ? 'Mot de passe oublié?' : '',
-                      textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
                     ),
                   ),
@@ -74,8 +73,22 @@ class _LoginPageState extends State<LoginPage> {
                 PrimaryTextButton(text: 'Se connecter', onPressed: () => _validate(context)),
               ],
             ),
-          )),
-        ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SocialButton(
+                  mode: widget.mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
+                  socialProvider: SocialProvider.Facebook,
+                ),
+                SizedBox(height: 8),
+                SocialButton(
+                  mode: widget.mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
+                  socialProvider: SocialProvider.Google,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

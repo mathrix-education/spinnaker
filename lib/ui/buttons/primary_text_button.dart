@@ -15,6 +15,7 @@ class PrimaryTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       minWidth: minWidth ?? double.infinity,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       color: yellow,
       disabledColor: grey,
       onPressed: () => onPressed(),
