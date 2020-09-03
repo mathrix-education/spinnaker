@@ -1,3 +1,4 @@
+import 'dart:io';
 import '../environment/environment.dart'; // TODO
 import "package:flutter/material.dart";
 import "package:graphql_flutter/graphql_flutter.dart";
@@ -27,7 +28,7 @@ class GraphQLConfiguration {
     return client.value;
   }
 
-  static loadAuthToken() async {
+  static Future<void> loadAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString(mathrixToken) ?? '';
   }
@@ -35,5 +36,11 @@ class GraphQLConfiguration {
   static bool isLogged() {
     return token != '';
     // TODO externalise the token mechanism and use token validity information.
+  }
+
+  static Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = '';
+    await prefs.remove(mathrixToken);
   }
 }

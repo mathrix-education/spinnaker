@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
+import 'package:mathrix_education_app/pages/dashboard/settings_dialog.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/variables/text_styles.dart';
 import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +10,7 @@ import 'motivation_tab.dart';
 import 'trainings_tab.dart';
 
 class DashboardPage extends StatefulWidget {
-  DashboardPage({Key key}) : super(key: key);
+  const DashboardPage({Key key}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -38,7 +40,7 @@ class _DashboardPageState extends State<DashboardPage> {
         currentIndex: selectedIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.library_books),
             title: Text('Matières'),
           ),
           BottomNavigationBarItem(
@@ -63,18 +65,26 @@ class _DashboardPageState extends State<DashboardPage> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Bienvenue $name',
-                style: Theme.of(context).textTheme.headline4.apply(color: Colors.white),
+              Headline4(
+                text: 'Bienvenue $name',
+                color: Colors.white,
               ),
               Text(grade, style: tinyBold),
             ],
           );
         }),
         actions: [
-          Icon(
-            Icons.menu,
-            size: 40.0,
+          IconButton(
+            icon: Icon(
+              Icons.menu,
+              size: 40.0,
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => SettingsDialog(),
+              );
+            },
           ),
         ],
         flexibleSpace: AppBarFlexibleSpace(),

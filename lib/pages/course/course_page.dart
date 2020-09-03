@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
-import 'package:mathrix_education_app/ui/layouts/standard_query_page.dart';
+import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
+import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class CoursePage extends StatelessWidget {
   /// The model id.
@@ -14,17 +15,19 @@ class CoursePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StandardQueryPage(
-      builder: ({dynamic data}) {
-        List<dynamic> content = ReadCourse$Query.fromJson(data).readCourse.content;
-        return Column(
-            children: content.map((brick) {
-          return brickResolver(brick);
-        }).toList());
-      },
-      modelName: courseName,
-      document: ReadCourseQuery().document,
-      modelId: courseId,
+    return StandardPage(
+      title: courseName,
+      body: QueryContainer(
+        query: ReadCourseQuery(),
+        variables: ReadCourseArguments(id: courseId),
+        builder: (ReadCourse$Query data) {
+          List<dynamic> content = data.readCourse.content;
+          return Column(
+              children: content.map((brick) {
+            return brickResolver(brick);
+          }).toList());
+        },
+      ),
     );
   }
 

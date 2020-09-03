@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class MtxTextFormField extends StatelessWidget {
   MtxTextFormField(
@@ -23,27 +24,29 @@ class MtxTextFormField extends StatelessWidget {
   /// The list of validators.
   final List<FormFieldValidator> validators;
 
+  /// If the text is obscured like in password fields.
   final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       attribute: attribute,
-      validators: validators,
+      validators: validators ?? [],
       keyboardType: textInputType,
       obscureText: obscureText,
+      onChanged: (text) {},
       decoration: new InputDecoration(
         labelText: label,
         fillColor: Colors.amberAccent,
         border: new OutlineInputBorder(
-          borderRadius: new BorderRadius.circular(16.0),
+          borderRadius: new BorderRadius.circular(8.0),
           borderSide: new BorderSide(),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(
-            color: Colors.red,
-            width: 2.0,
+            color: green,
+            width: 1.0,
           ),
         ),
       ),

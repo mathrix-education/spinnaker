@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
 
 class ActivityListItem {
@@ -26,31 +28,19 @@ class ActivityList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String displayedText = activityList.length > 0 ? name : '';
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
-        padding: EdgeInsets.all(8.0),
-        child: Text(
-          '$displayedText',
-          style: Theme.of(context).textTheme.headline4,
-        ),
-      ),
-      ListView.builder(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        itemBuilder: (_, index) {
-          return Container(
-            margin: EdgeInsets.only(bottom: 8.0),
-            child: ActivityCard(
-              name: activityList[index].name,
-              premium: activityList[index].premium,
-              activityType: activityList[index].type,
-              onTap: () => activityTapped(activityList[index]),
-            ),
-          );
-        },
-        itemCount: activityList.length,
-      ),
-    ]);
+    return CardListWithTitle<ActivityListItem>(
+      title: Headline4(text: activityList.length > 0 ? name : ''),
+      itemList: activityList,
+      builder: (activity) {
+        return ActivityCard(
+          name: activity.name,
+          premium: activity.premium,
+          activityType: activity.type,
+        );
+      },
+      onItemTap: (ActivityListItem activity) {
+        activityTapped(activity);
+      },
+    );
   }
 }

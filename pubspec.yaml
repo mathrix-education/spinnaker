@@ -26,6 +26,7 @@ dependency_overrides:
 
 dependencies:
   graphql_flutter: ^3.0.0
+  artemis: '>=5.0.0 <6.0.0'
   flutter:
     sdk: flutter
   shared_preferences: '>=0.5.10 <2.0.0'
@@ -42,7 +43,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  artemis: '>=5.0.0 <6.0.0'
   build_runner: ^1.5.0
   flutter_launcher_icons: ^0.7.3
 # For information on the generic Dart part of this file, see the
@@ -55,6 +55,7 @@ flutter:
   assets:
     - assets/disciplines/
     - assets/activities/
+    - assets/trainings/
     - assets/icons/
   fonts:
     - family: Open Sans

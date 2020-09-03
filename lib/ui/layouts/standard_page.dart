@@ -11,7 +11,7 @@ class StandardPage extends StatelessWidget {
 
   final Widget bottomNavigationBar;
 
-  const StandardPage({Key key, @required this.body, @required this.title, this.bottomNavigationBar}) : super(key: key);
+  const StandardPage({@required this.body, @required this.title, this.bottomNavigationBar});
 
   @override
   Widget build(BuildContext context) {

@@ -8,12 +8,16 @@ class MathrixCard extends StatelessWidget {
   /// The onTap callback.
   final GestureTapCallback onTap;
 
-  MathrixCard({Key key, this.child, this.onTap}) : super(key: key);
+  final EdgeInsets padding;
+
+  final defaultPadding = EdgeInsets.symmetric(horizontal: 8.0);
+
+  MathrixCard({Key key, this.child, this.onTap, this.padding}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      padding: padding ?? defaultPadding,
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(

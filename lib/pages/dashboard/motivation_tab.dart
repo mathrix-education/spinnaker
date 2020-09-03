@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/dashboard/youtube_dialog.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
-import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+import 'package:mathrix_education_app/ui/widgets/standard_rounded_widget.dart';
 
 class MotivationTab extends StatefulWidget {
   MotivationTab({Key key}) : super(key: key);
@@ -17,10 +18,9 @@ class _MotivationTabState extends State<MotivationTab> {
   @override
   Widget build(BuildContext context) {
     return QueryContainer(
-      document: ListCategoriesQuery().document,
-      builder: ({dynamic data}) {
-        ListCategories$Query$Category category = ListCategories$Query.fromJson(data).listCategories[0];
-        List<ListCategories$Query$Category$Post> posts = category.posts;
+      query: ListCategoriesQuery(),
+      builder: (ListCategories$Query data) {
+        ListCategories$Query$Category category =data.listCategories[0];
 
         return CardListWithTitle<ListCategories$Query$Category$Post>(
           title: TitleGreen(text: category.name),
@@ -32,8 +32,7 @@ class _MotivationTabState extends State<MotivationTab> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
+                  StandardRoundedWidget(
                     child: SizedBox(
                       height: 76,
                       width: 135,
@@ -49,11 +48,7 @@ class _MotivationTabState extends State<MotivationTab> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(left: 16.0),
-                      child: Text(
-                        post.title,
-                        style: Theme.of(context).textTheme.headline4,
-                        textAlign: TextAlign.center,
-                      ),
+                      child: Headline4(text: post.title),
                     ),
                   ),
                 ],

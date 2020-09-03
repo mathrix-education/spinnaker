@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
+import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
+import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class DisciplineTab extends StatefulWidget {
@@ -18,52 +19,46 @@ class _DisciplineTabState extends State<DisciplineTab> {
     'maths-expertes': 'maths',
     'maths-complementaires': 'maths',
     'enseignement-scientifique': 'maths', // TODO, change the discipline map here
+    'techno': 'maths', // TODO, change the discipline map here
   };
 
   @override
   Widget build(BuildContext context) {
     return QueryContainer(
-      variables: {},
-      document: MeQuery().document,
-      builder: ({dynamic data}) {
-        final Me$Query$User me = Me$Query.fromJson(data).me;
-        final disciplines = Me$Query.fromJson(data).me.grade.disciplines;
-
-        return ListView.builder(
-          itemBuilder: (_, index) {
-            String slug = _slugTransform(disciplines[index].slug);
-            Map<String, dynamic> arguments = {
-              'discipline': disciplines[index],
-              'grade': me.grade,
-            };
-            return Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
-              child: MathrixCard(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    '/themes',
-                    arguments: arguments,
-                  );
-                },
-                child: SizedBox(
-                  height: 80,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 16.0),
-                          child: Text(disciplines[index].name, style: Theme.of(context).textTheme.headline4),
-                        ),
-                      ),
-                      Image(image: AssetImage('assets/disciplines/$slug.png'))
-                    ],
+      query: MeQuery(),
+      builder: (Me$Query data) {
+        final Me$Query$User me = data.me;
+        final List<Me$Query$User$Grade$Discipline> disciplines = data.me.grade.disciplines;
+        return CardListWithTitle<Me$Query$User$Grade$Discipline>(
+          itemList: disciplines,
+          builder: (discipline) {
+            String slug = _slugTransform(discipline.slug);
+            return SizedBox(
+              height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.0),
+                      child: Headline4(text: discipline.name),
+                    ),
                   ),
-                ),
+                  Image(image: AssetImage('assets/disciplines/$slug.png'))
+                ],
               ),
             );
           },
-          itemCount: disciplines.length,
+          onItemTap: (discipline) {
+            Navigator.of(context).pushNamed(
+              '/themes',
+              arguments: {
+                'disciplineId': discipline.id,
+                'disciplineName': discipline.name,
+                'gradeId': me.grade.id,
+              },
+            );
+          },
         );
       },
     );

@@ -36,6 +36,16 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Open Sans',
         textTheme: TextTheme(
+        headline1: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 26.0,
+        fontWeight: FontWeight.w600,
+        ),
+        headline2: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 24.0,
+            fontWeight: FontWeight.w600,
+          ),
           headline3: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 22.0,
@@ -56,6 +66,7 @@ class MyApp extends StatelessWidget {
             color: greyActivityText,
           ),
         ),
+        dividerColor: green,
       ),
       home: HomePage(),
       initialRoute: '/',
