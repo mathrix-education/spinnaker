@@ -24,10 +24,10 @@ class _DisciplineTabState extends State<DisciplineTab> {
   @override
   Widget build(BuildContext context) {
     return QueryContainer(
-      document: MeQuery().document,
-      builder: (dynamic data) {
-        final Me$Query$User me = Me$Query.fromJson(data).me;
-        final List<Me$Query$User$Grade$Discipline> disciplines = Me$Query.fromJson(data).me.grade.disciplines;
+      query: MeQuery(),
+      builder: (Me$Query data) {
+        final Me$Query$User me = data.me;
+        final List<Me$Query$User$Grade$Discipline> disciplines = data.me.grade.disciplines;
         return CardListWithTitle<Me$Query$User$Grade$Discipline>(
           itemList: disciplines,
           builder: (discipline) {

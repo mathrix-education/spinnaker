@@ -10,7 +10,7 @@ import 'motivation_tab.dart';
 import 'trainings_tab.dart';
 
 class DashboardPage extends StatefulWidget {
-  DashboardPage({Key key}) : super(key: key);
+  const DashboardPage({Key key}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();

@@ -21,11 +21,10 @@ class ThemePage extends StatelessWidget {
     return StandardPage(
       title: disciplineName,
       body: QueryContainer(
-          document: ListThemesChaptersFromDisciplinesQuery().document,
+          query: ListThemesChaptersFromDisciplinesQuery(),
           variables: {'gradeId': gradeId, 'disciplineId': disciplineId},
-          builder: (data) {
-            final List<ListThemesChaptersFromDisciplines$Query$Theme> themes =
-                ListThemesChaptersFromDisciplines$Query.fromJson(data).listThemes;
+          builder: (ListThemesChaptersFromDisciplines$Query data) {
+            final List<ListThemesChaptersFromDisciplines$Query$Theme> themes = data.listThemes;
 
             return SingleChildScrollView(
                 child: Column(

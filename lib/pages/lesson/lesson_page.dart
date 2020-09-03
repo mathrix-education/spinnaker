@@ -14,9 +14,9 @@ class LessonPage extends StatelessWidget {
     return StandardQueryPage(
       modelId: lessonId,
       modelName: lessonName,
-      document: ReadLessonQuery().document,
-      builder: (dynamic data) {
-        final ReadLesson$Query readLesson = ReadLessonQuery().parse(data);
+      query: ReadLessonQuery(),
+      builder: (ReadLesson$Query data) {
+        final ReadLesson$Query readLesson = data;
         return Text('IMPLEMENT COURSE');
       },
     );

@@ -16,9 +16,9 @@ class _TrainingsTabState extends State<TrainingsTab> {
   @override
   Widget build(BuildContext context) {
     return QueryContainer(
-      document: ListTrainingsQuery().document,
-      builder: (dynamic data) {
-        List<ListTrainings$Query$Training> trainings = ListTrainings$Query.fromJson(data).listTrainings;
+      query: ListTrainingsQuery(),
+      builder: (ListTrainings$Query data) {
+        List<ListTrainings$Query$Training> trainings = data.listTrainings;
 
         List<ListTrainings$Query$Training> availableTrainings =
             trainings.where((element) => element.available).toList();

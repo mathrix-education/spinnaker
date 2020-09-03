@@ -18,10 +18,9 @@ class _MotivationTabState extends State<MotivationTab> {
   @override
   Widget build(BuildContext context) {
     return QueryContainer(
-      document: ListCategoriesQuery().document,
-      builder: (dynamic data) {
-        ListCategories$Query$Category category = ListCategories$Query.fromJson(data).listCategories[0];
-        List<ListCategories$Query$Category$Post> posts = category.posts;
+      query: ListCategoriesQuery(),
+      builder: (ListCategories$Query data) {
+        ListCategories$Query$Category category =data.listCategories[0];
 
         return CardListWithTitle<ListCategories$Query$Category$Post>(
           title: TitleGreen(text: category.name),

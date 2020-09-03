@@ -1,11 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
-import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_query_page.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
-import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class TrainingPage extends StatelessWidget {
   final String trainingName;
@@ -18,9 +16,9 @@ class TrainingPage extends StatelessWidget {
     return StandardQueryPage(
       modelName: trainingName,
       modelId: trainingId,
-      document: ReadTrainingQuery().document,
-      builder: (dynamic data) {
-        List<ReadTraining$Query$Training$Section> sections = ReadTraining$Query.fromJson(data).readTraining.sections;
+      query: ReadTrainingQuery(),
+      builder: (ReadTraining$Query data) {
+        List<ReadTraining$Query$Training$Section> sections = data.readTraining.sections;
 
         return ListView.builder(
           itemBuilder: (_, index) {

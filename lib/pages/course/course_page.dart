@@ -23,7 +23,7 @@ class CoursePage extends StatelessWidget {
         }).toList());
       },
       modelName: courseName,
-      document: ReadCourseQuery().document,
+      query: ReadCourseQuery(),
       modelId: courseId,
     );
   }
