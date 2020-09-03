@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/main.dart';
 
@@ -34,16 +35,22 @@ class AppState extends ChangeNotifier {
     }
   }
 
-  updateUser(Map<String, String> updatedMe) async {
+  logout() async {
+    await GraphQLConfiguration.logout();
+    this.user = null;
+  }
+
+  updateUser(UpdateMeArguments updatedMe) async {
     MutationOptions options = MutationOptions(
       documentNode: UpdateMeMutation().document,
-      variables: {'input': updatedMe},
+      variables: updatedMe.toJson(),
     );
 
     QueryResult result = await graphQLConfiguration.graphQLClient().mutate(options);
 
     if (!result.hasException) {
       user = Me$Query.fromJson(result.data).me;
+      print(user.toString());
       notifyListeners();
     }
   }

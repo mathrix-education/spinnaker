@@ -19,6 +19,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
     'maths-expertes': 'maths',
     'maths-complementaires': 'maths',
     'enseignement-scientifique': 'maths', // TODO, change the discipline map here
+    'techno': 'maths', // TODO, change the discipline map here
   };
 
   @override

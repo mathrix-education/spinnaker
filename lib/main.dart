@@ -36,7 +36,12 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Open Sans',
         textTheme: TextTheme(
-          headline2: TextStyle(
+        headline1: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 26.0,
+        fontWeight: FontWeight.w600,
+        ),
+        headline2: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 24.0,
             fontWeight: FontWeight.w600,

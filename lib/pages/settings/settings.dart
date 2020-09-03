@@ -1,55 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
+import 'package:mathrix_education_app/core/store/session.state.dart';
+import 'package:mathrix_education_app/pages/settings/account_form.dart';
+import 'package:mathrix_education_app/pages/settings/password_form.dart';
+import 'package:mathrix_education_app/pages/settings/premium_info.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
-import 'package:mathrix_education_app/ui/texts/title_green.dart';
-import 'package:mathrix_education_app/ui/widgets/form_field.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
+  final GlobalKey<FormBuilderState> _passwordFormKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _accountFormKey = GlobalKey<FormBuilderState>();
+
   @override
   Widget build(BuildContext context) {
     return StandardPage(
       title: 'Paramètres',
-      body: Container(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleGreen(text: 'Compte'),
-            const SizedBox(height: 16),
-            MtxTextFormField(
-              label: 'Pseudo',
-              attribute: 'username',
-            ),
-            const SizedBox(height: 24),
-            MtxTextFormField(
-              label: 'Email',
-              textInputType: TextInputType.emailAddress,
-              attribute: 'email',
-            ),
-            const SizedBox(height: 24),
-            TitleGreen(text: 'Changer de mot de passe'),
-            const SizedBox(height: 16),
-            MtxTextFormField(
-              label: 'Mot de passe',
-              textInputType: TextInputType.visiblePassword,
-              obscureText: true,
-              attribute: 'password',
-            ),
-            const SizedBox(height: 16),
-            MtxTextFormField(
-              label: 'Mot de passe',
-              textInputType: TextInputType.visiblePassword,
-              obscureText: true,
-              attribute: 'password',
-            ),
-            MaterialButton(
+            AccountForm(formKeyAccount: _accountFormKey),
+            SizedBox(height: 16),
+            PasswordForm(passwordKeyAccount: _passwordFormKey),
+            Consumer<AppState>(builder: (context, appState, child) {
+              return MaterialButton(
                 minWidth: double.infinity,
                 color: Colors.yellow,
                 disabledColor: Colors.grey,
-                child: Text('Enregistrer les changements')),
+                onPressed: () {
+                  _validate(appState);
+                },
+                child: Text('Enregistrer les changements'),
+              );
+            }),
+            PremiumInfo(),
           ],
         ),
       ),
     );
+  }
+
+  _validate(AppState appState) async {
+    var accountForm = _accountFormKey.currentState;
+    var passwordForm = _passwordFormKey.currentState;
+    accountForm.save();
+    passwordForm.save();
+    UpdateMeArguments updateMeArguments = UpdateMeArguments(input: UpdateMe$UpdateMe());
+
+    if (accountForm.validate()) {
+      updateMeArguments.input.email = accountForm.value['email'];
+      updateMeArguments.input.password = accountForm.value['password'];
+    }
+
+    if (passwordForm.validate()) {}
+    updateMeArguments.input.password = accountForm.value['password'];
+    appState.updateUser(updateMeArguments);
   }
 }
