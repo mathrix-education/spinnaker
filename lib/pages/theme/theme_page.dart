@@ -22,7 +22,7 @@ class ThemePage extends StatelessWidget {
       title: disciplineName,
       body: QueryContainer(
           query: ListThemesChaptersFromDisciplinesQuery(),
-          variables: {'gradeId': gradeId, 'disciplineId': disciplineId},
+          variables: ListThemesChaptersFromDisciplinesArguments(gradeId: gradeId, disciplineId: disciplineId),
           builder: (ListThemesChaptersFromDisciplines$Query data) {
             final List<ListThemesChaptersFromDisciplines$Query$Theme> themes = data.listThemes;
 
