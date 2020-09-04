@@ -26,7 +26,6 @@ mixin LoginState {
   };
 
   String get primaryText {
-    print(_primaryTextMap);
     return _primaryTextMap[mode];
   }
 

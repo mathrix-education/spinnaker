@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
@@ -50,7 +51,6 @@ class AppState extends ChangeNotifier {
 
     if (!result.hasException) {
       user = Me$Query.fromJson(result.data).me;
-      print(user.toString());
       notifyListeners();
     }
   }

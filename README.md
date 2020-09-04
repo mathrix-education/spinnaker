@@ -1,6 +1,5 @@
-# mathrix_education_app
-
+# Spinnaker
 The Mathrix Education Application
 
 ## Generate graphQL configuration
-``flutter pub run build_runner build``
+``flutter pub run build_runner build```

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mathrix_education_app/ui/variables/colors.dart';
 
+enum SocialButtonMode { Login, Register }
 enum SocialProvider { Facebook, Google, Apple }
-
-enum SocialButtonMode {
-  Login,
-  Register,
-}
 
 Map<SocialProvider, String> socialProvidersNameMap = {
   SocialProvider.Facebook: 'Facebook',
@@ -23,14 +18,14 @@ Map<SocialProvider, Color> colors = {
 
 class SocialButton extends StatelessWidget {
   /// The onPressed callback.
-  final void Function() onPressed;
+  final void Function() onTap;
 
   /// The mode: login or register.
   final SocialButtonMode mode;
 
   final SocialProvider socialProvider;
 
-  SocialButton({this.onPressed, this.mode, this.socialProvider});
+  SocialButton({this.onTap, this.mode, this.socialProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +34,7 @@ class SocialButton extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       minWidth: double.infinity,
       color: colors[socialProvider],
-      onPressed: () => onPressed(),
+      onPressed: () => onTap(),
       child: SizedBox(
         height: 48,
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [

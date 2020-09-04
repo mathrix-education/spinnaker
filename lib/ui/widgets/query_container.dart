@@ -4,14 +4,14 @@ import 'package:graphql_flutter/graphql_flutter.dart' hide JsonSerializable;
 import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-class QueryContainer<Que extends GraphQLQuery<Res, Var>, Res, Var extends JsonSerializable> extends StatelessWidget {
-  final Que query;
+class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable> extends StatelessWidget {
+  final Q query;
 
   /// The query variables.
-  final Var variables;
+  final V variables;
 
   /// The widget builder.
-  final Widget Function(Res response) builder;
+  final Widget Function(R response) builder;
 
   QueryContainer({this.query, this.variables, this.builder});
 

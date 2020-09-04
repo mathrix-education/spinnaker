@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/environment/environment.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
@@ -23,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   final loginFormKey = GlobalKey<FormBuilderState>();
 
   final _client = graphQLConfiguration.graphQLClient();
+
+  final GoogleSignIn _googleClient = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +85,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 8),
                 SocialButton(
-                  mode: widget.mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
-                  socialProvider: SocialProvider.Google,
-                ),
+                    mode: widget.mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
+                    socialProvider: SocialProvider.Google,
+                    onTap: () => googleSignIn(context)),
               ],
             ),
           ],
@@ -112,17 +115,53 @@ class _LoginPageState extends State<LoginPage> {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Combinaison invalide')));
       } else {
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
+        _loadToken(login$mutation.loginBasic.token);
 
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(mathrixToken, login$mutation.loginBasic.token);
-
-        GraphQLConfiguration.loadAuthToken();
-
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          '/dashboard',
-          (route) => false,
-        );
+        navigate(context);
       }
+    }
+  }
+
+  _loadToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(mathrixToken, token);
+    GraphQLConfiguration.loadAuthToken();
+  }
+
+  navigate(BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/dashboard',
+      (route) => false,
+    );
+  }
+
+  googleSignIn(BuildContext context) async {
+    try {
+      bool isSignedIn = await _googleClient.isSignedIn();
+
+      if (isSignedIn) {
+        await _googleClient.disconnect();
+      }
+
+      GoogleSignInAccount googleResponse = await _googleClient.signIn();
+      String accessToken = (await googleResponse.authentication).accessToken;
+      print(accessToken);
+
+      MutationOptions options = MutationOptions(
+        documentNode: LoginWithGoogleMutation().document,
+        variables: LoginWithGoogleArguments(accessToken: accessToken).toJson(),
+      );
+
+      final QueryResult mutationResult = await _client.mutate(options);
+
+      if (!mutationResult.hasException) {
+        LoginWithGoogle$Mutation loginWithGoogle$Mutation = LoginWithGoogle$Mutation.fromJson(mutationResult.data);
+        await _loadToken(loginWithGoogle$Mutation.loginWithGoogle.token);
+        navigate(context);
+      }
+      print(mutationResult.exception);
+    } catch (error) {
+      print(error);
     }
   }
 }

@@ -1,0 +1,5 @@
+mutation loginWithGoogle($accessToken: String!) {
+  loginWithGoogle(accessToken: $accessToken) {
+    token
+  }
+}
