@@ -1,16 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mathrix_education_app/core/environment/environment.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
-import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
-import 'package:mathrix_education_app/main.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/pages/login/social_section.dart';
 import 'package:mathrix_education_app/pages/login/top_section.dart';
-import 'package:mathrix_education_app/ui/variables/colors.dart';
-import 'file:///C:/Mathrix/spinnaker/lib/ui/buttons/primary_text_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_form.dart';
 
@@ -21,10 +16,6 @@ class LoginPage extends StatefulWidget with LoginState {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final loginFormKey = GlobalKey<FormBuilderState>();
-
-  final _client = graphQLConfiguration.graphQLClient();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,57 +32,23 @@ class _LoginPageState extends State<LoginPage> {
                 widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
               }),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                LoginForm(formKey: loginFormKey),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                  child: GestureDetector(
-                    onTap: () => setState(() {
-                      widget.mode = LoginMode.RecoverPassword;
-                    }),
-                    child: Text(
-                      widget.mode == LoginMode.Login ? 'Mot de passe oublié?' : '',
-                      style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
-                    ),
-                  ),
-                ),
-                PrimaryTextButton(text: 'Se connecter', onPressed: () => _validate(context)),
-              ],
+            LoginForm(
+              loginMode: widget.mode,
+              onLogin: _finalizeAuthentication,
+              onForgotPasswordTap: () => setState(
+                () => widget.mode = LoginMode.RecoverPassword,
+              ),
             ),
-            SocialSection(onLogin: (token) => _finalizeAuthentication(token)),
+            KeyboardVisibilityProvider(child: SocialSection(onLogin: _finalizeAuthentication)),
           ],
         ),
       ),
     );
   }
 
-  _validate(BuildContext context) async {
-    var form = loginFormKey.currentState;
-    form.save();
-    if (form.validate()) {
-      Map<String, dynamic> value = form.value;
-
-      MutationOptions options = MutationOptions(
-        documentNode: LoginMutation().document,
-        variables: <String, String>{
-          'email': value['email'],
-          'password': value['password'],
-        },
-      );
-      final QueryResult result = await _client.mutate(options);
-
-      if (result.hasException) {
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Combinaison invalide')));
-      } else {
-        Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
-        _finalizeAuthentication(login$mutation.loginBasic.token);
-      }
-    }
-  }
-
-  _finalizeAuthentication(String token) async {
+  /// Finalize the authentication process once the token has been retrieved with the login provider
+  /// (Google, Facebook, or the Api).
+  Future<void> _finalizeAuthentication(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(mathrixToken, token);
     GraphQLConfiguration.loadAuthToken();

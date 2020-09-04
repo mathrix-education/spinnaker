@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
@@ -23,21 +24,24 @@ class SocialSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        SocialButton(
-          mode: mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
-          socialProvider: SocialProvider.Facebook,
-          onTap: () => facebookSignIn(context),
-        ),
-        SizedBox(height: 8),
-        SocialButton(
-            mode: mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
-            socialProvider: SocialProvider.Google,
-            onTap: () => googleSignIn(context)),
-      ],
-    );
+    final bool isKeyboardVisible = KeyboardVisibilityProvider.isKeyboardVisible(context);
+    return isKeyboardVisible
+        ? SizedBox.shrink()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SocialButton(
+                mode: mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
+                socialProvider: SocialProvider.Facebook,
+                onTap: () => facebookSignIn(context),
+              ),
+              SizedBox(height: 8),
+              SocialButton(
+                  mode: mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
+                  socialProvider: SocialProvider.Google,
+                  onTap: () => googleSignIn(context)),
+            ],
+          );
   }
 
   googleSignIn(BuildContext context) async {
