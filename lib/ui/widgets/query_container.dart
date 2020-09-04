@@ -32,7 +32,11 @@ class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable
           return LoadingBody();
         }
 
-        return builder(query.parse(result.data));
+        if (result.data != null) {
+          return builder(query.parse(result.data));
+        }
+
+        return LoadingBody();
       },
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
-import 'package:mathrix_education_app/ui/variables/validators.dart';
 import 'package:mathrix_education_app/ui/widgets/form_field.dart';
 
 class PasswordForm extends StatelessWidget {

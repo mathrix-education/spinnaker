@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/variables/validators.dart';
 import 'package:mathrix_education_app/ui/widgets/form_field.dart';
-import '../../main.dart';
 
 class LoginForm extends StatelessWidget {
   /// The global formBuilder key.
@@ -16,7 +16,7 @@ class LoginForm extends StatelessWidget {
   final LoginMode loginMode;
   final void Function() onForgotPasswordTap;
   final void Function(String token) onLogin;
-  final _client = graphQLConfiguration.graphQLClient();
+  final _client = GraphQLConfiguration.client;
 
   LoginForm({
     this.loginMode,
@@ -37,24 +37,30 @@ class LoginForm extends StatelessWidget {
             // Add TextFormFields and RaisedButton here.
             Container(
               padding: EdgeInsets.only(bottom: 16.0),
+              child: SizedBox(
+                height: 85,
+                child: MtxTextFormField(
+                  label: "Email",
+                  attribute: 'email',
+                  textInputType: TextInputType.emailAddress,
+                  validators: emailValidators,
+                  onTextChange: (s) => validateForm(),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 85,
               child: MtxTextFormField(
-                label: "Email",
-                attribute: 'email',
-                textInputType: TextInputType.emailAddress,
-                validators: emailValidators,
+                label: "Mot de passe",
+                attribute: 'password',
+                obscureText: true,
+                textInputType: TextInputType.visiblePassword,
+                validators: passwordValidators,
                 onTextChange: (s) => validateForm(),
               ),
             ),
-            MtxTextFormField(
-              label: "Mot de passe",
-              attribute: 'password',
-              obscureText: true,
-              textInputType: TextInputType.visiblePassword,
-              validators: passwordValidators,
-              onTextChange: (s) => validateForm(),
-            ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 8.0),
+              padding: EdgeInsets.only(bottom: 8.0),
               child: GestureDetector(
                 onTap: () => onForgotPasswordTap(),
                 child: Text(

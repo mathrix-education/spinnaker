@@ -3,17 +3,16 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/pages/login/login_page.dart';
 import 'package:mathrix_education_app/route_generator.dart';
+import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:provider/provider.dart';
 import 'core/store/session.state.dart';
-
-GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     GraphQLProvider(
-      client: graphQLConfiguration.client,
+      client: GraphQLConfiguration.clientNotifier,
       child: CacheProvider(
         child: MultiProvider(
           providers: [ChangeNotifierProvider(create: (context) => AppState())],
@@ -36,12 +35,12 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Open Sans',
         textTheme: TextTheme(
-        headline1: TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 26.0,
-        fontWeight: FontWeight.w600,
-        ),
-        headline2: TextStyle(
+          headline1: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 26.0,
+            fontWeight: FontWeight.w600,
+          ),
+          headline2: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 24.0,
             fontWeight: FontWeight.w600,
@@ -81,7 +80,8 @@ class HomePage extends StatelessWidget {
     GraphQLConfiguration.loadAuthToken().then((_) {
       Provider.of<AppState>(context, listen: false).loadUser();
       String routeName = (GraphQLConfiguration.isLogged()) ? "/dashboard" : "/";
-      if (ModalRoute.of(context).settings.name != "/") {
+      print(ModalRoute.of(context).settings.name);
+      if (ModalRoute.of(context).settings.name != routeName) {
         Navigator.of(context).pushNamedAndRemoveUntil(routeName, (_) => false);
       }
     });

@@ -28,7 +28,8 @@ class _DisciplineTabState extends State<DisciplineTab> {
       query: MeQuery(),
       builder: (Me$Query data) {
         final Me$Query$User me = data.me;
-        final List<Me$Query$User$Grade$Discipline> disciplines = data.me.grade.disciplines;
+        print(me?.toJson());
+        final List<Me$Query$User$Grade$Discipline> disciplines = data.me?.grade?.disciplines ?? [];
         return CardListWithTitle<Me$Query$User$Grade$Discipline>(
           itemList: disciplines,
           builder: (discipline) {

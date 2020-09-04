@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/dashboard/update_grade_dialog.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';

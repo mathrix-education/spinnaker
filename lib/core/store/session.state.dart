@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/main.dart';
 
 class AppState extends ChangeNotifier {
   Me$BasicUserMixin user;
 
   List<ListGrades$Query$Grade> listGrades = [];
 
+  final _client = GraphQLConfiguration.client;
+
   loadUser() async {
     QueryOptions options = QueryOptions(
       documentNode: MeQuery().document,
     );
 
-    QueryResult result = await graphQLConfiguration.graphQLClient().query(options);
+    QueryResult result = await _client.query(options);
 
     if (!result.hasException) {
       user = Me$Query.fromJson(result.data).me;
@@ -28,7 +28,7 @@ class AppState extends ChangeNotifier {
       documentNode: ListGradesQuery().document,
     );
 
-    QueryResult result = await graphQLConfiguration.graphQLClient().query(options);
+    QueryResult result = await _client.query(options);
 
     if (!result.hasException) {
       listGrades = ListGradesQuery().parse(result.data).listGrades;
@@ -47,11 +47,13 @@ class AppState extends ChangeNotifier {
       variables: updatedMe.toJson(),
     );
 
-    QueryResult result = await graphQLConfiguration.graphQLClient().mutate(options);
+    QueryResult result = await _client.mutate(options);
 
     if (!result.hasException) {
       user = Me$Query.fromJson(result.data).me;
       notifyListeners();
     }
   }
+
+
 }

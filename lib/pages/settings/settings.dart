@@ -25,17 +25,15 @@ class SettingsPage extends StatelessWidget {
             AccountForm(formKeyAccount: _accountFormKey),
             SizedBox(height: 16),
             PasswordForm(passwordKeyAccount: _passwordFormKey),
-            Consumer<AppState>(builder: (context, appState, child) {
-              return MaterialButton(
-                minWidth: double.infinity,
-                color: Colors.yellow,
-                disabledColor: Colors.grey,
-                onPressed: () {
-                  _validate(appState);
-                },
-                child: Text('Enregistrer les changements'),
-              );
-            }),
+            MaterialButton(
+              minWidth: double.infinity,
+              color: Colors.yellow,
+              disabledColor: Colors.grey,
+              onPressed: () {
+                _validate(Provider.of<AppState>(context, listen: false));
+              },
+              child: Text('Enregistrer les changements'),
+            ),
             PremiumInfo(),
           ],
         ),

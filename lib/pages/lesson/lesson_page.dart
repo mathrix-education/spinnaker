@@ -19,7 +19,7 @@ class LessonPage extends StatelessWidget {
       body: QueryContainer(
           query: ReadLessonQuery(),
           builder: (ReadLesson$Query data) {
-            final ReadLesson$Query readLesson = data;
+            // final ReadLesson$Query readLesson = data;
             return Text('IMPLEMENT COURSE');
           }),
     );

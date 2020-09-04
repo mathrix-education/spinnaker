@@ -4,10 +4,10 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/ui/buttons/social_button.dart';
-import '../../main.dart';
 
 class SocialSection extends StatelessWidget {
   final LoginMode mode;
@@ -18,7 +18,7 @@ class SocialSection extends StatelessWidget {
 
   final Function(String token) onLogin;
 
-  final _client = graphQLConfiguration.graphQLClient();
+  final _client = GraphQLConfiguration.client;
 
   SocialSection({Key key, this.mode, this.onLogin}) : super(key: key);
 

@@ -4,7 +4,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
-import 'package:mathrix_education_app/ui/layouts/mathrix_app_bar.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/widgets/CustomNavigationBarITem.dart';
 import 'course_tab.dart';

@@ -17,20 +17,16 @@ class GraphQLConfiguration {
 
   static final Link _link = _authLink.concat(_httpLink);
 
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      link: _link,
-      cache: InMemoryCache(),
-    ),
+  static GraphQLClient client = GraphQLClient(
+    link: _link,
+    cache: InMemoryCache(),
   );
 
-  GraphQLClient graphQLClient() {
-    return client.value;
-  }
+  static ValueNotifier<GraphQLClient> clientNotifier = ValueNotifier(client);
 
   static Future<void> loadAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    token = prefs.getString(mathrixToken) ?? '';
+    token = prefs.getString('mathrix-token') ?? '';
   }
 
   static bool isLogged() {
@@ -42,5 +38,6 @@ class GraphQLConfiguration {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = '';
     await prefs.remove(mathrixToken);
+    client.cache.reset(); // empty the hash map
   }
 }
