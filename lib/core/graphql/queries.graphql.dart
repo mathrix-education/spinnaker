@@ -724,6 +724,194 @@ class ListDisciplinesQuery
       ListDisciplines$Query.fromJson(json);
 }
 
+@JsonSerializable(explicitToJson: true)
+class LoginWithFacebook$Mutation$JWT with EquatableMixin {
+  LoginWithFacebook$Mutation$JWT();
+
+  factory LoginWithFacebook$Mutation$JWT.fromJson(Map<String, dynamic> json) =>
+      _$LoginWithFacebook$Mutation$JWTFromJson(json);
+
+  String token;
+
+  @override
+  List<Object> get props => [token];
+  Map<String, dynamic> toJson() => _$LoginWithFacebook$Mutation$JWTToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoginWithFacebook$Mutation with EquatableMixin {
+  LoginWithFacebook$Mutation();
+
+  factory LoginWithFacebook$Mutation.fromJson(Map<String, dynamic> json) =>
+      _$LoginWithFacebook$MutationFromJson(json);
+
+  LoginWithFacebook$Mutation$JWT loginWithFacebook;
+
+  @override
+  List<Object> get props => [loginWithFacebook];
+  Map<String, dynamic> toJson() => _$LoginWithFacebook$MutationToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoginWithFacebookArguments extends JsonSerializable with EquatableMixin {
+  LoginWithFacebookArguments({@required this.accessToken});
+
+  factory LoginWithFacebookArguments.fromJson(Map<String, dynamic> json) =>
+      _$LoginWithFacebookArgumentsFromJson(json);
+
+  final String accessToken;
+
+  @override
+  List<Object> get props => [accessToken];
+  Map<String, dynamic> toJson() => _$LoginWithFacebookArgumentsToJson(this);
+}
+
+class LoginWithFacebookMutation extends GraphQLQuery<LoginWithFacebook$Mutation,
+    LoginWithFacebookArguments> {
+  LoginWithFacebookMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'loginWithFacebook'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'accessToken')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'loginWithFacebook'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'accessToken'),
+                    value: VariableNode(name: NameNode(value: 'accessToken')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'token'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'loginWithFacebook';
+
+  @override
+  final LoginWithFacebookArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  LoginWithFacebook$Mutation parse(Map<String, dynamic> json) =>
+      LoginWithFacebook$Mutation.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoginWithGoogle$Mutation$JWT with EquatableMixin {
+  LoginWithGoogle$Mutation$JWT();
+
+  factory LoginWithGoogle$Mutation$JWT.fromJson(Map<String, dynamic> json) =>
+      _$LoginWithGoogle$Mutation$JWTFromJson(json);
+
+  String token;
+
+  @override
+  List<Object> get props => [token];
+  Map<String, dynamic> toJson() => _$LoginWithGoogle$Mutation$JWTToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoginWithGoogle$Mutation with EquatableMixin {
+  LoginWithGoogle$Mutation();
+
+  factory LoginWithGoogle$Mutation.fromJson(Map<String, dynamic> json) =>
+      _$LoginWithGoogle$MutationFromJson(json);
+
+  LoginWithGoogle$Mutation$JWT loginWithGoogle;
+
+  @override
+  List<Object> get props => [loginWithGoogle];
+  Map<String, dynamic> toJson() => _$LoginWithGoogle$MutationToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoginWithGoogleArguments extends JsonSerializable with EquatableMixin {
+  LoginWithGoogleArguments({@required this.accessToken});
+
+  factory LoginWithGoogleArguments.fromJson(Map<String, dynamic> json) =>
+      _$LoginWithGoogleArgumentsFromJson(json);
+
+  final String accessToken;
+
+  @override
+  List<Object> get props => [accessToken];
+  Map<String, dynamic> toJson() => _$LoginWithGoogleArgumentsToJson(this);
+}
+
+class LoginWithGoogleMutation
+    extends GraphQLQuery<LoginWithGoogle$Mutation, LoginWithGoogleArguments> {
+  LoginWithGoogleMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'loginWithGoogle'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'accessToken')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'loginWithGoogle'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'accessToken'),
+                    value: VariableNode(name: NameNode(value: 'accessToken')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'token'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'loginWithGoogle';
+
+  @override
+  final LoginWithGoogleArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  LoginWithGoogle$Mutation parse(Map<String, dynamic> json) =>
+      LoginWithGoogle$Mutation.fromJson(json);
+}
+
 mixin ListGrades$BasicGradeMixin {
   String id;
   String name;
@@ -2081,98 +2269,4 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
   List<Object> get props => [document, operationName];
   @override
   Me$Query parse(Map<String, dynamic> json) => Me$Query.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class LoginWithGoogle$Mutation$JWT with EquatableMixin {
-  LoginWithGoogle$Mutation$JWT();
-
-  factory LoginWithGoogle$Mutation$JWT.fromJson(Map<String, dynamic> json) =>
-      _$LoginWithGoogle$Mutation$JWTFromJson(json);
-
-  String token;
-
-  @override
-  List<Object> get props => [token];
-  Map<String, dynamic> toJson() => _$LoginWithGoogle$Mutation$JWTToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class LoginWithGoogle$Mutation with EquatableMixin {
-  LoginWithGoogle$Mutation();
-
-  factory LoginWithGoogle$Mutation.fromJson(Map<String, dynamic> json) =>
-      _$LoginWithGoogle$MutationFromJson(json);
-
-  LoginWithGoogle$Mutation$JWT loginWithGoogle;
-
-  @override
-  List<Object> get props => [loginWithGoogle];
-  Map<String, dynamic> toJson() => _$LoginWithGoogle$MutationToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class LoginWithGoogleArguments extends JsonSerializable with EquatableMixin {
-  LoginWithGoogleArguments({@required this.accessToken});
-
-  factory LoginWithGoogleArguments.fromJson(Map<String, dynamic> json) =>
-      _$LoginWithGoogleArgumentsFromJson(json);
-
-  final String accessToken;
-
-  @override
-  List<Object> get props => [accessToken];
-  Map<String, dynamic> toJson() => _$LoginWithGoogleArgumentsToJson(this);
-}
-
-class LoginWithGoogleMutation
-    extends GraphQLQuery<LoginWithGoogle$Mutation, LoginWithGoogleArguments> {
-  LoginWithGoogleMutation({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.mutation,
-        name: NameNode(value: 'loginWithGoogle'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'accessToken')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'loginWithGoogle'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'accessToken'),
-                    value: VariableNode(name: NameNode(value: 'accessToken')))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'token'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null)
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'loginWithGoogle';
-
-  @override
-  final LoginWithGoogleArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  LoginWithGoogle$Mutation parse(Map<String, dynamic> json) =>
-      LoginWithGoogle$Mutation.fromJson(json);
 }

@@ -1,0 +1,5 @@
+mutation loginWithFacebook($accessToken: String!) {
+  loginWithFacebook(accessToken: $accessToken) {
+    token
+  }
+}

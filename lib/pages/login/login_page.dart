@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -25,7 +26,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final _client = graphQLConfiguration.graphQLClient();
 
-  final GoogleSignIn _googleClient = GoogleSignIn();
+  final GoogleSignIn _googleClient = GoogleSignIn(scopes: ['email']);
+  final FacebookLogin facebookLogin = FacebookLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +39,28 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Column(
               children: [
-                Text(widget.primaryText, style: Theme.of(context).textTheme.headline1.apply(color: green)),
+                Text(widget.primaryText, style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline1
+                    .apply(color: green)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(widget.subtitleText, style: Theme.of(context).textTheme.bodyText1),
+                    Text(widget.subtitleText, style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyText1),
                     SizedBox(width: 8.0),
                     GestureDetector(
-                      onTap: () => setState(() {
-                        widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
-                      }),
+                      onTap: () =>
+                          setState(() {
+                            widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
+                          }),
                       child: Text(
                         widget.actionText,
                         style:
-                            TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
+                        TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
                       ),
                     ),
                   ],
@@ -64,9 +74,10 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: GestureDetector(
-                    onTap: () => setState(() {
-                      widget.mode = LoginMode.RecoverPassword;
-                    }),
+                    onTap: () =>
+                        setState(() {
+                          widget.mode = LoginMode.RecoverPassword;
+                        }),
                     child: Text(
                       widget.mode == LoginMode.Login ? 'Mot de passe oublié?' : '',
                       style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
@@ -82,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                 SocialButton(
                   mode: widget.mode == LoginMode.Login ? SocialButtonMode.Login : SocialButtonMode.Register,
                   socialProvider: SocialProvider.Facebook,
+                  onTap: () => facebookSignIn(context),
                 ),
                 SizedBox(height: 8),
                 SocialButton(
@@ -116,8 +128,7 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
         _loadToken(login$mutation.loginBasic.token);
-
-        navigate(context);
+        navigate();
       }
     }
   }
@@ -128,10 +139,10 @@ class _LoginPageState extends State<LoginPage> {
     GraphQLConfiguration.loadAuthToken();
   }
 
-  navigate(BuildContext context) {
+  navigate() {
     Navigator.of(context).pushNamedAndRemoveUntil(
       '/dashboard',
-      (route) => false,
+          (route) => false,
     );
   }
 
@@ -157,11 +168,33 @@ class _LoginPageState extends State<LoginPage> {
       if (!mutationResult.hasException) {
         LoginWithGoogle$Mutation loginWithGoogle$Mutation = LoginWithGoogle$Mutation.fromJson(mutationResult.data);
         await _loadToken(loginWithGoogle$Mutation.loginWithGoogle.token);
-        navigate(context);
+        navigate();
       }
       print(mutationResult.exception);
     } catch (error) {
-      print(error);
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text('L\'Authentification Google a échoué')));
+    }
+  }
+
+  facebookSignIn(BuildContext context) async {
+    await facebookLogin.logOut();
+    final result = await facebookLogin.logIn(['email']);
+
+    if (result.status == FacebookLoginStatus.loggedIn) {
+    MutationOptions options = MutationOptions(
+      documentNode: LoginWithFacebookMutation().document,
+      variables: LoginWithFacebookArguments(accessToken: result.accessToken.token).toJson(),
+    );
+
+    final QueryResult mutationResult = await _client.mutate(options);
+    if (!mutationResult.hasException) {
+      LoginWithFacebook$Mutation loginWithGoogle$Mutation =
+      LoginWithFacebook$Mutation.fromJson(mutationResult.data);
+      await _loadToken(loginWithGoogle$Mutation.loginWithFacebook.token);
+      navigate();
+    }
+  }else{
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text('L\'Authentification Facebook a échoué')));
     }
   }
 }

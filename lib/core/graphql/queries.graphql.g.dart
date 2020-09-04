@@ -349,6 +349,84 @@ Map<String, dynamic> _$ListDisciplines$QueryToJson(
           instance.listDisciplines?.map((e) => e?.toJson())?.toList(),
     };
 
+LoginWithFacebook$Mutation$JWT _$LoginWithFacebook$Mutation$JWTFromJson(
+    Map<String, dynamic> json) {
+  return LoginWithFacebook$Mutation$JWT()..token = json['token'] as String;
+}
+
+Map<String, dynamic> _$LoginWithFacebook$Mutation$JWTToJson(
+        LoginWithFacebook$Mutation$JWT instance) =>
+    <String, dynamic>{
+      'token': instance.token,
+    };
+
+LoginWithFacebook$Mutation _$LoginWithFacebook$MutationFromJson(
+    Map<String, dynamic> json) {
+  return LoginWithFacebook$Mutation()
+    ..loginWithFacebook = json['loginWithFacebook'] == null
+        ? null
+        : LoginWithFacebook$Mutation$JWT.fromJson(
+            json['loginWithFacebook'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$LoginWithFacebook$MutationToJson(
+        LoginWithFacebook$Mutation instance) =>
+    <String, dynamic>{
+      'loginWithFacebook': instance.loginWithFacebook?.toJson(),
+    };
+
+LoginWithFacebookArguments _$LoginWithFacebookArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return LoginWithFacebookArguments(
+    accessToken: json['accessToken'] as String,
+  );
+}
+
+Map<String, dynamic> _$LoginWithFacebookArgumentsToJson(
+        LoginWithFacebookArguments instance) =>
+    <String, dynamic>{
+      'accessToken': instance.accessToken,
+    };
+
+LoginWithGoogle$Mutation$JWT _$LoginWithGoogle$Mutation$JWTFromJson(
+    Map<String, dynamic> json) {
+  return LoginWithGoogle$Mutation$JWT()..token = json['token'] as String;
+}
+
+Map<String, dynamic> _$LoginWithGoogle$Mutation$JWTToJson(
+        LoginWithGoogle$Mutation$JWT instance) =>
+    <String, dynamic>{
+      'token': instance.token,
+    };
+
+LoginWithGoogle$Mutation _$LoginWithGoogle$MutationFromJson(
+    Map<String, dynamic> json) {
+  return LoginWithGoogle$Mutation()
+    ..loginWithGoogle = json['loginWithGoogle'] == null
+        ? null
+        : LoginWithGoogle$Mutation$JWT.fromJson(
+            json['loginWithGoogle'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$LoginWithGoogle$MutationToJson(
+        LoginWithGoogle$Mutation instance) =>
+    <String, dynamic>{
+      'loginWithGoogle': instance.loginWithGoogle?.toJson(),
+    };
+
+LoginWithGoogleArguments _$LoginWithGoogleArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return LoginWithGoogleArguments(
+    accessToken: json['accessToken'] as String,
+  );
+}
+
+Map<String, dynamic> _$LoginWithGoogleArgumentsToJson(
+        LoginWithGoogleArguments instance) =>
+    <String, dynamic>{
+      'accessToken': instance.accessToken,
+    };
+
 ListGrades$Query$Grade _$ListGrades$Query$GradeFromJson(
     Map<String, dynamic> json) {
   return ListGrades$Query$Grade()
@@ -882,43 +960,4 @@ Map<String, dynamic> _$Me$Query$User$GradeToJson(
       'slug': instance.slug,
       'visible': instance.visible,
       'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
-    };
-
-LoginWithGoogle$Mutation$JWT _$LoginWithGoogle$Mutation$JWTFromJson(
-    Map<String, dynamic> json) {
-  return LoginWithGoogle$Mutation$JWT()..token = json['token'] as String;
-}
-
-Map<String, dynamic> _$LoginWithGoogle$Mutation$JWTToJson(
-        LoginWithGoogle$Mutation$JWT instance) =>
-    <String, dynamic>{
-      'token': instance.token,
-    };
-
-LoginWithGoogle$Mutation _$LoginWithGoogle$MutationFromJson(
-    Map<String, dynamic> json) {
-  return LoginWithGoogle$Mutation()
-    ..loginWithGoogle = json['loginWithGoogle'] == null
-        ? null
-        : LoginWithGoogle$Mutation$JWT.fromJson(
-            json['loginWithGoogle'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$LoginWithGoogle$MutationToJson(
-        LoginWithGoogle$Mutation instance) =>
-    <String, dynamic>{
-      'loginWithGoogle': instance.loginWithGoogle?.toJson(),
-    };
-
-LoginWithGoogleArguments _$LoginWithGoogleArgumentsFromJson(
-    Map<String, dynamic> json) {
-  return LoginWithGoogleArguments(
-    accessToken: json['accessToken'] as String,
-  );
-}
-
-Map<String, dynamic> _$LoginWithGoogleArgumentsToJson(
-        LoginWithGoogleArguments instance) =>
-    <String, dynamic>{
-      'accessToken': instance.accessToken,
     };
