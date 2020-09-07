@@ -1,5 +1,7 @@
 query ListDisciplines {
   listDisciplines {
-    ...BasicDiscipline
+    id
+    name
+    slug
   }
 }

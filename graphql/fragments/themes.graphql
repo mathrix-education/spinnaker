@@ -1,4 +1,0 @@
-fragment BasicTheme on Theme {
-  id
-  name
-}

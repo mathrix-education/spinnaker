@@ -1,5 +1,12 @@
 query ListTrainings {
   listTrainings {
-    ...BasicTraining
+    id
+    name
+    available
+    owned
+    duration
+    grades {
+      name
+    }
   }
 }

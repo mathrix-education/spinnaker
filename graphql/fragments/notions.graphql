@@ -1,5 +1,0 @@
-fragment BasicNotion on Notion {
-  id
-  name
-  type
-}

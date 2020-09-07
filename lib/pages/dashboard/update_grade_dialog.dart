@@ -12,9 +12,7 @@ class ChangeGradeDialog extends StatelessWidget {
         title: const Headline4(text: 'Changer de classe'),
         children: appState.listGrades.where((element) => element.id != appState.user?.grade?.id).map((e) {
           return SimpleDialogOption(
-            onPressed: () {
-              appState.updateUser(UpdateMeArguments(input: UpdateMe$UpdateMe(grade_id: e.id)));
-            },
+            onPressed: () => appState.updateUser(UpdateMeArguments(input: UpdateMe$UpdateMe(grade_id: e.id))),
             child: Text(
               e.name,
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),

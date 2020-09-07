@@ -1,4 +1,0 @@
-fragment BasicLesson on Lesson {
-  id
-  name
-}

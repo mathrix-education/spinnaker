@@ -1,6 +1,8 @@
 query ListGrades {
   listGrades {
-    ...BasicGrade
+    id
+    name
+    slug
   }
 }
 

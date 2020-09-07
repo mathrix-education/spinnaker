@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/dashboard/update_grade_dialog.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
+import 'package:mathrix_education_app/ui/widgets/mtx_icon.dart';
 import 'package:provider/provider.dart';
 
 class SettingsDialog extends StatelessWidget {
@@ -13,36 +14,50 @@ class SettingsDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: green.withOpacity(0.83),
       insetPadding: EdgeInsets.all(0),
-      child: SizedBox.expand(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              child: Text('Changer de classe', style: style),
-              onTap: () => showDialog(
-                context: context,
-                builder: (_) => ChangeGradeDialog(),
-              ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 16,
+            right: 16,
+            child: MtxIcon(
+              icon: 'close',
+              onTap: () => Navigator.of(context).pop(),
             ),
-            const SizedBox(height: 16),
-            GestureDetector(
-                child: Text('Paramètres', style: style),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).pushNamed('/settings');
-                }),
-            const SizedBox(height: 16),
-            Consumer<AppState>(builder: (context, appState, child) {
-              return GestureDetector(
-                  child: Text('Déconnexion', style: style),
+          ),
+          SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  child: Text('Changer de classe', style: style),
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => ChangeGradeDialog(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                GestureDetector(
+                  child: Text('Paramètres', style: style),
                   onTap: () {
-                    appState.logout().then((_) {
-                      Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
-                    });
-                  });
-            }),
-          ],
-        ),
+                    Navigator.pop(context);
+                    Navigator.of(context).pushNamed('/settings');
+                  },
+                ),
+                const SizedBox(height: 16),
+                Consumer<AppState>(
+                  builder: (context, appState, child) {
+                    return GestureDetector(
+                      child: Text('Déconnexion', style: style),
+                      onTap: () => appState.logout().then((_) {
+                        Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
+                      }),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -11,10 +11,14 @@ fragment BasicUser on User {
   trainings {
     id
   }
-  grade{
-    ...BasicGrade
+  grade {
+    id
+    name
+    slug
     disciplines {
-      ...BasicDiscipline
+      id
+      name
+      slug
     }
   }
 }
