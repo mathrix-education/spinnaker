@@ -42,9 +42,13 @@ class AppState extends ChangeNotifier {
   }
 
   updateUser(UpdateMeArguments updatedMe) async {
+    var updatedMeJson = updatedMe.toJson();
+    print(updatedMeJson['input']);
+    updatedMeJson['input'].removeWhere((key, value) => value == null);
+
     MutationOptions options = MutationOptions(
       documentNode: UpdateMeMutation().document,
-      variables: updatedMe.toJson(),
+      variables: updatedMeJson,
     );
 
     QueryResult result = await _client.mutate(options);
@@ -54,6 +58,4 @@ class AppState extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-
 }

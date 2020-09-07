@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/pages/login/login_page.dart';
-import 'package:mathrix_education_app/route_generator.dart';
-import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:provider/provider.dart';
+import 'core/routing/route_generator.dart';
 import 'core/store/session.state.dart';
 
 void main() {

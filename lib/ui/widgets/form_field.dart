@@ -41,6 +41,7 @@ class MtxTextFormField extends StatelessWidget {
           onTextChange(text);
         }
       },
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         labelText: label,
         fillColor: Colors.amberAccent,

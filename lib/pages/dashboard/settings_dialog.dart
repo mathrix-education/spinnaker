@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/dashboard/update_grade_dialog.dart';
@@ -9,7 +8,8 @@ import 'package:provider/provider.dart';
 class SettingsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<AppState>(context, listen: false).loadGrades();
+    final AppState appState = Provider.of<AppState>(context, listen: false);
+    appState.loadGrades();
     final style = Theme.of(context).textTheme.headline2.apply(color: Colors.white);
     return Dialog(
       backgroundColor: green.withOpacity(0.83),
@@ -48,9 +48,9 @@ class SettingsDialog extends StatelessWidget {
                   builder: (context, appState, child) {
                     return GestureDetector(
                       child: Text('Déconnexion', style: style),
-                      onTap: () => appState.logout().then((_) {
-                        Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
-                      }),
+                      onTap: () => appState
+                          .logout()
+                          .then((_) => Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false)),
                     );
                   },
                 ),

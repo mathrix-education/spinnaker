@@ -10,30 +10,48 @@ class AccountForm extends StatelessWidget {
   /// The form key.
   final GlobalKey<FormBuilderState> formKeyAccount;
 
-  const AccountForm({Key key, this.formKeyAccount}) : super(key: key);
+  /// Callback when the form is updated.
+  final Function onFormUpdate;
+
+  const AccountForm({this.formKeyAccount, this.onFormUpdate});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
       return FormBuilder(
         key: formKeyAccount,
-        initialValue: {'username': appState.user.username, 'email': appState.user.email},
+        autovalidate: true,
+        initialValue: {
+          'username': appState.user.username,
+          'email': appState.user.email,
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const TitleGreen(text: 'Compte'),
             const SizedBox(height: 16),
-            MtxTextFormField(label: 'Pseudo', attribute: 'username', validators: [FormBuilderValidators.required()]),
+            MtxTextFormField(
+              label: 'Pseudo',
+              attribute: 'username',
+              validators: [FormBuilderValidators.required()],
+              onTextChange: (text) => _validate(),
+            ),
             const SizedBox(height: 20),
             MtxTextFormField(
               label: 'Email',
               textInputType: TextInputType.emailAddress,
               attribute: 'email',
               validators: emailValidators,
+              onTextChange: (text) => _validate(),
             ),
           ],
         ),
       );
     });
+  }
+
+  _validate(){
+    formKeyAccount.currentState.saveAndValidate();
+    onFormUpdate();
   }
 }

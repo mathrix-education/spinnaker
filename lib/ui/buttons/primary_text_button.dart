@@ -9,7 +9,9 @@ class PrimaryTextButton extends StatelessWidget {
 
   final double minWidth;
 
-  PrimaryTextButton({this.onPressed, this.text, this.minWidth});
+  final bool enabled;
+
+  PrimaryTextButton({this.onPressed, this.text, this.minWidth, this.enabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +20,16 @@ class PrimaryTextButton extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       color: yellow,
       disabledColor: grey,
-      onPressed: () => onPressed(),
+      onPressed: enabled ? onPressed : null,
       child: SizedBox(
-          height: 48,
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-          )),
+        height: 48,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ),
+      ),
     );
   }
 }
