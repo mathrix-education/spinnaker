@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    GraphQLConfiguration.loadAuthToken().then((_) {
+    GraphQLConfiguration.token.then((_) {
       Provider.of<AppState>(context, listen: false).loadUser();
       String routeName = (GraphQLConfiguration.isLogged()) ? "/dashboard" : "/";
       if (ModalRoute.of(context).settings.name != routeName) {

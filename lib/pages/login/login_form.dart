@@ -10,19 +10,29 @@ import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/variables/validators.dart';
 import 'package:mathrix_education_app/ui/widgets/form_field.dart';
 
-class LoginForm extends StatelessWidget {
-  /// The global formBuilder key.
-  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+class LoginForm extends StatefulWidget {
   final LoginMode loginMode;
   final void Function() onForgotPasswordTap;
   final void Function(String token) onLogin;
-  final _client = GraphQLConfiguration.client;
 
   LoginForm({
     this.loginMode,
     this.onForgotPasswordTap,
     this.onLogin,
   });
+
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  bool formValid = false;
+
+  /// The global formBuilder key.
+  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+
+  /// The graphql client.
+  final _client = GraphQLConfiguration.client;
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +72,18 @@ class LoginForm extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(bottom: 8.0),
               child: GestureDetector(
-                onTap: () => onForgotPasswordTap(),
+                onTap: () => widget.onForgotPasswordTap(),
                 child: Text(
-                  loginMode == LoginMode.Login ? 'Mot de passe oublié?' : '',
+                  widget.loginMode == LoginMode.Login ? 'Mot de passe oublié?' : '',
                   style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
                 ),
               ),
             ),
-            PrimaryTextButton(text: 'Se connecter', onPressed: () => _authenticate(context)),
+            PrimaryTextButton(
+              text: 'Se connecter',
+              onPressed: () => _authenticate(context),
+              enabled: formValid,
+            ),
           ],
         ),
       ),
@@ -77,7 +91,10 @@ class LoginForm extends StatelessWidget {
   }
 
   void validateForm() {
-    this.formKey.currentState.validate();
+    var form = formKey.currentState;
+    setState(() {
+      formValid = form.saveAndValidate() && form.value['password'] != '';
+    });
   }
 
   _authenticate(BuildContext context) async {
@@ -96,7 +113,7 @@ class LoginForm extends StatelessWidget {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Combinaison invalide')));
       } else {
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
-        onLogin(login$mutation.loginBasic.token);
+        widget.onLogin(login$mutation.loginBasic.token);
       }
     }
   }

@@ -40,7 +40,6 @@ class PasswordForm extends StatelessWidget {
             attribute: 'confirmPassword',
             validators: [
               (val) {
-                print(val);
                 var form = passwordKeyAccount.currentState;
                 if (form.value['password'] != val && form.value['password'].length >= 6 && val != '') {
                   return "Les mots de passes ne correspondent pas";

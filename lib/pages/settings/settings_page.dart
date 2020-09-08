@@ -1,7 +1,9 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
+import 'package:mathrix_education_app/core/misc/vibration.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/settings/account_form.dart';
 import 'package:mathrix_education_app/pages/settings/password_form.dart';
@@ -68,10 +70,24 @@ class _SettingsPageState extends State<SettingsPage> {
     UpdateMeArguments updateMeArguments = UpdateMeArguments(input: UpdateMe$UpdateMe());
 
     updateMeArguments.input.password = passwordForm.value['password'];
-    updateMeArguments.input.email = accountForm.value['email'];
-    updateMeArguments.input.username = accountForm.value['username'];
 
-    appState.updateUser(updateMeArguments);
+    if (accountForm.value['email'] != appState.user.email) {
+      updateMeArguments.input.email = accountForm.value['email'];
+    }
+
+    if (accountForm.value['username'] != appState.user.username) {
+      updateMeArguments.input.username = accountForm.value['username'];
+    }
+    appState.updateUser(updateMeArguments).then((value) {
+      if (value) {
+        Flushbar(
+          message: 'Ton profil a été mis à jour!',
+          duration: Duration(seconds: 4),
+        ).show(context);
+      }
+      hapticSuccessFeedback();
+      updateSaveStatus(appState);
+    });
   }
 
   /// Update the save status.
@@ -80,10 +96,6 @@ class _SettingsPageState extends State<SettingsPage> {
     var passwordForm = _passwordFormKey.currentState;
 
     Me$BasicUserMixin user = appState.user;
-
-    print(accountForm.value['email']);
-    print(user.email);
-    print(accountForm.value['email'] != user.email);
 
     setState(() {
       // The confirmPassword is critical, for display issue, password form is considered as valid if confirmPassword is empty

@@ -54,7 +54,6 @@ class SocialSection extends StatelessWidget {
 
       GoogleSignInAccount googleResponse = await _googleClient.signIn();
       String accessToken = (await googleResponse.authentication).accessToken;
-      print(accessToken);
 
       MutationOptions options = MutationOptions(
         documentNode: LoginWithGoogleMutation().document,

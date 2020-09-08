@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mathrix_education_app/core/environment/environment.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/pages/login/social_section.dart';
 import 'package:mathrix_education_app/pages/login/top_section.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_form.dart';
 
@@ -49,9 +51,9 @@ class _LoginPageState extends State<LoginPage> {
   /// Finalize the authentication process once the token has been retrieved with the login provider
   /// (Google, Facebook, or the Api).
   Future<void> _finalizeAuthentication(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(mathrixToken, token);
-    GraphQLConfiguration.loadAuthToken();
+    GraphQLConfiguration.token = token;
+    await GraphQLConfiguration.token;
+    await Provider.of<AppState>(context, listen: false).loadUser();
     Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (route) => false);
   }
 }

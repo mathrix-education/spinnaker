@@ -15,7 +15,10 @@ class AppState extends ChangeNotifier {
       documentNode: MeQuery().document,
     );
 
+    print(await GraphQLConfiguration.authLink.getToken());
     QueryResult result = await _client.query(options);
+
+    print(result.toString());
 
     if (!result.hasException) {
       user = Me$Query.fromJson(result.data).me;
@@ -41,9 +44,8 @@ class AppState extends ChangeNotifier {
     this.user = null;
   }
 
-  updateUser(UpdateMeArguments updatedMe) async {
+  Future<bool> updateUser(UpdateMeArguments updatedMe) async {
     var updatedMeJson = updatedMe.toJson();
-    print(updatedMeJson['input']);
     updatedMeJson['input'].removeWhere((key, value) => value == null);
 
     MutationOptions options = MutationOptions(
@@ -54,8 +56,10 @@ class AppState extends ChangeNotifier {
     QueryResult result = await _client.mutate(options);
 
     if (!result.hasException) {
-      user = Me$Query.fromJson(result.data).me;
+      Map<String, dynamic> adaptedData = {'me': result.data['updateMe']};
+      user = Me$Query.fromJson(adaptedData).me;
       notifyListeners();
     }
+    return (!result.hasException);
   }
 }

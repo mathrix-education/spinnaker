@@ -5,17 +5,17 @@ import "package:graphql_flutter/graphql_flutter.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GraphQLConfiguration {
-  static String token = '';
+  static String _token = '';
 
   static final HttpLink _httpLink = HttpLink(
     uri: "https://edge.mathrix.tech/graphql",
   );
 
-  static final AuthLink _authLink = AuthLink(
-    getToken: () async => isLogged() ? 'Bearer $token' : null,
+  static final AuthLink authLink = AuthLink(
+    getToken: () async => isLogged() ? 'Bearer $_token' : null,
   );
 
-  static final Link _link = _authLink.concat(_httpLink);
+  static final Link _link = authLink.concat(_httpLink);
 
   static GraphQLClient client = GraphQLClient(
     link: _link,
@@ -24,13 +24,21 @@ class GraphQLConfiguration {
 
   static ValueNotifier<GraphQLClient> clientNotifier = ValueNotifier(client);
 
-  static Future<void> loadAuthToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('mathrix-token') ?? '';
+  static set token(String token) {
+    SharedPreferences.getInstance().then((value) => value.setString('mathrix-token', token));
+    _token = token;
+  }
+
+  static get token async {
+    if (_token == '') {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      token = prefs.getString('mathrix-token') ?? '';
+    }
+    return _token;
   }
 
   static bool isLogged() {
-    return token != '';
+    return _token != '';
     // TODO externalise the token mechanism and use token validity information.
   }
 

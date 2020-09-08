@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-Color green = Color(0xff229a87);
-Color greenLight = Color(0xff86c9be);
+const Color green = Color(0xff229a87);
+const Color greenLight = Color(0xff86c9be);
 
-Color yellow = Color(0xfff9ed35);
-Color yellowLight = Color(0xfffdfac2);
+const Color yellow = Color(0xfff9ed35);
+const Color yellowLight = Color(0xfffdfac2);
 
-Color greyActivityText = Color(0xffb7c2bf);
-Color grey = Color(0xffe4e4e4);
+const Color greyActivityText = Color(0xffb7c2bf);
+const Color grey = Color(0xffe4e4e4);
 
-Map<int, Color> mathrixColorSwatch = {
+const Map<int, Color> mathrixColorSwatch = {
   50: Color.fromRGBO(0x22, 0x9a, 0x87, .1),
   100: Color.fromRGBO(0x22, 0x9a, 0x87, .1),
   200: Color.fromRGBO(0x22, 0x9a, 0x87, .3),
@@ -22,4 +22,4 @@ Map<int, Color> mathrixColorSwatch = {
   900: Color.fromRGBO(0x22, 0x9a, 0x87, 1),
 };
 
-MaterialColor mathrixColors = MaterialColor(0xff229a87, mathrixColorSwatch);
+const MaterialColor mathrixColors = MaterialColor(0xff229a87, mathrixColorSwatch);

@@ -35,7 +35,7 @@ class SettingsDialog extends StatelessWidget {
                     builder: (_) => ChangeGradeDialog(),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 32),
                 GestureDetector(
                   child: Text('Paramètres', style: style),
                   onTap: () {
@@ -43,7 +43,7 @@ class SettingsDialog extends StatelessWidget {
                     Navigator.of(context).pushNamed('/settings');
                   },
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 32),
                 Consumer<AppState>(
                   builder: (context, appState, child) {
                     return GestureDetector(

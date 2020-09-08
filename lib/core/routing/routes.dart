@@ -1,0 +1,10 @@
+class RoutePaths {
+  static const String authenticate = '/';
+  static const String dashboard = '/dashboard';
+  static const String themes = '/themes';
+  static const String menu = '/menu';
+  static const String course = '/course';
+  static const String training = '/training';
+  static const String lesson = '/lesson';
+  static const String settings = '/settings';
+}

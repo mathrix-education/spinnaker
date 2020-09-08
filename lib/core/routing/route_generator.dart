@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/pages/course/course_page.dart';
 import 'package:mathrix_education_app/pages/dashboard/dashboard_page.dart';
 import 'package:mathrix_education_app/pages/lesson/lesson_page.dart';
@@ -14,14 +15,14 @@ class RouteGenerator {
     // Get arguments passed with Navigator.pushNamed.
     final Map<String, dynamic> args = settings.arguments;
     switch (settings.name) {
-      case '/':
+      case RoutePaths.authenticate:
         if (GraphQLConfiguration.isLogged()) {
-          return generateRoute(RouteSettings(name: '/dashboard'));
+          return generateRoute(RouteSettings(name: RoutePaths.dashboard));
         }
         return MaterialPageRoute(builder: (_) => LoginPage());
-      case '/dashboard':
+      case RoutePaths.dashboard:
         return MaterialPageRoute(builder: (_) => DashboardPage());
-      case '/themes':
+      case RoutePaths.themes:
         return MaterialPageRoute(
           builder: (_) => ThemePage(
             disciplineId: args['disciplineId'],
@@ -29,39 +30,44 @@ class RouteGenerator {
             gradeId: args['gradeId'],
           ),
         );
-      case '/menu':
+      case RoutePaths.menu:
         return MaterialPageRoute(
           builder: (_) => MenuPage(
             chapterId: args['chapterId'],
             chapterName: args['chapterName'],
           ),
         );
-      case '/course':
+      case RoutePaths.course:
         return MaterialPageRoute(builder: (_) {
           return CoursePage(
             courseId: args['courseId'],
             courseName: args['courseName'],
           );
         });
-      case '/training':
+      case RoutePaths.training:
         return MaterialPageRoute(builder: (_) {
           return TrainingPage(
             trainingId: args['trainingId'],
             trainingName: args['trainingName'],
           );
         });
-      case '/lesson':
+      case RoutePaths.menu:
         return MaterialPageRoute(builder: (_) {
           return LessonPage(
             lessonId: args['lessonId'],
             lessonName: args['lessonName'],
           );
         });
-      case '/settings':
-        return MaterialPageRoute(builder: (_) {
-          return SettingsPage();
-        });
+      case RoutePaths.settings:
+        return materialBuilder(SettingsPage());
     }
   }
+
 // TODO error route
+
+  static materialBuilder(Widget widget) {
+    return MaterialPageRoute(builder: (_) {
+      return widget;
+    });
+  }
 }
