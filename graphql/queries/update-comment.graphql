@@ -1,0 +1,5 @@
+mutation UpdateComment($input: UpdateComment!) {
+  updateComment(input: $input) {
+    ...BasicComment
+  }
+}
