@@ -14,7 +14,6 @@ enum CommentableType {
 class CommentsDialog extends StatelessWidget {
   final String modelId;
 
-
   final CommentableType commentableType;
 
   const CommentsDialog({this.modelId, this.commentableType});
@@ -27,10 +26,8 @@ class CommentsDialog extends StatelessWidget {
         query: ReadCourseCommentsQuery(),
         variables: ReadCourseCommentsArguments(id: modelId),
         builder: (ReadCourseComments$Query data) {
-
-          return Column(children: data.readCourse.comments.map((e) => Comment(comment: ReadCourseComments$Query$Course$Comment())).toList()
-          ,)
-
+          return Text('comments');
+          // return Column(children: data.readCourse.comments.map((e) => Comment(comment: ReadCourseComments$Query$Course$Comment())).toList()
         },
       ),
     );
