@@ -72,8 +72,8 @@ class ActivityCard extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.only(right: 8.0),
-              child: Image(
-                image: AssetImage('assets/activities/$assetSlug.png'),
+              child: Image.asset(
+                'assets/activities/$assetSlug.png',
                 height: 30,
               ),
             ),

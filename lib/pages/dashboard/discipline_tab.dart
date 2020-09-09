@@ -44,7 +44,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
                       child: Headline4(text: discipline.name),
                     ),
                   ),
-                  Image(image: AssetImage('assets/disciplines/$slug.png'))
+                  Image.asset('assets/disciplines/$slug.png'),
                 ],
               ),
             );

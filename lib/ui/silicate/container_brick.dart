@@ -14,10 +14,19 @@ class ContainerBrick extends StatelessWidget {
     String suffix = brick['suffix'];
     String variant = brick['variant'];
     String title = variantTitleMap[variant];
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Headline3(text: '$prefix $title $suffix', color: variantColorMap[variant] ?? green),
-      SilicateWrapper(wall: brick['wall']),
-    ]);
+
+    Color color = variantColorMap[variant] ?? green;
+
+    return Container(
+      decoration: BoxDecoration(border: Border(left: BorderSide(width: 2, color: color))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Headline3(text: '$prefix $title $suffix', color: color),
+          Container(padding: EdgeInsets.only(left: 8), child: SilicateWrapper(wall: brick['wall'])),
+        ],
+      ),
+    );
   }
 
   static Map<String, String> variantTitleMap = {

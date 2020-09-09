@@ -31,7 +31,10 @@ class CoursePage extends StatelessWidget {
                     query: ReadCourseQuery(),
                     variables: ReadCourseArguments(id: courseId),
                     builder: (ReadCourse$Query data) {
-                      return SilicateWrapper(wall: data.readCourse.content);
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: SilicateWrapper(wall: data.readCourse.content),
+                      );
                     },
                   ),
                   PrimaryTextButton(

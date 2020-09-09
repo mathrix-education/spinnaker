@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:mathrix_education_app/ui/silicate/image_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/title_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/video_brick.dart';
@@ -21,22 +22,27 @@ class SilicateWrapper extends StatelessWidget {
   static Widget brickResolver(Map<String, dynamic> brickData) {
     String kind = brickData['kind'];
 
-    if (kind == null) {
-      return SizedBox.shrink();
-    }
+    Widget widget;
 
     switch (kind) {
       case 'text':
-        return TextBrick(brick: brickData);
+        widget = TextBrick(brick: brickData);
+        break;
       case 'title':
-        return TitleBrick(brick: brickData);
+        widget = TitleBrick(brick: brickData);
+        break;
       case 'container':
-        return ContainerBrick(brick: brickData);
+        widget = ContainerBrick(brick: brickData);
+        break;
       case 'video':
-        return VideoBrick(brick: brickData);
+        widget = VideoBrick(brick: brickData);
+        break;
+      case 'image':
+        widget = ImageBrick(brick: brickData);
+        break;
     }
 
-    return SizedBox.shrink();
+    return widget != null ? Container(padding: EdgeInsets.symmetric(vertical: 8), child: widget) : SizedBox.shrink();
 
     // return (bricksMap[kind])()(brick: brickData); // TODO
   }

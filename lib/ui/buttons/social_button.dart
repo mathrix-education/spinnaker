@@ -38,9 +38,9 @@ class SocialButton extends StatelessWidget {
       child: SizedBox(
         height: 48,
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Image(
+          Image.asset(
+            'assets/icons/$iconName.png',
             height: 30,
-            image: AssetImage('assets/icons/$iconName.png'),
           ),
           SizedBox(width: 8),
           Text(

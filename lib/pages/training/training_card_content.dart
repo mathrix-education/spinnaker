@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
+import 'package:mathrix_education_app/ui/widgets/mtx_icon.dart';
 import 'package:mathrix_education_app/ui/widgets/standard_rounded_widget.dart';
 
 class TrainingCardContent extends StatelessWidget {
@@ -22,9 +23,7 @@ class TrainingCardContent extends StatelessWidget {
       child: Column(
         children: [
           StandardRoundedWidget(
-            child: const Image(
-              image: const AssetImage('assets/trainings/formations.png'),
-            ),
+            child: Image.asset('assets/trainings/formations.png'),
           ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 16.0),
@@ -35,19 +34,13 @@ class TrainingCardContent extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  const Image(
-                    image: const AssetImage('assets/icons/time.png'),
-                    width: 30.0,
-                  ),
+                  const MtxIcon(icon: 'time'),
                   Text('$hours heures'),
                 ],
               ),
               Column(
                 children: [
-                  const Image(
-                    image: AssetImage('assets/icons/read.png'),
-                    width: 30.0,
-                  ),
+                  const MtxIcon(icon: 'read'),
                   Column(
                     children: grades.map((e) => Text(e)).toList(),
                   )
