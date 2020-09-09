@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
+import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_list.dart';
 
@@ -45,15 +46,6 @@ class CourseTab extends StatelessWidget {
         return ActivityList(
           name: notion.name,
           activityList: courseExerciseList,
-          activityTapped: (ActivityListItem activity) {
-            if (activity.type == ActivityType.Course) {
-              Map<String, String> arguments = {'courseId': activity.id, 'courseName': activity.name};
-              Navigator.of(context).pushNamed(
-                '/course',
-                arguments: arguments,
-              );
-            }
-          },
         );
       },
       itemCount: this.notions.length,

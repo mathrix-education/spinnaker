@@ -1,0 +1,7 @@
+query readCourseComments($id: ID!){
+  readCourse(id: $id) {
+    comments {
+      ...BasicComment
+    }
+  }
+}

@@ -5,6 +5,7 @@ import 'package:mathrix_education_app/pages/login/login_page.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:provider/provider.dart';
 import 'core/routing/route_generator.dart';
+import 'core/routing/routes.dart';
 import 'core/store/session.state.dart';
 
 void main() {
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
         dividerColor: green,
       ),
       home: HomePage(),
-      initialRoute: '/',
+      initialRoute:RoutePaths.authenticate,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

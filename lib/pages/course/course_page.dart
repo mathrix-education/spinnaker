@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
+import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
+import 'package:mathrix_education_app/ui/dialogs/comment_dialog.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
+import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
 import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
@@ -17,26 +21,42 @@ class CoursePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StandardPage(
       title: courseName,
-      body: QueryContainer(
-        query: ReadCourseQuery(),
-        variables: ReadCourseArguments(id: courseId),
-        builder: (ReadCourse$Query data) {
-          List<dynamic> content = data.readCourse.content;
-          return Column(
-              children: content.map((brick) {
-            return brickResolver(brick);
-          }).toList());
-        },
+      body: Column(
+        children: [
+          Flexible(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  QueryContainer(
+                    query: ReadCourseQuery(),
+                    variables: ReadCourseArguments(id: courseId),
+                    builder: (ReadCourse$Query data) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: SilicateWrapper(wall: data.readCourse.content),
+                      );
+                    },
+                  ),
+                  PrimaryTextButton(
+                    text: 'Voir les commentaires',
+                    minWidth: double.infinity,
+                    enabled: true,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => CommentsDialog(
+                          modelId: courseId,
+                          commentableType: CommentableType.course,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  Widget brickResolver(Map<String, dynamic> brick) {
-    switch (brick['kind']) {
-      case 'text':
-        return TextBrick(text: brick['text']);
-      default:
-        return SizedBox.shrink();
-    }
   }
 }

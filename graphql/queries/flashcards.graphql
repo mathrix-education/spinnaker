@@ -1,0 +1,11 @@
+query ReadFlashcard($id: ID!){
+  readFlashcard(id: $id){
+    content {
+      front
+      back
+    }
+    interaction {
+      ...BasicInteraction
+    }
+  }
+}

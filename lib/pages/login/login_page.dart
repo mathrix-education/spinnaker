@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mathrix_education_app/core/environment/environment.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/pages/login/social_section.dart';
@@ -54,6 +55,6 @@ class _LoginPageState extends State<LoginPage> {
     GraphQLConfiguration.token = token;
     await GraphQLConfiguration.token;
     await Provider.of<AppState>(context, listen: false).loadUser();
-    Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(RoutePaths.dashboard, (route) => false);
   }
 }

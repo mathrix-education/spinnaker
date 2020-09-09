@@ -45,8 +45,7 @@ dependencies:
   flutter_keyboard_visibility: ^3.2.2
   flushbar: ^1.10.4
   vibration: ^1.4.0
-
-
+  flip_card: ^0.4.4
 
 dev_dependencies:
   flutter_test:
