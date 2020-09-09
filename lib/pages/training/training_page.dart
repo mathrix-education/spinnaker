@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
@@ -32,7 +33,7 @@ class TrainingPage extends StatelessWidget {
                 },
                 onItemTap: (lesson) {
                   Navigator.of(context).pushNamed(
-                    '/lesson',
+                    RoutePaths.lesson,
                     arguments: {'lessonId': lesson.id, 'lessonName': lesson.name},
                   );
                 },

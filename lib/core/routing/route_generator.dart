@@ -3,6 +3,7 @@ import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/pages/course/course_page.dart';
 import 'package:mathrix_education_app/pages/dashboard/dashboard_page.dart';
+import 'package:mathrix_education_app/pages/flashcards/flashcards_page.dart';
 import 'package:mathrix_education_app/pages/lesson/lesson_page.dart';
 import 'package:mathrix_education_app/pages/login/login_page.dart';
 import 'package:mathrix_education_app/pages/menu/menu_page.dart';
@@ -19,45 +20,59 @@ class RouteGenerator {
         if (GraphQLConfiguration.isLogged()) {
           return generateRoute(RouteSettings(name: RoutePaths.dashboard));
         }
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return materialBuilder(LoginPage());
       case RoutePaths.dashboard:
-        return MaterialPageRoute(builder: (_) => DashboardPage());
+        return materialBuilder(DashboardPage());
       case RoutePaths.themes:
-        return MaterialPageRoute(
-          builder: (_) => ThemePage(
+        return materialBuilder(
+          ThemePage(
             disciplineId: args['disciplineId'],
             disciplineName: args['disciplineName'],
             gradeId: args['gradeId'],
           ),
         );
       case RoutePaths.menu:
-        return MaterialPageRoute(
-          builder: (_) => MenuPage(
+        return materialBuilder(
+          MenuPage(
             chapterId: args['chapterId'],
             chapterName: args['chapterName'],
           ),
         );
       case RoutePaths.course:
-        return MaterialPageRoute(builder: (_) {
-          return CoursePage(
+        return materialBuilder(
+          CoursePage(
             courseId: args['courseId'],
             courseName: args['courseName'],
-          );
-        });
+          ),
+        );
       case RoutePaths.training:
-        return MaterialPageRoute(builder: (_) {
-          return TrainingPage(
+        return materialBuilder(
+          TrainingPage(
             trainingId: args['trainingId'],
             trainingName: args['trainingName'],
-          );
-        });
+          ),
+        );
       case RoutePaths.menu:
-        return MaterialPageRoute(builder: (_) {
-          return LessonPage(
+        return materialBuilder(
+          LessonPage(
             lessonId: args['lessonId'],
             lessonName: args['lessonName'],
-          );
-        });
+          ),
+        );
+      case RoutePaths.lesson:
+        return materialBuilder(
+          LessonPage(
+            lessonId: args['lessonId'],
+            lessonName: args['lessonName'],
+          ),
+        );
+      case RoutePaths.flashcards:
+        return materialBuilder(
+          FlashcardsPage(
+            flashcardsId: args['flashcardsId'],
+            flashcardsName: args['flashcardsName'],
+          ),
+        );
       case RoutePaths.settings:
         return materialBuilder(SettingsPage());
     }

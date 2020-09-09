@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
@@ -49,7 +50,7 @@ class ThemePage extends StatelessWidget {
                 },
                 onItemTap: (chapter) {
                   Navigator.of(context).pushNamed(
-                    '/menu',
+                    RoutePaths.menu,
                     arguments: {
                       'chapterId': chapter.id,
                       'chapterName': chapter.name,

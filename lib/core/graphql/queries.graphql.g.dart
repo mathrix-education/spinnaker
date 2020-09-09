@@ -1528,3 +1528,121 @@ Map<String, dynamic> _$UpdateCommentArgumentsToJson(
     <String, dynamic>{
       'input': instance.input?.toJson(),
     };
+
+ReadFlashcard$Query$Flashcard$FlashcardContent
+    _$ReadFlashcard$Query$Flashcard$FlashcardContentFromJson(
+        Map<String, dynamic> json) {
+  return ReadFlashcard$Query$Flashcard$FlashcardContent()
+    ..front = json['front'] as List
+    ..back = json['back'] as List;
+}
+
+Map<String, dynamic> _$ReadFlashcard$Query$Flashcard$FlashcardContentToJson(
+        ReadFlashcard$Query$Flashcard$FlashcardContent instance) =>
+    <String, dynamic>{
+      'front': instance.front,
+      'back': instance.back,
+    };
+
+ReadFlashcard$Query$Flashcard$Interaction
+    _$ReadFlashcard$Query$Flashcard$InteractionFromJson(
+        Map<String, dynamic> json) {
+  return ReadFlashcard$Query$Flashcard$Interaction()
+    ..comprehension = _$enumDecodeNullable(
+        _$ReadFlashcard$Query$Interaction$InteractionComprehensionEnumMap,
+        json['comprehension'],
+        unknownValue: ReadFlashcard$Query$Interaction$InteractionComprehension
+            .ARTEMIS_UNKNOWN)
+    ..interactable_id = json['interactable_id'] as int
+    ..interactable_type = _$enumDecodeNullable(
+        _$ReadFlashcard$Query$Interaction$InteractionTypeEnumMap,
+        json['interactable_type'],
+        unknownValue:
+            ReadFlashcard$Query$Interaction$InteractionType.ARTEMIS_UNKNOWN)
+    ..score = json['score'] as int
+    ..total = json['total'] as int
+    ..user_id = json['user_id'] as int
+    ..watchtime = json['watchtime'] as int;
+}
+
+Map<String, dynamic> _$ReadFlashcard$Query$Flashcard$InteractionToJson(
+        ReadFlashcard$Query$Flashcard$Interaction instance) =>
+    <String, dynamic>{
+      'comprehension':
+          _$ReadFlashcard$Query$Interaction$InteractionComprehensionEnumMap[
+              instance.comprehension],
+      'interactable_id': instance.interactable_id,
+      'interactable_type':
+          _$ReadFlashcard$Query$Interaction$InteractionTypeEnumMap[
+              instance.interactable_type],
+      'score': instance.score,
+      'total': instance.total,
+      'user_id': instance.user_id,
+      'watchtime': instance.watchtime,
+    };
+
+const _$ReadFlashcard$Query$Interaction$InteractionComprehensionEnumMap = {
+  ReadFlashcard$Query$Interaction$InteractionComprehension.blur: 'blur',
+  ReadFlashcard$Query$Interaction$InteractionComprehension.clear: 'clear',
+  ReadFlashcard$Query$Interaction$InteractionComprehension.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
+const _$ReadFlashcard$Query$Interaction$InteractionTypeEnumMap = {
+  ReadFlashcard$Query$Interaction$InteractionType.course: 'course',
+  ReadFlashcard$Query$Interaction$InteractionType.exam: 'exam',
+  ReadFlashcard$Query$Interaction$InteractionType.exercise: 'exercise',
+  ReadFlashcard$Query$Interaction$InteractionType.flashcard: 'flashcard',
+  ReadFlashcard$Query$Interaction$InteractionType.subject: 'subject',
+  ReadFlashcard$Query$Interaction$InteractionType.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
+ReadFlashcard$Query$Flashcard _$ReadFlashcard$Query$FlashcardFromJson(
+    Map<String, dynamic> json) {
+  return ReadFlashcard$Query$Flashcard()
+    ..content = (json['content'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadFlashcard$Query$Flashcard$FlashcardContent.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..interaction = json['interaction'] == null
+        ? null
+        : ReadFlashcard$Query$Flashcard$Interaction.fromJson(
+            json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadFlashcard$Query$FlashcardToJson(
+        ReadFlashcard$Query$Flashcard instance) =>
+    <String, dynamic>{
+      'content': instance.content?.map((e) => e?.toJson())?.toList(),
+      'interaction': instance.interaction?.toJson(),
+    };
+
+ReadFlashcard$Query _$ReadFlashcard$QueryFromJson(Map<String, dynamic> json) {
+  return ReadFlashcard$Query()
+    ..readFlashcard = json['readFlashcard'] == null
+        ? null
+        : ReadFlashcard$Query$Flashcard.fromJson(
+            json['readFlashcard'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadFlashcard$QueryToJson(
+        ReadFlashcard$Query instance) =>
+    <String, dynamic>{
+      'readFlashcard': instance.readFlashcard?.toJson(),
+    };
+
+ReadFlashcardArguments _$ReadFlashcardArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return ReadFlashcardArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadFlashcardArgumentsToJson(
+        ReadFlashcardArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };

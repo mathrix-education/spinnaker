@@ -3260,3 +3260,242 @@ class UpdateCommentMutation
   UpdateComment$Mutation parse(Map<String, dynamic> json) =>
       UpdateComment$Mutation.fromJson(json);
 }
+
+mixin ReadFlashcard$BasicInteractionMixin {
+  @JsonKey(
+      unknownEnumValue: ReadFlashcard$Query$Interaction$InteractionComprehension
+          .ARTEMIS_UNKNOWN)
+  ReadFlashcard$Query$Interaction$InteractionComprehension comprehension;
+  int interactable_id;
+  @JsonKey(
+      unknownEnumValue:
+          ReadFlashcard$Query$Interaction$InteractionType.ARTEMIS_UNKNOWN)
+  ReadFlashcard$Query$Interaction$InteractionType interactable_type;
+  int score;
+  int total;
+  int user_id;
+  int watchtime;
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadFlashcard$Query$Flashcard$FlashcardContent with EquatableMixin {
+  ReadFlashcard$Query$Flashcard$FlashcardContent();
+
+  factory ReadFlashcard$Query$Flashcard$FlashcardContent.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadFlashcard$Query$Flashcard$FlashcardContentFromJson(json);
+
+  List<dynamic> front;
+
+  List<dynamic> back;
+
+  @override
+  List<Object> get props => [front, back];
+  Map<String, dynamic> toJson() =>
+      _$ReadFlashcard$Query$Flashcard$FlashcardContentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadFlashcard$Query$Flashcard$Interaction
+    with EquatableMixin, ReadFlashcard$BasicInteractionMixin {
+  ReadFlashcard$Query$Flashcard$Interaction();
+
+  factory ReadFlashcard$Query$Flashcard$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadFlashcard$Query$Flashcard$InteractionFromJson(json);
+
+  @override
+  List<Object> get props => [
+        comprehension,
+        interactable_id,
+        interactable_type,
+        score,
+        total,
+        user_id,
+        watchtime
+      ];
+  Map<String, dynamic> toJson() =>
+      _$ReadFlashcard$Query$Flashcard$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadFlashcard$Query$Flashcard with EquatableMixin {
+  ReadFlashcard$Query$Flashcard();
+
+  factory ReadFlashcard$Query$Flashcard.fromJson(Map<String, dynamic> json) =>
+      _$ReadFlashcard$Query$FlashcardFromJson(json);
+
+  List<ReadFlashcard$Query$Flashcard$FlashcardContent> content;
+
+  ReadFlashcard$Query$Flashcard$Interaction interaction;
+
+  @override
+  List<Object> get props => [content, interaction];
+  Map<String, dynamic> toJson() => _$ReadFlashcard$Query$FlashcardToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadFlashcard$Query with EquatableMixin {
+  ReadFlashcard$Query();
+
+  factory ReadFlashcard$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadFlashcard$QueryFromJson(json);
+
+  ReadFlashcard$Query$Flashcard readFlashcard;
+
+  @override
+  List<Object> get props => [readFlashcard];
+  Map<String, dynamic> toJson() => _$ReadFlashcard$QueryToJson(this);
+}
+
+enum ReadFlashcard$Query$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+enum ReadFlashcard$Query$Interaction$InteractionType {
+  course,
+  exam,
+  exercise,
+  flashcard,
+  subject,
+  ARTEMIS_UNKNOWN,
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadFlashcardArguments extends JsonSerializable with EquatableMixin {
+  ReadFlashcardArguments({@required this.id});
+
+  factory ReadFlashcardArguments.fromJson(Map<String, dynamic> json) =>
+      _$ReadFlashcardArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$ReadFlashcardArgumentsToJson(this);
+}
+
+class ReadFlashcardQuery
+    extends GraphQLQuery<ReadFlashcard$Query, ReadFlashcardArguments> {
+  ReadFlashcardQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ReadFlashcard'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readFlashcard'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'content'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'front'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'back'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'interaction'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FragmentSpreadNode(
+                          name: NameNode(value: 'BasicInteraction'),
+                          directives: [])
+                    ]))
+              ]))
+        ])),
+    FragmentDefinitionNode(
+        name: NameNode(value: 'BasicInteraction'),
+        typeCondition: TypeConditionNode(
+            on: NamedTypeNode(
+                name: NameNode(value: 'Interaction'), isNonNull: false)),
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'comprehension'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'interactable_id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'interactable_type'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'score'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'total'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'user_id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null),
+          FieldNode(
+              name: NameNode(value: 'watchtime'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null)
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ReadFlashcard';
+
+  @override
+  final ReadFlashcardArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadFlashcard$Query parse(Map<String, dynamic> json) =>
+      ReadFlashcard$Query.fromJson(json);
+}
