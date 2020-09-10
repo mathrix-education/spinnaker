@@ -5,7 +5,7 @@ import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
-import 'package:mathrix_education_app/ui/widgets/CustomNavigationBarITem.dart';
+import 'package:mathrix_education_app/ui/widgets/mtx_navigation_bar_item.dart';
 import 'course_tab.dart';
 
 class MenuPage extends StatefulWidget {
@@ -28,11 +28,11 @@ class _MenuPageState extends State<MenuPage> {
 
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
-      MathrixNavigationBarItem(
+      MtxNavigationBarItem(
         selected: _pageIndex == 0,
         text: 'Cours et exercises',
       ),
-      MathrixNavigationBarItem(
+      MtxNavigationBarItem(
         selected: _pageIndex == 1,
         text: 'Préparation à l\'evaluation',
       ),

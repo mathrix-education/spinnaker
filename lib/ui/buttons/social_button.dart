@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mathrix_education_app/ui/buttons/button_with_icon.dart';
 
 enum SocialButtonMode { Login, Register }
 enum SocialProvider { Facebook, Google, Apple }
@@ -18,7 +19,7 @@ Map<SocialProvider, Color> colors = {
 
 class SocialButton extends StatelessWidget {
   /// The onPressed callback.
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   /// The mode: login or register.
   final SocialButtonMode mode;
@@ -30,27 +31,13 @@ class SocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String iconName = socialProvidersNameMap[socialProvider].toLowerCase();
-    return MaterialButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      minWidth: double.infinity,
-      color: colors[socialProvider],
-      onPressed: () => onTap(),
-      child: SizedBox(
-        height: 48,
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Image.asset(
-            'assets/icons/$iconName.png',
-            height: 30,
-          ),
-          SizedBox(width: 8),
-          Text(
-            (mode == SocialButtonMode.Login ? 'Connexion' : 'Inscription') +
-                ' avec ' +
-                socialProvidersNameMap[socialProvider],
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
-          ),
-        ]),
-      ),
-    );
+    return ButtonWithIcon(
+        text: _buttonText, color: colors[socialProvider], onTap: onTap, icon: iconName, textColor: Colors.white);
+  }
+
+  get _buttonText {
+    return (mode == SocialButtonMode.Login ? 'Connexion' : 'Inscription') +
+        ' avec ' +
+        socialProvidersNameMap[socialProvider];
   }
 }

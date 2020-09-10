@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
-class MathrixNavigationBarItem implements BottomNavigationBarItem {
+class MtxNavigationBarItem implements BottomNavigationBarItem {
   final bool selected;
   final String text;
 
-  MathrixNavigationBarItem({
+  MtxNavigationBarItem({
     this.selected,
     this.text,
   });

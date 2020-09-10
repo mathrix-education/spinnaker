@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MathrixCard extends StatelessWidget {
+class MtxCard extends StatelessWidget {
   /// The card content.
   final Widget child;
 
@@ -14,7 +12,7 @@ class MathrixCard extends StatelessWidget {
 
   final defaultPadding = EdgeInsets.symmetric(horizontal: 8.0);
 
-  MathrixCard({Key key, this.child, this.onTap, this.padding}) : super(key: key);
+  MtxCard({Key key, this.child, this.onTap, this.padding}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

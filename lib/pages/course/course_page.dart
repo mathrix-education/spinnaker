@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
 import 'package:mathrix_education_app/ui/dialogs/comment_dialog.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
-import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class CoursePage extends StatelessWidget {

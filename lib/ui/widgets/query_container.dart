@@ -5,6 +5,7 @@ import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable> extends StatelessWidget {
+  /// The query.
   final Q query;
 
   /// The query variables.

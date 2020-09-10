@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/ui/texts/headline_3.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
-import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
+import 'package:mathrix_education_app/ui/widgets/mtx_card.dart';
 
 class PremiumInfo extends StatelessWidget {
 
 
   Widget build(BuildContext context) {
-    return MathrixCard(
+    return MtxCard(
       padding: EdgeInsets.symmetric(horizontal: 0),
       child: Container(
         padding: EdgeInsets.all(16),

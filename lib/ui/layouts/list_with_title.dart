@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:mathrix_education_app/ui/widgets/mathrix_card.dart';
+import 'package:mathrix_education_app/ui/widgets/mtx_card.dart';
 
 typedef CardBuilder<T> = Widget Function(T item);
 
@@ -39,7 +39,7 @@ class CardListWithTitle<T> extends StatelessWidget {
             itemBuilder: (_, index) {
               return Padding(
                 padding: EdgeInsets.only(bottom: 8.0),
-                child: MathrixCard(
+                child: MtxCard(
                   child: builder(itemList[index]),
                   onTap: () => onItemTap(itemList[index]),
                 ),

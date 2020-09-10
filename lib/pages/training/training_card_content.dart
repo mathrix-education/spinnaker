@@ -4,7 +4,7 @@ import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_icon.dart';
-import 'package:mathrix_education_app/ui/widgets/standard_rounded_widget.dart';
+import 'package:mathrix_education_app/ui/widgets/mtx_rounded_widget.dart';
 
 class TrainingCardContent extends StatelessWidget {
   final ListTrainings$Query$Training training;
@@ -22,7 +22,7 @@ class TrainingCardContent extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       child: Column(
         children: [
-          StandardRoundedWidget(
+          MtxRoundedWidget(
             child: Image.asset('assets/trainings/formations.png'),
           ),
           Container(

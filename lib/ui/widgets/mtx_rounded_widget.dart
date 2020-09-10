@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 
-class StandardRoundedWidget extends StatelessWidget {
+import 'package:flutter/widgets.dart';
+
+class MtxRoundedWidget extends StatelessWidget {
   final Widget child;
 
-  const StandardRoundedWidget({Key key, this.child}) : super(key: key);
+  const MtxRoundedWidget({Key key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
