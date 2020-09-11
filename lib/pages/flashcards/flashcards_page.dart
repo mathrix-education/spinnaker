@@ -4,12 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/flashcards/check_answer_area.dart';
 import 'package:mathrix_education_app/pages/flashcards/flashcard_list.dart';
-import 'package:mathrix_education_app/pages/flashcards/flashcard_progress_bar.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
-import 'package:mathrix_education_app/ui/widgets/mark_bar.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+
+import 'flashcard_top_section.dart';
 
 enum FlashcardMode { training, revision, end }
 
@@ -25,7 +25,7 @@ class FlashcardsPage extends StatefulWidget {
 
 class _FlashcardsPageState extends State<FlashcardsPage> {
   int index = 0;
-  FlashcardMode flashcardMode = FlashcardMode.training;
+  FlashcardMode _mode = FlashcardMode.training;
 
   List<ReadFlashcard$Query$Flashcard$FlashcardContent> flashcards = [];
 
@@ -44,18 +44,11 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
             return Stack(children: [
               Column(
                 children: [
-                  Visibility(
-                    child: FlashcardProgressBar(index: index, total: flashcards.length),
-                    visible: flashcardMode == FlashcardMode.training,
-                  ),
-                  Visibility(
-                    child: GestureDetector(
-                        child: Text(
-                          flashcardMode == FlashcardMode.training ? 'Mode révision' : 'Mode entrainement',
-                          style: Theme.of(context).textTheme.bodyText1.apply(color: green),
-                          textAlign: TextAlign.right,
-                        ),
-                        onTap: _swapMode),
+                  FlashcardsTopSection(
+                    index: index,
+                    total: flashcards.length,
+                    mode: _mode,
+                    onSwap: _swapMode,
                   ),
                   Visibility(
                     child: Center(
@@ -69,12 +62,12 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                         ),
                       ),
                     ),
-                    visible: flashcardMode == FlashcardMode.training,
+                    visible: _mode == FlashcardMode.training,
                   ),
                   Flexible(
                     child: Visibility(
                       child: FlashcardList(flashcards: flashcards),
-                      visible: flashcardMode == FlashcardMode.revision,
+                      visible: _mode == FlashcardMode.revision,
                     ),
                   ),
                 ],
@@ -85,17 +78,7 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                 right: 0,
                 child: Column(
                   children: [
-                    Visibility(
-                      visible: flashcardMode == FlashcardMode.training,
-                      child: CheckAnswerArea(onCheck: _checkCard),
-                    ),
-                    Visibility(
-                      visible: flashcardMode == FlashcardMode.end,
-                      child: MarkBar(
-                        interactableId: widget.flashcardsId,
-                        interactableType: Interact$CreateInteraction$InteractionType.flashcard,
-                      ),
-                    )
+                    FlashcardBottomSection(flashcardId: widget.flashcardsId, mode: _mode, onCheck: _checkCard,),
                   ],
                 ),
               )
@@ -114,7 +97,7 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
       });
     } else {
       setState(() {
-        flashcardMode = FlashcardMode.end;
+        _mode = FlashcardMode.end;
       });
     }
   }
@@ -136,9 +119,10 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
     );
   }
 
+  /// Swap the mode between training and revision mode.
   void _swapMode() {
     setState(() {
-      flashcardMode = (flashcardMode == FlashcardMode.training) ? FlashcardMode.revision : FlashcardMode.training;
+      _mode = (_mode == FlashcardMode.training) ? FlashcardMode.revision : FlashcardMode.training;
     });
   }
 }
