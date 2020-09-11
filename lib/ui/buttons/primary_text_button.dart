@@ -11,7 +11,7 @@ class PrimaryTextButton extends StatelessWidget {
 
   final bool enabled;
 
-  PrimaryTextButton({this.onPressed, this.text, this.minWidth, this.enabled = false});
+  PrimaryTextButton({this.onPressed, this.text, this.minWidth, this.enabled = true});
 
   @override
   Widget build(BuildContext context) {

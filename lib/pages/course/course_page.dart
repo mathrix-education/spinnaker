@@ -39,7 +39,6 @@ class CoursePage extends StatelessWidget {
                   PrimaryTextButton(
                     text: 'Voir les commentaires',
                     minWidth: double.infinity,
-                    enabled: true,
                     onPressed: () {
                       showDialog(
                         context: context,
