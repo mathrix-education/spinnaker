@@ -18,7 +18,7 @@ class ReviewButton extends StatelessWidget {
       onTap: onTap,
       textColor: comprehension == Interact$CreateInteraction$InteractionComprehension.blur ? Colors.white : blue,
       color: comprehension == Interact$CreateInteraction$InteractionComprehension.blur ? blue : blueLight,
-      width: 120,
+      width: 140,
     );
   }
 }

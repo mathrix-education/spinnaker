@@ -62,9 +62,9 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                     mode: _mode,
                     onSwap: _swapMode,
                   ),
-                  Visibility(
-                    visible: _mode == FlashcardMode.training,
-                    child: Center(
+                  Expanded(
+                    child: Visibility(
+                      visible: _mode == FlashcardMode.training,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: FlipCard(

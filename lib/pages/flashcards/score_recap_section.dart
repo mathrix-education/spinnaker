@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/ui/buttons/outline_text_button.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
 import 'package:mathrix_education_app/ui/texts/headline_1.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
@@ -17,24 +18,34 @@ class ScoreRecapSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final int percentage = (100 * succeeded / total).round();
     // TODO: implement build
-    return Center(
-        child: Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          '$percentage % ',
-          style: TextStyle(color: green, fontSize: 80, fontFamily: 'Poppins'),
+        SizedBox(
+          height: 65, // This SizedBox is a hack because centering text with
+          child: Text( // Fontsize and height wont work
+            '$percentage % ',
+            style: TextStyle(
+                color: green, fontFamily: 'Poppins', fontSize: 80, height: 1),
+          ),
         ),
-        Text('De réussite'),
+        Padding(
+          padding: EdgeInsets.only(bottom: 8),
+          child: Text(
+            'De réussite',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            PrimaryTextButton(
+            OutlineTextButton(
               text: 'Recommencer',
-              minWidth: 120,
               onPressed: onRestart,
+              width: 140,
             ),
             PrimaryTextButton(
-                minWidth: 120,
+                width: 140,
                 text: 'Terminer',
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -42,6 +53,6 @@ class ScoreRecapSection extends StatelessWidget {
           ],
         )
       ],
-    ));
+    );
   }
 }

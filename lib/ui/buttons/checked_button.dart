@@ -19,7 +19,7 @@ class CheckedButton extends StatelessWidget {
       onTap: onTap,
       textColor: comprehension == Interact$CreateInteraction$InteractionComprehension.clear ? Colors.white : jade,
       color: comprehension == Interact$CreateInteraction$InteractionComprehension.clear ? jade : jadeLight,
-      width: 120,
+      width: 140,
     );
   }
 }

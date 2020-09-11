@@ -51,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             SizedBox(height: 16),
             PrimaryTextButton(
-              minWidth: double.infinity,
+              width: double.infinity,
               onPressed: () => _validate(Provider.of<AppState>(context, listen: false)),
               enabled: canSave,
               text: 'Enregistrer les changements',

@@ -62,7 +62,7 @@ class FlashcardBottomSection extends StatelessWidget {
                   visible: frontDisplayed,
                   child: PrimaryTextButton(
                     text: 'Voir la réponse',
-                    minWidth: 120,
+                    width: double.infinity,
                     onPressed: onSwap,
                   ),
                 )
