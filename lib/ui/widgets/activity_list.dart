@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
+import 'package:mathrix_education_app/core/store/session.state.dart';
+import 'package:mathrix_education_app/ui/dialogs/premium_dialog.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
+import 'package:provider/provider.dart';
 
 class ActivityListItem {
   final ActivityType type;
@@ -47,6 +50,15 @@ class ActivityList extends StatelessWidget {
       Map<String, String> arguments;
       String routePath;
 
+      if (Provider.of<AppState>(context, listen: false).user.premium == false &&
+          activity.premium == true) {
+        showDialog(
+          context: context,
+          builder: (_) => PremiumDialog(),
+        );
+        return;
+      }
+
       switch (activity.type) {
         case ActivityType.Course:
           arguments = {'courseId': activity.id, 'courseName': activity.name};
@@ -59,7 +71,10 @@ class ActivityList extends StatelessWidget {
           // TODO: Handle this case.
           break;
         case ActivityType.Flashcard:
-          arguments = {'flashcardsId': activity.id, 'flashcardsName': activity.name};
+          arguments = {
+            'flashcardsId': activity.id,
+            'flashcardsName': activity.name
+          };
           routePath = RoutePaths.flashcards;
           break;
         case ActivityType.Exam:

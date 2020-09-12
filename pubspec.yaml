@@ -47,6 +47,7 @@ flutter:
     - assets/activities/
     - assets/trainings/
     - assets/icons/
+    - assets/premium/
   fonts:
     - family: Open Sans
       fonts:
