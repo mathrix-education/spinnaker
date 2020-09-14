@@ -1,0 +1,11 @@
+query  readSubject($id: ID!) {
+  readSubject(id: $id ) {
+    exercises {
+      content
+      interaction {
+        score
+        total
+      }
+    }
+  }
+}

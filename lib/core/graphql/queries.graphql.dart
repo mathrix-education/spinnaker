@@ -2477,6 +2477,161 @@ class ReadTrainingQuery
 }
 
 @JsonSerializable(explicitToJson: true)
+class ReadSubject$Query$Subject$Exercise$Interaction with EquatableMixin {
+  ReadSubject$Query$Subject$Exercise$Interaction();
+
+  factory ReadSubject$Query$Subject$Exercise$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadSubject$Query$Subject$Exercise$InteractionFromJson(json);
+
+  int score;
+
+  int total;
+
+  @override
+  List<Object> get props => [score, total];
+  Map<String, dynamic> toJson() =>
+      _$ReadSubject$Query$Subject$Exercise$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadSubject$Query$Subject$Exercise with EquatableMixin {
+  ReadSubject$Query$Subject$Exercise();
+
+  factory ReadSubject$Query$Subject$Exercise.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadSubject$Query$Subject$ExerciseFromJson(json);
+
+  List<dynamic> content;
+
+  ReadSubject$Query$Subject$Exercise$Interaction interaction;
+
+  @override
+  List<Object> get props => [content, interaction];
+  Map<String, dynamic> toJson() =>
+      _$ReadSubject$Query$Subject$ExerciseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadSubject$Query$Subject with EquatableMixin {
+  ReadSubject$Query$Subject();
+
+  factory ReadSubject$Query$Subject.fromJson(Map<String, dynamic> json) =>
+      _$ReadSubject$Query$SubjectFromJson(json);
+
+  List<ReadSubject$Query$Subject$Exercise> exercises;
+
+  @override
+  List<Object> get props => [exercises];
+  Map<String, dynamic> toJson() => _$ReadSubject$Query$SubjectToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadSubject$Query with EquatableMixin {
+  ReadSubject$Query();
+
+  factory ReadSubject$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadSubject$QueryFromJson(json);
+
+  ReadSubject$Query$Subject readSubject;
+
+  @override
+  List<Object> get props => [readSubject];
+  Map<String, dynamic> toJson() => _$ReadSubject$QueryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadSubjectArguments extends JsonSerializable with EquatableMixin {
+  ReadSubjectArguments({@required this.id});
+
+  factory ReadSubjectArguments.fromJson(Map<String, dynamic> json) =>
+      _$ReadSubjectArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$ReadSubjectArgumentsToJson(this);
+}
+
+class ReadSubjectQuery
+    extends GraphQLQuery<ReadSubject$Query, ReadSubjectArguments> {
+  ReadSubjectQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'readSubject'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readSubject'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'exercises'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'content'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'interaction'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'score'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'total'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'readSubject';
+
+  @override
+  final ReadSubjectArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadSubject$Query parse(Map<String, dynamic> json) =>
+      ReadSubject$Query.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
 class ListThemesChaptersFromDisciplines$Query$Theme$Chapter
     with EquatableMixin {
   ListThemesChaptersFromDisciplines$Query$Theme$Chapter();

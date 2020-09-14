@@ -69,7 +69,8 @@ class ActivityList extends StatelessWidget {
           // TODO: Handle this case.
           break;
         case ActivityType.Exercise:
-          // TODO: Handle this case.
+          arguments = {'subjectId': activity.id, 'subjectName': activity.name};
+          routePath = RoutePaths.exercises;
           break;
         case ActivityType.Flashcard:
           arguments = {'flashcardsId': activity.id, 'flashcardsName': activity.name};

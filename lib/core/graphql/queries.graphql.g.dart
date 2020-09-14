@@ -1206,6 +1206,80 @@ Map<String, dynamic> _$ReadTrainingArgumentsToJson(
       'id': instance.id,
     };
 
+ReadSubject$Query$Subject$Exercise$Interaction
+    _$ReadSubject$Query$Subject$Exercise$InteractionFromJson(
+        Map<String, dynamic> json) {
+  return ReadSubject$Query$Subject$Exercise$Interaction()
+    ..score = json['score'] as int
+    ..total = json['total'] as int;
+}
+
+Map<String, dynamic> _$ReadSubject$Query$Subject$Exercise$InteractionToJson(
+        ReadSubject$Query$Subject$Exercise$Interaction instance) =>
+    <String, dynamic>{
+      'score': instance.score,
+      'total': instance.total,
+    };
+
+ReadSubject$Query$Subject$Exercise _$ReadSubject$Query$Subject$ExerciseFromJson(
+    Map<String, dynamic> json) {
+  return ReadSubject$Query$Subject$Exercise()
+    ..content = json['content'] as List
+    ..interaction = json['interaction'] == null
+        ? null
+        : ReadSubject$Query$Subject$Exercise$Interaction.fromJson(
+            json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadSubject$Query$Subject$ExerciseToJson(
+        ReadSubject$Query$Subject$Exercise instance) =>
+    <String, dynamic>{
+      'content': instance.content,
+      'interaction': instance.interaction?.toJson(),
+    };
+
+ReadSubject$Query$Subject _$ReadSubject$Query$SubjectFromJson(
+    Map<String, dynamic> json) {
+  return ReadSubject$Query$Subject()
+    ..exercises = (json['exercises'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadSubject$Query$Subject$Exercise.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ReadSubject$Query$SubjectToJson(
+        ReadSubject$Query$Subject instance) =>
+    <String, dynamic>{
+      'exercises': instance.exercises?.map((e) => e?.toJson())?.toList(),
+    };
+
+ReadSubject$Query _$ReadSubject$QueryFromJson(Map<String, dynamic> json) {
+  return ReadSubject$Query()
+    ..readSubject = json['readSubject'] == null
+        ? null
+        : ReadSubject$Query$Subject.fromJson(
+            json['readSubject'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadSubject$QueryToJson(ReadSubject$Query instance) =>
+    <String, dynamic>{
+      'readSubject': instance.readSubject?.toJson(),
+    };
+
+ReadSubjectArguments _$ReadSubjectArgumentsFromJson(Map<String, dynamic> json) {
+  return ReadSubjectArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadSubjectArgumentsToJson(
+        ReadSubjectArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
 ListThemesChaptersFromDisciplines$Query$Theme$Chapter
     _$ListThemesChaptersFromDisciplines$Query$Theme$ChapterFromJson(
         Map<String, dynamic> json) {

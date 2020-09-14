@@ -1,8 +1,6 @@
 # Spinnaker
 The Mathrix Application related to [mathrix.fr] (https://mathrix.fr), running on IOS and Android.
 
-
-
 #Setup
 Install Dart and flutter  following theses [instructions](https://flutter.dev/docs/get-started/install)
 

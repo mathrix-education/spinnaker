@@ -9,4 +9,5 @@ class RoutePaths {
   static const String settings = '/settings';
   static const String flashcards = '/flashcards';
   static const String premium = '/premium';
+  static const String exercises = '/exercises';
 }
