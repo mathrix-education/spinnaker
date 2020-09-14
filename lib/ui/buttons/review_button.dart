@@ -6,7 +6,7 @@ import 'button_with_icon.dart';
 class ReviewButton extends StatelessWidget {
   final Interact$CreateInteraction$InteractionComprehension comprehension;
 
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
   const ReviewButton({Key key, this.comprehension, this.onTap}) : super(key: key);
 

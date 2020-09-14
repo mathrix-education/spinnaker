@@ -21,6 +21,8 @@ class VideoBrick extends StatelessWidget {
             ),
           ),
         );
+      case 'vimeo':
+        return Text(brick.toString());
     }
   }
 }

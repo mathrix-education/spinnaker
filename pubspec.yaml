@@ -33,6 +33,7 @@ dependencies:
   flushbar: ^1.10.4
   vibration: ^1.4.0
   flip_card: ^0.4.4
+  advance_pdf_viewer: ^1.2.0
 
 dev_dependencies:
   flutter_test:

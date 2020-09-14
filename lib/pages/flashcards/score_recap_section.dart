@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/ui/buttons/outline_text_button.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
-import 'package:mathrix_education_app/ui/texts/headline_1.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class ScoreRecapSection extends StatelessWidget {
+  /// The succeded number of section.
   final int succeeded;
 
+  /// The total number.
   final int total;
 
+  /// The onRestart callback.
   final VoidCallback onRestart;
 
-  const ScoreRecapSection({Key key, this.succeeded, this.total, this.onRestart})
-      : super(key: key);
+  const ScoreRecapSection({Key key, this.succeeded, this.total, this.onRestart}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +24,9 @@ class ScoreRecapSection extends StatelessWidget {
       children: [
         SizedBox(
           height: 65, // This SizedBox is a hack because centering text with
-          child: Text( // Fontsize and height wont work
+          child: Text( // fontSize and height wont work
             '$percentage % ',
-            style: TextStyle(
-                color: green, fontFamily: 'Poppins', fontSize: 80, height: 1),
+            style: TextStyle(color: green, fontFamily: 'Poppins', fontSize: 80, height: 1),
           ),
         ),
         Padding(

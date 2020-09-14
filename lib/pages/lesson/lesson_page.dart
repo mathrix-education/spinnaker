@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
+import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class LessonPage extends StatelessWidget {
@@ -10,7 +11,7 @@ class LessonPage extends StatelessWidget {
   /// The lesson name.
   final String lessonName;
 
-  const LessonPage({Key key, this.lessonId, this.lessonName}) : super(key: key);
+  const LessonPage({this.lessonId, this.lessonName});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,10 @@ class LessonPage extends StatelessWidget {
       title: lessonName,
       body: QueryContainer(
           query: ReadLessonQuery(),
+          variables: ReadLessonArguments(id: lessonId),
           builder: (ReadLesson$Query data) {
-            // final ReadLesson$Query readLesson = data;
-            return Text('IMPLEMENT COURSE');
+            final ReadLesson$Query$Lesson readLesson = data.readLesson;
+            return SingleChildScrollView(child: SilicateWrapper(wall: readLesson.content));
           }),
     );
   }

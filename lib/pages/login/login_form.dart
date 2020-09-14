@@ -12,7 +12,7 @@ import 'package:mathrix_education_app/ui/widgets/form_field.dart';
 
 class LoginForm extends StatefulWidget {
   final LoginMode loginMode;
-  final VoidCallback onForgotPasswordTap;
+  final GestureTapCallback onForgotPasswordTap;
   final void Function(String token) onLogin;
 
   LoginForm({

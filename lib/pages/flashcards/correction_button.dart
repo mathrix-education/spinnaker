@@ -10,7 +10,7 @@ class CorrectionButton extends StatelessWidget {
   final IconData icon;
 
   /// The onTap callback.
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
   const CorrectionButton({this.text, this.icon, this.onTap});
 

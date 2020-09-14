@@ -19,7 +19,7 @@ Map<SocialProvider, Color> colors = {
 
 class SocialButton extends StatelessWidget {
   /// The onPressed callback.
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
   /// The mode: login or register.
   final SocialButtonMode mode;

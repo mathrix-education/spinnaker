@@ -7,7 +7,7 @@ class PrimaryTextButton extends StatelessWidget {
   final String text;
 
   /// The on pressed callback.
-  final VoidCallback onPressed;
+  final GestureTapCallback onPressed;
 
   final double width;
 

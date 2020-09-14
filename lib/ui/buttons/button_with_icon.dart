@@ -8,7 +8,7 @@ class ButtonWithIcon extends StatelessWidget {
   final Color textColor;
   final Color color;
   final double width;
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
   const ButtonWithIcon(
       {Key key,

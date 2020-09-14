@@ -62,7 +62,7 @@ class ActivityCard extends StatelessWidget {
   /// The onTap callback.
   final GestureTapCallback onTap;
 
-  const ActivityCard({this.name, this.premium, this.activityType, this.onTap});
+  const ActivityCard({@required this.name, @required this.premium, @required this.activityType, @required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ class OutlineTextButton extends StatelessWidget {
   final double width;
 
   /// The on pressed callback.
-  final VoidCallback onPressed;
+  final GestureTapCallback onPressed;
 
   OutlineTextButton({
     this.onPressed,

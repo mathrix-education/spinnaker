@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
-import 'package:mathrix_education_app/pages/training/training_card_content.dart';
+import 'package:mathrix_education_app/pages/dashboard/training_card_content.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
