@@ -222,6 +222,27 @@ Map<String, dynamic> _$ReadChaptersInformations$Query$Chapter$FlashcardToJson(
       'premium': instance.premium,
     };
 
+ReadChaptersInformations$Query$Chapter$Exam
+    _$ReadChaptersInformations$Query$Chapter$ExamFromJson(
+        Map<String, dynamic> json) {
+  return ReadChaptersInformations$Query$Chapter$Exam()
+    ..id = json['id'] as String
+    ..premium = json['premium'] as bool
+    ..owned = json['owned'] as bool
+    ..name = json['name'] as String
+    ..duration = json['duration'] as int;
+}
+
+Map<String, dynamic> _$ReadChaptersInformations$Query$Chapter$ExamToJson(
+        ReadChaptersInformations$Query$Chapter$Exam instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'premium': instance.premium,
+      'owned': instance.owned,
+      'name': instance.name,
+      'duration': instance.duration,
+    };
+
 ReadChaptersInformations$Query$Chapter
     _$ReadChaptersInformations$Query$ChapterFromJson(
         Map<String, dynamic> json) {
@@ -238,6 +259,12 @@ ReadChaptersInformations$Query$Chapter
             ? null
             : ReadChaptersInformations$Query$Chapter$Flashcard.fromJson(
                 e as Map<String, dynamic>))
+        ?.toList()
+    ..exams = (json['exams'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadChaptersInformations$Query$Chapter$Exam.fromJson(
+                e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -247,6 +274,7 @@ Map<String, dynamic> _$ReadChaptersInformations$Query$ChapterToJson(
       'name': instance.name,
       'notions': instance.notions?.map((e) => e?.toJson())?.toList(),
       'flashcards': instance.flashcards?.map((e) => e?.toJson())?.toList(),
+      'exams': instance.exams?.map((e) => e?.toJson())?.toList(),
     };
 
 ReadChaptersInformations$Query _$ReadChaptersInformations$QueryFromJson(

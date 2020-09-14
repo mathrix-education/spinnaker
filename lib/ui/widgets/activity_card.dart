@@ -23,7 +23,7 @@ extension ActivitySlug on ActivityType {
       case ActivityType.Exam:
         return 'exam';
       case ActivityType.ExamVideo:
-        return 'exam-video';
+        return 'video_corrected';
       default:
         return 'video';
     }
@@ -108,8 +108,7 @@ class ActivityCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(activityType.name,
-                      style: Theme.of(context).textTheme.subtitle1),
+                  Text(activityType.name, style: Theme.of(context).textTheme.subtitle1),
                   Text(
                     name,
                     style: Theme.of(context).textTheme.bodyText1,

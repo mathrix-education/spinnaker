@@ -85,6 +85,7 @@ class _MenuPageState extends State<MenuPage> {
                     ExamPrepareTab(
                       flashcards: chapter.flashcards,
                       summaries: summaries,
+                      exams: chapter.exams,
                     ),
                   ],
                   onPageChanged: (index) {

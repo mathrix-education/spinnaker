@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
-import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_list.dart';
 

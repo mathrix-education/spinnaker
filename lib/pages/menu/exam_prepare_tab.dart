@@ -8,8 +8,14 @@ import 'package:mathrix_education_app/ui/widgets/activity_list.dart';
 class ExamPrepareTab extends StatelessWidget {
   final List<ReadChaptersInformations$Query$Chapter$Flashcard> flashcards;
   final List<ReadChaptersInformations$Query$Chapter$Notion$Course> summaries;
+  final List<ReadChaptersInformations$Query$Chapter$Exam> exams;
 
-  ExamPrepareTab({Key key, this.summaries, this.flashcards}) : super(key: key);
+  ExamPrepareTab({
+    Key key,
+    @required this.summaries,
+    @required this.flashcards,
+    @required this.exams,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +37,32 @@ class ExamPrepareTab extends StatelessWidget {
       );
     }).toList();
 
+    List<ActivityListItem> examsList = exams.map((e) {
+      return ActivityListItem(
+        id: e.id,
+        type: e.duration != null ? ActivityType.Exam : ActivityType.ExamVideo,
+        name: e.name,
+        premium: e.premium,
+      );
+    }).toList();
+
     List<ActivityListItem> summaryAndFlashcards = flashcardList + summaryList;
 
     // TODO evaluation
 
-    return Column(children: [
-      ActivityList(
-        name: 'Fiche et flashcards',
-        activityList: summaryAndFlashcards,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ActivityList(
+            name: 'Fiche et flashcards',
+            activityList: summaryAndFlashcards,
+          ),
+          ActivityList(
+            name: 'Sujet corrigés',
+            activityList: examsList,
+          ),
+        ],
       ),
-    ]);
+    );
   }
 }

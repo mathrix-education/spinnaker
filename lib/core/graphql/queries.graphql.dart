@@ -315,6 +315,30 @@ class ReadChaptersInformations$Query$Chapter$Flashcard with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Exam with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Exam();
+
+  factory ReadChaptersInformations$Query$Chapter$Exam.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$ExamFromJson(json);
+
+  String id;
+
+  bool premium;
+
+  bool owned;
+
+  String name;
+
+  int duration;
+
+  @override
+  List<Object> get props => [id, premium, owned, name, duration];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$ExamToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class ReadChaptersInformations$Query$Chapter with EquatableMixin {
   ReadChaptersInformations$Query$Chapter();
 
@@ -328,8 +352,10 @@ class ReadChaptersInformations$Query$Chapter with EquatableMixin {
 
   List<ReadChaptersInformations$Query$Chapter$Flashcard> flashcards;
 
+  List<ReadChaptersInformations$Query$Chapter$Exam> exams;
+
   @override
-  List<Object> get props => [name, notions, flashcards];
+  List<Object> get props => [name, notions, flashcards, exams];
   Map<String, dynamic> toJson() =>
       _$ReadChaptersInformations$Query$ChapterToJson(this);
 }
@@ -507,6 +533,43 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
                           selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'premium'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'exams'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'id'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'premium'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'owned'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'duration'),
                           alias: null,
                           arguments: [],
                           directives: [],
