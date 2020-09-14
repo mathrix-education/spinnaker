@@ -69,7 +69,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
     UpdateMeArguments updateMeArguments = UpdateMeArguments(input: UpdateMe$UpdateMe());
 
-    updateMeArguments.input.password = passwordForm.value['password'];
+    if (passwordForm.value['password'] != '') {
+      updateMeArguments.input.password = passwordForm.value['password'];
+    }
 
     if (accountForm.value['email'] != appState.user.email) {
       updateMeArguments.input.email = accountForm.value['email'];

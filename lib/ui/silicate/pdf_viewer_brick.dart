@@ -29,8 +29,14 @@ class _PdfViewerBrickState extends State<PdfViewerBrick> {
   Widget build(BuildContext context) {
     return _document != null
         ? SizedBox(
-            height:600,
-            child: PDFViewer(document: _document, showNavigation: true, showIndicator: false, showPicker: false))
+            height: 600,
+            child: PDFViewer(
+              document: _document,
+              showNavigation: true,
+              showIndicator: false,
+              showPicker: false,
+              navigationBuilder: null, // WA until @https://github.com/lohanidamodar/pdf_viewer/pull/2 is merged
+            ))
         : LoadingBody();
   }
 }
