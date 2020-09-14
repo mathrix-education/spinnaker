@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/core/misc/vibration.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/ui/dialogs/premium_dialog.dart';
@@ -50,8 +51,8 @@ class ActivityList extends StatelessWidget {
       Map<String, String> arguments;
       String routePath;
 
-      if (Provider.of<AppState>(context, listen: false).user.premium == false &&
-          activity.premium == true) {
+      if (Provider.of<AppState>(context, listen: false).user.premium == false && activity.premium == true) {
+        hapticPokeFeedback();
         showDialog(
           context: context,
           builder: (_) => PremiumDialog(),
@@ -71,10 +72,7 @@ class ActivityList extends StatelessWidget {
           // TODO: Handle this case.
           break;
         case ActivityType.Flashcard:
-          arguments = {
-            'flashcardsId': activity.id,
-            'flashcardsName': activity.name
-          };
+          arguments = {'flashcardsId': activity.id, 'flashcardsName': activity.name};
           routePath = RoutePaths.flashcards;
           break;
         case ActivityType.Exam:

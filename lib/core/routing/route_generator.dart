@@ -7,6 +7,7 @@ import 'package:mathrix_education_app/pages/flashcards/flashcards_page.dart';
 import 'package:mathrix_education_app/pages/lesson/lesson_page.dart';
 import 'package:mathrix_education_app/pages/login/login_page.dart';
 import 'package:mathrix_education_app/pages/menu/menu_page.dart';
+import 'package:mathrix_education_app/pages/premium/premium_page.dart';
 import 'package:mathrix_education_app/pages/settings/settings_page.dart';
 import 'package:mathrix_education_app/pages/theme/theme_page.dart';
 import 'package:mathrix_education_app/pages/training/training_page.dart';
@@ -75,6 +76,8 @@ class RouteGenerator {
         );
       case RoutePaths.settings:
         return materialBuilder(SettingsPage());
+      case RoutePaths.premium:
+        return materialBuilder(PremiumPage());
     }
   }
 

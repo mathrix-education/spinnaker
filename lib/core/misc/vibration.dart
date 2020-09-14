@@ -5,3 +5,9 @@ hapticSuccessFeedback() async {
     Vibration.vibrate(duration: 50);
   }
 }
+
+hapticPokeFeedback() async {
+  if (await Vibration.hasVibrator()) {
+    Vibration.vibrate(duration: 100);
+  }
+}

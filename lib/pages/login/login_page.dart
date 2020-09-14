@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
@@ -51,7 +52,14 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _finalizeAuthentication(String token) async {
     GraphQLConfiguration.token = token;
     await GraphQLConfiguration.token;
-    await Provider.of<AppState>(context, listen: false).loadUser();
-    Navigator.of(context).pushNamedAndRemoveUntil(RoutePaths.dashboard, (route) => false);
+    bool loadedSucessfully = await Provider.of<AppState>(context, listen: false).loadUser();
+    if (loadedSucessfully) {
+      Navigator.of(context).pushNamedAndRemoveUntil(RoutePaths.dashboard, (route) => false);
+    } else {
+      Flushbar(
+        message: 'Le chargement du profil a échoué, veuillez réessayer.',
+        duration: Duration(seconds: 4),
+      ).show(context);
+    }
   }
 }

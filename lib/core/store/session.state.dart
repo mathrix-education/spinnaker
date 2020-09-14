@@ -10,12 +10,12 @@ class AppState extends ChangeNotifier {
 
   final _client = GraphQLConfiguration.client;
 
-  loadUser() async {
+  Future<bool> loadUser() async {
     QueryOptions options = QueryOptions(
       documentNode: MeQuery().document,
+      fetchPolicy: FetchPolicy.networkOnly,
     );
 
-    print(await GraphQLConfiguration.authLink.getToken());
     QueryResult result = await _client.query(options);
 
     print(result.toString());
@@ -24,6 +24,7 @@ class AppState extends ChangeNotifier {
       user = Me$Query.fromJson(result.data).me;
       notifyListeners();
     }
+    return !result.hasException;
   }
 
   loadGrades() async {

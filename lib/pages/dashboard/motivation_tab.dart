@@ -20,7 +20,7 @@ class _MotivationTabState extends State<MotivationTab> {
     return QueryContainer(
       query: ListCategoriesQuery(),
       builder: (ListCategories$Query data) {
-        ListCategories$Query$Category category =data.listCategories[0];
+        ListCategories$Query$Category category = data.listCategories[0];
 
         return CardListWithTitle<ListCategories$Query$Category$Post>(
           title: TitleGreen(text: category.name),
