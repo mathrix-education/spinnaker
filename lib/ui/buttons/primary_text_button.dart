@@ -17,7 +17,7 @@ class PrimaryTextButton extends StatelessWidget {
   PrimaryTextButton({
     this.onPressed,
     this.text,
-    this.width = 120,
+    this.width = 140,
     this.enabled = true,
   });
 

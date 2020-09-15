@@ -32,11 +32,12 @@ class QualityLinks {
 
   final String clientSecret =
       'SvSYy7ytAomeDfRrCiJOIInPE6RZlKAW4huySmrKNrUar+QCrMX2OTsPq4SUjvOGzF6pDRQ6PIBysuQXiVByhAua80syJM1GM8mnadx5CoRcyRz2OtnAbfzTDPsBomt6';
+
   final String clientId = '5e5498029ce644737d24e1fc62abd1ed1abdc1b2';
 
   /// https://developer.vimeo.com/api/authentication#working-with-basic-authentication
   get authToken {
     String encodedCredential = base64.encode(utf8.encode('{$clientId}:{$clientSecret}'));
-    return 'basic $encodedCredential'; // TODO: not working at all....
+    return 'basic $encodedCredential'; // TODO: not working at all ...
   }
 }
