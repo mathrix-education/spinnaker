@@ -67,6 +67,8 @@ class ActivityList extends StatelessWidget {
           break;
         case ActivityType.Summary:
           // TODO: Handle this case.
+          arguments = {'courseId': activity.id, 'courseName': activity.name};
+          routePath = RoutePaths.course;
           break;
         case ActivityType.Exercise:
           arguments = {'subjectId': activity.id, 'subjectName': activity.name};
@@ -77,10 +79,12 @@ class ActivityList extends StatelessWidget {
           routePath = RoutePaths.flashcards;
           break;
         case ActivityType.Exam:
-          // TODO: Handle this case.
+          arguments = {'examId': activity.id, 'examName': activity.name};
+          routePath = RoutePaths.exam;
           break;
         case ActivityType.ExamVideo:
-          // TODO: Handle this case.
+          arguments = {'examId': activity.id, 'examName': activity.name};
+          routePath = RoutePaths.videoExam;
           break;
       }
 

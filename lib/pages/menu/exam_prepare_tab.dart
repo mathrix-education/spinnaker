@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_card.dart';

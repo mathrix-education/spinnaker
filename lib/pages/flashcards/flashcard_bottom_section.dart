@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/pages/flashcards/correction_button.dart';
 import 'package:mathrix_education_app/pages/flashcards/flashcards_page.dart';
-import 'package:mathrix_education_app/ui/buttons/button_with_icon.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
-import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/widgets/mark_bar.dart';
 
 class FlashcardBottomSection extends StatelessWidget {

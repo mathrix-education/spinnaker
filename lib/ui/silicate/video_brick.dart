@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:mathrix_education_app/core/misc/vimeo/vimeoplayer.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_rounded_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -22,7 +23,10 @@ class VideoBrick extends StatelessWidget {
           ),
         );
       case 'vimeo':
-        return Text(brick.toString());
+        print(brick['videoId']);
+        return MtxRoundedWidget(
+          child: VimeoPlayer(id: '277316465'),
+        );
     }
   }
 }

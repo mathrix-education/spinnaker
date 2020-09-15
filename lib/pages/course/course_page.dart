@@ -44,7 +44,7 @@ class CoursePage extends StatelessWidget {
                         context: context,
                         builder: (_) => CommentsDialog(
                           modelId: courseId,
-                          commentableType: CommentableType.course,
+                          commentableType: CommentableType.course, // TODO
                         ),
                       );
                     },

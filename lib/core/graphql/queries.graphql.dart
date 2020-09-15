@@ -3847,3 +3847,174 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
   @override
   Me$Query parse(Map<String, dynamic> json) => Me$Query.fromJson(json);
 }
+
+@JsonSerializable(explicitToJson: true)
+class ReadExam$Query$Exam$Interaction with EquatableMixin {
+  ReadExam$Query$Exam$Interaction();
+
+  factory ReadExam$Query$Exam$Interaction.fromJson(Map<String, dynamic> json) =>
+      _$ReadExam$Query$Exam$InteractionFromJson(json);
+
+  @JsonKey(
+      unknownEnumValue: ReadExam$Query$Exam$Interaction$InteractionComprehension
+          .ARTEMIS_UNKNOWN)
+  ReadExam$Query$Exam$Interaction$InteractionComprehension comprehension;
+
+  int score;
+
+  int total;
+
+  int watchtime;
+
+  @override
+  List<Object> get props => [comprehension, score, total, watchtime];
+  Map<String, dynamic> toJson() =>
+      _$ReadExam$Query$Exam$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadExam$Query$Exam with EquatableMixin {
+  ReadExam$Query$Exam();
+
+  factory ReadExam$Query$Exam.fromJson(Map<String, dynamic> json) =>
+      _$ReadExam$Query$ExamFromJson(json);
+
+  String name;
+
+  List<dynamic> content;
+
+  int duration;
+
+  ReadExam$Query$Exam$Interaction interaction;
+
+  @override
+  List<Object> get props => [name, content, duration, interaction];
+  Map<String, dynamic> toJson() => _$ReadExam$Query$ExamToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadExam$Query with EquatableMixin {
+  ReadExam$Query();
+
+  factory ReadExam$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadExam$QueryFromJson(json);
+
+  ReadExam$Query$Exam readExam;
+
+  @override
+  List<Object> get props => [readExam];
+  Map<String, dynamic> toJson() => _$ReadExam$QueryToJson(this);
+}
+
+enum ReadExam$Query$Exam$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadExamArguments extends JsonSerializable with EquatableMixin {
+  ReadExamArguments({@required this.id});
+
+  factory ReadExamArguments.fromJson(Map<String, dynamic> json) =>
+      _$ReadExamArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$ReadExamArgumentsToJson(this);
+}
+
+class ReadExamQuery extends GraphQLQuery<ReadExam$Query, ReadExamArguments> {
+  ReadExamQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ReadExam'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readExam'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'content'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'duration'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'interaction'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'comprehension'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'score'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'total'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'watchtime'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ReadExam';
+
+  @override
+  final ReadExamArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadExam$Query parse(Map<String, dynamic> json) =>
+      ReadExam$Query.fromJson(json);
+}

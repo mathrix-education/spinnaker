@@ -3,6 +3,8 @@ import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/pages/course/course_page.dart';
 import 'package:mathrix_education_app/pages/dashboard/dashboard_page.dart';
+import 'package:mathrix_education_app/pages/exams/exam_page.dart';
+import 'package:mathrix_education_app/pages/exams/video_exam_page.dart';
 import 'package:mathrix_education_app/pages/exercises/exercises_page.dart';
 import 'package:mathrix_education_app/pages/flashcards/flashcards_page.dart';
 import 'package:mathrix_education_app/pages/lesson/lesson_page.dart';
@@ -77,12 +79,25 @@ class RouteGenerator {
             flashcardsName: args['flashcardsName'],
           ),
         );
-
       case RoutePaths.exercises:
         return routeBuilder(ExercisesPage(
           subjectId: args['subjectId'],
           subjectName: args['subjectName'],
         ));
+      case RoutePaths.exam:
+        return routeBuilder(
+          ExamPage(
+            examId: args['examId'],
+            examName: args['examName'],
+          ),
+        );
+      case RoutePaths.videoExam:
+        return routeBuilder(
+          VideoExamsPage(
+            examId: args['examId'],
+            examName: args['examName'],
+          ),
+        );
       case RoutePaths.settings:
         return routeBuilder(SettingsPage());
       case RoutePaths.premium:

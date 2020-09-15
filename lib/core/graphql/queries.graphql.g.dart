@@ -1821,3 +1821,78 @@ Map<String, dynamic> _$Me$Query$User$GradeToJson(
       'slug': instance.slug,
       'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
     };
+
+ReadExam$Query$Exam$Interaction _$ReadExam$Query$Exam$InteractionFromJson(
+    Map<String, dynamic> json) {
+  return ReadExam$Query$Exam$Interaction()
+    ..comprehension = _$enumDecodeNullable(
+        _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap,
+        json['comprehension'],
+        unknownValue: ReadExam$Query$Exam$Interaction$InteractionComprehension
+            .ARTEMIS_UNKNOWN)
+    ..score = json['score'] as int
+    ..total = json['total'] as int
+    ..watchtime = json['watchtime'] as int;
+}
+
+Map<String, dynamic> _$ReadExam$Query$Exam$InteractionToJson(
+        ReadExam$Query$Exam$Interaction instance) =>
+    <String, dynamic>{
+      'comprehension':
+          _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap[
+              instance.comprehension],
+      'score': instance.score,
+      'total': instance.total,
+      'watchtime': instance.watchtime,
+    };
+
+const _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap = {
+  ReadExam$Query$Exam$Interaction$InteractionComprehension.blur: 'blur',
+  ReadExam$Query$Exam$Interaction$InteractionComprehension.clear: 'clear',
+  ReadExam$Query$Exam$Interaction$InteractionComprehension.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
+ReadExam$Query$Exam _$ReadExam$Query$ExamFromJson(Map<String, dynamic> json) {
+  return ReadExam$Query$Exam()
+    ..name = json['name'] as String
+    ..content = json['content'] as List
+    ..duration = json['duration'] as int
+    ..interaction = json['interaction'] == null
+        ? null
+        : ReadExam$Query$Exam$Interaction.fromJson(
+            json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadExam$Query$ExamToJson(
+        ReadExam$Query$Exam instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'content': instance.content,
+      'duration': instance.duration,
+      'interaction': instance.interaction?.toJson(),
+    };
+
+ReadExam$Query _$ReadExam$QueryFromJson(Map<String, dynamic> json) {
+  return ReadExam$Query()
+    ..readExam = json['readExam'] == null
+        ? null
+        : ReadExam$Query$Exam.fromJson(
+            json['readExam'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadExam$QueryToJson(ReadExam$Query instance) =>
+    <String, dynamic>{
+      'readExam': instance.readExam?.toJson(),
+    };
+
+ReadExamArguments _$ReadExamArgumentsFromJson(Map<String, dynamic> json) {
+  return ReadExamArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadExamArgumentsToJson(ReadExamArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
