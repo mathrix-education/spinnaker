@@ -13,9 +13,9 @@ class OutlineTextButton extends StatelessWidget {
   final GestureTapCallback onPressed;
 
   OutlineTextButton({
-    this.onPressed,
     this.text,
     this.width = 120,
+    this.onPressed,
   });
 
   @override
@@ -35,6 +35,7 @@ class OutlineTextButton extends StatelessWidget {
               fontSize: 16,
               color: green,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),

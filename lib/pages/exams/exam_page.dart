@@ -1,8 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/exams/exam_first_screen.dart';
 import 'package:mathrix_education_app/pages/exams/standard_exam_page.dart';
 import 'package:mathrix_education_app/pages/exams/timmer_section.dart';
+import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
+import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
+
+import 'exam_paused_dialog.dart';
+import 'exam_recap_section.dart';
 
 enum ExamMode {
   start,
@@ -42,20 +48,54 @@ class _ExamPageState extends State<ExamPage> {
                 _mode = ExamMode.playing;
               }),
             );
-          } else if (_mode == ExamMode.paused || _mode == ExamMode.playing) {
+          } else if (_mode == ExamMode.paused || _mode == ExamMode.playing || _mode == ExamMode.correction) {
             return Column(children: [
               TimerSection(
                 key: widget.timerSectionKey,
                 duration: exam.duration,
+                mode: _mode,
                 onTimerExpired: () {
                   setState(() {
                     _mode = ExamMode.end;
                   });
                 },
+                onPause: () {
+                  setState(() {
+                    _mode = ExamMode.paused;
+                  });
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) => ExamPausedDialog(
+                      onResume: () {
+                        setState(() {
+                          _mode = ExamMode.playing;
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
+              Expanded(child: SilicateWrapper(wall: exam.content)),
+              Visibility(
+                visible: _mode == ExamMode.playing || _mode == ExamMode.correction,
+                child: PrimaryTextButton(
+                  text: _mode == ExamMode.playing ? 'J\'ai fini' : 'Passer au debriefing',
+                  onPressed: () => setState(() {
+                    _mode = ExamMode.end;
+                  }),
+                ),
               ),
             ]);
           } else {
-            return Text('end');
+            return ExamRecapSection(
+              onCorrection: () => setState(() {
+                _mode = ExamMode.correction;
+              }),
+              onRestart: () => setState(() {
+                _mode = ExamMode.start;
+              }),
+            );
           }
         });
   }
