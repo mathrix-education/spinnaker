@@ -9,7 +9,7 @@ class MtxIcon extends StatelessWidget {
   /// The on tap callback.
   final void Function() onTap;
 
-  const MtxIcon({this.icon, this.onTap, this.height = 30});
+  const MtxIcon({@required this.icon, this.onTap, this.height = 30});
 
   @override
   Widget build(BuildContext context) {

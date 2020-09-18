@@ -3,29 +3,20 @@ import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_icon.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// The app bar title.
   final String title;
 
   @override
   final Size preferredSize; // default is 56.0
 
-  CustomAppBar({
-    Key key,
-    @required this.title,
-  })  : preferredSize = Size.fromHeight(kToolbarHeight),
-        super(key: key);
+  CustomAppBar({@required this.title}) : preferredSize = Size.fromHeight(kToolbarHeight);
 
-  @override
-  _CustomAppBarState createState() => _CustomAppBarState();
-}
-
-class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Headline4(
-        text: widget.title,
+        text: title,
         color: Colors.white,
       ),
       flexibleSpace: AppBarFlexibleSpace(),

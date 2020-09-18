@@ -1,11 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class AppBarFlexibleSpace extends StatefulWidget {
-  @override
-  _AppBarFlexibleSpaceState createState() => _AppBarFlexibleSpaceState();
-}
-
-class _AppBarFlexibleSpaceState extends State<AppBarFlexibleSpace> {
+class AppBarFlexibleSpace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -20,7 +20,6 @@ class _PdfViewerBrickState extends State<PdfViewerBrick> {
     PDFDocument.fromURL(widget.brick['url']).then(((document) {
       setState(() {
         _document = document;
-        print(_document);
       });
     }));
   }
