@@ -24,35 +24,19 @@ class SilicateWrapper extends StatelessWidget {
 
   static TeXViewWidget brickResolver(Map<String, dynamic> brickData) {
     String kind = brickData['kind'];
-
-    var text = brickData['text'] ?? '\$f(x)=3\$';
-
-    String convertedText = '';
-
-    bool odd = true;
-
-    for (String letter in text.split('')) {
-      if (letter == '\$') {
-        convertedText += (odd ? '\\(' : '\\)');
-        odd = !odd;
-      } else {
-        convertedText += letter;
-      }
-    }
-    return TeXViewDocument(convertedText);
-
+    TeXViewWidget teXViewWidget;
     switch (kind) {
-      default:
-        // widget = TextBrick(brick: brickData);
-        return TeXViewDocument(brickData['text']);
-
+      case 'text':
+        teXViewWidget = textBrick(brickData);
         break;
-      // case 'title':
-      //   widget = TitleBrick(brick: brickData);
-      //   break;
-      // case 'container':
-      //   widget = ContainerBrick(brick: brickData);
-      //   break;
+      case 'title':
+        teXViewWidget = titleBrick(brickData);
+        break;
+      case 'container':
+        teXViewWidget = containerBrick(brickData);
+        break;
+      default:
+        teXViewWidget = TeXViewDocument('default');
       // case 'video':
       //   widget = VideoBrick(brick: brickData);
       //   break;
@@ -63,11 +47,8 @@ class SilicateWrapper extends StatelessWidget {
       //   widget = PdfViewerBrick(brick: brickData);
     }
 
-    // return widget != null ? Container(padding: EdgeInsets.symmetric(vertical: 8), child: widget) : SizedBox.shrink();
-    // return (bricksMap[kind])()(brick: brickData); // TODO
-  }
+    return teXViewWidget;
 
-  static Map<String, dynamic> bricksMap = {
-    'text': TextBrick,
-  };
+    // return widget != null ? Container(padding: EdgeInsets.symmetric(vertical: 8), child: widget) : SizedBox.shrink();
+  }
 }
