@@ -45,19 +45,17 @@ class _LoginFormState extends State<LoginForm> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             // Add TextFormFields and RaisedButton here.
-            Container(
-              padding: EdgeInsets.only(bottom: 16.0),
-              child: SizedBox(
-                height: 85,
-                child: MtxTextFormField(
-                  label: "Email",
-                  attribute: 'email',
-                  textInputType: TextInputType.emailAddress,
-                  validators: emailValidators,
-                  onTextChange: (s) => validateForm(),
-                ),
+            SizedBox(
+              height: 85,
+              child: MtxTextFormField(
+                label: "Email",
+                attribute: 'email',
+                textInputType: TextInputType.emailAddress,
+                validators: emailValidators,
+                onTextChange: (s) => validateForm(),
               ),
             ),
+            SizedBox(height: 16),
             SizedBox(
               height: 85,
               child: MtxTextFormField(

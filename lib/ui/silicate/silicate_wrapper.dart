@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:mathrix_education_app/ui/silicate/image_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/pdf_viewer_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
@@ -14,39 +15,55 @@ class SilicateWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: wall.map((brick) => brickResolver(brick)).toList(),
+    return TeXView(
+      child: TeXViewColumn(
+        children: wall.map((brick) => brickResolver(brick)).toList(),
+      ),
     );
   }
 
-  static Widget brickResolver(Map<String, dynamic> brickData) {
+  static TeXViewWidget brickResolver(Map<String, dynamic> brickData) {
     String kind = brickData['kind'];
 
-    Widget widget;
+    var text = brickData['text'] ?? '\$f(x)=3\$';
+
+    String convertedText = '';
+
+    bool odd = true;
+
+    for (String letter in text.split('')) {
+      if (letter == '\$') {
+        convertedText += (odd ? '\\(' : '\\)');
+        odd = !odd;
+      } else {
+        convertedText += letter;
+      }
+    }
+    return TeXViewDocument(convertedText);
 
     switch (kind) {
-      case 'text':
-        widget = TextBrick(brick: brickData);
+      default:
+        // widget = TextBrick(brick: brickData);
+        return TeXViewDocument(brickData['text']);
+
         break;
-      case 'title':
-        widget = TitleBrick(brick: brickData);
-        break;
-      case 'container':
-        widget = ContainerBrick(brick: brickData);
-        break;
-      case 'video':
-        widget = VideoBrick(brick: brickData);
-        break;
-      case 'image':
-        widget = ImageBrick(brick: brickData);
-        break;
-      case 'pdf-viewer':
-        widget = PdfViewerBrick(brick: brickData);
+      // case 'title':
+      //   widget = TitleBrick(brick: brickData);
+      //   break;
+      // case 'container':
+      //   widget = ContainerBrick(brick: brickData);
+      //   break;
+      // case 'video':
+      //   widget = VideoBrick(brick: brickData);
+      //   break;
+      // case 'image':
+      //   widget = ImageBrick(brick: brickData);
+      //   break;
+      // case 'pdf-viewer':
+      //   widget = PdfViewerBrick(brick: brickData);
     }
 
-    return widget != null ? Container(padding: EdgeInsets.symmetric(vertical: 8), child: widget) : SizedBox.shrink();
-
+    // return widget != null ? Container(padding: EdgeInsets.symmetric(vertical: 8), child: widget) : SizedBox.shrink();
     // return (bricksMap[kind])()(brick: brickData); // TODO
   }
 

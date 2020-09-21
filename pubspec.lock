@@ -382,6 +382,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tex:
+    dependency: "direct main"
+    description:
+      name: flutter_tex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.6.7+9"
   flutter_touch_spin:
     dependency: transitive
     description:
@@ -597,6 +604,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
+  markdown:
+    dependency: transitive
+    description:
+      name: markdown
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.8"
   matcher:
     dependency: transitive
     description:
@@ -1036,6 +1050,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.5"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.22+1"
+  webview_flutter_plus:
+    dependency: transitive
+    description:
+      name: webview_flutter_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1+9"
   xdg_directories:
     dependency: transitive
     description:

@@ -38,9 +38,7 @@ class CourseTab extends StatelessWidget {
 
         List<ActivityListItem> courseExerciseList = courseList + exerciseList;
 
-        courseExerciseList.sort((a, b) {
-          return (a.order - b.order);
-        });
+        courseExerciseList.sort((a, b) => a.order - b.order);
 
         return ActivityList(
           name: notion.name,

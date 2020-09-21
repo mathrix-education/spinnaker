@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class MtxNavigationBarItem implements BottomNavigationBarItem {
@@ -11,12 +12,9 @@ class MtxNavigationBarItem implements BottomNavigationBarItem {
   });
 
   @override
-  Widget get activeIcon => Text(
-        text,
-        style: TextStyle(
-          color: green,
-          fontWeight: FontWeight.bold,
-        ),
+  Widget get activeIcon => BodyBold(
+        text: text,
+        color: green,
       );
 
   @override

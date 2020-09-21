@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class PrimaryTextButton extends StatelessWidget {
@@ -32,9 +33,8 @@ class PrimaryTextButton extends StatelessWidget {
         disabledColor: grey,
         onPressed: enabled ? onPressed : null,
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          child: BodyBold(
+            text: text,
             textAlign: TextAlign.center,
           ),
         ),

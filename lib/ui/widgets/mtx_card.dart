@@ -11,7 +11,7 @@ class MtxCard extends StatelessWidget {
 
   final defaultPadding = EdgeInsets.symmetric(horizontal: 8.0);
 
-  MtxCard({Key key, this.child, this.onTap, this.padding}) : super(key: key);
+  MtxCard({this.child, this.onTap, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MtxCard extends StatelessWidget {
         child: InkWell(
           child: child,
           borderRadius: BorderRadius.circular(8.0),
-          onTap: () => onTap(),
+          onTap: onTap,
         ),
       ),
     );
