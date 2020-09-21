@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_icon.dart';
@@ -58,9 +59,9 @@ class TrainingCardContent extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  actionText,
-                  style: TextStyle(fontSize: 16.0, color: green, fontWeight: FontWeight.bold),
+                BodyBold(
+                  text: actionText,
+                  color: green,
                 ),
               ],
             ),

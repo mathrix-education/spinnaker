@@ -18,8 +18,6 @@ class AppState extends ChangeNotifier {
 
     QueryResult result = await _client.query(options);
 
-    print(result.toString());
-
     if (!result.hasException) {
       user = Me$Query.fromJson(result.data).me;
       notifyListeners();
@@ -46,7 +44,8 @@ class AppState extends ChangeNotifier {
   }
 
   Future<bool> updateUser(UpdateMeArguments updatedMe) async {
-    var updatedMeJson = updatedMe.toJson();
+    Map<String, dynamic> updatedMeJson = updatedMe.toJson();
+
     updatedMeJson['input'].removeWhere((key, value) => value == null);
 
     MutationOptions options = MutationOptions(

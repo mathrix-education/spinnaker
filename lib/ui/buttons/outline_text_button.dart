@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class OutlineTextButton extends StatelessWidget {
@@ -28,14 +29,10 @@ class OutlineTextButton extends StatelessWidget {
         borderSide: BorderSide(color: green),
         onPressed: onPressed,
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: green,
-            ),
+          child: BodyBold(
+            text: text,
             textAlign: TextAlign.center,
+            color: green,
           ),
         ),
       ),
