@@ -9,9 +9,8 @@ class Comment extends StatelessWidget {
   final ReadCourseComments$Query$Course$Comment comment;
 
   final bool selected;
-  final GestureLongPressCallback onLongPress;
 
-  const Comment({@required this.comment, @required this.selected, @required this.onLongPress});
+  const Comment({@required this.comment, @required this.selected});
 
   static String transformDate(date) {
 //    const convertedDate = AgoPipe.convertUTCDateToLocalDate(new Date(date));
@@ -39,45 +38,39 @@ class Comment extends StatelessWidget {
     String content = comment.content.trim();
     String pseudo = comment.user.username;
 
-    return InkWell(
-      onLongPress: () {
-        hapticSuccessFeedback();
-        onLongPress.call();
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: new BoxDecoration(color: selected ? greenLight2 : null),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(text: '$pseudo: ', style: TextStyle(fontWeight: FontWeight.bold, color: green)),
-                  TextSpan(text: '$content', style: TextStyle(color: Colors.black)),
-                ],
-              ),
-            ),
-            Row(
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: new BoxDecoration(color: selected ? greenLight2 : null),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          RichText(
+            text: TextSpan(
               children: [
-                Text(
-                  Comment.transformDate('date'),
-                  style: TextStyle(fontWeight: FontWeight.bold, color: grey, fontFamily: 'Poppins'),
-                ),
-                GestureDetector(
-                  onTap: onLongPress,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      'Répondre',
-                      style: TextStyle(color: green),
-                    ),
-                  ),
-                ),
+                TextSpan(text: '$pseudo: ', style: TextStyle(fontWeight: FontWeight.bold, color: green)),
+                TextSpan(text: '$content', style: TextStyle(color: Colors.black)),
               ],
             ),
-          ],
-        ),
+          ),
+          Row(
+            children: [
+              Text(
+                Comment.transformDate('date'),
+                style: TextStyle(fontWeight: FontWeight.bold, color: grey, fontFamily: 'Poppins'),
+              ),
+              GestureDetector(
+                // onTap: onLongPress,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    'Répondre',
+                    style: TextStyle(color: green),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

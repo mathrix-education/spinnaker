@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'package:mathrix_education_app/core/misc/vibration.dart';
 import 'package:mathrix_education_app/ui/dialogs/comment.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/texts/body_bold.dart';
@@ -56,12 +57,17 @@ class _CommentsDialogState extends State<CommentsDialog> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemBuilder: (_, index) {
-                      return Comment(
-                        comment: comments[index],
-                        selected: selectedCommentId == comments[index].id,
-                        onLongPress: () => setState(() {
-                          selectedCommentId = comments[index].id;
-                        }),
+                      return InkWell(
+                        onLongPress: () {
+                          hapticSuccessFeedback();
+                          setState(() {
+                            selectedCommentId = comments[index].id;
+                          });
+                        },
+                        child: Comment(
+                            comment: comments[index],
+                            selected: selectedCommentId == comments[index].id,
+                        ),
                       );
                     },
                     itemCount: comments.length,
