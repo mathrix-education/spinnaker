@@ -7,7 +7,7 @@ import 'package:mathrix_education_app/ui/variables/colors.dart';
 class CheckedButton extends StatelessWidget {
   final Interact$CreateInteraction$InteractionComprehension comprehension;
 
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
   const CheckedButton({Key key, this.comprehension, this.onTap}) : super(key: key);
 
@@ -19,7 +19,7 @@ class CheckedButton extends StatelessWidget {
       onTap: onTap,
       textColor: comprehension == Interact$CreateInteraction$InteractionComprehension.clear ? Colors.white : jade,
       color: comprehension == Interact$CreateInteraction$InteractionComprehension.clear ? jade : jadeLight,
-      width: 120,
+      width: 140,
     );
   }
 }

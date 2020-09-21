@@ -12,7 +12,7 @@ import 'package:mathrix_education_app/ui/widgets/form_field.dart';
 
 class LoginForm extends StatefulWidget {
   final LoginMode loginMode;
-  final void Function() onForgotPasswordTap;
+  final GestureTapCallback onForgotPasswordTap;
   final void Function(String token) onLogin;
 
   LoginForm({
@@ -82,6 +82,7 @@ class _LoginFormState extends State<LoginForm> {
             PrimaryTextButton(
               text: 'Se connecter',
               onPressed: () => _authenticate(context),
+              width: double.infinity,
               enabled: formValid,
             ),
           ],

@@ -1,0 +1,13 @@
+query ReadExam($id: ID!) {
+  readExam(id: $id) {
+    name
+    content
+    duration
+    interaction {
+      comprehension
+      score
+      total
+      watchtime
+    }
+  }
+}

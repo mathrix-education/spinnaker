@@ -26,8 +26,11 @@ class CommentsDialog extends StatelessWidget {
         query: ReadCourseCommentsQuery(),
         variables: ReadCourseCommentsArguments(id: modelId),
         builder: (ReadCourseComments$Query data) {
-          return Text('comments');
           // return Column(children: data.readCourse.comments.map((e) => Comment(comment: ReadCourseComments$Query$Course$Comment())).toList()
+
+          return Column(
+            children: [Comment(), Comment()],
+          );
         },
       ),
     );

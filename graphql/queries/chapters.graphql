@@ -22,5 +22,12 @@ query ReadChaptersInformations($id: ID){
       name
       premium
     }
+    exams{
+      id
+      premium
+      owned
+      name
+      duration
+    }
   }
 }

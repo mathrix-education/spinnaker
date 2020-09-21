@@ -38,14 +38,13 @@ class CoursePage extends StatelessWidget {
                   ),
                   PrimaryTextButton(
                     text: 'Voir les commentaires',
-                    minWidth: double.infinity,
-                    enabled: true,
+                    width: double.infinity,
                     onPressed: () {
                       showDialog(
                         context: context,
                         builder: (_) => CommentsDialog(
                           modelId: courseId,
-                          commentableType: CommentableType.course,
+                          commentableType: CommentableType.course, // TODO
                         ),
                       );
                     },

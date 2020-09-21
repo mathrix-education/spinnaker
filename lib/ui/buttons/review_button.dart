@@ -6,7 +6,7 @@ import 'button_with_icon.dart';
 class ReviewButton extends StatelessWidget {
   final Interact$CreateInteraction$InteractionComprehension comprehension;
 
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
   const ReviewButton({Key key, this.comprehension, this.onTap}) : super(key: key);
 
@@ -18,7 +18,7 @@ class ReviewButton extends StatelessWidget {
       onTap: onTap,
       textColor: comprehension == Interact$CreateInteraction$InteractionComprehension.blur ? Colors.white : blue,
       color: comprehension == Interact$CreateInteraction$InteractionComprehension.blur ? blue : blueLight,
-      width: 120,
+      width: 140,
     );
   }
 }

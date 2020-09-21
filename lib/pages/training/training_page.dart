@@ -29,7 +29,11 @@ class TrainingPage extends StatelessWidget {
                 title: Headline4(text: sections[index].name),
                 itemList: sections[index].lessons,
                 builder: (ReadTraining$Query$Training$Section$Lesson item) {
-                  return ActivityCard(name: item.name, activityType: ActivityType.Course);
+                  return ActivityCard(
+                    name: item.name,
+                    activityType: ActivityType.Course,
+                    premium: false,
+                  );
                 },
                 onItemTap: (lesson) {
                   Navigator.of(context).pushNamed(

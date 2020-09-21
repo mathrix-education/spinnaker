@@ -17,7 +17,9 @@ class FlashcardsTopSection extends StatelessWidget {
   /// The onSwap callback: swap between training and exam mode.
   final VoidCallback onSwap;
 
-  const FlashcardsTopSection({Key key, this.index, this.total, this.mode, this.onSwap}) : super(key: key);
+  const FlashcardsTopSection(
+      {Key key, this.index, this.total, this.mode, this.onSwap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +31,16 @@ class FlashcardsTopSection extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(width: 250, child: ProgressBar(value: index / total, height: 30)),
+                SizedBox(
+                    width: 250,
+                    child: ProgressBar(value: index / total, height: 30)),
               ],
             ),
           ),
           visible: mode == FlashcardMode.training,
         ),
         Visibility(
+          visible: mode != FlashcardMode.end,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -43,8 +48,13 @@ class FlashcardsTopSection extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    mode == FlashcardMode.training ? 'Mode révision' : 'Mode entrainement',
-                    style: Theme.of(context).textTheme.bodyText1.apply(color: green),
+                    mode == FlashcardMode.training
+                        ? 'Mode révision'
+                        : 'Mode entrainement',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .apply(color: green),
                     textAlign: TextAlign.right,
                   ),
                 ),

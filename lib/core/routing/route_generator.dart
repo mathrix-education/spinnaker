@@ -3,13 +3,19 @@ import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/pages/course/course_page.dart';
 import 'package:mathrix_education_app/pages/dashboard/dashboard_page.dart';
+import 'package:mathrix_education_app/pages/exams/exam_page.dart';
+import 'package:mathrix_education_app/pages/exams/video_exam_page.dart';
+import 'package:mathrix_education_app/pages/exercises/exercises_page.dart';
 import 'package:mathrix_education_app/pages/flashcards/flashcards_page.dart';
 import 'package:mathrix_education_app/pages/lesson/lesson_page.dart';
 import 'package:mathrix_education_app/pages/login/login_page.dart';
 import 'package:mathrix_education_app/pages/menu/menu_page.dart';
+import 'package:mathrix_education_app/pages/premium/premium_page.dart';
 import 'package:mathrix_education_app/pages/settings/settings_page.dart';
 import 'package:mathrix_education_app/pages/theme/theme_page.dart';
 import 'package:mathrix_education_app/pages/training/training_page.dart';
+
+import 'fade_in_page_route.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -20,11 +26,11 @@ class RouteGenerator {
         if (GraphQLConfiguration.isLogged()) {
           return generateRoute(RouteSettings(name: RoutePaths.dashboard));
         }
-        return materialBuilder(LoginPage());
+        return MaterialPageRoute(builder: (_) => LoginPage());
       case RoutePaths.dashboard:
-        return materialBuilder(DashboardPage());
+        return routeBuilder(DashboardPage());
       case RoutePaths.themes:
-        return materialBuilder(
+        return routeBuilder(
           ThemePage(
             disciplineId: args['disciplineId'],
             disciplineName: args['disciplineName'],
@@ -32,56 +38,77 @@ class RouteGenerator {
           ),
         );
       case RoutePaths.menu:
-        return materialBuilder(
+        return routeBuilder(
           MenuPage(
             chapterId: args['chapterId'],
             chapterName: args['chapterName'],
           ),
         );
       case RoutePaths.course:
-        return materialBuilder(
+        return routeBuilder(
           CoursePage(
             courseId: args['courseId'],
             courseName: args['courseName'],
           ),
         );
       case RoutePaths.training:
-        return materialBuilder(
+        return routeBuilder(
           TrainingPage(
             trainingId: args['trainingId'],
             trainingName: args['trainingName'],
           ),
         );
       case RoutePaths.menu:
-        return materialBuilder(
+        return routeBuilder(
           LessonPage(
             lessonId: args['lessonId'],
             lessonName: args['lessonName'],
           ),
         );
       case RoutePaths.lesson:
-        return materialBuilder(
+        return routeBuilder(
           LessonPage(
             lessonId: args['lessonId'],
             lessonName: args['lessonName'],
           ),
         );
       case RoutePaths.flashcards:
-        return materialBuilder(
+        return routeBuilder(
           FlashcardsPage(
             flashcardsId: args['flashcardsId'],
             flashcardsName: args['flashcardsName'],
           ),
         );
+      case RoutePaths.exercises:
+        return routeBuilder(ExercisesPage(
+          subjectId: args['subjectId'],
+          subjectName: args['subjectName'],
+        ));
+      case RoutePaths.exam:
+        return routeBuilder(
+          ExamPage(
+            examId: args['examId'],
+            examName: args['examName'],
+          ),
+        );
+      case RoutePaths.videoExam:
+        return routeBuilder(
+          VideoExamsPage(
+            examId: args['examId'],
+            examName: args['examName'],
+          ),
+        );
       case RoutePaths.settings:
-        return materialBuilder(SettingsPage());
+        return routeBuilder(SettingsPage());
+      case RoutePaths.premium:
+        return routeBuilder(PremiumPage());
     }
   }
 
 // TODO error route
 
-  static materialBuilder(Widget widget) {
-    return MaterialPageRoute(builder: (_) {
+  static routeBuilder(Widget widget) {
+    return FadeInPageRoute(builder: (_) {
       return widget;
     });
   }

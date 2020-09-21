@@ -8,20 +8,27 @@ class ButtonWithIcon extends StatelessWidget {
   final Color textColor;
   final Color color;
   final double width;
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
-  const ButtonWithIcon({Key key, this.text, this.icon, this.textColor, this.color, this.width, this.onTap})
+  const ButtonWithIcon(
+      {Key key,
+      this.text,
+      this.icon,
+      this.textColor,
+      this.color,
+      this.width = 120,
+      this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      color: color,
-      onPressed: onTap,
-      child: SizedBox(
-        height: 48,
-        width: width,
+    return SizedBox(
+      height: 48,
+      width: width,
+      child: FlatButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        color: color,
+        onPressed: onTap,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

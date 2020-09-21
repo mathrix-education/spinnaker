@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
 import 'package:mathrix_education_app/ui/texts/Headline_3.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';

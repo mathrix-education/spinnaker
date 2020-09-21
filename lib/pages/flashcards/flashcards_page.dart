@@ -2,8 +2,9 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/pages/flashcards/check_answer_area.dart';
+import 'package:mathrix_education_app/pages/flashcards/flashcard_bottom_section.dart';
 import 'package:mathrix_education_app/pages/flashcards/flashcard_list.dart';
+import 'package:mathrix_education_app/pages/flashcards/score_recap_section.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
@@ -24,12 +25,23 @@ class FlashcardsPage extends StatefulWidget {
 }
 
 class _FlashcardsPageState extends State<FlashcardsPage> {
-  int index = 0;
+  /// The flashcard index.
+  int _index = 0;
+
+  /// The number of succeeded flashcards.
+  int succeeded = 0;
+
+  /// The flashcard mode.
   FlashcardMode _mode = FlashcardMode.training;
 
-  List<ReadFlashcard$Query$Flashcard$FlashcardContent> flashcards = [];
+  /// If the front of the flashcard is displayed, otherwise it is the back.
+  bool _frontDisplayed = true;
 
-  final GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
+  /// The flashcards list.
+  List<ReadFlashcard$Query$Flashcard$FlashcardContent> _flashcards = [];
+
+  /// The flippable card key, used to trigger internal functions.
+  final GlobalKey<FlipCardState> _flipCardKey = GlobalKey<FlipCardState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,34 +51,51 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
           query: ReadFlashcardQuery(),
           variables: ReadFlashcardArguments(id: widget.flashcardsId),
           builder: (ReadFlashcard$Query data) {
-            flashcards = data.readFlashcard.content;
+            _flashcards = data.readFlashcard.content;
 
             return Stack(children: [
               Column(
                 children: [
                   FlashcardsTopSection(
-                    index: index,
-                    total: flashcards.length,
+                    index: _index,
+                    total: _flashcards.length,
                     mode: _mode,
                     onSwap: _swapMode,
                   ),
-                  Visibility(
-                    child: Center(
+                  Expanded(
+                    child: Visibility(
+                      visible: _mode == FlashcardMode.training,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: FlipCard(
                           direction: FlipDirection.HORIZONTAL,
-                          key: cardKey,
-                          front: _buildCard(content: flashcards[index].front),
-                          back: _buildCard(content: flashcards[index].back, color: greenLight2),
+                          key: _flipCardKey,
+                          front: _buildCard(content: _flashcards[_index].front),
+                          back: _buildCard(
+                            content: _flashcards[_index].back,
+                            color: greenLight2,
+                          ),
                         ),
                       ),
                     ),
-                    visible: _mode == FlashcardMode.training,
+                  ),
+                  Visibility(
+                    visible: _mode == FlashcardMode.end,
+                    child: ScoreRecapSection(
+                      succeeded: succeeded,
+                      total: _flashcards.length,
+                      onRestart: () {
+                        setState(() {
+                          _index = 0;
+                          _frontDisplayed = true;
+                          _mode = FlashcardMode.training;
+                        });
+                      },
+                    ),
                   ),
                   Flexible(
                     child: Visibility(
-                      child: FlashcardList(flashcards: flashcards),
+                      child: FlashcardList(flashcards: _flashcards),
                       visible: _mode == FlashcardMode.revision,
                     ),
                   ),
@@ -78,28 +107,24 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                 right: 0,
                 child: Column(
                   children: [
-                    FlashcardBottomSection(flashcardId: widget.flashcardsId, mode: _mode, onCheck: _checkCard,),
+                    FlashcardBottomSection(
+                      flashcardId: widget.flashcardsId,
+                      mode: _mode,
+                      onCheck: _checkAnswer,
+                      frontDisplayed: _frontDisplayed,
+                      onSwap: () {
+                        _flipCardKey.currentState.controller.forward();
+                        setState(() {
+                          _frontDisplayed = false;
+                        });
+                      },
+                    ),
                   ],
                 ),
               )
             ]);
           }),
     );
-  }
-
-  _checkCard(bool correct) {
-    if (index < flashcards.length - 1) {
-      cardKey.currentState.controller.reverse();
-      Future.delayed(Duration(milliseconds: 490)).then((value) {
-        setState(() {
-          index++;
-        });
-      });
-    } else {
-      setState(() {
-        _mode = FlashcardMode.end;
-      });
-    }
   }
 
   Widget _buildCard({content, color}) {
@@ -119,10 +144,31 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
     );
   }
 
+  _checkAnswer(bool correct) {
+    if (_index < _flashcards.length - 1) {
+      setState(() {
+        _frontDisplayed = true;
+        succeeded += (correct ? 1 : 0);
+      });
+      _flipCardKey.currentState.controller.reverse();
+      Future.delayed(Duration(milliseconds: 490)).then((value) {
+        setState(() {
+          _index++;
+        });
+      });
+    } else {
+      setState(() {
+        _mode = FlashcardMode.end;
+      });
+    }
+  }
+
   /// Swap the mode between training and revision mode.
   void _swapMode() {
     setState(() {
-      _mode = (_mode == FlashcardMode.training) ? FlashcardMode.revision : FlashcardMode.training;
+      _mode = (_mode == FlashcardMode.training)
+          ? FlashcardMode.revision
+          : FlashcardMode.training;
     });
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum ActivityType {
@@ -24,7 +23,7 @@ extension ActivitySlug on ActivityType {
       case ActivityType.Exam:
         return 'exam';
       case ActivityType.ExamVideo:
-        return 'exam-video';
+        return 'video_corrected';
       default:
         return 'video';
     }
@@ -51,15 +50,19 @@ extension ActivitySlug on ActivityType {
 }
 
 class ActivityCard extends StatelessWidget {
+  /// The activity name.
   final String name;
 
+  /// The activity premium status.
   final bool premium;
 
+  /// The activity type.
   final ActivityType activityType;
 
+  /// The onTap callback.
   final GestureTapCallback onTap;
 
-  const ActivityCard({this.name, this.premium, this.activityType, this.onTap});
+  const ActivityCard({@required this.name, @required this.premium, @required this.activityType, @required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +75,32 @@ class ActivityCard extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.only(right: 8.0),
-              child: Image.asset(
-                'assets/activities/$assetSlug.png',
-                height: 30,
+              child: SizedBox(
+                height: 34,
+                width: 34,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 4,
+                      left: 4,
+                      child: Image.asset(
+                        'assets/activities/$assetSlug.png',
+                        height: 30,
+                      ),
+                    ),
+                    Visibility(
+                      visible: premium,
+                      child: Positioned(
+                        top: 0,
+                        left: 0,
+                        child: Image.asset(
+                          'assets/activities/premium.png',
+                          height: 15,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(

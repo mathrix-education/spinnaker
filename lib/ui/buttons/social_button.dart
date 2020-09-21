@@ -19,7 +19,7 @@ Map<SocialProvider, Color> colors = {
 
 class SocialButton extends StatelessWidget {
   /// The onPressed callback.
-  final VoidCallback onTap;
+  final GestureTapCallback onTap;
 
   /// The mode: login or register.
   final SocialButtonMode mode;
@@ -32,7 +32,13 @@ class SocialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     String iconName = socialProvidersNameMap[socialProvider].toLowerCase();
     return ButtonWithIcon(
-        text: _buttonText, color: colors[socialProvider], onTap: onTap, icon: iconName, textColor: Colors.white);
+      text: _buttonText,
+      color: colors[socialProvider],
+      onTap: onTap,
+      icon: iconName,
+      textColor: Colors.white,
+      width: double.infinity,
+    );
   }
 
   get _buttonText {
