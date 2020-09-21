@@ -15,7 +15,7 @@ enum CommentableType {
   flashcard,
 }
 
-class CommentsDialog extends StatelessWidget {
+class CommentsDialog extends StatefulWidget {
   final String modelId;
 
   final CommentableType commentableType;
@@ -23,24 +23,52 @@ class CommentsDialog extends StatelessWidget {
   const CommentsDialog({this.modelId, this.commentableType});
 
   @override
+  _CommentsDialogState createState() => _CommentsDialogState();
+
+  static final _inputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8.0),
+    borderSide: const BorderSide(width: 1, color: green),
+  );
+}
+
+class _CommentsDialogState extends State<CommentsDialog> {
+  String selectedCommentId;
+
+  @override
   Widget build(BuildContext context) {
     return StandardPage(
       title: 'Commentaires',
       body: QueryContainer(
         query: ReadCourseCommentsQuery(),
-        variables: ReadCourseCommentsArguments(id: modelId),
+        variables: ReadCourseCommentsArguments(id: widget.modelId),
         builder: (ReadCourseComments$Query data) {
-          // return Column(children: data.readCourse.comments.map((e) => Comment(comment: ReadCourseComments$Query$Course$Comment())).toList()
+          List<ReadCourseComments$Query$Course$Comment> comments = data.readCourse.comments;
 
-          return Stack(children: [
-            Column(
-              children: [Comment(), Comment(), Comment()],
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              left: 0,
-              child: Padding(
+          if (comments.length == 0) {
+            return BodyBold(text: 'Soit le premier à poster un commentaire');
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: ClampingScrollPhysics(),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (_, index) {
+                      return Comment(
+                        comment: comments[index],
+                        selected: selectedCommentId == comments[index].id,
+                        onLongPress: () => setState(() {
+                          selectedCommentId = comments[index].id;
+                        }),
+                      );
+                    },
+                    itemCount: comments.length,
+                  ),
+                ),
+              ),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxHeight: 80),
@@ -59,8 +87,8 @@ class CommentsDialog extends StatelessWidget {
                               counterText: "",
                               fillColor: Colors.amberAccent,
                               isDense: true,
-                              enabledBorder: _inputBorder,
-                              focusedBorder: _inputBorder,
+                              enabledBorder: CommentsDialog._inputBorder,
+                              focusedBorder: CommentsDialog._inputBorder,
                             ),
                           ),
                         ),
@@ -71,15 +99,10 @@ class CommentsDialog extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ]);
+            ],
+          );
         },
       ),
     );
   }
-
-  static final _inputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8.0),
-    borderSide: const BorderSide(width: 1, color: green),
-  );
 }

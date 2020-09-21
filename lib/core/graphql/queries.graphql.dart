@@ -593,15 +593,12 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
 }
 
 mixin ReadCourseComments$BasicCommentMixin {
-  List<ReadCourseComments$Query$Comment$Comment> children;
-}
-mixin ReadCourseComments$CommentInfosMixin {
   String id;
   int score;
   DateTime created_at;
   String content;
   ReadCourseComments$Query$Comment$User user;
-  ReadCourseComments$Query$Comment$Vote vote;
+  List<ReadCourseComments$Query$Comment$Comment> children;
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -614,7 +611,7 @@ class ReadCourseComments$Query$Course$Comment
       _$ReadCourseComments$Query$Course$CommentFromJson(json);
 
   @override
-  List<Object> get props => [children];
+  List<Object> get props => [id, score, created_at, content, user, children];
   Map<String, dynamic> toJson() =>
       _$ReadCourseComments$Query$Course$CommentToJson(this);
 }
@@ -649,27 +646,28 @@ class ReadCourseComments$Query with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class ReadCourseComments$Query$Comment$Comment
-    with EquatableMixin, ReadCourseComments$CommentInfosMixin {
-  ReadCourseComments$Query$Comment$Comment();
-
-  factory ReadCourseComments$Query$Comment$Comment.fromJson(
-          Map<String, dynamic> json) =>
-      _$ReadCourseComments$Query$Comment$CommentFromJson(json);
-
-  @override
-  List<Object> get props => [id, score, created_at, content, user, vote];
-  Map<String, dynamic> toJson() =>
-      _$ReadCourseComments$Query$Comment$CommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
 class ReadCourseComments$Query$Comment$User with EquatableMixin {
   ReadCourseComments$Query$Comment$User();
 
   factory ReadCourseComments$Query$Comment$User.fromJson(
           Map<String, dynamic> json) =>
       _$ReadCourseComments$Query$Comment$UserFromJson(json);
+
+  String username;
+
+  @override
+  List<Object> get props => [username];
+  Map<String, dynamic> toJson() =>
+      _$ReadCourseComments$Query$Comment$UserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadCourseComments$Query$Comment$Comment$User with EquatableMixin {
+  ReadCourseComments$Query$Comment$Comment$User();
+
+  factory ReadCourseComments$Query$Comment$Comment$User.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadCourseComments$Query$Comment$Comment$UserFromJson(json);
 
   String id;
 
@@ -678,47 +676,73 @@ class ReadCourseComments$Query$Comment$User with EquatableMixin {
   @override
   List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
-      _$ReadCourseComments$Query$Comment$UserToJson(this);
+      _$ReadCourseComments$Query$Comment$Comment$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class ReadCourseComments$Query$Comment$Vote$User with EquatableMixin {
-  ReadCourseComments$Query$Comment$Vote$User();
+class ReadCourseComments$Query$Comment$Comment$Vote$User with EquatableMixin {
+  ReadCourseComments$Query$Comment$Comment$Vote$User();
 
-  factory ReadCourseComments$Query$Comment$Vote$User.fromJson(
+  factory ReadCourseComments$Query$Comment$Comment$Vote$User.fromJson(
           Map<String, dynamic> json) =>
-      _$ReadCourseComments$Query$Comment$Vote$UserFromJson(json);
+      _$ReadCourseComments$Query$Comment$Comment$Vote$UserFromJson(json);
 
   String id;
 
   @override
   List<Object> get props => [id];
   Map<String, dynamic> toJson() =>
-      _$ReadCourseComments$Query$Comment$Vote$UserToJson(this);
+      _$ReadCourseComments$Query$Comment$Comment$Vote$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class ReadCourseComments$Query$Comment$Vote with EquatableMixin {
-  ReadCourseComments$Query$Comment$Vote();
+class ReadCourseComments$Query$Comment$Comment$Vote with EquatableMixin {
+  ReadCourseComments$Query$Comment$Comment$Vote();
 
-  factory ReadCourseComments$Query$Comment$Vote.fromJson(
+  factory ReadCourseComments$Query$Comment$Comment$Vote.fromJson(
           Map<String, dynamic> json) =>
-      _$ReadCourseComments$Query$Comment$VoteFromJson(json);
+      _$ReadCourseComments$Query$Comment$Comment$VoteFromJson(json);
 
   @JsonKey(
-      unknownEnumValue:
-          ReadCourseComments$Query$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-  ReadCourseComments$Query$Comment$Vote$VoteValue value;
+      unknownEnumValue: ReadCourseComments$Query$Comment$Comment$Vote$VoteValue
+          .ARTEMIS_UNKNOWN)
+  ReadCourseComments$Query$Comment$Comment$Vote$VoteValue value;
 
-  ReadCourseComments$Query$Comment$Vote$User user;
+  ReadCourseComments$Query$Comment$Comment$Vote$User user;
 
   @override
   List<Object> get props => [value, user];
   Map<String, dynamic> toJson() =>
-      _$ReadCourseComments$Query$Comment$VoteToJson(this);
+      _$ReadCourseComments$Query$Comment$Comment$VoteToJson(this);
 }
 
-enum ReadCourseComments$Query$Comment$Vote$VoteValue {
+@JsonSerializable(explicitToJson: true)
+class ReadCourseComments$Query$Comment$Comment with EquatableMixin {
+  ReadCourseComments$Query$Comment$Comment();
+
+  factory ReadCourseComments$Query$Comment$Comment.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadCourseComments$Query$Comment$CommentFromJson(json);
+
+  String id;
+
+  int score;
+
+  DateTime created_at;
+
+  String content;
+
+  ReadCourseComments$Query$Comment$Comment$User user;
+
+  ReadCourseComments$Query$Comment$Comment$Vote vote;
+
+  @override
+  List<Object> get props => [id, score, created_at, content, user, vote];
+  Map<String, dynamic> toJson() =>
+      _$ReadCourseComments$Query$Comment$CommentToJson(this);
+}
+
+enum ReadCourseComments$Query$Comment$Comment$Vote$VoteValue {
   down,
   up,
   ARTEMIS_UNKNOWN,
@@ -784,25 +808,6 @@ class ReadCourseCommentsQuery extends GraphQLQuery<ReadCourseComments$Query,
                 name: NameNode(value: 'Comment'), isNonNull: false)),
         directives: [],
         selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-              name: NameNode(value: 'CommentInfos'), directives: []),
-          FieldNode(
-              name: NameNode(value: 'children'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FragmentSpreadNode(
-                    name: NameNode(value: 'CommentInfos'), directives: [])
-              ]))
-        ])),
-    FragmentDefinitionNode(
-        name: NameNode(value: 'CommentInfos'),
-        typeCondition: TypeConditionNode(
-            on: NamedTypeNode(
-                name: NameNode(value: 'Comment'), isNonNull: false)),
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
           FieldNode(
               name: NameNode(value: 'id'),
               alias: null,
@@ -834,12 +839,6 @@ class ReadCourseCommentsQuery extends GraphQLQuery<ReadCourseComments$Query,
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,
                     arguments: [],
@@ -847,13 +846,31 @@ class ReadCourseCommentsQuery extends GraphQLQuery<ReadCourseComments$Query,
                     selectionSet: null)
               ])),
           FieldNode(
-              name: NameNode(value: 'vote'),
+              name: NameNode(value: 'children'),
               alias: null,
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'value'),
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'score'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'created_at'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'content'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -869,7 +886,39 @@ class ReadCourseCommentsQuery extends GraphQLQuery<ReadCourseComments$Query,
                           alias: null,
                           arguments: [],
                           directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'username'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
                           selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'vote'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'value'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'user'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
                     ]))
               ]))
         ]))
@@ -982,15 +1031,12 @@ class ReadCourseQuery
 }
 
 mixin CreateComment$BasicCommentMixin {
-  List<CreateComment$Mutation$Comment$Comment> children;
-}
-mixin CreateComment$CommentInfosMixin {
   String id;
   int score;
   DateTime created_at;
   String content;
   CreateComment$Mutation$Comment$User user;
-  CreateComment$Mutation$Comment$Vote vote;
+  List<CreateComment$Mutation$Comment$Comment> children;
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -1002,7 +1048,7 @@ class CreateComment$Mutation$Comment
       _$CreateComment$Mutation$CommentFromJson(json);
 
   @override
-  List<Object> get props => [children];
+  List<Object> get props => [id, score, created_at, content, user, children];
   Map<String, dynamic> toJson() => _$CreateComment$Mutation$CommentToJson(this);
 }
 
@@ -1049,27 +1095,28 @@ class CreateComment$CreateComment with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateComment$Mutation$Comment$Comment
-    with EquatableMixin, CreateComment$CommentInfosMixin {
-  CreateComment$Mutation$Comment$Comment();
-
-  factory CreateComment$Mutation$Comment$Comment.fromJson(
-          Map<String, dynamic> json) =>
-      _$CreateComment$Mutation$Comment$CommentFromJson(json);
-
-  @override
-  List<Object> get props => [id, score, created_at, content, user, vote];
-  Map<String, dynamic> toJson() =>
-      _$CreateComment$Mutation$Comment$CommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
 class CreateComment$Mutation$Comment$User with EquatableMixin {
   CreateComment$Mutation$Comment$User();
 
   factory CreateComment$Mutation$Comment$User.fromJson(
           Map<String, dynamic> json) =>
       _$CreateComment$Mutation$Comment$UserFromJson(json);
+
+  String username;
+
+  @override
+  List<Object> get props => [username];
+  Map<String, dynamic> toJson() =>
+      _$CreateComment$Mutation$Comment$UserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateComment$Mutation$Comment$Comment$User with EquatableMixin {
+  CreateComment$Mutation$Comment$Comment$User();
+
+  factory CreateComment$Mutation$Comment$Comment$User.fromJson(
+          Map<String, dynamic> json) =>
+      _$CreateComment$Mutation$Comment$Comment$UserFromJson(json);
 
   String id;
 
@@ -1078,44 +1125,70 @@ class CreateComment$Mutation$Comment$User with EquatableMixin {
   @override
   List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
-      _$CreateComment$Mutation$Comment$UserToJson(this);
+      _$CreateComment$Mutation$Comment$Comment$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateComment$Mutation$Comment$Vote$User with EquatableMixin {
-  CreateComment$Mutation$Comment$Vote$User();
+class CreateComment$Mutation$Comment$Comment$Vote$User with EquatableMixin {
+  CreateComment$Mutation$Comment$Comment$Vote$User();
 
-  factory CreateComment$Mutation$Comment$Vote$User.fromJson(
+  factory CreateComment$Mutation$Comment$Comment$Vote$User.fromJson(
           Map<String, dynamic> json) =>
-      _$CreateComment$Mutation$Comment$Vote$UserFromJson(json);
+      _$CreateComment$Mutation$Comment$Comment$Vote$UserFromJson(json);
 
   String id;
 
   @override
   List<Object> get props => [id];
   Map<String, dynamic> toJson() =>
-      _$CreateComment$Mutation$Comment$Vote$UserToJson(this);
+      _$CreateComment$Mutation$Comment$Comment$Vote$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateComment$Mutation$Comment$Vote with EquatableMixin {
-  CreateComment$Mutation$Comment$Vote();
+class CreateComment$Mutation$Comment$Comment$Vote with EquatableMixin {
+  CreateComment$Mutation$Comment$Comment$Vote();
 
-  factory CreateComment$Mutation$Comment$Vote.fromJson(
+  factory CreateComment$Mutation$Comment$Comment$Vote.fromJson(
           Map<String, dynamic> json) =>
-      _$CreateComment$Mutation$Comment$VoteFromJson(json);
+      _$CreateComment$Mutation$Comment$Comment$VoteFromJson(json);
 
   @JsonKey(
       unknownEnumValue:
-          CreateComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-  CreateComment$Mutation$Comment$Vote$VoteValue value;
+          CreateComment$Mutation$Comment$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
+  CreateComment$Mutation$Comment$Comment$Vote$VoteValue value;
 
-  CreateComment$Mutation$Comment$Vote$User user;
+  CreateComment$Mutation$Comment$Comment$Vote$User user;
 
   @override
   List<Object> get props => [value, user];
   Map<String, dynamic> toJson() =>
-      _$CreateComment$Mutation$Comment$VoteToJson(this);
+      _$CreateComment$Mutation$Comment$Comment$VoteToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateComment$Mutation$Comment$Comment with EquatableMixin {
+  CreateComment$Mutation$Comment$Comment();
+
+  factory CreateComment$Mutation$Comment$Comment.fromJson(
+          Map<String, dynamic> json) =>
+      _$CreateComment$Mutation$Comment$CommentFromJson(json);
+
+  String id;
+
+  int score;
+
+  DateTime created_at;
+
+  String content;
+
+  CreateComment$Mutation$Comment$Comment$User user;
+
+  CreateComment$Mutation$Comment$Comment$Vote vote;
+
+  @override
+  List<Object> get props => [id, score, created_at, content, user, vote];
+  Map<String, dynamic> toJson() =>
+      _$CreateComment$Mutation$Comment$CommentToJson(this);
 }
 
 enum CreateComment$CreateComment$CommentableType {
@@ -1125,7 +1198,7 @@ enum CreateComment$CreateComment$CommentableType {
   flashcard,
   ARTEMIS_UNKNOWN,
 }
-enum CreateComment$Mutation$Comment$Vote$VoteValue {
+enum CreateComment$Mutation$Comment$Comment$Vote$VoteValue {
   down,
   up,
   ARTEMIS_UNKNOWN,
@@ -1185,25 +1258,6 @@ class CreateCommentMutation
                 name: NameNode(value: 'Comment'), isNonNull: false)),
         directives: [],
         selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-              name: NameNode(value: 'CommentInfos'), directives: []),
-          FieldNode(
-              name: NameNode(value: 'children'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FragmentSpreadNode(
-                    name: NameNode(value: 'CommentInfos'), directives: [])
-              ]))
-        ])),
-    FragmentDefinitionNode(
-        name: NameNode(value: 'CommentInfos'),
-        typeCondition: TypeConditionNode(
-            on: NamedTypeNode(
-                name: NameNode(value: 'Comment'), isNonNull: false)),
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
           FieldNode(
               name: NameNode(value: 'id'),
               alias: null,
@@ -1235,12 +1289,6 @@ class CreateCommentMutation
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,
                     arguments: [],
@@ -1248,13 +1296,31 @@ class CreateCommentMutation
                     selectionSet: null)
               ])),
           FieldNode(
-              name: NameNode(value: 'vote'),
+              name: NameNode(value: 'children'),
               alias: null,
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'value'),
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'score'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'created_at'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'content'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -1270,7 +1336,39 @@ class CreateCommentMutation
                           alias: null,
                           arguments: [],
                           directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'username'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
                           selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'vote'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'value'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'user'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
                     ]))
               ]))
         ]))
@@ -1290,15 +1388,12 @@ class CreateCommentMutation
 }
 
 mixin DeleteComment$BasicCommentMixin {
-  List<DeleteComment$Mutation$Comment$Comment> children;
-}
-mixin DeleteComment$CommentInfosMixin {
   String id;
   int score;
   DateTime created_at;
   String content;
   DeleteComment$Mutation$Comment$User user;
-  DeleteComment$Mutation$Comment$Vote vote;
+  List<DeleteComment$Mutation$Comment$Comment> children;
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -1310,7 +1405,7 @@ class DeleteComment$Mutation$Comment
       _$DeleteComment$Mutation$CommentFromJson(json);
 
   @override
-  List<Object> get props => [children];
+  List<Object> get props => [id, score, created_at, content, user, children];
   Map<String, dynamic> toJson() => _$DeleteComment$Mutation$CommentToJson(this);
 }
 
@@ -1329,27 +1424,28 @@ class DeleteComment$Mutation with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class DeleteComment$Mutation$Comment$Comment
-    with EquatableMixin, DeleteComment$CommentInfosMixin {
-  DeleteComment$Mutation$Comment$Comment();
-
-  factory DeleteComment$Mutation$Comment$Comment.fromJson(
-          Map<String, dynamic> json) =>
-      _$DeleteComment$Mutation$Comment$CommentFromJson(json);
-
-  @override
-  List<Object> get props => [id, score, created_at, content, user, vote];
-  Map<String, dynamic> toJson() =>
-      _$DeleteComment$Mutation$Comment$CommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
 class DeleteComment$Mutation$Comment$User with EquatableMixin {
   DeleteComment$Mutation$Comment$User();
 
   factory DeleteComment$Mutation$Comment$User.fromJson(
           Map<String, dynamic> json) =>
       _$DeleteComment$Mutation$Comment$UserFromJson(json);
+
+  String username;
+
+  @override
+  List<Object> get props => [username];
+  Map<String, dynamic> toJson() =>
+      _$DeleteComment$Mutation$Comment$UserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class DeleteComment$Mutation$Comment$Comment$User with EquatableMixin {
+  DeleteComment$Mutation$Comment$Comment$User();
+
+  factory DeleteComment$Mutation$Comment$Comment$User.fromJson(
+          Map<String, dynamic> json) =>
+      _$DeleteComment$Mutation$Comment$Comment$UserFromJson(json);
 
   String id;
 
@@ -1358,47 +1454,73 @@ class DeleteComment$Mutation$Comment$User with EquatableMixin {
   @override
   List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
-      _$DeleteComment$Mutation$Comment$UserToJson(this);
+      _$DeleteComment$Mutation$Comment$Comment$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class DeleteComment$Mutation$Comment$Vote$User with EquatableMixin {
-  DeleteComment$Mutation$Comment$Vote$User();
+class DeleteComment$Mutation$Comment$Comment$Vote$User with EquatableMixin {
+  DeleteComment$Mutation$Comment$Comment$Vote$User();
 
-  factory DeleteComment$Mutation$Comment$Vote$User.fromJson(
+  factory DeleteComment$Mutation$Comment$Comment$Vote$User.fromJson(
           Map<String, dynamic> json) =>
-      _$DeleteComment$Mutation$Comment$Vote$UserFromJson(json);
+      _$DeleteComment$Mutation$Comment$Comment$Vote$UserFromJson(json);
 
   String id;
 
   @override
   List<Object> get props => [id];
   Map<String, dynamic> toJson() =>
-      _$DeleteComment$Mutation$Comment$Vote$UserToJson(this);
+      _$DeleteComment$Mutation$Comment$Comment$Vote$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class DeleteComment$Mutation$Comment$Vote with EquatableMixin {
-  DeleteComment$Mutation$Comment$Vote();
+class DeleteComment$Mutation$Comment$Comment$Vote with EquatableMixin {
+  DeleteComment$Mutation$Comment$Comment$Vote();
 
-  factory DeleteComment$Mutation$Comment$Vote.fromJson(
+  factory DeleteComment$Mutation$Comment$Comment$Vote.fromJson(
           Map<String, dynamic> json) =>
-      _$DeleteComment$Mutation$Comment$VoteFromJson(json);
+      _$DeleteComment$Mutation$Comment$Comment$VoteFromJson(json);
 
   @JsonKey(
       unknownEnumValue:
-          DeleteComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-  DeleteComment$Mutation$Comment$Vote$VoteValue value;
+          DeleteComment$Mutation$Comment$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
+  DeleteComment$Mutation$Comment$Comment$Vote$VoteValue value;
 
-  DeleteComment$Mutation$Comment$Vote$User user;
+  DeleteComment$Mutation$Comment$Comment$Vote$User user;
 
   @override
   List<Object> get props => [value, user];
   Map<String, dynamic> toJson() =>
-      _$DeleteComment$Mutation$Comment$VoteToJson(this);
+      _$DeleteComment$Mutation$Comment$Comment$VoteToJson(this);
 }
 
-enum DeleteComment$Mutation$Comment$Vote$VoteValue {
+@JsonSerializable(explicitToJson: true)
+class DeleteComment$Mutation$Comment$Comment with EquatableMixin {
+  DeleteComment$Mutation$Comment$Comment();
+
+  factory DeleteComment$Mutation$Comment$Comment.fromJson(
+          Map<String, dynamic> json) =>
+      _$DeleteComment$Mutation$Comment$CommentFromJson(json);
+
+  String id;
+
+  int score;
+
+  DateTime created_at;
+
+  String content;
+
+  DeleteComment$Mutation$Comment$Comment$User user;
+
+  DeleteComment$Mutation$Comment$Comment$Vote vote;
+
+  @override
+  List<Object> get props => [id, score, created_at, content, user, vote];
+  Map<String, dynamic> toJson() =>
+      _$DeleteComment$Mutation$Comment$CommentToJson(this);
+}
+
+enum DeleteComment$Mutation$Comment$Comment$Vote$VoteValue {
   down,
   up,
   ARTEMIS_UNKNOWN,
@@ -1457,25 +1579,6 @@ class DeleteCommentMutation
                 name: NameNode(value: 'Comment'), isNonNull: false)),
         directives: [],
         selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-              name: NameNode(value: 'CommentInfos'), directives: []),
-          FieldNode(
-              name: NameNode(value: 'children'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FragmentSpreadNode(
-                    name: NameNode(value: 'CommentInfos'), directives: [])
-              ]))
-        ])),
-    FragmentDefinitionNode(
-        name: NameNode(value: 'CommentInfos'),
-        typeCondition: TypeConditionNode(
-            on: NamedTypeNode(
-                name: NameNode(value: 'Comment'), isNonNull: false)),
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
           FieldNode(
               name: NameNode(value: 'id'),
               alias: null,
@@ -1507,12 +1610,6 @@ class DeleteCommentMutation
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,
                     arguments: [],
@@ -1520,13 +1617,31 @@ class DeleteCommentMutation
                     selectionSet: null)
               ])),
           FieldNode(
-              name: NameNode(value: 'vote'),
+              name: NameNode(value: 'children'),
               alias: null,
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'value'),
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'score'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'created_at'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'content'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -1542,7 +1657,39 @@ class DeleteCommentMutation
                           alias: null,
                           arguments: [],
                           directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'username'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
                           selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'vote'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'value'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'user'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
                     ]))
               ]))
         ]))
@@ -1643,6 +1790,177 @@ class ListDisciplinesQuery
   @override
   ListDisciplines$Query parse(Map<String, dynamic> json) =>
       ListDisciplines$Query.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadExam$Query$Exam$Interaction with EquatableMixin {
+  ReadExam$Query$Exam$Interaction();
+
+  factory ReadExam$Query$Exam$Interaction.fromJson(Map<String, dynamic> json) =>
+      _$ReadExam$Query$Exam$InteractionFromJson(json);
+
+  @JsonKey(
+      unknownEnumValue: ReadExam$Query$Exam$Interaction$InteractionComprehension
+          .ARTEMIS_UNKNOWN)
+  ReadExam$Query$Exam$Interaction$InteractionComprehension comprehension;
+
+  int score;
+
+  int total;
+
+  int watchtime;
+
+  @override
+  List<Object> get props => [comprehension, score, total, watchtime];
+  Map<String, dynamic> toJson() =>
+      _$ReadExam$Query$Exam$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadExam$Query$Exam with EquatableMixin {
+  ReadExam$Query$Exam();
+
+  factory ReadExam$Query$Exam.fromJson(Map<String, dynamic> json) =>
+      _$ReadExam$Query$ExamFromJson(json);
+
+  String name;
+
+  List<dynamic> content;
+
+  int duration;
+
+  ReadExam$Query$Exam$Interaction interaction;
+
+  @override
+  List<Object> get props => [name, content, duration, interaction];
+  Map<String, dynamic> toJson() => _$ReadExam$Query$ExamToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadExam$Query with EquatableMixin {
+  ReadExam$Query();
+
+  factory ReadExam$Query.fromJson(Map<String, dynamic> json) =>
+      _$ReadExam$QueryFromJson(json);
+
+  ReadExam$Query$Exam readExam;
+
+  @override
+  List<Object> get props => [readExam];
+  Map<String, dynamic> toJson() => _$ReadExam$QueryToJson(this);
+}
+
+enum ReadExam$Query$Exam$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadExamArguments extends JsonSerializable with EquatableMixin {
+  ReadExamArguments({@required this.id});
+
+  factory ReadExamArguments.fromJson(Map<String, dynamic> json) =>
+      _$ReadExamArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$ReadExamArgumentsToJson(this);
+}
+
+class ReadExamQuery extends GraphQLQuery<ReadExam$Query, ReadExamArguments> {
+  ReadExamQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ReadExam'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'readExam'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'id'),
+                    value: VariableNode(name: NameNode(value: 'id')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'content'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'duration'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'interaction'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'comprehension'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'score'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'total'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'watchtime'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ReadExam';
+
+  @override
+  final ReadExamArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  ReadExam$Query parse(Map<String, dynamic> json) =>
+      ReadExam$Query.fromJson(json);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -2976,15 +3294,12 @@ class ListTrainingsQuery
 }
 
 mixin UpdateComment$BasicCommentMixin {
-  List<UpdateComment$Mutation$Comment$Comment> children;
-}
-mixin UpdateComment$CommentInfosMixin {
   String id;
   int score;
   DateTime created_at;
   String content;
   UpdateComment$Mutation$Comment$User user;
-  UpdateComment$Mutation$Comment$Vote vote;
+  List<UpdateComment$Mutation$Comment$Comment> children;
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -2996,7 +3311,7 @@ class UpdateComment$Mutation$Comment
       _$UpdateComment$Mutation$CommentFromJson(json);
 
   @override
-  List<Object> get props => [children];
+  List<Object> get props => [id, score, created_at, content, user, children];
   Map<String, dynamic> toJson() => _$UpdateComment$Mutation$CommentToJson(this);
 }
 
@@ -3031,27 +3346,28 @@ class UpdateComment$UpdateComment with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class UpdateComment$Mutation$Comment$Comment
-    with EquatableMixin, UpdateComment$CommentInfosMixin {
-  UpdateComment$Mutation$Comment$Comment();
-
-  factory UpdateComment$Mutation$Comment$Comment.fromJson(
-          Map<String, dynamic> json) =>
-      _$UpdateComment$Mutation$Comment$CommentFromJson(json);
-
-  @override
-  List<Object> get props => [id, score, created_at, content, user, vote];
-  Map<String, dynamic> toJson() =>
-      _$UpdateComment$Mutation$Comment$CommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
 class UpdateComment$Mutation$Comment$User with EquatableMixin {
   UpdateComment$Mutation$Comment$User();
 
   factory UpdateComment$Mutation$Comment$User.fromJson(
           Map<String, dynamic> json) =>
       _$UpdateComment$Mutation$Comment$UserFromJson(json);
+
+  String username;
+
+  @override
+  List<Object> get props => [username];
+  Map<String, dynamic> toJson() =>
+      _$UpdateComment$Mutation$Comment$UserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateComment$Mutation$Comment$Comment$User with EquatableMixin {
+  UpdateComment$Mutation$Comment$Comment$User();
+
+  factory UpdateComment$Mutation$Comment$Comment$User.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateComment$Mutation$Comment$Comment$UserFromJson(json);
 
   String id;
 
@@ -3060,47 +3376,73 @@ class UpdateComment$Mutation$Comment$User with EquatableMixin {
   @override
   List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
-      _$UpdateComment$Mutation$Comment$UserToJson(this);
+      _$UpdateComment$Mutation$Comment$Comment$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class UpdateComment$Mutation$Comment$Vote$User with EquatableMixin {
-  UpdateComment$Mutation$Comment$Vote$User();
+class UpdateComment$Mutation$Comment$Comment$Vote$User with EquatableMixin {
+  UpdateComment$Mutation$Comment$Comment$Vote$User();
 
-  factory UpdateComment$Mutation$Comment$Vote$User.fromJson(
+  factory UpdateComment$Mutation$Comment$Comment$Vote$User.fromJson(
           Map<String, dynamic> json) =>
-      _$UpdateComment$Mutation$Comment$Vote$UserFromJson(json);
+      _$UpdateComment$Mutation$Comment$Comment$Vote$UserFromJson(json);
 
   String id;
 
   @override
   List<Object> get props => [id];
   Map<String, dynamic> toJson() =>
-      _$UpdateComment$Mutation$Comment$Vote$UserToJson(this);
+      _$UpdateComment$Mutation$Comment$Comment$Vote$UserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class UpdateComment$Mutation$Comment$Vote with EquatableMixin {
-  UpdateComment$Mutation$Comment$Vote();
+class UpdateComment$Mutation$Comment$Comment$Vote with EquatableMixin {
+  UpdateComment$Mutation$Comment$Comment$Vote();
 
-  factory UpdateComment$Mutation$Comment$Vote.fromJson(
+  factory UpdateComment$Mutation$Comment$Comment$Vote.fromJson(
           Map<String, dynamic> json) =>
-      _$UpdateComment$Mutation$Comment$VoteFromJson(json);
+      _$UpdateComment$Mutation$Comment$Comment$VoteFromJson(json);
 
   @JsonKey(
       unknownEnumValue:
-          UpdateComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-  UpdateComment$Mutation$Comment$Vote$VoteValue value;
+          UpdateComment$Mutation$Comment$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
+  UpdateComment$Mutation$Comment$Comment$Vote$VoteValue value;
 
-  UpdateComment$Mutation$Comment$Vote$User user;
+  UpdateComment$Mutation$Comment$Comment$Vote$User user;
 
   @override
   List<Object> get props => [value, user];
   Map<String, dynamic> toJson() =>
-      _$UpdateComment$Mutation$Comment$VoteToJson(this);
+      _$UpdateComment$Mutation$Comment$Comment$VoteToJson(this);
 }
 
-enum UpdateComment$Mutation$Comment$Vote$VoteValue {
+@JsonSerializable(explicitToJson: true)
+class UpdateComment$Mutation$Comment$Comment with EquatableMixin {
+  UpdateComment$Mutation$Comment$Comment();
+
+  factory UpdateComment$Mutation$Comment$Comment.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateComment$Mutation$Comment$CommentFromJson(json);
+
+  String id;
+
+  int score;
+
+  DateTime created_at;
+
+  String content;
+
+  UpdateComment$Mutation$Comment$Comment$User user;
+
+  UpdateComment$Mutation$Comment$Comment$Vote vote;
+
+  @override
+  List<Object> get props => [id, score, created_at, content, user, vote];
+  Map<String, dynamic> toJson() =>
+      _$UpdateComment$Mutation$Comment$CommentToJson(this);
+}
+
+enum UpdateComment$Mutation$Comment$Comment$Vote$VoteValue {
   down,
   up,
   ARTEMIS_UNKNOWN,
@@ -3160,25 +3502,6 @@ class UpdateCommentMutation
                 name: NameNode(value: 'Comment'), isNonNull: false)),
         directives: [],
         selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-              name: NameNode(value: 'CommentInfos'), directives: []),
-          FieldNode(
-              name: NameNode(value: 'children'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FragmentSpreadNode(
-                    name: NameNode(value: 'CommentInfos'), directives: [])
-              ]))
-        ])),
-    FragmentDefinitionNode(
-        name: NameNode(value: 'CommentInfos'),
-        typeCondition: TypeConditionNode(
-            on: NamedTypeNode(
-                name: NameNode(value: 'Comment'), isNonNull: false)),
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
           FieldNode(
               name: NameNode(value: 'id'),
               alias: null,
@@ -3210,12 +3533,6 @@ class UpdateCommentMutation
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,
                     arguments: [],
@@ -3223,13 +3540,31 @@ class UpdateCommentMutation
                     selectionSet: null)
               ])),
           FieldNode(
-              name: NameNode(value: 'vote'),
+              name: NameNode(value: 'children'),
               alias: null,
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'value'),
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'score'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'created_at'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'content'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -3245,7 +3580,39 @@ class UpdateCommentMutation
                           alias: null,
                           arguments: [],
                           directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'username'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
                           selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'vote'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'value'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'user'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
                     ]))
               ]))
         ]))
@@ -3846,175 +4213,4 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
   List<Object> get props => [document, operationName];
   @override
   Me$Query parse(Map<String, dynamic> json) => Me$Query.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class ReadExam$Query$Exam$Interaction with EquatableMixin {
-  ReadExam$Query$Exam$Interaction();
-
-  factory ReadExam$Query$Exam$Interaction.fromJson(Map<String, dynamic> json) =>
-      _$ReadExam$Query$Exam$InteractionFromJson(json);
-
-  @JsonKey(
-      unknownEnumValue: ReadExam$Query$Exam$Interaction$InteractionComprehension
-          .ARTEMIS_UNKNOWN)
-  ReadExam$Query$Exam$Interaction$InteractionComprehension comprehension;
-
-  int score;
-
-  int total;
-
-  int watchtime;
-
-  @override
-  List<Object> get props => [comprehension, score, total, watchtime];
-  Map<String, dynamic> toJson() =>
-      _$ReadExam$Query$Exam$InteractionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class ReadExam$Query$Exam with EquatableMixin {
-  ReadExam$Query$Exam();
-
-  factory ReadExam$Query$Exam.fromJson(Map<String, dynamic> json) =>
-      _$ReadExam$Query$ExamFromJson(json);
-
-  String name;
-
-  List<dynamic> content;
-
-  int duration;
-
-  ReadExam$Query$Exam$Interaction interaction;
-
-  @override
-  List<Object> get props => [name, content, duration, interaction];
-  Map<String, dynamic> toJson() => _$ReadExam$Query$ExamToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class ReadExam$Query with EquatableMixin {
-  ReadExam$Query();
-
-  factory ReadExam$Query.fromJson(Map<String, dynamic> json) =>
-      _$ReadExam$QueryFromJson(json);
-
-  ReadExam$Query$Exam readExam;
-
-  @override
-  List<Object> get props => [readExam];
-  Map<String, dynamic> toJson() => _$ReadExam$QueryToJson(this);
-}
-
-enum ReadExam$Query$Exam$Interaction$InteractionComprehension {
-  blur,
-  clear,
-  ARTEMIS_UNKNOWN,
-}
-
-@JsonSerializable(explicitToJson: true)
-class ReadExamArguments extends JsonSerializable with EquatableMixin {
-  ReadExamArguments({@required this.id});
-
-  factory ReadExamArguments.fromJson(Map<String, dynamic> json) =>
-      _$ReadExamArgumentsFromJson(json);
-
-  final String id;
-
-  @override
-  List<Object> get props => [id];
-  Map<String, dynamic> toJson() => _$ReadExamArgumentsToJson(this);
-}
-
-class ReadExamQuery extends GraphQLQuery<ReadExam$Query, ReadExamArguments> {
-  ReadExamQuery({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'ReadExam'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'id')),
-              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'readExam'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'id'),
-                    value: VariableNode(name: NameNode(value: 'id')))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'content'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'duration'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'interaction'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'comprehension'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'score'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'total'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'watchtime'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null)
-                    ]))
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'ReadExam';
-
-  @override
-  final ReadExamArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  ReadExam$Query parse(Map<String, dynamic> json) =>
-      ReadExam$Query.fromJson(json);
 }

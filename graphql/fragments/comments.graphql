@@ -1,23 +1,42 @@
 fragment BasicComment on Comment {
-  ...CommentInfos
-  children {
-    ...CommentInfos
-  }
-}
-
-fragment CommentInfos on Comment {
   id
   score
   created_at
   content
   user {
-    id
     username
   }
-  vote {
-    value
-    user{
+  children {
+    id
+    score
+    created_at
+    content
+    user {
       id
+      username
+    }
+    vote {
+      value
+      user{
+        id
+      }
     }
   }
 }
+
+#fragment CommentInfos on Comment {
+#  id
+#  score
+#  created_at
+#  content
+#  user {
+#    id
+#    username
+#  }
+#  vote {
+#    value
+#    user{
+#      id
+#    }
+#  }
+#}

@@ -309,6 +309,16 @@ ReadCourseComments$Query$Course$Comment
     _$ReadCourseComments$Query$Course$CommentFromJson(
         Map<String, dynamic> json) {
   return ReadCourseComments$Query$Course$Comment()
+    ..id = json['id'] as String
+    ..score = json['score'] as int
+    ..created_at = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String)
+    ..content = json['content'] as String
+    ..user = json['user'] == null
+        ? null
+        : ReadCourseComments$Query$Comment$User.fromJson(
+            json['user'] as Map<String, dynamic>)
     ..children = (json['children'] as List)
         ?.map((e) => e == null
             ? null
@@ -320,6 +330,11 @@ ReadCourseComments$Query$Course$Comment
 Map<String, dynamic> _$ReadCourseComments$Query$Course$CommentToJson(
         ReadCourseComments$Query$Course$Comment instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'score': instance.score,
+      'created_at': instance.created_at?.toIso8601String(),
+      'content': instance.content,
+      'user': instance.user?.toJson(),
       'children': instance.children?.map((e) => e?.toJson())?.toList(),
     };
 
@@ -355,6 +370,76 @@ Map<String, dynamic> _$ReadCourseComments$QueryToJson(
       'readCourse': instance.readCourse?.toJson(),
     };
 
+ReadCourseComments$Query$Comment$User
+    _$ReadCourseComments$Query$Comment$UserFromJson(Map<String, dynamic> json) {
+  return ReadCourseComments$Query$Comment$User()
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$ReadCourseComments$Query$Comment$UserToJson(
+        ReadCourseComments$Query$Comment$User instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+    };
+
+ReadCourseComments$Query$Comment$Comment$User
+    _$ReadCourseComments$Query$Comment$Comment$UserFromJson(
+        Map<String, dynamic> json) {
+  return ReadCourseComments$Query$Comment$Comment$User()
+    ..id = json['id'] as String
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$ReadCourseComments$Query$Comment$Comment$UserToJson(
+        ReadCourseComments$Query$Comment$Comment$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'username': instance.username,
+    };
+
+ReadCourseComments$Query$Comment$Comment$Vote$User
+    _$ReadCourseComments$Query$Comment$Comment$Vote$UserFromJson(
+        Map<String, dynamic> json) {
+  return ReadCourseComments$Query$Comment$Comment$Vote$User()
+    ..id = json['id'] as String;
+}
+
+Map<String, dynamic> _$ReadCourseComments$Query$Comment$Comment$Vote$UserToJson(
+        ReadCourseComments$Query$Comment$Comment$Vote$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+ReadCourseComments$Query$Comment$Comment$Vote
+    _$ReadCourseComments$Query$Comment$Comment$VoteFromJson(
+        Map<String, dynamic> json) {
+  return ReadCourseComments$Query$Comment$Comment$Vote()
+    ..value = _$enumDecodeNullable(
+        _$ReadCourseComments$Query$Comment$Comment$Vote$VoteValueEnumMap,
+        json['value'],
+        unknownValue: ReadCourseComments$Query$Comment$Comment$Vote$VoteValue
+            .ARTEMIS_UNKNOWN)
+    ..user = json['user'] == null
+        ? null
+        : ReadCourseComments$Query$Comment$Comment$Vote$User.fromJson(
+            json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadCourseComments$Query$Comment$Comment$VoteToJson(
+        ReadCourseComments$Query$Comment$Comment$Vote instance) =>
+    <String, dynamic>{
+      'value': _$ReadCourseComments$Query$Comment$Comment$Vote$VoteValueEnumMap[
+          instance.value],
+      'user': instance.user?.toJson(),
+    };
+
+const _$ReadCourseComments$Query$Comment$Comment$Vote$VoteValueEnumMap = {
+  ReadCourseComments$Query$Comment$Comment$Vote$VoteValue.down: 'down',
+  ReadCourseComments$Query$Comment$Comment$Vote$VoteValue.up: 'up',
+  ReadCourseComments$Query$Comment$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
 ReadCourseComments$Query$Comment$Comment
     _$ReadCourseComments$Query$Comment$CommentFromJson(
         Map<String, dynamic> json) {
@@ -367,11 +452,11 @@ ReadCourseComments$Query$Comment$Comment
     ..content = json['content'] as String
     ..user = json['user'] == null
         ? null
-        : ReadCourseComments$Query$Comment$User.fromJson(
+        : ReadCourseComments$Query$Comment$Comment$User.fromJson(
             json['user'] as Map<String, dynamic>)
     ..vote = json['vote'] == null
         ? null
-        : ReadCourseComments$Query$Comment$Vote.fromJson(
+        : ReadCourseComments$Query$Comment$Comment$Vote.fromJson(
             json['vote'] as Map<String, dynamic>);
 }
 
@@ -385,61 +470,6 @@ Map<String, dynamic> _$ReadCourseComments$Query$Comment$CommentToJson(
       'user': instance.user?.toJson(),
       'vote': instance.vote?.toJson(),
     };
-
-ReadCourseComments$Query$Comment$User
-    _$ReadCourseComments$Query$Comment$UserFromJson(Map<String, dynamic> json) {
-  return ReadCourseComments$Query$Comment$User()
-    ..id = json['id'] as String
-    ..username = json['username'] as String;
-}
-
-Map<String, dynamic> _$ReadCourseComments$Query$Comment$UserToJson(
-        ReadCourseComments$Query$Comment$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'username': instance.username,
-    };
-
-ReadCourseComments$Query$Comment$Vote$User
-    _$ReadCourseComments$Query$Comment$Vote$UserFromJson(
-        Map<String, dynamic> json) {
-  return ReadCourseComments$Query$Comment$Vote$User()
-    ..id = json['id'] as String;
-}
-
-Map<String, dynamic> _$ReadCourseComments$Query$Comment$Vote$UserToJson(
-        ReadCourseComments$Query$Comment$Vote$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
-
-ReadCourseComments$Query$Comment$Vote
-    _$ReadCourseComments$Query$Comment$VoteFromJson(Map<String, dynamic> json) {
-  return ReadCourseComments$Query$Comment$Vote()
-    ..value = _$enumDecodeNullable(
-        _$ReadCourseComments$Query$Comment$Vote$VoteValueEnumMap, json['value'],
-        unknownValue:
-            ReadCourseComments$Query$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-    ..user = json['user'] == null
-        ? null
-        : ReadCourseComments$Query$Comment$Vote$User.fromJson(
-            json['user'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$ReadCourseComments$Query$Comment$VoteToJson(
-        ReadCourseComments$Query$Comment$Vote instance) =>
-    <String, dynamic>{
-      'value': _$ReadCourseComments$Query$Comment$Vote$VoteValueEnumMap[
-          instance.value],
-      'user': instance.user?.toJson(),
-    };
-
-const _$ReadCourseComments$Query$Comment$Vote$VoteValueEnumMap = {
-  ReadCourseComments$Query$Comment$Vote$VoteValue.down: 'down',
-  ReadCourseComments$Query$Comment$Vote$VoteValue.up: 'up',
-  ReadCourseComments$Query$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
-      'ARTEMIS_UNKNOWN',
-};
 
 ReadCourseCommentsArguments _$ReadCourseCommentsArgumentsFromJson(
     Map<String, dynamic> json) {
@@ -493,6 +523,16 @@ Map<String, dynamic> _$ReadCourseArgumentsToJson(
 CreateComment$Mutation$Comment _$CreateComment$Mutation$CommentFromJson(
     Map<String, dynamic> json) {
   return CreateComment$Mutation$Comment()
+    ..id = json['id'] as String
+    ..score = json['score'] as int
+    ..created_at = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String)
+    ..content = json['content'] as String
+    ..user = json['user'] == null
+        ? null
+        : CreateComment$Mutation$Comment$User.fromJson(
+            json['user'] as Map<String, dynamic>)
     ..children = (json['children'] as List)
         ?.map((e) => e == null
             ? null
@@ -504,6 +544,11 @@ CreateComment$Mutation$Comment _$CreateComment$Mutation$CommentFromJson(
 Map<String, dynamic> _$CreateComment$Mutation$CommentToJson(
         CreateComment$Mutation$Comment instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'score': instance.score,
+      'created_at': instance.created_at?.toIso8601String(),
+      'content': instance.content,
+      'user': instance.user?.toJson(),
       'children': instance.children?.map((e) => e?.toJson())?.toList(),
     };
 
@@ -555,6 +600,76 @@ const _$CreateComment$CreateComment$CommentableTypeEnumMap = {
       'ARTEMIS_UNKNOWN',
 };
 
+CreateComment$Mutation$Comment$User
+    _$CreateComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
+  return CreateComment$Mutation$Comment$User()
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$CreateComment$Mutation$Comment$UserToJson(
+        CreateComment$Mutation$Comment$User instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+    };
+
+CreateComment$Mutation$Comment$Comment$User
+    _$CreateComment$Mutation$Comment$Comment$UserFromJson(
+        Map<String, dynamic> json) {
+  return CreateComment$Mutation$Comment$Comment$User()
+    ..id = json['id'] as String
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$CreateComment$Mutation$Comment$Comment$UserToJson(
+        CreateComment$Mutation$Comment$Comment$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'username': instance.username,
+    };
+
+CreateComment$Mutation$Comment$Comment$Vote$User
+    _$CreateComment$Mutation$Comment$Comment$Vote$UserFromJson(
+        Map<String, dynamic> json) {
+  return CreateComment$Mutation$Comment$Comment$Vote$User()
+    ..id = json['id'] as String;
+}
+
+Map<String, dynamic> _$CreateComment$Mutation$Comment$Comment$Vote$UserToJson(
+        CreateComment$Mutation$Comment$Comment$Vote$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+CreateComment$Mutation$Comment$Comment$Vote
+    _$CreateComment$Mutation$Comment$Comment$VoteFromJson(
+        Map<String, dynamic> json) {
+  return CreateComment$Mutation$Comment$Comment$Vote()
+    ..value = _$enumDecodeNullable(
+        _$CreateComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap,
+        json['value'],
+        unknownValue: CreateComment$Mutation$Comment$Comment$Vote$VoteValue
+            .ARTEMIS_UNKNOWN)
+    ..user = json['user'] == null
+        ? null
+        : CreateComment$Mutation$Comment$Comment$Vote$User.fromJson(
+            json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$CreateComment$Mutation$Comment$Comment$VoteToJson(
+        CreateComment$Mutation$Comment$Comment$Vote instance) =>
+    <String, dynamic>{
+      'value': _$CreateComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap[
+          instance.value],
+      'user': instance.user?.toJson(),
+    };
+
+const _$CreateComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap = {
+  CreateComment$Mutation$Comment$Comment$Vote$VoteValue.down: 'down',
+  CreateComment$Mutation$Comment$Comment$Vote$VoteValue.up: 'up',
+  CreateComment$Mutation$Comment$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
 CreateComment$Mutation$Comment$Comment
     _$CreateComment$Mutation$Comment$CommentFromJson(
         Map<String, dynamic> json) {
@@ -567,11 +682,11 @@ CreateComment$Mutation$Comment$Comment
     ..content = json['content'] as String
     ..user = json['user'] == null
         ? null
-        : CreateComment$Mutation$Comment$User.fromJson(
+        : CreateComment$Mutation$Comment$Comment$User.fromJson(
             json['user'] as Map<String, dynamic>)
     ..vote = json['vote'] == null
         ? null
-        : CreateComment$Mutation$Comment$Vote.fromJson(
+        : CreateComment$Mutation$Comment$Comment$Vote.fromJson(
             json['vote'] as Map<String, dynamic>);
 }
 
@@ -585,60 +700,6 @@ Map<String, dynamic> _$CreateComment$Mutation$Comment$CommentToJson(
       'user': instance.user?.toJson(),
       'vote': instance.vote?.toJson(),
     };
-
-CreateComment$Mutation$Comment$User
-    _$CreateComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
-  return CreateComment$Mutation$Comment$User()
-    ..id = json['id'] as String
-    ..username = json['username'] as String;
-}
-
-Map<String, dynamic> _$CreateComment$Mutation$Comment$UserToJson(
-        CreateComment$Mutation$Comment$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'username': instance.username,
-    };
-
-CreateComment$Mutation$Comment$Vote$User
-    _$CreateComment$Mutation$Comment$Vote$UserFromJson(
-        Map<String, dynamic> json) {
-  return CreateComment$Mutation$Comment$Vote$User()..id = json['id'] as String;
-}
-
-Map<String, dynamic> _$CreateComment$Mutation$Comment$Vote$UserToJson(
-        CreateComment$Mutation$Comment$Vote$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
-
-CreateComment$Mutation$Comment$Vote
-    _$CreateComment$Mutation$Comment$VoteFromJson(Map<String, dynamic> json) {
-  return CreateComment$Mutation$Comment$Vote()
-    ..value = _$enumDecodeNullable(
-        _$CreateComment$Mutation$Comment$Vote$VoteValueEnumMap, json['value'],
-        unknownValue:
-            CreateComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-    ..user = json['user'] == null
-        ? null
-        : CreateComment$Mutation$Comment$Vote$User.fromJson(
-            json['user'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$CreateComment$Mutation$Comment$VoteToJson(
-        CreateComment$Mutation$Comment$Vote instance) =>
-    <String, dynamic>{
-      'value': _$CreateComment$Mutation$Comment$Vote$VoteValueEnumMap[
-          instance.value],
-      'user': instance.user?.toJson(),
-    };
-
-const _$CreateComment$Mutation$Comment$Vote$VoteValueEnumMap = {
-  CreateComment$Mutation$Comment$Vote$VoteValue.down: 'down',
-  CreateComment$Mutation$Comment$Vote$VoteValue.up: 'up',
-  CreateComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
-      'ARTEMIS_UNKNOWN',
-};
 
 CreateCommentArguments _$CreateCommentArgumentsFromJson(
     Map<String, dynamic> json) {
@@ -659,6 +720,16 @@ Map<String, dynamic> _$CreateCommentArgumentsToJson(
 DeleteComment$Mutation$Comment _$DeleteComment$Mutation$CommentFromJson(
     Map<String, dynamic> json) {
   return DeleteComment$Mutation$Comment()
+    ..id = json['id'] as String
+    ..score = json['score'] as int
+    ..created_at = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String)
+    ..content = json['content'] as String
+    ..user = json['user'] == null
+        ? null
+        : DeleteComment$Mutation$Comment$User.fromJson(
+            json['user'] as Map<String, dynamic>)
     ..children = (json['children'] as List)
         ?.map((e) => e == null
             ? null
@@ -670,6 +741,11 @@ DeleteComment$Mutation$Comment _$DeleteComment$Mutation$CommentFromJson(
 Map<String, dynamic> _$DeleteComment$Mutation$CommentToJson(
         DeleteComment$Mutation$Comment instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'score': instance.score,
+      'created_at': instance.created_at?.toIso8601String(),
+      'content': instance.content,
+      'user': instance.user?.toJson(),
       'children': instance.children?.map((e) => e?.toJson())?.toList(),
     };
 
@@ -688,6 +764,76 @@ Map<String, dynamic> _$DeleteComment$MutationToJson(
       'deleteComment': instance.deleteComment?.toJson(),
     };
 
+DeleteComment$Mutation$Comment$User
+    _$DeleteComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
+  return DeleteComment$Mutation$Comment$User()
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$DeleteComment$Mutation$Comment$UserToJson(
+        DeleteComment$Mutation$Comment$User instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+    };
+
+DeleteComment$Mutation$Comment$Comment$User
+    _$DeleteComment$Mutation$Comment$Comment$UserFromJson(
+        Map<String, dynamic> json) {
+  return DeleteComment$Mutation$Comment$Comment$User()
+    ..id = json['id'] as String
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$DeleteComment$Mutation$Comment$Comment$UserToJson(
+        DeleteComment$Mutation$Comment$Comment$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'username': instance.username,
+    };
+
+DeleteComment$Mutation$Comment$Comment$Vote$User
+    _$DeleteComment$Mutation$Comment$Comment$Vote$UserFromJson(
+        Map<String, dynamic> json) {
+  return DeleteComment$Mutation$Comment$Comment$Vote$User()
+    ..id = json['id'] as String;
+}
+
+Map<String, dynamic> _$DeleteComment$Mutation$Comment$Comment$Vote$UserToJson(
+        DeleteComment$Mutation$Comment$Comment$Vote$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+DeleteComment$Mutation$Comment$Comment$Vote
+    _$DeleteComment$Mutation$Comment$Comment$VoteFromJson(
+        Map<String, dynamic> json) {
+  return DeleteComment$Mutation$Comment$Comment$Vote()
+    ..value = _$enumDecodeNullable(
+        _$DeleteComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap,
+        json['value'],
+        unknownValue: DeleteComment$Mutation$Comment$Comment$Vote$VoteValue
+            .ARTEMIS_UNKNOWN)
+    ..user = json['user'] == null
+        ? null
+        : DeleteComment$Mutation$Comment$Comment$Vote$User.fromJson(
+            json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$DeleteComment$Mutation$Comment$Comment$VoteToJson(
+        DeleteComment$Mutation$Comment$Comment$Vote instance) =>
+    <String, dynamic>{
+      'value': _$DeleteComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap[
+          instance.value],
+      'user': instance.user?.toJson(),
+    };
+
+const _$DeleteComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap = {
+  DeleteComment$Mutation$Comment$Comment$Vote$VoteValue.down: 'down',
+  DeleteComment$Mutation$Comment$Comment$Vote$VoteValue.up: 'up',
+  DeleteComment$Mutation$Comment$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
 DeleteComment$Mutation$Comment$Comment
     _$DeleteComment$Mutation$Comment$CommentFromJson(
         Map<String, dynamic> json) {
@@ -700,11 +846,11 @@ DeleteComment$Mutation$Comment$Comment
     ..content = json['content'] as String
     ..user = json['user'] == null
         ? null
-        : DeleteComment$Mutation$Comment$User.fromJson(
+        : DeleteComment$Mutation$Comment$Comment$User.fromJson(
             json['user'] as Map<String, dynamic>)
     ..vote = json['vote'] == null
         ? null
-        : DeleteComment$Mutation$Comment$Vote.fromJson(
+        : DeleteComment$Mutation$Comment$Comment$Vote.fromJson(
             json['vote'] as Map<String, dynamic>);
 }
 
@@ -718,60 +864,6 @@ Map<String, dynamic> _$DeleteComment$Mutation$Comment$CommentToJson(
       'user': instance.user?.toJson(),
       'vote': instance.vote?.toJson(),
     };
-
-DeleteComment$Mutation$Comment$User
-    _$DeleteComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
-  return DeleteComment$Mutation$Comment$User()
-    ..id = json['id'] as String
-    ..username = json['username'] as String;
-}
-
-Map<String, dynamic> _$DeleteComment$Mutation$Comment$UserToJson(
-        DeleteComment$Mutation$Comment$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'username': instance.username,
-    };
-
-DeleteComment$Mutation$Comment$Vote$User
-    _$DeleteComment$Mutation$Comment$Vote$UserFromJson(
-        Map<String, dynamic> json) {
-  return DeleteComment$Mutation$Comment$Vote$User()..id = json['id'] as String;
-}
-
-Map<String, dynamic> _$DeleteComment$Mutation$Comment$Vote$UserToJson(
-        DeleteComment$Mutation$Comment$Vote$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
-
-DeleteComment$Mutation$Comment$Vote
-    _$DeleteComment$Mutation$Comment$VoteFromJson(Map<String, dynamic> json) {
-  return DeleteComment$Mutation$Comment$Vote()
-    ..value = _$enumDecodeNullable(
-        _$DeleteComment$Mutation$Comment$Vote$VoteValueEnumMap, json['value'],
-        unknownValue:
-            DeleteComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-    ..user = json['user'] == null
-        ? null
-        : DeleteComment$Mutation$Comment$Vote$User.fromJson(
-            json['user'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$DeleteComment$Mutation$Comment$VoteToJson(
-        DeleteComment$Mutation$Comment$Vote instance) =>
-    <String, dynamic>{
-      'value': _$DeleteComment$Mutation$Comment$Vote$VoteValueEnumMap[
-          instance.value],
-      'user': instance.user?.toJson(),
-    };
-
-const _$DeleteComment$Mutation$Comment$Vote$VoteValueEnumMap = {
-  DeleteComment$Mutation$Comment$Vote$VoteValue.down: 'down',
-  DeleteComment$Mutation$Comment$Vote$VoteValue.up: 'up',
-  DeleteComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
-      'ARTEMIS_UNKNOWN',
-};
 
 DeleteCommentArguments _$DeleteCommentArgumentsFromJson(
     Map<String, dynamic> json) {
@@ -818,6 +910,81 @@ Map<String, dynamic> _$ListDisciplines$QueryToJson(
     <String, dynamic>{
       'listDisciplines':
           instance.listDisciplines?.map((e) => e?.toJson())?.toList(),
+    };
+
+ReadExam$Query$Exam$Interaction _$ReadExam$Query$Exam$InteractionFromJson(
+    Map<String, dynamic> json) {
+  return ReadExam$Query$Exam$Interaction()
+    ..comprehension = _$enumDecodeNullable(
+        _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap,
+        json['comprehension'],
+        unknownValue: ReadExam$Query$Exam$Interaction$InteractionComprehension
+            .ARTEMIS_UNKNOWN)
+    ..score = json['score'] as int
+    ..total = json['total'] as int
+    ..watchtime = json['watchtime'] as int;
+}
+
+Map<String, dynamic> _$ReadExam$Query$Exam$InteractionToJson(
+        ReadExam$Query$Exam$Interaction instance) =>
+    <String, dynamic>{
+      'comprehension':
+          _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap[
+              instance.comprehension],
+      'score': instance.score,
+      'total': instance.total,
+      'watchtime': instance.watchtime,
+    };
+
+const _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap = {
+  ReadExam$Query$Exam$Interaction$InteractionComprehension.blur: 'blur',
+  ReadExam$Query$Exam$Interaction$InteractionComprehension.clear: 'clear',
+  ReadExam$Query$Exam$Interaction$InteractionComprehension.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
+ReadExam$Query$Exam _$ReadExam$Query$ExamFromJson(Map<String, dynamic> json) {
+  return ReadExam$Query$Exam()
+    ..name = json['name'] as String
+    ..content = json['content'] as List
+    ..duration = json['duration'] as int
+    ..interaction = json['interaction'] == null
+        ? null
+        : ReadExam$Query$Exam$Interaction.fromJson(
+            json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadExam$Query$ExamToJson(
+        ReadExam$Query$Exam instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'content': instance.content,
+      'duration': instance.duration,
+      'interaction': instance.interaction?.toJson(),
+    };
+
+ReadExam$Query _$ReadExam$QueryFromJson(Map<String, dynamic> json) {
+  return ReadExam$Query()
+    ..readExam = json['readExam'] == null
+        ? null
+        : ReadExam$Query$Exam.fromJson(
+            json['readExam'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$ReadExam$QueryToJson(ReadExam$Query instance) =>
+    <String, dynamic>{
+      'readExam': instance.readExam?.toJson(),
+    };
+
+ReadExamArguments _$ReadExamArgumentsFromJson(Map<String, dynamic> json) {
+  return ReadExamArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReadExamArgumentsToJson(ReadExamArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
     };
 
 LoginWithFacebook$Mutation$JWT _$LoginWithFacebook$Mutation$JWTFromJson(
@@ -1435,6 +1602,16 @@ Map<String, dynamic> _$ListTrainings$QueryToJson(
 UpdateComment$Mutation$Comment _$UpdateComment$Mutation$CommentFromJson(
     Map<String, dynamic> json) {
   return UpdateComment$Mutation$Comment()
+    ..id = json['id'] as String
+    ..score = json['score'] as int
+    ..created_at = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String)
+    ..content = json['content'] as String
+    ..user = json['user'] == null
+        ? null
+        : UpdateComment$Mutation$Comment$User.fromJson(
+            json['user'] as Map<String, dynamic>)
     ..children = (json['children'] as List)
         ?.map((e) => e == null
             ? null
@@ -1446,6 +1623,11 @@ UpdateComment$Mutation$Comment _$UpdateComment$Mutation$CommentFromJson(
 Map<String, dynamic> _$UpdateComment$Mutation$CommentToJson(
         UpdateComment$Mutation$Comment instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'score': instance.score,
+      'created_at': instance.created_at?.toIso8601String(),
+      'content': instance.content,
+      'user': instance.user?.toJson(),
       'children': instance.children?.map((e) => e?.toJson())?.toList(),
     };
 
@@ -1479,6 +1661,76 @@ Map<String, dynamic> _$UpdateComment$UpdateCommentToJson(
       'id': instance.id,
     };
 
+UpdateComment$Mutation$Comment$User
+    _$UpdateComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
+  return UpdateComment$Mutation$Comment$User()
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$UpdateComment$Mutation$Comment$UserToJson(
+        UpdateComment$Mutation$Comment$User instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+    };
+
+UpdateComment$Mutation$Comment$Comment$User
+    _$UpdateComment$Mutation$Comment$Comment$UserFromJson(
+        Map<String, dynamic> json) {
+  return UpdateComment$Mutation$Comment$Comment$User()
+    ..id = json['id'] as String
+    ..username = json['username'] as String;
+}
+
+Map<String, dynamic> _$UpdateComment$Mutation$Comment$Comment$UserToJson(
+        UpdateComment$Mutation$Comment$Comment$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'username': instance.username,
+    };
+
+UpdateComment$Mutation$Comment$Comment$Vote$User
+    _$UpdateComment$Mutation$Comment$Comment$Vote$UserFromJson(
+        Map<String, dynamic> json) {
+  return UpdateComment$Mutation$Comment$Comment$Vote$User()
+    ..id = json['id'] as String;
+}
+
+Map<String, dynamic> _$UpdateComment$Mutation$Comment$Comment$Vote$UserToJson(
+        UpdateComment$Mutation$Comment$Comment$Vote$User instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+UpdateComment$Mutation$Comment$Comment$Vote
+    _$UpdateComment$Mutation$Comment$Comment$VoteFromJson(
+        Map<String, dynamic> json) {
+  return UpdateComment$Mutation$Comment$Comment$Vote()
+    ..value = _$enumDecodeNullable(
+        _$UpdateComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap,
+        json['value'],
+        unknownValue: UpdateComment$Mutation$Comment$Comment$Vote$VoteValue
+            .ARTEMIS_UNKNOWN)
+    ..user = json['user'] == null
+        ? null
+        : UpdateComment$Mutation$Comment$Comment$Vote$User.fromJson(
+            json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UpdateComment$Mutation$Comment$Comment$VoteToJson(
+        UpdateComment$Mutation$Comment$Comment$Vote instance) =>
+    <String, dynamic>{
+      'value': _$UpdateComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap[
+          instance.value],
+      'user': instance.user?.toJson(),
+    };
+
+const _$UpdateComment$Mutation$Comment$Comment$Vote$VoteValueEnumMap = {
+  UpdateComment$Mutation$Comment$Comment$Vote$VoteValue.down: 'down',
+  UpdateComment$Mutation$Comment$Comment$Vote$VoteValue.up: 'up',
+  UpdateComment$Mutation$Comment$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
 UpdateComment$Mutation$Comment$Comment
     _$UpdateComment$Mutation$Comment$CommentFromJson(
         Map<String, dynamic> json) {
@@ -1491,11 +1743,11 @@ UpdateComment$Mutation$Comment$Comment
     ..content = json['content'] as String
     ..user = json['user'] == null
         ? null
-        : UpdateComment$Mutation$Comment$User.fromJson(
+        : UpdateComment$Mutation$Comment$Comment$User.fromJson(
             json['user'] as Map<String, dynamic>)
     ..vote = json['vote'] == null
         ? null
-        : UpdateComment$Mutation$Comment$Vote.fromJson(
+        : UpdateComment$Mutation$Comment$Comment$Vote.fromJson(
             json['vote'] as Map<String, dynamic>);
 }
 
@@ -1509,60 +1761,6 @@ Map<String, dynamic> _$UpdateComment$Mutation$Comment$CommentToJson(
       'user': instance.user?.toJson(),
       'vote': instance.vote?.toJson(),
     };
-
-UpdateComment$Mutation$Comment$User
-    _$UpdateComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
-  return UpdateComment$Mutation$Comment$User()
-    ..id = json['id'] as String
-    ..username = json['username'] as String;
-}
-
-Map<String, dynamic> _$UpdateComment$Mutation$Comment$UserToJson(
-        UpdateComment$Mutation$Comment$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'username': instance.username,
-    };
-
-UpdateComment$Mutation$Comment$Vote$User
-    _$UpdateComment$Mutation$Comment$Vote$UserFromJson(
-        Map<String, dynamic> json) {
-  return UpdateComment$Mutation$Comment$Vote$User()..id = json['id'] as String;
-}
-
-Map<String, dynamic> _$UpdateComment$Mutation$Comment$Vote$UserToJson(
-        UpdateComment$Mutation$Comment$Vote$User instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
-
-UpdateComment$Mutation$Comment$Vote
-    _$UpdateComment$Mutation$Comment$VoteFromJson(Map<String, dynamic> json) {
-  return UpdateComment$Mutation$Comment$Vote()
-    ..value = _$enumDecodeNullable(
-        _$UpdateComment$Mutation$Comment$Vote$VoteValueEnumMap, json['value'],
-        unknownValue:
-            UpdateComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN)
-    ..user = json['user'] == null
-        ? null
-        : UpdateComment$Mutation$Comment$Vote$User.fromJson(
-            json['user'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$UpdateComment$Mutation$Comment$VoteToJson(
-        UpdateComment$Mutation$Comment$Vote instance) =>
-    <String, dynamic>{
-      'value': _$UpdateComment$Mutation$Comment$Vote$VoteValueEnumMap[
-          instance.value],
-      'user': instance.user?.toJson(),
-    };
-
-const _$UpdateComment$Mutation$Comment$Vote$VoteValueEnumMap = {
-  UpdateComment$Mutation$Comment$Vote$VoteValue.down: 'down',
-  UpdateComment$Mutation$Comment$Vote$VoteValue.up: 'up',
-  UpdateComment$Mutation$Comment$Vote$VoteValue.ARTEMIS_UNKNOWN:
-      'ARTEMIS_UNKNOWN',
-};
 
 UpdateCommentArguments _$UpdateCommentArgumentsFromJson(
     Map<String, dynamic> json) {
@@ -1820,79 +2018,4 @@ Map<String, dynamic> _$Me$Query$User$GradeToJson(
       'name': instance.name,
       'slug': instance.slug,
       'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
-    };
-
-ReadExam$Query$Exam$Interaction _$ReadExam$Query$Exam$InteractionFromJson(
-    Map<String, dynamic> json) {
-  return ReadExam$Query$Exam$Interaction()
-    ..comprehension = _$enumDecodeNullable(
-        _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap,
-        json['comprehension'],
-        unknownValue: ReadExam$Query$Exam$Interaction$InteractionComprehension
-            .ARTEMIS_UNKNOWN)
-    ..score = json['score'] as int
-    ..total = json['total'] as int
-    ..watchtime = json['watchtime'] as int;
-}
-
-Map<String, dynamic> _$ReadExam$Query$Exam$InteractionToJson(
-        ReadExam$Query$Exam$Interaction instance) =>
-    <String, dynamic>{
-      'comprehension':
-          _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap[
-              instance.comprehension],
-      'score': instance.score,
-      'total': instance.total,
-      'watchtime': instance.watchtime,
-    };
-
-const _$ReadExam$Query$Exam$Interaction$InteractionComprehensionEnumMap = {
-  ReadExam$Query$Exam$Interaction$InteractionComprehension.blur: 'blur',
-  ReadExam$Query$Exam$Interaction$InteractionComprehension.clear: 'clear',
-  ReadExam$Query$Exam$Interaction$InteractionComprehension.ARTEMIS_UNKNOWN:
-      'ARTEMIS_UNKNOWN',
-};
-
-ReadExam$Query$Exam _$ReadExam$Query$ExamFromJson(Map<String, dynamic> json) {
-  return ReadExam$Query$Exam()
-    ..name = json['name'] as String
-    ..content = json['content'] as List
-    ..duration = json['duration'] as int
-    ..interaction = json['interaction'] == null
-        ? null
-        : ReadExam$Query$Exam$Interaction.fromJson(
-            json['interaction'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$ReadExam$Query$ExamToJson(
-        ReadExam$Query$Exam instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'content': instance.content,
-      'duration': instance.duration,
-      'interaction': instance.interaction?.toJson(),
-    };
-
-ReadExam$Query _$ReadExam$QueryFromJson(Map<String, dynamic> json) {
-  return ReadExam$Query()
-    ..readExam = json['readExam'] == null
-        ? null
-        : ReadExam$Query$Exam.fromJson(
-            json['readExam'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$ReadExam$QueryToJson(ReadExam$Query instance) =>
-    <String, dynamic>{
-      'readExam': instance.readExam?.toJson(),
-    };
-
-ReadExamArguments _$ReadExamArgumentsFromJson(Map<String, dynamic> json) {
-  return ReadExamArguments(
-    id: json['id'] as String,
-  );
-}
-
-Map<String, dynamic> _$ReadExamArgumentsToJson(ReadExamArguments instance) =>
-    <String, dynamic>{
-      'id': instance.id,
     };

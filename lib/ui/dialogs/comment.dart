@@ -1,18 +1,17 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/core/misc/vibration.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
-class Comment extends StatefulWidget {
-  final ReadCourseComments$Query$Comment$Comment comment;
+class Comment extends StatelessWidget {
+  final ReadCourseComments$Query$Course$Comment comment;
 
-  const Comment({Key key, this.comment}) : super(key: key);
+  final bool selected;
+  final GestureLongPressCallback onLongPress;
 
-  @override
-  _CommentState createState() => _CommentState();
+  const Comment({@required this.comment, @required this.selected, @required this.onLongPress});
 
   static String transformDate(date) {
 //    const convertedDate = AgoPipe.convertUTCDateToLocalDate(new Date(date));
@@ -34,27 +33,28 @@ class Comment extends StatefulWidget {
       return '$weeks sem.';
     }
   }
-}
-
-class _CommentState extends State<Comment> {
-  bool selected = false;
 
   @override
   Widget build(BuildContext context) {
-    String mockComment = "Ceci est un commentaire de texte assez long qui peut activer le multiligne";
-    String pseudo = "Professeur Morsay";
+    String content = comment.content.trim();
+    String pseudo = comment.user.username;
+
     return InkWell(
       onLongPress: () {
         hapticSuccessFeedback();
+        onLongPress.call();
       },
       child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: new BoxDecoration(color: selected ? greenLight2 : null),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(text: '$pseudo: ', style: TextStyle(fontWeight: FontWeight.bold, color: green)),
-                  TextSpan(text: mockComment, style: TextStyle(color: Colors.black)),
+                  TextSpan(text: '$content', style: TextStyle(color: Colors.black)),
                 ],
               ),
             ),
@@ -65,9 +65,7 @@ class _CommentState extends State<Comment> {
                   style: TextStyle(fontWeight: FontWeight.bold, color: grey, fontFamily: 'Poppins'),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    print('AANSWER');
-                  },
+                  onTap: onLongPress,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
