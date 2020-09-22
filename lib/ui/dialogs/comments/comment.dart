@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_model.dart';
@@ -9,21 +10,21 @@ class Comment extends StatelessWidget {
 
   final bool selected;
 
-  const Comment({@required this.comment, @required this.selected});
+  final void Function({String userId, String userName}) onAnswer;
+
+  const Comment({@required this.comment, @required this.selected, this.onAnswer});
 
   static String transformDate(date) {
-//    const convertedDate = AgoPipe.convertUTCDateToLocalDate(new Date(date));
     int minutes = 1600; // TODO
-//    floor((new Date().getTime() - convertedDate.getTime()) / (60 * 1000));
     if (minutes < 60) {
       minutes = max(minutes, 1);
       return '$minutes min'; // 1min to 59 min.
-    } else if (minutes < 24 * 60) {
-      // One day
+    } else if (minutes < 1440) {
+      // 1 hour to 23h (1140 = 60*24p
       int hours = (minutes / 60).floor();
       return '$hours h.';
     } else {
-      int days = (minutes / (1440)).floor(); // 1140 = 60*24
+      int days = (minutes / (1440)).floor();
       if (days < 7) {
         return '$days j.';
       }
@@ -58,7 +59,7 @@ class Comment extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, color: grey, fontFamily: 'Poppins'),
               ),
               GestureDetector(
-                // onTap: onLongPress,
+                onTap: () => onAnswer(userId: comment.userId, userName: comment.userName),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   child: Text(

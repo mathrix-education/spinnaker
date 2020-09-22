@@ -34,12 +34,22 @@ class _CommentsDialogState extends State<CommentsDialog> {
   /// The selected comment id, used to outline selected comment.
   String _selectedCommentId;
 
+  /// The answer to string.
+  String _answerTo;
+
   final TextEditingController _textController = TextEditingController();
 
   /// The graphQL client.
   final _client = GraphQLConfiguration.client;
 
   List<CommentModel> _comments;
+
+  @override
+  void initState() {
+    super.initState();
+    print('zongo le JOJO');
+    _comments = null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,42 +59,59 @@ class _CommentsDialogState extends State<CommentsDialog> {
         query: ReadCourseCommentsQuery(),
         variables: ReadCourseCommentsArguments(id: widget.modelId),
         builder: (ReadCourseComments$Query data) {
-          _comments = data.readCourse.comments
-              .map((e) => CommentModel(
-                    id: e.id,
-                    userId: 'TODO',
-                    userName: e.user.username,
-                    content: e.content,
-                    createdAt: e.created_at,
-                  ))
-              .toList();
-
-          if (_comments.length == 0) {
-            return BodyBold(text: 'Soit le premier à poster un commentaire');
+          if (_comments == null) {
+            _comments = data.readCourse.comments
+                .map((e) => CommentModel(
+                      id: e.id,
+                      userId: 'TODO',
+                      userName: e.user.username,
+                      content: e.content,
+                      createdAt: e.created_at,
+                    ))
+                .toList();
           }
 
           return Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (_, index) {
-                    return InkWell(
-                      onLongPress: () {
-                        hapticSuccessFeedback();
-                        setState(() {
-                          _selectedCommentId = _comments[index].id;
-                        });
-                      },
-                      child: Comment(comment: _comments[index], selected: _selectedCommentId == _comments[index].id),
-                    );
-                  },
-                  itemCount: _comments.length,
-                ),
+                child: _comments.length == 0
+                    ? BodyBold(text: 'Soit le premier à poster un commentaire')
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (_, index) {
+                          return InkWell(
+                            onLongPress: () {
+                              hapticSuccessFeedback();
+                              setState(() {
+                                _answerTo = _comments[index].userName;
+                                _selectedCommentId = _comments[index].id;
+                              });
+                            },
+                            child: Comment(
+                              comment: _comments[index],
+                              selected: _selectedCommentId == _comments[index].id,
+                              onAnswer: ({String userId, String userName}) {
+                                setState(() {
+                                  _answerTo = userName;
+                                  _selectedCommentId = _comments[index].id;
+                                });
+                              },
+                            ),
+                          );
+                        },
+                        itemCount: _comments.length,
+                      ),
               ),
               CommentBottomSection(
-                onPublish: () => createComment(),
+                onPublish: () => createComment(context),
                 textController: _textController,
+                answerTo: _answerTo,
+                onDismiss: () {
+                  setState(() {
+                    _answerTo = null;
+                    _selectedCommentId = null;
+                  });
+                },
               ),
             ],
           );
@@ -93,7 +120,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
     );
   }
 
-  createComment() async {
+  createComment(BuildContext context) async {
     CreateComment$CreateComment input = CreateComment$CreateComment(
       commentable_id: widget.modelId,
       commentable_type: CreateComment$CreateComment$CommentableType.course, // TODO, adapt CommentableType
@@ -121,6 +148,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
           userId: 'TODO',
           createdAt: comment.created_at,
         ));
+        FocusScope.of(context).unfocus();
       });
     } else {
       print(result.exception.toString());
