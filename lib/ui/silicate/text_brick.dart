@@ -16,9 +16,11 @@ class TextBrick extends StatelessWidget {
 
     for (String letter in brick['text'].split('')) {
       if (letter == '\$') {
-        fluzer.add(even ? Text(text) : CaTeX(text));
+        fluzer.add(_renderText(even: even, text: text));
         even = !even;
-        print(text);
+        text = '';
+      } else if (letter == ' ') {
+        fluzer.add(_renderText(even: even, text: text));
         text = '';
       } else {
         text += letter;
@@ -26,5 +28,19 @@ class TextBrick extends StatelessWidget {
     }
 
     return Wrap(children: fluzer);
+  }
+
+  _renderText({bool even, String text}) {
+    Widget renderedText;
+    if (even) {
+      renderedText = Text(text);
+    } else {
+      try {
+        renderedText = CaTeX(text);
+      } catch (e) {
+        renderedText = Text(text);
+      }
+    }
+    return renderedText;
   }
 }

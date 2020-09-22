@@ -1,12 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/core/misc/vibration.dart';
+import 'package:mathrix_education_app/ui/dialogs/comments/comment_model.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class Comment extends StatelessWidget {
-  final ReadCourseComments$Query$Course$Comment comment;
+  final CommentModel comment;
 
   final bool selected;
 
@@ -36,7 +35,7 @@ class Comment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String content = comment.content.trim();
-    String pseudo = comment.user.username;
+    String pseudo = comment.userName;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
