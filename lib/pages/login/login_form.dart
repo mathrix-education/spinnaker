@@ -28,11 +28,31 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   bool formValid = false;
 
+  FocusNode passwordFocusNode;
+
   /// The global formBuilder key.
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
   /// The graphql client.
   final _client = GraphQLConfiguration.client;
+
+  // see https://flutter.dev/docs/cookbook/forms/focus
+  @override
+  void initState() {
+    super.initState();
+    print('init state');
+
+    passwordFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    print('dispose');
+    passwordFocusNode.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +68,13 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               height: 85,
               child: MtxTextFormField(
-                label: "Email",
+                label: "Emails",
                 attribute: 'email',
                 textInputType: TextInputType.emailAddress,
                 validators: emailValidators,
                 onTextChange: (s) => validateForm(),
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) => passwordFocusNode.requestFocus(),
               ),
             ),
             SizedBox(height: 16),
@@ -65,6 +87,8 @@ class _LoginFormState extends State<LoginForm> {
                 textInputType: TextInputType.visiblePassword,
                 validators: passwordValidators,
                 onTextChange: (s) => validateForm(),
+                textInputAction: TextInputAction.done,
+                focusNode: passwordFocusNode,
               ),
             ),
             Container(
