@@ -1,16 +1,17 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/core/misc/vibration.dart';
+import 'package:mathrix_education_app/ui/dialogs/comments/comment.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_bottom_section.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_model.dart';
-import 'file:///C:/Mathrix/spinnaker/lib/ui/dialogs/comments/comment.dart';
+import 'package:mathrix_education_app/ui/dialogs/comments/comment_state.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/texts/body_bold.dart';
+import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+import 'package:provider/provider.dart';
 
 enum CommentableType {
   course,
@@ -37,17 +38,18 @@ class _CommentsDialogState extends State<CommentsDialog> {
   /// The answer to string.
   String _answerTo;
 
+  /// The text controller.
   final TextEditingController _textController = TextEditingController();
 
   /// The graphQL client.
   final _client = GraphQLConfiguration.client;
 
+  /// The comment list.
   List<CommentModel> _comments;
 
   @override
   void initState() {
     super.initState();
-    print('zongo le JOJO');
     _comments = null;
   }
 
@@ -63,7 +65,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
             _comments = data.readCourse.comments
                 .map((e) => CommentModel(
                       id: e.id,
-                      userId: 'TODO',
+                      userId: e.user.id,
                       userName: e.user.username,
                       content: e.content,
                       createdAt: e.created_at,
@@ -71,49 +73,32 @@ class _CommentsDialogState extends State<CommentsDialog> {
                 .toList();
           }
 
-          return Column(
-            children: [
-              Expanded(
-                child: _comments.length == 0
-                    ? BodyBold(text: 'Soit le premier à poster un commentaire')
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (_, index) {
-                          return InkWell(
-                            onLongPress: () {
-                              hapticSuccessFeedback();
-                              setState(() {
-                                _answerTo = _comments[index].userName;
-                                _selectedCommentId = _comments[index].id;
-                              });
-                            },
-                            child: Comment(
+          return MultiProvider(
+            providers: [ChangeNotifierProvider(create: (context) => CommentState())],
+            child: Column(
+              children: [
+                Expanded(
+                  child: _comments.length == 0
+                      ? BodyBold(
+                          text: 'Soit le premier à poster un commentaire',
+                          color: green,
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (_, index) {
+                            return Comment(
                               comment: _comments[index],
-                              selected: _selectedCommentId == _comments[index].id,
-                              onAnswer: ({String userId, String userName}) {
-                                setState(() {
-                                  _answerTo = userName;
-                                  _selectedCommentId = _comments[index].id;
-                                });
-                              },
-                            ),
-                          );
-                        },
-                        itemCount: _comments.length,
-                      ),
-              ),
-              CommentBottomSection(
-                onPublish: () => createComment(context),
-                textController: _textController,
-                answerTo: _answerTo,
-                onDismiss: () {
-                  setState(() {
-                    _answerTo = null;
-                    _selectedCommentId = null;
-                  });
-                },
-              ),
-            ],
+                            );
+                          },
+                          itemCount: _comments.length,
+                        ),
+                ),
+                CommentBottomSection(
+                  onPublish: () => createComment(context),
+                  textController: _textController,
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -125,6 +110,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
       commentable_id: widget.modelId,
       commentable_type: CreateComment$CreateComment$CommentableType.course, // TODO, adapt CommentableType
       content: _textController.text,
+      parent_id: _selectedCommentId,
     );
 
     Map<String, dynamic> createCommentJson = CreateCommentArguments(input: input).toJson();
@@ -138,16 +124,22 @@ class _CommentsDialogState extends State<CommentsDialog> {
 
     if (!result.hasException) {
       CreateComment$Mutation$Comment comment = CreateComment$Mutation.fromJson(result.data).createComment;
-
       setState(() {
         _textController.text = '';
-        _comments.add(CommentModel(
-          id: comment.id,
-          content: comment.content,
-          userName: comment.user.username,
-          userId: 'TODO',
-          createdAt: comment.created_at,
-        ));
+
+        bool isFirstLevelComment = _comments.firstWhere((element) => element.id == _selectedCommentId) != null;
+
+        if (isFirstLevelComment) {
+          _comments.add(
+            CommentModel(
+              id: comment.id,
+              content: comment.content,
+              userName: comment.user.username,
+              userId: comment.user.id,
+              createdAt: comment.created_at,
+            ),
+          );
+        }
         FocusScope.of(context).unfocus();
       });
     } else {

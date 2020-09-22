@@ -20,7 +20,7 @@ class TextBrick extends StatelessWidget {
         even = !even;
         text = '';
       } else if (letter == ' ') {
-        fluzer.add(_renderText(even: even, text: text));
+        fluzer.add(_renderText(even: even, text: '$text '));
         text = '';
       } else {
         text += letter;
@@ -30,6 +30,7 @@ class TextBrick extends StatelessWidget {
     return Wrap(children: fluzer);
   }
 
+  ///
   _renderText({bool even, String text}) {
     Widget renderedText;
     if (even) {

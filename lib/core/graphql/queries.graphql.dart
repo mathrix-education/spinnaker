@@ -653,10 +653,12 @@ class ReadCourseComments$Query$Comment$User with EquatableMixin {
           Map<String, dynamic> json) =>
       _$ReadCourseComments$Query$Comment$UserFromJson(json);
 
+  String id;
+
   String username;
 
   @override
-  List<Object> get props => [username];
+  List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
       _$ReadCourseComments$Query$Comment$UserToJson(this);
 }
@@ -838,6 +840,12 @@ class ReadCourseCommentsQuery extends GraphQLQuery<ReadCourseComments$Query,
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,
@@ -1102,10 +1110,12 @@ class CreateComment$Mutation$Comment$User with EquatableMixin {
           Map<String, dynamic> json) =>
       _$CreateComment$Mutation$Comment$UserFromJson(json);
 
+  String id;
+
   String username;
 
   @override
-  List<Object> get props => [username];
+  List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
       _$CreateComment$Mutation$Comment$UserToJson(this);
 }
@@ -1289,6 +1299,12 @@ class CreateCommentMutation
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,
                     arguments: [],
@@ -1431,10 +1447,12 @@ class DeleteComment$Mutation$Comment$User with EquatableMixin {
           Map<String, dynamic> json) =>
       _$DeleteComment$Mutation$Comment$UserFromJson(json);
 
+  String id;
+
   String username;
 
   @override
-  List<Object> get props => [username];
+  List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
       _$DeleteComment$Mutation$Comment$UserToJson(this);
 }
@@ -1609,6 +1627,12 @@ class DeleteCommentMutation
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,
@@ -3353,10 +3377,12 @@ class UpdateComment$Mutation$Comment$User with EquatableMixin {
           Map<String, dynamic> json) =>
       _$UpdateComment$Mutation$Comment$UserFromJson(json);
 
+  String id;
+
   String username;
 
   @override
-  List<Object> get props => [username];
+  List<Object> get props => [id, username];
   Map<String, dynamic> toJson() =>
       _$UpdateComment$Mutation$Comment$UserToJson(this);
 }
@@ -3532,6 +3558,12 @@ class UpdateCommentMutation
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'username'),
                     alias: null,

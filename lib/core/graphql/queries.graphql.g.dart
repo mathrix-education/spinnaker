@@ -373,12 +373,14 @@ Map<String, dynamic> _$ReadCourseComments$QueryToJson(
 ReadCourseComments$Query$Comment$User
     _$ReadCourseComments$Query$Comment$UserFromJson(Map<String, dynamic> json) {
   return ReadCourseComments$Query$Comment$User()
+    ..id = json['id'] as String
     ..username = json['username'] as String;
 }
 
 Map<String, dynamic> _$ReadCourseComments$Query$Comment$UserToJson(
         ReadCourseComments$Query$Comment$User instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'username': instance.username,
     };
 
@@ -603,12 +605,14 @@ const _$CreateComment$CreateComment$CommentableTypeEnumMap = {
 CreateComment$Mutation$Comment$User
     _$CreateComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
   return CreateComment$Mutation$Comment$User()
+    ..id = json['id'] as String
     ..username = json['username'] as String;
 }
 
 Map<String, dynamic> _$CreateComment$Mutation$Comment$UserToJson(
         CreateComment$Mutation$Comment$User instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'username': instance.username,
     };
 
@@ -767,12 +771,14 @@ Map<String, dynamic> _$DeleteComment$MutationToJson(
 DeleteComment$Mutation$Comment$User
     _$DeleteComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
   return DeleteComment$Mutation$Comment$User()
+    ..id = json['id'] as String
     ..username = json['username'] as String;
 }
 
 Map<String, dynamic> _$DeleteComment$Mutation$Comment$UserToJson(
         DeleteComment$Mutation$Comment$User instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'username': instance.username,
     };
 
@@ -1664,12 +1670,14 @@ Map<String, dynamic> _$UpdateComment$UpdateCommentToJson(
 UpdateComment$Mutation$Comment$User
     _$UpdateComment$Mutation$Comment$UserFromJson(Map<String, dynamic> json) {
   return UpdateComment$Mutation$Comment$User()
+    ..id = json['id'] as String
     ..username = json['username'] as String;
 }
 
 Map<String, dynamic> _$UpdateComment$Mutation$Comment$UserToJson(
         UpdateComment$Mutation$Comment$User instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'username': instance.username,
     };
 
