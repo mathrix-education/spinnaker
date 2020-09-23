@@ -3,9 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_dialog.dart';
+import 'package:mathrix_education_app/ui/dialogs/comments/comment_state.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+import 'package:provider/provider.dart';
 
 class CoursePage extends StatelessWidget {
   /// The model id.
@@ -42,9 +44,12 @@ class CoursePage extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (_) => CommentsDialog(
-                          modelId: courseId,
-                          commentableType: CommentableType.course, // TODO
+                        builder: (_) => MultiProvider(
+                          providers: [ChangeNotifierProvider(create: (context) => CommentState())],
+                          child: CommentsDialog(
+                            modelId: courseId,
+                            commentableType: CommentableType.course, // TODO
+                          ),
                         ),
                       );
                     },

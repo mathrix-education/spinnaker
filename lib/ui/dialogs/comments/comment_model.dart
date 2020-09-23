@@ -18,7 +18,7 @@ class CommentModel {
     @required this.content,
     @required this.userId,
     @required this.userName,
-    this.children,
+    @required this.children,
     @required this.createdAt,
   });
 }

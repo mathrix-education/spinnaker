@@ -32,6 +32,7 @@ class CommentWrapper extends StatelessWidget {
             child: AtomicComment(
               pseudo: comment.userName,
               content: comment.content.trim(),
+              date: comment.createdAt,
               onAnswer: () {
                 commentState.selectComment(
                     commentId: comment.id, commentUserName: comment.userName, commentUserId: comment.userId);
@@ -62,6 +63,7 @@ class CommentWrapper extends StatelessWidget {
                         commentState.selectComment(
                             commentId: c.id, commentUserName: c.userName, commentUserId: c.userId);
                       },
+                      date: comment.createdAt,
                     ),
                   ),
                 ),

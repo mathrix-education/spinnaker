@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_state.dart';
@@ -10,21 +9,14 @@ import 'package:provider/provider.dart';
 
 class CommentBottomSection extends StatelessWidget {
   /// The text field controller, used to control text input value.
-  final TextEditingController textController;
-
-  /// The on publish callback.
-  final VoidCallback onPublish;
-
-  final VoidCallback onDismiss;
-
-  CommentBottomSection({this.onPublish, this.textController, this.onDismiss});
+  final TextEditingController textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final CommentState commentState = Provider.of<CommentState>(context);
-     String userId = Provider.of<AppState>(context, listen: false).user.id;
-     String commentUserId = commentState.selectedCommentUserId;
-     String commentUserName = commentState.selectedCommentUserName;
+    String userId = Provider.of<AppState>(context, listen: false).user.id;
+    String commentUserId = commentState.selectedCommentUserId;
+    String commentUserName = commentState.selectedCommentUserName;
     String answerTo = userId == commentUserId ? 'mon commentaire' : commentUserName;
     return Container(
       decoration: commentUserId != null
@@ -78,12 +70,16 @@ class CommentBottomSection extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   GestureDetector(
-                    child: BodyBold(
-                      text: 'Publier',
-                      color: green,
-                    ),
-                    onTap: onPublish,
-                  ),
+                      child: BodyBold(
+                        text: 'Publier',
+                        color: green,
+                      ),
+                      onTap: () {
+                        commentState.createComment(textController.text);
+                        textController.text = '';
+                        FocusScope.of(context).unfocus();
+                        return;
+                      }),
                 ],
               ),
             ),
