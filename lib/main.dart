@@ -27,56 +27,63 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mathrix',
-      theme: ThemeData(
-        pageTransitionsTheme: PageTransitionsTheme(
-            builders: {
+    return GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+            currentFocus.unfocus();
+
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.focusedChild.unfocus();
+          }
+        },
+        child: MaterialApp(
+          title: 'Mathrix',
+          theme: ThemeData(
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
               TargetPlatform.android: CupertinoPageTransitionsBuilder(),
               TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-            }
-        ),
-        splashFactory: InkRipple.splashFactory,
-        primarySwatch: mathrixColors,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: 'Open Sans',
-        textTheme: TextTheme(
-          headline1: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 26.0,
-            fontWeight: FontWeight.w600,
+            }),
+            splashFactory: InkRipple.splashFactory,
+            primarySwatch: mathrixColors,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'Open Sans',
+            textTheme: TextTheme(
+              headline1: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 26.0,
+                fontWeight: FontWeight.w600,
+              ),
+              headline2: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 24.0,
+                fontWeight: FontWeight.w600,
+              ),
+              headline3: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 22.0,
+                fontWeight: FontWeight.w600,
+              ),
+              headline4: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 18.0,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+              bodyText1: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+              subtitle1: TextStyle(
+                fontSize: 14.0,
+                color: greyActivityText,
+              ),
+            ),
+            dividerColor: green,
           ),
-          headline2: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 24.0,
-            fontWeight: FontWeight.w600,
-          ),
-          headline3: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 22.0,
-            fontWeight: FontWeight.w600,
-          ),
-          headline4: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
-          bodyText1: TextStyle(
-            fontSize: 16.0,
-            color: Colors.black,
-          ),
-          subtitle1: TextStyle(
-            fontSize: 14.0,
-            color: greyActivityText,
-          ),
-        ),
-        dividerColor: green,
-      ),
-      home: HomePage(),
-      initialRoute:RoutePaths.authenticate,
-      onGenerateRoute: RouteGenerator.generateRoute,
-    );
+          home: HomePage(),
+          initialRoute: RoutePaths.authenticate,
+          onGenerateRoute: RouteGenerator.generateRoute,
+        ));
   }
 }
 

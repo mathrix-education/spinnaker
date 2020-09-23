@@ -14,21 +14,32 @@ class LostPasswordPage extends StatefulWidget {
 }
 
 class _LostPasswordState extends State<LostPasswordPage> {
+  final formKey = GlobalKey<FormBuilderState>();
 
-  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
-
+  var formIsValid = false;
 
   @override
   void initState() {
     super.initState();
-    print('init lost');
   }
 
   _validate() {
-      print(formKey.currentState);
-    if(formKey.currentState.validate()) {
-      print('good');
+    print('a');
+    print(formKey.currentState);
+    print(formKey.currentState.value['email']);
+
+
+
+    print(formIsValid);
+    if (formIsValid) {
+    } else {
     }
+  }
+
+  _checkValidation() {
+    setState(() {
+      formIsValid = formKey.currentState.saveAndValidate();
+    });
   }
 
   @override
@@ -41,24 +52,33 @@ class _LostPasswordState extends State<LostPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Body(text: 'Ecris ton email, tu reçevras un email de réinitialisation'),
-            SizedBox(
-              height: 85,
-              child: MtxTextFormField(
-                label: "Email",
-                attribute: 'email',
-                obscureText: true,
-                textInputType: TextInputType.visiblePassword,
-                validators: emailValidators,
-                textInputAction: TextInputAction.done,
-                onFieldSubmitted: (_) => _validate(),
+            FormBuilder(
+              key: formKey,
+              autovalidate: true,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 85,
+                    child: MtxTextFormField(
+                      label: "Email",
+                      attribute: 'email',
+                      obscureText: false,
+                      textInputType: TextInputType.visiblePassword,
+                      validators: emailValidators,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _validate(),
+                      onTextChange: (_) => _checkValidation(),
+                    ),
+                  ),
+                  PrimaryTextButton(
+                    text: 'Envoyer',
+                    onPressed: () => _validate(),
+                    width: double.infinity,
+                    enabled: formIsValid,
+                  ),
+                ],
               ),
-            ),
-            PrimaryTextButton(
-              text: 'Envoyer',
-              onPressed: () => _validate(),
-              width: double.infinity,
-              enabled: true,
-            ),
+            )
           ],
         ),
       ),
