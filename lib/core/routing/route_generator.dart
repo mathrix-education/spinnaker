@@ -16,8 +16,6 @@ import 'package:mathrix_education_app/pages/settings/settings_page.dart';
 import 'package:mathrix_education_app/pages/theme/theme_page.dart';
 import 'package:mathrix_education_app/pages/training/training_page.dart';
 
-import 'fade_in_page_route.dart';
-
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Get arguments passed with Navigator.pushNamed.
@@ -111,7 +109,7 @@ class RouteGenerator {
 // TODO error route
 
   static routeBuilder(Widget widget) {
-    return FadeInPageRoute(builder: (_) {
+    return MaterialPageRoute(builder: (_) {
       return widget;
     });
   }

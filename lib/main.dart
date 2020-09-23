@@ -30,6 +30,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mathrix',
       theme: ThemeData(
+        pageTransitionsTheme: PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            }
+        ),
         splashFactory: InkRipple.splashFactory,
         primarySwatch: mathrixColors,
         visualDensity: VisualDensity.adaptivePlatformDensity,
