@@ -67,9 +67,4 @@ class _CommentsDialogState extends State<CommentsDialog> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

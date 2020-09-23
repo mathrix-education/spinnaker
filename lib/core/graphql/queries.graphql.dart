@@ -225,6 +225,30 @@ class ListCategoriesQuery
 }
 
 @JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction();
+
+  factory ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Course$InteractionFromJson(
+          json);
+
+  @JsonKey(
+      unknownEnumValue:
+          ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction$InteractionComprehension
+      comprehension;
+
+  @override
+  List<Object> get props => [comprehension];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Course$InteractionToJson(
+          this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class ReadChaptersInformations$Query$Chapter$Notion$Course with EquatableMixin {
   ReadChaptersInformations$Query$Chapter$Notion$Course();
 
@@ -240,10 +264,36 @@ class ReadChaptersInformations$Query$Chapter$Notion$Course with EquatableMixin {
 
   int order;
 
+  ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction interaction;
+
   @override
-  List<Object> get props => [id, name, premium, order];
+  List<Object> get props => [id, name, premium, order, interaction];
   Map<String, dynamic> toJson() =>
       _$ReadChaptersInformations$Query$Chapter$Notion$CourseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction();
+
+  factory ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$InteractionFromJson(
+          json);
+
+  @JsonKey(
+      unknownEnumValue:
+          ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
+      comprehension;
+
+  @override
+  List<Object> get props => [comprehension];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$InteractionToJson(
+          this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -263,8 +313,10 @@ class ReadChaptersInformations$Query$Chapter$Notion$Subject
 
   int order;
 
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction interaction;
+
   @override
-  List<Object> get props => [id, name, premium, order];
+  List<Object> get props => [id, name, premium, order, interaction];
   Map<String, dynamic> toJson() =>
       _$ReadChaptersInformations$Query$Chapter$Notion$SubjectToJson(this);
 }
@@ -295,6 +347,30 @@ class ReadChaptersInformations$Query$Chapter$Notion with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Flashcard$Interaction
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Flashcard$Interaction();
+
+  factory ReadChaptersInformations$Query$Chapter$Flashcard$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Flashcard$InteractionFromJson(
+          json);
+
+  @JsonKey(
+      unknownEnumValue:
+          ReadChaptersInformations$Query$Chapter$Flashcard$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  ReadChaptersInformations$Query$Chapter$Flashcard$Interaction$InteractionComprehension
+      comprehension;
+
+  @override
+  List<Object> get props => [comprehension];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Flashcard$InteractionToJson(
+          this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class ReadChaptersInformations$Query$Chapter$Flashcard with EquatableMixin {
   ReadChaptersInformations$Query$Chapter$Flashcard();
 
@@ -308,10 +384,31 @@ class ReadChaptersInformations$Query$Chapter$Flashcard with EquatableMixin {
 
   bool premium;
 
+  ReadChaptersInformations$Query$Chapter$Flashcard$Interaction interaction;
+
   @override
-  List<Object> get props => [id, name, premium];
+  List<Object> get props => [id, name, premium, interaction];
   Map<String, dynamic> toJson() =>
       _$ReadChaptersInformations$Query$Chapter$FlashcardToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Exam$Interaction
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Exam$Interaction();
+
+  factory ReadChaptersInformations$Query$Chapter$Exam$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Exam$InteractionFromJson(json);
+
+  int score;
+
+  int total;
+
+  @override
+  List<Object> get props => [score, total];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Exam$InteractionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -332,8 +429,10 @@ class ReadChaptersInformations$Query$Chapter$Exam with EquatableMixin {
 
   int duration;
 
+  ReadChaptersInformations$Query$Chapter$Exam$Interaction interaction;
+
   @override
-  List<Object> get props => [id, premium, owned, name, duration];
+  List<Object> get props => [id, premium, owned, name, duration, interaction];
   Map<String, dynamic> toJson() =>
       _$ReadChaptersInformations$Query$Chapter$ExamToJson(this);
 }
@@ -377,6 +476,21 @@ class ReadChaptersInformations$Query with EquatableMixin {
 enum ReadChaptersInformations$Query$Chapter$Notion$NotionType {
   standard,
   summary,
+  ARTEMIS_UNKNOWN,
+}
+enum ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+enum ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+enum ReadChaptersInformations$Query$Chapter$Flashcard$Interaction$InteractionComprehension {
+  blur,
+  clear,
   ARTEMIS_UNKNOWN,
 }
 
@@ -479,7 +593,20 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
                                 alias: null,
                                 arguments: [],
                                 directives: [],
-                                selectionSet: null)
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'interaction'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'comprehension'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
                           ])),
                       FieldNode(
                           name: NameNode(value: 'subjects'),
@@ -510,7 +637,20 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
                                 alias: null,
                                 arguments: [],
                                 directives: [],
-                                selectionSet: null)
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'interaction'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'comprehension'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
                           ]))
                     ])),
                 FieldNode(
@@ -536,7 +676,20 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
                           alias: null,
                           arguments: [],
                           directives: [],
-                          selectionSet: null)
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'interaction'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'comprehension'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
                     ])),
                 FieldNode(
                     name: NameNode(value: 'exams'),
@@ -573,7 +726,26 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
                           alias: null,
                           arguments: [],
                           directives: [],
-                          selectionSet: null)
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'interaction'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'score'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'total'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
                     ]))
               ]))
         ]))
@@ -946,6 +1118,26 @@ class ReadCourseCommentsQuery extends GraphQLQuery<ReadCourseComments$Query,
 }
 
 @JsonSerializable(explicitToJson: true)
+class ReadCourse$Query$Course$Interaction with EquatableMixin {
+  ReadCourse$Query$Course$Interaction();
+
+  factory ReadCourse$Query$Course$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadCourse$Query$Course$InteractionFromJson(json);
+
+  @JsonKey(
+      unknownEnumValue:
+          ReadCourse$Query$Course$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  ReadCourse$Query$Course$Interaction$InteractionComprehension comprehension;
+
+  @override
+  List<Object> get props => [comprehension];
+  Map<String, dynamic> toJson() =>
+      _$ReadCourse$Query$Course$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class ReadCourse$Query$Course with EquatableMixin {
   ReadCourse$Query$Course();
 
@@ -954,8 +1146,10 @@ class ReadCourse$Query$Course with EquatableMixin {
 
   List<dynamic> content;
 
+  ReadCourse$Query$Course$Interaction interaction;
+
   @override
-  List<Object> get props => [content];
+  List<Object> get props => [content, interaction];
   Map<String, dynamic> toJson() => _$ReadCourse$Query$CourseToJson(this);
 }
 
@@ -971,6 +1165,12 @@ class ReadCourse$Query with EquatableMixin {
   @override
   List<Object> get props => [readCourse];
   Map<String, dynamic> toJson() => _$ReadCourse$QueryToJson(this);
+}
+
+enum ReadCourse$Query$Course$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -1020,7 +1220,20 @@ class ReadCourseQuery
                     alias: null,
                     arguments: [],
                     directives: [],
-                    selectionSet: null)
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'interaction'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'comprehension'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
               ]))
         ]))
   ]);

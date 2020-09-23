@@ -17,7 +17,7 @@ class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable
   /// The fetchPolicy
   final FetchPolicy fetchPolicy;
 
-  QueryContainer({@required this.query, @required this.variables, @required this.builder, this.fetchPolicy});
+  QueryContainer({@required this.query, this.variables, @required this.builder, this.fetchPolicy});
 
   @override
   Widget build(BuildContext context) {
