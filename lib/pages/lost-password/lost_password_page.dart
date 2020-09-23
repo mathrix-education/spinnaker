@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
+import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
+import 'package:mathrix_education_app/ui/buttons/progress_button.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/texts/body.dart';
-import 'package:mathrix_education_app/ui/variables/validators.dart';
-import 'package:mathrix_education_app/ui/widgets/form_field.dart';
 
 class LostPasswordPage extends StatefulWidget {
   @override
@@ -18,21 +19,51 @@ class _LostPasswordState extends State<LostPasswordPage> {
 
   var formIsValid = false;
 
+  var status = ButtonState.normal;
+
+  /// The graphql client.
+  final _client = GraphQLConfiguration.client;
+
   @override
   void initState() {
     super.initState();
   }
 
   _validate() {
-    print('a');
-    print(formKey.currentState);
-    print(formKey.currentState.value['email']);
-
-
-
-    print(formIsValid);
+    _sendXhr(context);
     if (formIsValid) {
-    } else {
+    } else {}
+  }
+
+  _sendXhr(BuildContext context) async {
+    var form = formKey.currentState;
+    form.save();
+
+    setState(() {
+      status = ButtonState.inProgress;
+    });
+
+    if (form.validate()) {
+      MutationOptions options = MutationOptions(
+        documentNode: ForgotPasswordMutation().document,
+        variables: ForgotPasswordArguments(email: 'jean@g.co').toJson(),
+      );
+      final QueryResult result = await _client.mutate(options);
+
+      if (result.hasException) {
+        setState(() {
+          status = ButtonState.error;
+        });
+
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Combinaison invalide')));
+      } else {
+        setState(() {
+          status = ButtonState.success;
+        });
+        ForgotPassword$Mutation forgotPassword$Mutation = ForgotPassword$Mutation.fromJson(result.data);
+        print('a');
+        print(result.data);
+      }
     }
   }
 
@@ -44,23 +75,34 @@ class _LostPasswordState extends State<LostPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    var progressButton = ProgressButton(
+      text: 'Envoyer',
+      onPressed: () {
+        _validate();
+      },
+      buttonState: status,
+    );
+
     return StandardPage(
       title: 'Mot de passe perdu',
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 32, horizontal: 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Body(text: 'Ecris ton email, tu reçevras un email de réinitialisation'),
+            Body(
+              text: 'Ecris ton email, tu recevras un email de réinitialisation',
+              textAlign: TextAlign.center,
+            ),
             FormBuilder(
               key: formKey,
               autovalidate: true,
               child: Column(
                 children: [
-                  SizedBox(
+                  /*SizedBox(
                     height: 85,
                     child: MtxTextFormField(
-                      label: "Email",
+                      label: 'Email',
                       attribute: 'email',
                       obscureText: false,
                       textInputType: TextInputType.visiblePassword,
@@ -69,13 +111,9 @@ class _LostPasswordState extends State<LostPasswordPage> {
                       onFieldSubmitted: (_) => _validate(),
                       onTextChange: (_) => _checkValidation(),
                     ),
-                  ),
-                  PrimaryTextButton(
-                    text: 'Envoyer',
-                    onPressed: () => _validate(),
-                    width: double.infinity,
-                    enabled: formIsValid,
-                  ),
+                  ),*/
+
+                  progressButton,
                 ],
               ),
             )

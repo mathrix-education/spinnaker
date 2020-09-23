@@ -66,7 +66,6 @@ class _CommentState extends State<Comment> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print('AANSWER');
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
