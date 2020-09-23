@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_bottom_section.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_model.dart';
@@ -37,12 +38,8 @@ class _CommentsDialogState extends State<CommentsDialog> {
       body: QueryContainer(
         query: ReadCourseCommentsQuery(),
         variables: ReadCourseCommentsArguments(id: widget.modelId),
+        fetchPolicy: FetchPolicy.cacheAndNetwork,
         builder: (ReadCourseComments$Query data) {
-          // if (_comments == null) {
-          //
-          // }
-          print('executing');
-
           CommentState commentState = Provider.of<CommentState>(context, listen: false);
           commentState.init(modelId: widget.modelId, courseComments: data.readCourse.comments);
 
