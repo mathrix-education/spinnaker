@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'package:mathrix_education_app/ui/dialogs/comments/comment.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_bottom_section.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_model.dart';
 import 'package:mathrix_education_app/ui/dialogs/comments/comment_state.dart';
@@ -12,6 +11,8 @@ import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 import 'package:provider/provider.dart';
+
+import 'comment_wrapper.dart';
 
 enum CommentableType {
   course,
@@ -32,12 +33,6 @@ class CommentsDialog extends StatefulWidget {
 }
 
 class _CommentsDialogState extends State<CommentsDialog> {
-  /// The selected comment id, used to outline selected comment.
-  String _selectedCommentId;
-
-  /// The answer to string.
-  String _answerTo;
-
   /// The text controller.
   final TextEditingController _textController = TextEditingController();
 
@@ -63,12 +58,21 @@ class _CommentsDialogState extends State<CommentsDialog> {
         builder: (ReadCourseComments$Query data) {
           if (_comments == null) {
             _comments = data.readCourse.comments
-                .map((e) => CommentModel(
-                      id: e.id,
-                      userId: e.user.id,
-                      userName: e.user.username,
-                      content: e.content,
-                      createdAt: e.created_at,
+                .map((c) => CommentModel(
+                      id: c.id,
+                      userId: c.user.id,
+                      userName: c.user.username,
+                      content: c.content,
+                      createdAt: c.created_at,
+                      children: c.children
+                          .map((d) => CommentModel(
+                              id: d.id,
+                              userId: d.user.id,
+                              userName: d.user.username,
+                              content: d.content,
+                              createdAt: d.created_at,
+                              children: []))
+                          .toList(),
                     ))
                 .toList();
           }
@@ -86,7 +90,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
                       : ListView.builder(
                           shrinkWrap: true,
                           itemBuilder: (_, index) {
-                            return Comment(
+                            return CommentWrapper(
                               comment: _comments[index],
                             );
                           },
@@ -106,11 +110,13 @@ class _CommentsDialogState extends State<CommentsDialog> {
   }
 
   createComment(BuildContext context) async {
+    final CommentState commentState = Provider.of<CommentState>(context, listen: false);
+
     CreateComment$CreateComment input = CreateComment$CreateComment(
       commentable_id: widget.modelId,
       commentable_type: CreateComment$CreateComment$CommentableType.course, // TODO, adapt CommentableType
       content: _textController.text,
-      parent_id: _selectedCommentId,
+      parent_id: commentState.selectedCommentId,
     );
 
     Map<String, dynamic> createCommentJson = CreateCommentArguments(input: input).toJson();
@@ -127,19 +133,28 @@ class _CommentsDialogState extends State<CommentsDialog> {
       setState(() {
         _textController.text = '';
 
-        bool isFirstLevelComment = _comments.firstWhere((element) => element.id == _selectedCommentId) != null;
+        // bool isFirstLevelComment =
+        //     _comments.firstWhere((element) => element.id == commentState.selectedCommentId) != null;
+        //
+        // if (isFirstLevelComment) {
+        //   _comments.add(
+        //     CommentModel(
+        //       id: comment.id,
+        //       content: comment.content,
+        //       userName: comment.user.username,
+        //       userId: comment.user.id,
+        //       createdAt: comment.created_at,
+        //     ),
+        //   );
+        // } else {}
+        _insertRecursively(_comments, commentState.selectedCommentId, CommentModel(
+                  id: comment.id,
+                  content: comment.content,
+                  userName: comment.user.username,
+                  userId: comment.user.id,
+                  createdAt: comment.created_at,
+                ));
 
-        if (isFirstLevelComment) {
-          _comments.add(
-            CommentModel(
-              id: comment.id,
-              content: comment.content,
-              userName: comment.user.username,
-              userId: comment.user.id,
-              createdAt: comment.created_at,
-            ),
-          );
-        }
         FocusScope.of(context).unfocus();
       });
     } else {
@@ -150,6 +165,22 @@ class _CommentsDialogState extends State<CommentsDialog> {
   @override
   void dispose() {
     _textController.dispose();
+    Provider.of<CommentState>(context, listen: false).reset();
     super.dispose();
+  }
+
+  _insertRecursively(List<CommentModel> comments, String selectedCommentId, CommentModel commentToAdd) {
+    bool isAtThisLevel = comments.firstWhere((element) => element.id == selectedCommentId) != null;
+
+    for (CommentModel comment in comments) {
+      if (comment.id == selectedCommentId) {
+        comments.add(commentToAdd);
+        return;
+      }
+
+      if (comment.children != null) {
+        _insertRecursively(comment.children, selectedCommentId, commentToAdd);
+      }
+    }
   }
 }

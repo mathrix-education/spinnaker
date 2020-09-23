@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mathrix_education_app/core/store/session.state.dart';
+import 'package:mathrix_education_app/ui/dialogs/comments/comment_state.dart';
 import 'package:mathrix_education_app/ui/texts/body.dart';
 import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/widgets/disallowed_glow_animation.dart';
+import 'package:provider/provider.dart';
 
 class CommentBottomSection extends StatelessWidget {
   /// The text field controller, used to control text input value.
@@ -14,15 +17,17 @@ class CommentBottomSection extends StatelessWidget {
 
   final VoidCallback onDismiss;
 
-  /// The answer to string  used in the sentence 'Répondre à [answerTo]".
-  final String answerTo;
-
-  CommentBottomSection({this.onPublish, this.textController, this.answerTo, this.onDismiss});
+  CommentBottomSection({this.onPublish, this.textController, this.onDismiss});
 
   @override
   Widget build(BuildContext context) {
+    final CommentState commentState = Provider.of<CommentState>(context);
+     String userId = Provider.of<AppState>(context, listen: false).user.id;
+     String commentUserId = commentState.selectedCommentUserId;
+     String commentUserName = commentState.selectedCommentUserName;
+    String answerTo = userId == commentUserId ? 'mon commentaire' : commentUserName;
     return Container(
-      decoration: answerTo != null
+      decoration: commentUserId != null
           ? BoxDecoration(
               border: Border(top: BorderSide(color: greenLight, width: 0.5)),
             )
@@ -33,6 +38,7 @@ class CommentBottomSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Visibility(
+              visible: commentUserId != null,
               child: Container(
                 padding: EdgeInsets.only(bottom: 4),
                 child: Row(
@@ -41,12 +47,11 @@ class CommentBottomSection extends StatelessWidget {
                     Body(text: 'Répondre à $answerTo', color: green),
                     GestureDetector(
                       child: Icon(Icons.clear, color: green, size: 20),
-                      onTap: onDismiss,
+                      onTap: commentState.reset,
                     ),
                   ],
                 ),
               ),
-              visible: answerTo != null,
             ),
             ConstrainedBox(
               constraints: BoxConstraints(maxHeight: 80),
