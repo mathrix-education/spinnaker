@@ -36,9 +36,9 @@ class _LoginPageState extends State<LoginPage> {
             LoginForm(
               loginMode: widget.mode,
               onLogin: _finalizeAuthentication,
-              onForgotPasswordTap: () => setState(
-                () => widget.mode = LoginMode.RecoverPassword,
-              ),
+              onForgotPasswordTap: () => {
+                Navigator.pushNamed(context, RoutePaths.lostPassword)
+              }
             ),
             KeyboardVisibilityProvider(child: SocialSection(onLogin: _finalizeAuthentication)),
           ],

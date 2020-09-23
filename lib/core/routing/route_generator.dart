@@ -9,6 +9,7 @@ import 'package:mathrix_education_app/pages/exercises/exercises_page.dart';
 import 'package:mathrix_education_app/pages/flashcards/flashcards_page.dart';
 import 'package:mathrix_education_app/pages/lesson/lesson_page.dart';
 import 'package:mathrix_education_app/pages/login/login_page.dart';
+import 'package:mathrix_education_app/pages/lost-password/lost_password_page.dart';
 import 'package:mathrix_education_app/pages/menu/menu_page.dart';
 import 'package:mathrix_education_app/pages/premium/premium_page.dart';
 import 'package:mathrix_education_app/pages/settings/settings_page.dart';
@@ -27,7 +28,9 @@ class RouteGenerator {
           return generateRoute(RouteSettings(name: RoutePaths.dashboard));
         }
         return MaterialPageRoute(builder: (_) => LoginPage());
-      case RoutePaths.dashboard:
+      case RoutePaths.lostPassword:
+        return routeBuilder(LostPasswordPage());
+    case RoutePaths.dashboard:
         return routeBuilder(DashboardPage());
       case RoutePaths.themes:
         return routeBuilder(
