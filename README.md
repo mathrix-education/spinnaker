@@ -13,7 +13,7 @@ Facebook and Google login requires you to add your debug certificate to Facebook
 
 ## Generate graphQL configuration
 You may want to add graphQL queries or mutation. Write your queries/mutations under the folder
-```graphql/queries```. Be carefull, only one query/mutation per file for the moment.
+```graphql/queries```. Be careful, only one query/mutation per file for the moment.
  Write your fragments under the ```graphql/fragments```` folder.
 
 Remove the files 

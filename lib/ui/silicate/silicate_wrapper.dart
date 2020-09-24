@@ -5,7 +5,6 @@ import 'package:mathrix_education_app/ui/silicate/pdf_viewer_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/title_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/video_brick.dart';
-
 import 'container_brick.dart';
 
 class SilicateWrapper extends StatelessWidget {

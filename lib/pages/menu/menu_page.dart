@@ -6,6 +6,7 @@ import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_navigation_bar_item.dart';
+import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 import 'course_tab.dart';
 
 class MenuPage extends StatefulWidget {
@@ -49,25 +50,11 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return StandardPage(
         title: widget.chapterName,
-        body: Query(
-            options: QueryOptions(
-              documentNode: ReadChaptersInformationsQuery().document,
-              variables: {'id': widget.chapterId},
-            ),
-            builder: (
-              QueryResult result, {
-              Future<QueryResult> Function() refetch,
-              FetchMore fetchMore,
-            }) {
-              if (result.hasException) {}
-
-              if (result.loading) {
-                return LoadingBody();
-              }
-
-              ReadChaptersInformations$Query$Chapter chapter =
-                  ReadChaptersInformations$Query.fromJson(result.data).readChapter;
-
+        body: QueryContainer(
+            query: ReadChaptersInformationsQuery(),
+            variables: ReadChaptersInformationsArguments(id: widget.chapterId),
+            builder: (ReadChaptersInformations$Query data) {
+              ReadChaptersInformations$Query$Chapter chapter = data.readChapter;
               List<ReadChaptersInformations$Query$Chapter$Notion> notions = chapter.notions;
 
               List<ReadChaptersInformations$Query$Chapter$Notion$Course> summaries = chapter.notions.firstWhere(

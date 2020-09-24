@@ -20,6 +20,7 @@ const Color orangeLight = Color(0xfffef6f4);
 
 const Color greyActivityText = Color(0xffb7c2bf);
 const Color grey = Color(0xffe4e4e4);
+const Color darkGrey = Color(0xffa9a9a9a9);
 
 const Map<int, Color> mathrixColorSwatch = {
   50: Color.fromRGBO(0x22, 0x9a, 0x87, .1),

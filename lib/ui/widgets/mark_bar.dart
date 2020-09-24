@@ -34,23 +34,22 @@ class _MarkBarState extends State<MarkBar> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
-          border: Border(
-        top: BorderSide(color: jade, width: 0.4),
-      )),
+        border: Border(
+          top: BorderSide(color: jade, width: 0.4),
+        ),
+        color: Colors.white,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ReviewButton(
             comprehension: comprehension,
-            onTap: () => interact(
-              Interact$CreateInteraction$InteractionComprehension.blur,
-            ),
+            onTap: () => interact(Interact$CreateInteraction$InteractionComprehension.blur),
           ),
           CheckedButton(
-              comprehension: comprehension,
-              onTap: () => interact(
-                    Interact$CreateInteraction$InteractionComprehension.clear,
-                  )),
+            comprehension: comprehension,
+            onTap: () => interact(Interact$CreateInteraction$InteractionComprehension.clear),
+          ),
         ],
       ),
     );
@@ -68,7 +67,7 @@ class _MarkBarState extends State<MarkBar> {
     );
 
     setState(() {
-      comprehension = comprehension;
+      this.comprehension = comprehension;
     });
 
     await _client.mutate(options);

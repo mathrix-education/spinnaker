@@ -9,25 +9,38 @@ query ReadChaptersInformations($id: ID){
         name
         premium
         order
+        interaction {
+          comprehension
+        }
       }
       subjects {
         id
         name
         premium
         order
+        interaction {
+          comprehension
+        }
       }
     }
     flashcards {
       id
       name
       premium
+      interaction {
+        comprehension
+      }
     }
-    exams{
+    exams {
       id
       premium
       owned
       name
       duration
+      interaction {
+        score
+        total
+      }
     }
   }
 }
