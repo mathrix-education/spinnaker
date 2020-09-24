@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
-import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
-import 'package:mathrix_education_app/ui/widgets/mtx_navigation_bar_item.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 import 'course_tab.dart';
+import 'navigation_bar_item.dart';
 
 class MenuPage extends StatefulWidget {
   final String chapterName;
@@ -29,11 +27,11 @@ class _MenuPageState extends State<MenuPage> {
 
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
-      MtxNavigationBarItem(
+      NavigationBarItem(
         selected: _pageIndex == 0,
         text: 'Cours et exercises',
       ),
-      MtxNavigationBarItem(
+      NavigationBarItem(
         selected: _pageIndex == 1,
         text: 'Préparation à l\'evaluation',
       ),

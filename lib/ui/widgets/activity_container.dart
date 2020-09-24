@@ -149,7 +149,10 @@ class ActivityContainer extends StatelessWidget {
   }
 
   String get text {
-    if (interaction.comprehension != null) {
+    if (interaction == null) {
+      return '';
+    }
+    if (interaction?.comprehension != null) {
       return interaction.comprehension == Comprehension.clear ? 'Validé' : 'À revoir';
     } else if (interaction.score != null && interaction.total != null) {
       int score = interaction.score;
@@ -160,15 +163,22 @@ class ActivityContainer extends StatelessWidget {
   }
 
   Color get textColor {
-    if (interaction.comprehension != null) {
+    if (interaction == null) {
+      return null;
+    }
+    if (interaction?.comprehension != null) {
       return interaction.comprehension == Comprehension.clear ? jade : blue;
-    } else if (interaction.score != null && interaction.total != null) {
+    } else if (interaction?.score != null && interaction?.total != null) {
       return orange;
     }
     return null;
   }
 
   Color get backgroundColor {
+    if (interaction == null) {
+      return null;
+    }
+
     if (interaction.comprehension != null) {
       return interaction.comprehension == Comprehension.clear ? greenLight2 : blueLight;
     } else if (interaction.score != null && interaction.total != null) {

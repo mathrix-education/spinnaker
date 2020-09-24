@@ -3,14 +3,14 @@ import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/app_bar_flexible_space.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_icon.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MtxAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// The app bar title.
   final String title;
 
   @override
   final Size preferredSize; // default is 56.0
 
-  CustomAppBar({@required this.title}) : preferredSize = Size.fromHeight(kToolbarHeight);
+  MtxAppBar({@required this.title}) : preferredSize = Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
