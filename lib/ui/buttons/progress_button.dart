@@ -1,5 +1,7 @@
 library progress_button;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_button.dart';
@@ -14,12 +16,13 @@ import 'button_text.dart';
 class ProgressButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String text;
+  final bool enabled;
   final Widget child;
   final Color backgroundColor;
   final Color progressColor;
   final ButtonState buttonState;
 
-  ProgressButton({Key key, @required this.buttonState, @required this.onPressed, this.text, this.child, this.backgroundColor, this.progressColor})
+  ProgressButton({Key key, @required this.buttonState, @required this.onPressed, this.text, this.enabled = true, this.child, this.backgroundColor, this.progressColor})
       : super(key: key);
 
   @override
@@ -47,6 +50,8 @@ class _ProgressButtonState extends State<ProgressButton> with TickerProviderStat
     return _widthAnimation.value ?? double.infinity;
   }
 
+  ButtonState myStatus = ButtonState.normal;
+
   @override
   void initState() {
     super.initState();
@@ -71,6 +76,11 @@ class _ProgressButtonState extends State<ProgressButton> with TickerProviderStat
   @override
   void didUpdateWidget(ProgressButton oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    if(oldWidget.buttonState != widget.buttonState) {
+      myStatus = widget.buttonState;
+    }
+
     // React to state changes by comparing old and new state
     if (oldWidget.buttonState != ButtonState.success && widget.buttonState == ButtonState.success) {
       _progressAnimationController.stop();
@@ -79,6 +89,10 @@ class _ProgressButtonState extends State<ProgressButton> with TickerProviderStat
       _progressAnimationController.stop();
       _errorAnimationController.reset();
       _errorAnimationController.forward();
+
+      Timer(Duration(seconds: 3), () {
+        print("Yeah, this line is printed after 3 seconds");
+      });
     }
     if (oldWidget.buttonState != ButtonState.inProgress && widget.buttonState == ButtonState.inProgress) {
       _progressAnimationController.reset();
@@ -128,20 +142,27 @@ class _ProgressButtonState extends State<ProgressButton> with TickerProviderStat
     Widget buttonContent;
     Color buttonColor;
 
-    if (widget.buttonState == ButtonState.normal) {
-      buttonContent = child;
-    } else if (widget.buttonState == ButtonState.inProgress) {
-      buttonColor = yellow;
-      buttonContent = Padding(
-        padding: EdgeInsets.all(8),
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(progressColor ?? Colors.white),
-          strokeWidth: 3,
-        ),
-      );
-    } else if(widget.buttonState == ButtonState.success) {
-      buttonColor = jade;
-      buttonContent = ButtonText(text: 'Succès !');
+    switch(myStatus) {
+      case ButtonState.normal:
+        buttonContent = child;
+        break;
+      case ButtonState.inProgress:
+        buttonColor = yellow;
+        buttonContent = Padding(
+          padding: EdgeInsets.all(8),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(progressColor ?? Colors.white),
+            strokeWidth: 3,
+          ),
+        );
+        break;
+      case ButtonState.success:
+        buttonColor = jade;
+        buttonContent = ButtonText(text: 'Succès !');
+        break;
+      case ButtonState.error:
+        buttonContent = ButtonText(text: 'Erreur !');
+        break;
     }
 
     return AnimatedBuilder(
@@ -149,9 +170,10 @@ class _ProgressButtonState extends State<ProgressButton> with TickerProviderStat
       builder: (context, child) {
         return PrimaryButton(
           onPressed: widget.onPressed,
-          width: buttonWidth,
+          width: double.infinity,
           child: buttonContent,
           color: buttonColor,
+          enabled: widget.enabled,
         );
       },
     );

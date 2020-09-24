@@ -21,7 +21,7 @@ class PrimaryTextButton extends StatelessWidget {
   PrimaryTextButton({
     this.onPressed,
     this.text,
-    this.width = 140,
+    this.width = double.infinity,
     this.enabled = true,
   });
 
@@ -29,6 +29,7 @@ class PrimaryTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimaryButton(
       onPressed: onPressed,
+        width: width,
         child: ButtonText(text: text));
   }
 }

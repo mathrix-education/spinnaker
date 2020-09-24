@@ -6,6 +6,7 @@ import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
+import 'package:mathrix_education_app/ui/buttons/progress_button.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/variables/validators.dart';
 import 'package:mathrix_education_app/ui/widgets/form_field.dart';
@@ -29,6 +30,8 @@ class _LoginFormState extends State<LoginForm> {
   bool formValid = false;
 
   FocusNode passwordFocusNode;
+
+  ButtonState xhrStatus = ButtonState.normal;
 
   /// The global formBuilder key.
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
@@ -59,7 +62,6 @@ class _LoginFormState extends State<LoginForm> {
       key: formKey,
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             // Add TextFormFields and RaisedButton here.
             SizedBox(
@@ -81,26 +83,29 @@ class _LoginFormState extends State<LoginForm> {
                 attribute: 'password',
                 obscureText: true,
                 textInputType: TextInputType.text,
-                validators: passwordValidators,
+                validators: passwordValidators, // TODO validator not working
                 onTextChange: (s) => validateForm(),
                 textInputAction: TextInputAction.done,
+                onFieldSubmitted: (s) => _authenticate(context),
                 focusNode: passwordFocusNode,
               ),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(bottom: 16),
+              alignment: Alignment.centerRight,
               child: GestureDetector(
                 onTap: () => widget.onForgotPasswordTap(),
                 child: Text(
                   widget.loginMode == LoginMode.Login ? 'Mot de passe oublié?' : '',
+                  textAlign: TextAlign.end,
                   style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
                 ),
               ),
             ),
-            PrimaryTextButton(
+            ProgressButton(
               text: 'Se connecter',
               onPressed: () => _authenticate(context),
-              width: double.infinity,
+              buttonState: xhrStatus,
               enabled: formValid,
             ),
           ],
@@ -119,6 +124,10 @@ class _LoginFormState extends State<LoginForm> {
     var form = formKey.currentState;
     form.save();
     if (form.validate()) {
+      setState(() {
+
+      xhrStatus = ButtonState.inProgress;
+      });
       Map<String, dynamic> value = form.value;
 
       MutationOptions options = MutationOptions(
@@ -128,11 +137,21 @@ class _LoginFormState extends State<LoginForm> {
       final QueryResult result = await _client.mutate(options);
 
       if (result.hasException) {
+        setState(() {
+        xhrStatus = ButtonState.error;
+        });
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Combinaison invalide')));
       } else {
+        setState(() {
+        xhrStatus = ButtonState.success;
+        });
         Login$Mutation login$mutation = Login$Mutation.fromJson(result.data);
         widget.onLogin(login$mutation.loginBasic.token);
+
       }
+        setState(() {
+          xhrStatus = ButtonState.normal;
+        });
     }
   }
 }
