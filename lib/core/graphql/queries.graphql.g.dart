@@ -2213,3 +2213,277 @@ Map<String, dynamic> _$Me$Query$User$GradeToJson(
       'slug': instance.slug,
       'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
     };
+
+LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction
+    _$LoadGauge$Query$Theme$Chapter$Notion$Course$InteractionFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction()
+    ..comprehension = _$enumDecodeNullable(
+        _$LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehensionEnumMap,
+        json['comprehension'],
+        unknownValue:
+            LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehension
+                .ARTEMIS_UNKNOWN);
+}
+
+Map<String, dynamic>
+    _$LoadGauge$Query$Theme$Chapter$Notion$Course$InteractionToJson(
+            LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction instance) =>
+        <String, dynamic>{
+          'comprehension':
+              _$LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehensionEnumMap[
+                  instance.comprehension],
+        };
+
+const _$LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehensionEnumMap =
+    {
+  LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehension
+      .blur: 'blur',
+  LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehension
+      .clear: 'clear',
+  LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehension
+      .ARTEMIS_UNKNOWN: 'ARTEMIS_UNKNOWN',
+};
+
+LoadGauge$Query$Theme$Chapter$Notion$Course
+    _$LoadGauge$Query$Theme$Chapter$Notion$CourseFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Notion$Course()
+    ..interaction = json['interaction'] == null
+        ? null
+        : LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction.fromJson(
+            json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$LoadGauge$Query$Theme$Chapter$Notion$CourseToJson(
+        LoadGauge$Query$Theme$Chapter$Notion$Course instance) =>
+    <String, dynamic>{
+      'interaction': instance.interaction?.toJson(),
+    };
+
+LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction
+    _$LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$InteractionFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction()
+    ..score = json['score'] as int;
+}
+
+Map<String, dynamic>
+    _$LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$InteractionToJson(
+            LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction
+                instance) =>
+        <String, dynamic>{
+          'score': instance.score,
+        };
+
+LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise
+    _$LoadGauge$Query$Theme$Chapter$Notion$Subject$ExerciseFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise()
+    ..interaction = json['interaction'] == null
+        ? null
+        : LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction
+            .fromJson(json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic>
+    _$LoadGauge$Query$Theme$Chapter$Notion$Subject$ExerciseToJson(
+            LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise instance) =>
+        <String, dynamic>{
+          'interaction': instance.interaction?.toJson(),
+        };
+
+LoadGauge$Query$Theme$Chapter$Notion$Subject
+    _$LoadGauge$Query$Theme$Chapter$Notion$SubjectFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Notion$Subject()
+    ..exercises = (json['exercises'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$LoadGauge$Query$Theme$Chapter$Notion$SubjectToJson(
+        LoadGauge$Query$Theme$Chapter$Notion$Subject instance) =>
+    <String, dynamic>{
+      'exercises': instance.exercises?.map((e) => e?.toJson())?.toList(),
+    };
+
+LoadGauge$Query$Theme$Chapter$Notion
+    _$LoadGauge$Query$Theme$Chapter$NotionFromJson(Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Notion()
+    ..courses = (json['courses'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme$Chapter$Notion$Course.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..subjects = (json['subjects'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme$Chapter$Notion$Subject.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$LoadGauge$Query$Theme$Chapter$NotionToJson(
+        LoadGauge$Query$Theme$Chapter$Notion instance) =>
+    <String, dynamic>{
+      'courses': instance.courses?.map((e) => e?.toJson())?.toList(),
+      'subjects': instance.subjects?.map((e) => e?.toJson())?.toList(),
+    };
+
+LoadGauge$Query$Theme$Chapter$Flashcard$Interaction
+    _$LoadGauge$Query$Theme$Chapter$Flashcard$InteractionFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Flashcard$Interaction()
+    ..comprehension = _$enumDecodeNullable(
+        _$LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehensionEnumMap,
+        json['comprehension'],
+        unknownValue:
+            LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehension
+                .ARTEMIS_UNKNOWN);
+}
+
+Map<String, dynamic>
+    _$LoadGauge$Query$Theme$Chapter$Flashcard$InteractionToJson(
+            LoadGauge$Query$Theme$Chapter$Flashcard$Interaction instance) =>
+        <String, dynamic>{
+          'comprehension':
+              _$LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehensionEnumMap[
+                  instance.comprehension],
+        };
+
+const _$LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehensionEnumMap =
+    {
+  LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehension
+      .blur: 'blur',
+  LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehension
+      .clear: 'clear',
+  LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehension
+      .ARTEMIS_UNKNOWN: 'ARTEMIS_UNKNOWN',
+};
+
+LoadGauge$Query$Theme$Chapter$Flashcard
+    _$LoadGauge$Query$Theme$Chapter$FlashcardFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Flashcard()
+    ..interaction = json['interaction'] == null
+        ? null
+        : LoadGauge$Query$Theme$Chapter$Flashcard$Interaction.fromJson(
+            json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$LoadGauge$Query$Theme$Chapter$FlashcardToJson(
+        LoadGauge$Query$Theme$Chapter$Flashcard instance) =>
+    <String, dynamic>{
+      'interaction': instance.interaction?.toJson(),
+    };
+
+LoadGauge$Query$Theme$Chapter$Exam$Interaction
+    _$LoadGauge$Query$Theme$Chapter$Exam$InteractionFromJson(
+        Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Exam$Interaction()
+    ..score = json['score'] as int
+    ..total = json['total'] as int;
+}
+
+Map<String, dynamic> _$LoadGauge$Query$Theme$Chapter$Exam$InteractionToJson(
+        LoadGauge$Query$Theme$Chapter$Exam$Interaction instance) =>
+    <String, dynamic>{
+      'score': instance.score,
+      'total': instance.total,
+    };
+
+LoadGauge$Query$Theme$Chapter$Exam _$LoadGauge$Query$Theme$Chapter$ExamFromJson(
+    Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter$Exam()
+    ..interaction = json['interaction'] == null
+        ? null
+        : LoadGauge$Query$Theme$Chapter$Exam$Interaction.fromJson(
+            json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$LoadGauge$Query$Theme$Chapter$ExamToJson(
+        LoadGauge$Query$Theme$Chapter$Exam instance) =>
+    <String, dynamic>{
+      'interaction': instance.interaction?.toJson(),
+    };
+
+LoadGauge$Query$Theme$Chapter _$LoadGauge$Query$Theme$ChapterFromJson(
+    Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme$Chapter()
+    ..id = json['id'] as String
+    ..notions = (json['notions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme$Chapter$Notion.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..flashcards = (json['flashcards'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme$Chapter$Flashcard.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..exams = (json['exams'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme$Chapter$Exam.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$LoadGauge$Query$Theme$ChapterToJson(
+        LoadGauge$Query$Theme$Chapter instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'notions': instance.notions?.map((e) => e?.toJson())?.toList(),
+      'flashcards': instance.flashcards?.map((e) => e?.toJson())?.toList(),
+      'exams': instance.exams?.map((e) => e?.toJson())?.toList(),
+    };
+
+LoadGauge$Query$Theme _$LoadGauge$Query$ThemeFromJson(
+    Map<String, dynamic> json) {
+  return LoadGauge$Query$Theme()
+    ..chapters = (json['chapters'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme$Chapter.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$LoadGauge$Query$ThemeToJson(
+        LoadGauge$Query$Theme instance) =>
+    <String, dynamic>{
+      'chapters': instance.chapters?.map((e) => e?.toJson())?.toList(),
+    };
+
+LoadGauge$Query _$LoadGauge$QueryFromJson(Map<String, dynamic> json) {
+  return LoadGauge$Query()
+    ..listThemes = (json['listThemes'] as List)
+        ?.map((e) => e == null
+            ? null
+            : LoadGauge$Query$Theme.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$LoadGauge$QueryToJson(LoadGauge$Query instance) =>
+    <String, dynamic>{
+      'listThemes': instance.listThemes?.map((e) => e?.toJson())?.toList(),
+    };
+
+LoadGaugeArguments _$LoadGaugeArgumentsFromJson(Map<String, dynamic> json) {
+  return LoadGaugeArguments(
+    gradeId: json['gradeId'] as String,
+    disciplineId: json['disciplineId'] as String,
+  );
+}
+
+Map<String, dynamic> _$LoadGaugeArgumentsToJson(LoadGaugeArguments instance) =>
+    <String, dynamic>{
+      'gradeId': instance.gradeId,
+      'disciplineId': instance.disciplineId,
+    };

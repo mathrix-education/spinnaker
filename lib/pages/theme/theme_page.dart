@@ -9,13 +9,20 @@ import 'package:mathrix_education_app/ui/widgets/progress_bar.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class ThemePage extends StatelessWidget {
+  /// The discipline id.
   final String disciplineId;
 
+  /// The discipline name.
   final String disciplineName;
 
+  /// The grade id.
   final String gradeId;
 
-  ThemePage({Key key, this.disciplineId, this.disciplineName, this.gradeId}) : super(key: key);
+  ThemePage({
+    this.disciplineId,
+    this.disciplineName,
+    this.gradeId,
+  });
 
   @override
   Widget build(BuildContext context) {

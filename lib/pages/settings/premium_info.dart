@@ -4,8 +4,6 @@ import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_card.dart';
 
 class PremiumInfo extends StatelessWidget {
-
-
   Widget build(BuildContext context) {
     return MtxCard(
       padding: EdgeInsets.symmetric(horizontal: 0),
