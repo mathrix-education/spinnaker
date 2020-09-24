@@ -181,37 +181,38 @@ Map<String, dynamic>
           'interaction': instance.interaction?.toJson(),
         };
 
-ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction
-    _$ReadChaptersInformations$Query$Chapter$Notion$Subject$InteractionFromJson(
+ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction
+    _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$InteractionFromJson(
         Map<String, dynamic> json) {
-  return ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction()
-    ..comprehension = _$enumDecodeNullable(
-        _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehensionEnumMap,
-        json['comprehension'],
-        unknownValue:
-            ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
-                .ARTEMIS_UNKNOWN);
+  return ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction()
+    ..score = json['score'] as int;
 }
 
 Map<String, dynamic>
-    _$ReadChaptersInformations$Query$Chapter$Notion$Subject$InteractionToJson(
-            ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction
+    _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$InteractionToJson(
+            ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction
                 instance) =>
         <String, dynamic>{
-          'comprehension':
-              _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehensionEnumMap[
-                  instance.comprehension],
+          'score': instance.score,
         };
 
-const _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehensionEnumMap =
-    {
-  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
-      .blur: 'blur',
-  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
-      .clear: 'clear',
-  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
-      .ARTEMIS_UNKNOWN: 'ARTEMIS_UNKNOWN',
-};
+ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise
+    _$ReadChaptersInformations$Query$Chapter$Notion$Subject$ExerciseFromJson(
+        Map<String, dynamic> json) {
+  return ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise()
+    ..interaction = json['interaction'] == null
+        ? null
+        : ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction
+            .fromJson(json['interaction'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic>
+    _$ReadChaptersInformations$Query$Chapter$Notion$Subject$ExerciseToJson(
+            ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise
+                instance) =>
+        <String, dynamic>{
+          'interaction': instance.interaction?.toJson(),
+        };
 
 ReadChaptersInformations$Query$Chapter$Notion$Subject
     _$ReadChaptersInformations$Query$Chapter$Notion$SubjectFromJson(
@@ -221,10 +222,12 @@ ReadChaptersInformations$Query$Chapter$Notion$Subject
     ..name = json['name'] as String
     ..premium = json['premium'] as bool
     ..order = json['order'] as int
-    ..interaction = json['interaction'] == null
-        ? null
-        : ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction
-            .fromJson(json['interaction'] as Map<String, dynamic>);
+    ..exercises = (json['exercises'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise
+                .fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic>
@@ -235,7 +238,7 @@ Map<String, dynamic>
           'name': instance.name,
           'premium': instance.premium,
           'order': instance.order,
-          'interaction': instance.interaction?.toJson(),
+          'exercises': instance.exercises?.map((e) => e?.toJson())?.toList(),
         };
 
 ReadChaptersInformations$Query$Chapter$Notion
@@ -338,7 +341,13 @@ ReadChaptersInformations$Query$Chapter$Exam$Interaction
         Map<String, dynamic> json) {
   return ReadChaptersInformations$Query$Chapter$Exam$Interaction()
     ..score = json['score'] as int
-    ..total = json['total'] as int;
+    ..total = json['total'] as int
+    ..comprehension = _$enumDecodeNullable(
+        _$ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehensionEnumMap,
+        json['comprehension'],
+        unknownValue:
+            ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+                .ARTEMIS_UNKNOWN);
 }
 
 Map<String, dynamic>
@@ -347,7 +356,20 @@ Map<String, dynamic>
         <String, dynamic>{
           'score': instance.score,
           'total': instance.total,
+          'comprehension':
+              _$ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehensionEnumMap[
+                  instance.comprehension],
         };
+
+const _$ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehensionEnumMap =
+    {
+  ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+      .blur: 'blur',
+  ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+      .clear: 'clear',
+  ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+      .ARTEMIS_UNKNOWN: 'ARTEMIS_UNKNOWN',
+};
 
 ReadChaptersInformations$Query$Chapter$Exam
     _$ReadChaptersInformations$Query$Chapter$ExamFromJson(

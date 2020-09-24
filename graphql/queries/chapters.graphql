@@ -1,46 +1,49 @@
 query ReadChaptersInformations($id: ID){
-  readChapter(id: $id) {
-    name
-    notions {
-      name
-      type
-      courses {
-        id
+    readChapter(id: $id) {
         name
-        premium
-        order
-        interaction {
-          comprehension
+        notions {
+            name
+            type
+            courses {
+                id
+                name
+                premium
+                order
+                interaction {
+                    comprehension
+                }
+            }
+            subjects {
+                id
+                name
+                premium
+                order
+                exercises{
+                    interaction{
+                        score
+                    }
+                }
+            }
         }
-      }
-      subjects {
-        id
-        name
-        premium
-        order
-        interaction {
-          comprehension
+        flashcards {
+            id
+            name
+            premium
+            interaction {
+                comprehension
+            }
         }
-      }
+        exams {
+            id
+            premium
+            owned
+            name
+            duration
+            interaction {
+                score
+                total
+                comprehension
+            }
+        }
     }
-    flashcards {
-      id
-      name
-      premium
-      interaction {
-        comprehension
-      }
-    }
-    exams {
-      id
-      premium
-      owned
-      name
-      duration
-      interaction {
-        score
-        total
-      }
-    }
-  }
 }

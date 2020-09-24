@@ -20,4 +20,14 @@ class Interaction {
   int score;
   int total;
   int watchtime;
+  Comprehension comprehension;
+
+  Interaction({
+    this.userId,
+    this.interactableId,
+    this.score,
+    this.total,
+    this.watchtime,
+    this.comprehension,
+  });
 }

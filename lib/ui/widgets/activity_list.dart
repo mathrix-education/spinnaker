@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/misc/vibration.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
+import 'package:mathrix_education_app/core/types/interactions.dart';
 import 'package:mathrix_education_app/ui/dialogs/premium_dialog.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
-import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
+import 'package:mathrix_education_app/ui/widgets/activity_container.dart';
 import 'package:provider/provider.dart';
 
 class ActivityListItem {
@@ -14,21 +15,26 @@ class ActivityListItem {
   final String id;
   final bool premium;
   final int order;
+  final Interaction interaction;
 
-  ActivityListItem({
+  const ActivityListItem({
     @required this.type,
     @required this.name,
     @required this.id,
     @required this.premium,
+    @required this.interaction,
     this.order,
   });
 }
 
 class ActivityList extends StatelessWidget {
+  /// The activity list name.
   final String name;
+
+  /// The activity list.
   final List<ActivityListItem> activityList;
 
-  ActivityList({Key key, this.name, this.activityList}) : super(key: key);
+  const ActivityList({this.name, this.activityList});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +42,11 @@ class ActivityList extends StatelessWidget {
       title: Headline4(text: activityList.length > 0 ? name : ''),
       itemList: activityList,
       builder: (activity) {
-        return ActivityCard(
+        return ActivityContainer(
           name: activity.name,
           premium: activity.premium,
           activityType: activity.type,
+          interaction: activity.interaction,
         );
       },
       onItemTap: (ActivityListItem activity) => _redirect(activity, context),
@@ -50,8 +57,9 @@ class ActivityList extends StatelessWidget {
     {
       Map<String, String> arguments;
       String routePath;
+      AppState appState = Provider.of<AppState>(context, listen: false);
 
-      if (Provider.of<AppState>(context, listen: false).user.premium == false && activity.premium == true) {
+      if (appState.user.premium == false && activity.premium == true) {
         hapticPokeFeedback();
         showDialog(
           context: context,
@@ -66,7 +74,6 @@ class ActivityList extends StatelessWidget {
           routePath = RoutePaths.course;
           break;
         case ActivityType.Summary:
-          // TODO: Handle this case.
           arguments = {'courseId': activity.id, 'courseName': activity.name};
           routePath = RoutePaths.course;
           break;

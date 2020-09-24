@@ -273,26 +273,41 @@ class ReadChaptersInformations$Query$Chapter$Notion$Course with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction
+class ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction
     with EquatableMixin {
-  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction();
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction();
 
-  factory ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction.fromJson(
+  factory ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction.fromJson(
           Map<String, dynamic> json) =>
-      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$InteractionFromJson(
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$InteractionFromJson(
           json);
 
-  @JsonKey(
-      unknownEnumValue:
-          ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
-              .ARTEMIS_UNKNOWN)
-  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension
-      comprehension;
+  int score;
 
   @override
-  List<Object> get props => [comprehension];
+  List<Object> get props => [score];
   Map<String, dynamic> toJson() =>
-      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$InteractionToJson(
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$InteractionToJson(
+          this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise();
+
+  factory ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$ExerciseFromJson(
+          json);
+
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction
+      interaction;
+
+  @override
+  List<Object> get props => [interaction];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$ExerciseToJson(
           this);
 }
 
@@ -313,10 +328,11 @@ class ReadChaptersInformations$Query$Chapter$Notion$Subject
 
   int order;
 
-  ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction interaction;
+  List<ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise>
+      exercises;
 
   @override
-  List<Object> get props => [id, name, premium, order, interaction];
+  List<Object> get props => [id, name, premium, order, exercises];
   Map<String, dynamic> toJson() =>
       _$ReadChaptersInformations$Query$Chapter$Notion$SubjectToJson(this);
 }
@@ -405,8 +421,15 @@ class ReadChaptersInformations$Query$Chapter$Exam$Interaction
 
   int total;
 
+  @JsonKey(
+      unknownEnumValue:
+          ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+      comprehension;
+
   @override
-  List<Object> get props => [score, total];
+  List<Object> get props => [score, total, comprehension];
   Map<String, dynamic> toJson() =>
       _$ReadChaptersInformations$Query$Chapter$Exam$InteractionToJson(this);
 }
@@ -483,12 +506,12 @@ enum ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction$Interactio
   clear,
   ARTEMIS_UNKNOWN,
 }
-enum ReadChaptersInformations$Query$Chapter$Notion$Subject$Interaction$InteractionComprehension {
+enum ReadChaptersInformations$Query$Chapter$Flashcard$Interaction$InteractionComprehension {
   blur,
   clear,
   ARTEMIS_UNKNOWN,
 }
-enum ReadChaptersInformations$Query$Chapter$Flashcard$Interaction$InteractionComprehension {
+enum ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension {
   blur,
   clear,
   ARTEMIS_UNKNOWN,
@@ -639,17 +662,25 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'interaction'),
+                                name: NameNode(value: 'exercises'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
                                   FieldNode(
-                                      name: NameNode(value: 'comprehension'),
+                                      name: NameNode(value: 'interaction'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
-                                      selectionSet: null)
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'score'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
                                 ]))
                           ]))
                     ])),
@@ -741,6 +772,12 @@ class ReadChaptersInformationsQuery extends GraphQLQuery<
                                 selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'total'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'comprehension'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
