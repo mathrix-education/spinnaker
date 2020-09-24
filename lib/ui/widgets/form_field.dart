@@ -10,6 +10,9 @@ class MtxTextFormField extends StatelessWidget {
     this.textInputType,
     this.obscureText = false,
     this.onTextChange,
+    this.textInputAction,
+    this.onFieldSubmitted,
+    this.focusNode,
   });
 
   /// The label text.
@@ -18,8 +21,15 @@ class MtxTextFormField extends StatelessWidget {
   /// The attribute.
   final String attribute;
 
+  /// The keyboard bottom right action.
+  final TextInputAction textInputAction;
+
+  /// Next button action
+  final void Function(String text) onFieldSubmitted;
+
   /// The text input type.
   final TextInputType textInputType;
+
 
   /// The list of validators.
   final List<FormFieldValidator> validators;
@@ -29,13 +39,18 @@ class MtxTextFormField extends StatelessWidget {
 
   final void Function(String text) onTextChange;
 
+  final FocusNode focusNode;
+
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
+      focusNode: focusNode,
       attribute: attribute,
       validators: validators ?? [],
       keyboardType: textInputType,
       obscureText: obscureText,
+      textInputAction: textInputAction,
+      onFieldSubmitted: onFieldSubmitted,
       onChanged: (text) {
         if (onTextChange != null) {
           onTextChange(text);

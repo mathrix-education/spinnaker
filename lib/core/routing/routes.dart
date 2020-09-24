@@ -1,6 +1,7 @@
 class RoutePaths {
   static const String authenticate = '/';
   static const String dashboard = '/dashboard';
+  static const String lostPassword = '/lost-password';
   static const String themes = '/themes';
   static const String menu = '/menu';
   static const String course = '/course';

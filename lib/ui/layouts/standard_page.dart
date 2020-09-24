@@ -16,9 +16,10 @@ class StandardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       appBar: CustomAppBar(
-        title: title,
-      ),
+      title: title,
+    ),
       body: body,
       bottomNavigationBar: bottomNavigationBar,
     );

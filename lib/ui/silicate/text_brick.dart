@@ -1,14 +1,17 @@
-import 'package:catex/catex.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 
-class TextBrick  extends StatelessWidget {
+TeXViewWidget textBrick(Map<String, dynamic> brick) {
+  String convertedText = '';
+  bool odd = true;
 
-  final Map<String, dynamic> brick;
-
-  const TextBrick({Key key, this.brick}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(brick['text']);
+  for (String letter in brick['text'].split('')) {
+    if (letter == '\$') {
+      convertedText += (odd ? '\\(' : '\\)');
+      odd = !odd;
+    } else {
+      convertedText += letter;
+    }
   }
+
+  return TeXViewDocument(convertedText);
 }

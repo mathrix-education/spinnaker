@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:mathrix_education_app/ui/silicate/image_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/pdf_viewer_brick.dart';
 import 'package:mathrix_education_app/ui/silicate/text_brick.dart';
@@ -14,43 +15,40 @@ class SilicateWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: wall.map((brick) => brickResolver(brick)).toList(),
+    return TeXView(
+      child: TeXViewColumn(
+        children: wall.map((brick) => brickResolver(brick)).toList(),
+      ),
     );
   }
 
-  static Widget brickResolver(Map<String, dynamic> brickData) {
+  static TeXViewWidget brickResolver(Map<String, dynamic> brickData) {
     String kind = brickData['kind'];
-
-    Widget widget;
-
+    TeXViewWidget teXViewWidget;
     switch (kind) {
       case 'text':
-        widget = TextBrick(brick: brickData);
+        teXViewWidget = textBrick(brickData);
         break;
       case 'title':
-        widget = TitleBrick(brick: brickData);
+        teXViewWidget = titleBrick(brickData);
         break;
       case 'container':
-        widget = ContainerBrick(brick: brickData);
+        teXViewWidget = containerBrick(brickData);
         break;
-      case 'video':
-        widget = VideoBrick(brick: brickData);
-        break;
-      case 'image':
-        widget = ImageBrick(brick: brickData);
-        break;
-      case 'pdf-viewer':
-        widget = PdfViewerBrick(brick: brickData);
+      default:
+        teXViewWidget = TeXViewDocument('default');
+      // case 'video':
+      //   widget = VideoBrick(brick: brickData);
+      //   break;
+      // case 'image':
+      //   widget = ImageBrick(brick: brickData);
+      //   break;
+      // case 'pdf-viewer':
+      //   widget = PdfViewerBrick(brick: brickData);
     }
 
-    return widget != null ? Container(padding: EdgeInsets.symmetric(vertical: 8), child: widget) : SizedBox.shrink();
+    return teXViewWidget;
 
-    // return (bricksMap[kind])()(brick: brickData); // TODO
+    // return widget != null ? Container(padding: EdgeInsets.symmetric(vertical: 8), child: widget) : SizedBox.shrink();
   }
-
-  static Map<String, dynamic> bricksMap = {
-    'text': TextBrick,
-  };
 }
