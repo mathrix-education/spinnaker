@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mathrix_education_app/ui/buttons/primary_button.dart';
 import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
+
+import 'button_text.dart';
 
 class PrimaryTextButton extends StatelessWidget {
   /// The button inner text.
@@ -24,21 +27,8 @@ class PrimaryTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 48,
-      width: width,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        color: yellow,
-        disabledColor: grey,
-        onPressed: enabled ? onPressed : null,
-        child: Center(
-          child: BodyBold(
-            text: text,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
+    return PrimaryButton(
+      onPressed: onPressed,
+        child: ButtonText(text: text));
   }
 }

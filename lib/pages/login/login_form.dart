@@ -40,15 +40,13 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
-    print('init state');
-
+    // formKey.currentState.reset();
     passwordFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    print('dispose');
     passwordFocusNode.dispose();
 
     super.dispose();
@@ -59,7 +57,6 @@ class _LoginFormState extends State<LoginForm> {
     // Build a Form widget using the _formKey created above.
     return FormBuilder(
       key: formKey,
-      initialValue: {'email': '', 'password': ''},
       child: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -68,7 +65,7 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               height: 85,
               child: MtxTextFormField(
-                label: "Emails",
+                label: 'Email',
                 attribute: 'email',
                 textInputType: TextInputType.emailAddress,
                 validators: emailValidators,
@@ -77,14 +74,13 @@ class _LoginFormState extends State<LoginForm> {
                 onFieldSubmitted: (_) => passwordFocusNode.requestFocus(),
               ),
             ),
-            SizedBox(height: 16),
             SizedBox(
               height: 85,
               child: MtxTextFormField(
-                label: "Mot de passe",
+                label: 'Mot de passe',
                 attribute: 'password',
                 obscureText: true,
-                textInputType: TextInputType.visiblePassword,
+                textInputType: TextInputType.text,
                 validators: passwordValidators,
                 onTextChange: (s) => validateForm(),
                 textInputAction: TextInputAction.done,
@@ -114,9 +110,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void validateForm() {
-    var form = formKey.currentState;
     setState(() {
-      formValid = form.saveAndValidate() && form.value['password'] != '';
+      formValid = formKey.currentState.saveAndValidate();
     });
   }
 

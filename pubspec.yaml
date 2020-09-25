@@ -36,6 +36,7 @@ dependencies:
   advance_pdf_viewer: ^1.2.0
   video_player: ^0.10.12
   flutter_tex: ^3.6.7
+  progress_button: ^0.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
