@@ -7,6 +7,10 @@ import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/pages/login/social_section.dart';
 import 'package:mathrix_education_app/pages/login/top_section.dart';
+import 'package:mathrix_education_app/ui/texts/body.dart';
+import 'package:mathrix_education_app/ui/texts/headline_1.dart';
+import 'package:mathrix_education_app/ui/texts/underlined.dart';
+import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:provider/provider.dart';
 import 'login_form.dart';
 
@@ -23,24 +27,34 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 32, horizontal: 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TopSection(
-              primaryText: widget.primaryText,
-              subtitleText: widget.subtitleText,
-              actionText: widget.actionText,
-              onAction: () => setState(() {
-                widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
-              }),
-            ),
+            Headline1(text: widget.primaryText, color: green),
             LoginForm(
-              loginMode: widget.mode,
-              onLogin: _finalizeAuthentication,
-              onForgotPasswordTap: () => {
-                Navigator.pushNamed(context, RoutePaths.lostPassword)
-              }
-            ),
-            KeyboardVisibilityProvider(child: SocialSection(onLogin: _finalizeAuthentication)),
+                loginMode: widget.mode,
+                onLogin: _finalizeAuthentication,
+                onForgotPasswordTap: () => {Navigator.pushNamed(context, RoutePaths.lostPassword)}),
+            KeyboardVisibilityProvider(
+                child: Column(
+              children: [
+                SizedBox(height: 80),
+                SocialSection(onLogin: _finalizeAuthentication),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Body(text: widget.subtitleText),
+                    SizedBox(width: 8.0),
+                    GestureDetector(
+                      onTap: () => setState(() {
+                        widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
+                      }),
+                      child: Underlined(
+                        text: widget.actionText,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
           ],
         ),
       ),

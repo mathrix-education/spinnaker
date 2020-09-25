@@ -7,6 +7,7 @@ import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
 import 'package:mathrix_education_app/ui/buttons/progress_button.dart';
+import 'package:mathrix_education_app/ui/texts/underlined.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/variables/validators.dart';
 import 'package:mathrix_education_app/ui/widgets/form_field.dart';
@@ -64,44 +65,37 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           children: [
             // Add TextFormFields and RaisedButton here.
-            SizedBox(
-              height: 85,
-              child: MtxTextFormField(
-                label: 'Email',
-                attribute: 'email',
-                textInputType: TextInputType.emailAddress,
-                validators: emailValidators,
-                onTextChange: (s) => validateForm(),
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) => passwordFocusNode.requestFocus(),
-              ),
+            MtxTextFormField(
+              label: 'Email',
+              attribute: 'email',
+              textInputType: TextInputType.emailAddress,
+              validators: emailValidators,
+              onTextChange: (s) => validateForm(),
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (_) => passwordFocusNode.requestFocus(),
             ),
-            SizedBox(
-              height: 85,
-              child: MtxTextFormField(
-                label: 'Mot de passe',
-                attribute: 'password',
-                obscureText: true,
-                textInputType: TextInputType.text,
-                validators: passwordValidators, // TODO validator not working
-                onTextChange: (s) => validateForm(),
-                textInputAction: TextInputAction.done,
-                onFieldSubmitted: (s) => _authenticate(context),
-                focusNode: passwordFocusNode,
-              ),
+            MtxTextFormField(
+              label: 'Mot de passe',
+              attribute: 'password',
+              obscureText: true,
+              textInputType: TextInputType.text,
+              validators: passwordValidators, // TODO validator not working
+              onTextChange: (s) => validateForm(),
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (s) => _authenticate(context),
+              focusNode: passwordFocusNode,
             ),
             Container(
               padding: EdgeInsets.only(bottom: 16),
               alignment: Alignment.centerRight,
               child: GestureDetector(
                 onTap: () => widget.onForgotPasswordTap(),
-                child: Text(
-                  widget.loginMode == LoginMode.Login ? 'Mot de passe oublié?' : '',
-                  textAlign: TextAlign.end,
-                  style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: green),
+                child: Underlined(
+                  text: widget.loginMode == LoginMode.Login ? 'Mot de passe oublié?' : '',
                 ),
               ),
             ),
+            SizedBox(height: 20),
             ProgressButton(
               text: 'Se connecter',
               onPressed: () => _authenticate(context),
