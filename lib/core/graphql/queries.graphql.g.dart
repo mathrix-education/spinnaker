@@ -2516,3 +2516,62 @@ Map<String, dynamic> _$Me$Query$User$GradeToJson(
       'slug': instance.slug,
       'disciplines': instance.disciplines?.map((e) => e?.toJson())?.toList(),
     };
+
+ListPlans$Query$Plan$PlanPeriod _$ListPlans$Query$Plan$PlanPeriodFromJson(
+    Map<String, dynamic> json) {
+  return ListPlans$Query$Plan$PlanPeriod()
+    ..length = json['length'] as int
+    ..unit = _$enumDecodeNullable(
+        _$ListPlans$Query$Plan$PlanPeriod$PlanIntervalEnumMap, json['unit'],
+        unknownValue:
+            ListPlans$Query$Plan$PlanPeriod$PlanInterval.ARTEMIS_UNKNOWN);
+}
+
+Map<String, dynamic> _$ListPlans$Query$Plan$PlanPeriodToJson(
+        ListPlans$Query$Plan$PlanPeriod instance) =>
+    <String, dynamic>{
+      'length': instance.length,
+      'unit':
+          _$ListPlans$Query$Plan$PlanPeriod$PlanIntervalEnumMap[instance.unit],
+    };
+
+const _$ListPlans$Query$Plan$PlanPeriod$PlanIntervalEnumMap = {
+  ListPlans$Query$Plan$PlanPeriod$PlanInterval.day: 'day',
+  ListPlans$Query$Plan$PlanPeriod$PlanInterval.month: 'month',
+  ListPlans$Query$Plan$PlanPeriod$PlanInterval.week: 'week',
+  ListPlans$Query$Plan$PlanPeriod$PlanInterval.year: 'year',
+  ListPlans$Query$Plan$PlanPeriod$PlanInterval.ARTEMIS_UNKNOWN:
+      'ARTEMIS_UNKNOWN',
+};
+
+ListPlans$Query$Plan _$ListPlans$Query$PlanFromJson(Map<String, dynamic> json) {
+  return ListPlans$Query$Plan()
+    ..id = json['id'] as String
+    ..period = json['period'] == null
+        ? null
+        : ListPlans$Query$Plan$PlanPeriod.fromJson(
+            json['period'] as Map<String, dynamic>)
+    ..price = json['price'] as int;
+}
+
+Map<String, dynamic> _$ListPlans$Query$PlanToJson(
+        ListPlans$Query$Plan instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'period': instance.period?.toJson(),
+      'price': instance.price,
+    };
+
+ListPlans$Query _$ListPlans$QueryFromJson(Map<String, dynamic> json) {
+  return ListPlans$Query()
+    ..listPlans = (json['listPlans'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ListPlans$Query$Plan.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ListPlans$QueryToJson(ListPlans$Query instance) =>
+    <String, dynamic>{
+      'listPlans': instance.listPlans?.map((e) => e?.toJson())?.toList(),
+    };

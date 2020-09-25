@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     GraphQLConfiguration.token.then((_) {
       Provider.of<AppState>(context, listen: false).loadUser();
-      String routeName = (GraphQLConfiguration.isLogged()) ? "/dashboard" : "/";
+      String routeName = (GraphQLConfiguration.isLogged()) ?RoutePaths.premium : RoutePaths.authenticate; // TODO
       if (ModalRoute.of(context).settings.name != routeName) {
         Navigator.of(context).pushNamedAndRemoveUntil(routeName, (_) => false);
       }

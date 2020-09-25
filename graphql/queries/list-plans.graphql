@@ -1,0 +1,10 @@
+query ListPlans {
+  listPlans {
+    id
+    period {
+      length
+      unit
+    }
+    price
+  }
+}
