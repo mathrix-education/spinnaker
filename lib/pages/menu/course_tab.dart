@@ -45,7 +45,6 @@ class CourseTab extends StatelessWidget {
           bool hasCompletedOneExercise = false;
 
           e.exercises.forEach((element) {
-            print(element);
             if (element.interaction != null) {
               score += element.interaction.score ?? 0;
               hasCompletedOneExercise = true;

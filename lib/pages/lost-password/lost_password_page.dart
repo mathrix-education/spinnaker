@@ -66,8 +66,6 @@ class _LostPasswordState extends State<LostPasswordPage> {
           isStep2 = true;
         });
         ForgotPassword$Mutation forgotPassword$Mutation = ForgotPassword$Mutation.fromJson(result.data);
-        print('a');
-        print(result.data);
       }
     }
   }

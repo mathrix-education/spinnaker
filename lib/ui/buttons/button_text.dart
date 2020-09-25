@@ -12,7 +12,6 @@ class ButtonText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(text);
     return BodyBold(
       text: text,
       textAlign: TextAlign.center,

@@ -142,7 +142,6 @@ class _ThemePageState extends State<ThemePage> {
         });
       });
       setState(() {
-        print('setState');
         themeValues = tempThemeValues;
       });
     }
