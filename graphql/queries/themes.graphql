@@ -1,5 +1,6 @@
 query  ListThemesChaptersFromDisciplines($gradeId: ID!, $disciplineId: ID!) {
   listThemes(gradeId: $gradeId, disciplineId: $disciplineId) {
+    id
     name
     chapters {
       id

@@ -332,22 +332,48 @@ class LoginWithFacebook$Mutation with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class LoginWithFacebookArguments extends JsonSerializable with EquatableMixin {
-  LoginWithFacebookArguments({@required this.accessToken});
+class ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction();
 
-  factory LoginWithFacebookArguments.fromJson(Map<String, dynamic> json) =>
-      _$LoginWithFacebookArgumentsFromJson(json);
+  factory ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$InteractionFromJson(
+          json);
 
-  final String accessToken;
+  int score;
 
   @override
-  List<Object> get props => [accessToken];
-  Map<String, dynamic> toJson() => _$LoginWithFacebookArgumentsToJson(this);
+  List<Object> get props => [score];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$InteractionToJson(
+          this);
 }
 
-class LoginWithFacebookMutation extends GraphQLQuery<LoginWithFacebook$Mutation,
-    LoginWithFacebookArguments> {
-  LoginWithFacebookMutation({this.variables});
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise();
+
+  factory ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise.fromJson(
+          Map<String, dynamic> json) =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$ExerciseFromJson(
+          json);
+
+  ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise$Interaction
+      interaction;
+
+  @override
+  List<Object> get props => [interaction];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$Subject$ExerciseToJson(
+          this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ReadChaptersInformations$Query$Chapter$Notion$Subject
+    with EquatableMixin {
+  ReadChaptersInformations$Query$Chapter$Notion$Subject();
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
@@ -390,11 +416,17 @@ class LoginWithFacebookMutation extends GraphQLQuery<LoginWithFacebook$Mutation,
   @override
   final LoginWithFacebookArguments variables;
 
+  bool premium;
+
+  int order;
+
+  List<ReadChaptersInformations$Query$Chapter$Notion$Subject$Exercise>
+      exercises;
+
   @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  LoginWithFacebook$Mutation parse(Map<String, dynamic> json) =>
-      LoginWithFacebook$Mutation.fromJson(json);
+  List<Object> get props => [id, name, premium, order, exercises];
+  Map<String, dynamic> toJson() =>
+      _$ReadChaptersInformations$Query$Chapter$Notion$SubjectToJson(this);
 }
 
 mixin UpdateMe$BasicUserMixin {
@@ -489,8 +521,17 @@ class UpdateMe$Mutation$User$Training with EquatableMixin {
 
   String id;
 
+  int total;
+
+  @JsonKey(
+      unknownEnumValue:
+          ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension
+      comprehension;
+
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [score, total, comprehension];
   Map<String, dynamic> toJson() =>
       _$UpdateMe$Mutation$User$TrainingToJson(this);
 }
@@ -551,9 +592,26 @@ class UpdateMeArguments extends JsonSerializable with EquatableMixin {
   Map<String, dynamic> toJson() => _$UpdateMeArgumentsToJson(this);
 }
 
-class UpdateMeMutation
-    extends GraphQLQuery<UpdateMe$Mutation, UpdateMeArguments> {
-  UpdateMeMutation({this.variables});
+enum ReadChaptersInformations$Query$Chapter$Notion$NotionType {
+  standard,
+  summary,
+  ARTEMIS_UNKNOWN,
+}
+enum ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+enum ReadChaptersInformations$Query$Chapter$Flashcard$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+enum ReadChaptersInformations$Query$Chapter$Exam$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
@@ -680,7 +738,116 @@ class UpdateMeMutation
                     alias: null,
                     arguments: [],
                     directives: [],
-                    selectionSet: null),
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'type'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'courses'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'premium'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'order'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'interaction'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'comprehension'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
+                          ])),
+                      FieldNode(
+                          name: NameNode(value: 'subjects'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'premium'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'order'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'exercises'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'interaction'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'score'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
+                                ]))
+                          ]))
+                    ])),
                 FieldNode(
                     name: NameNode(value: 'disciplines'),
                     alias: null,
@@ -983,6 +1150,12 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
                                 selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'total'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'comprehension'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -2879,6 +3052,439 @@ class ReadFlashcardQuery
 }
 
 @JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction
+    with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction();
+
+  factory LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$Course$InteractionFromJson(json);
+
+  @JsonKey(
+      unknownEnumValue:
+          LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehension
+      comprehension;
+
+  @override
+  List<Object> get props => [comprehension];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$Course$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Notion$Course with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Notion$Course();
+
+  factory LoadGauge$Query$Theme$Chapter$Notion$Course.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$CourseFromJson(json);
+
+  LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction interaction;
+
+  @override
+  List<Object> get props => [interaction];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$CourseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction
+    with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction();
+
+  factory LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$InteractionFromJson(
+          json);
+
+  int score;
+
+  @override
+  List<Object> get props => [score];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$InteractionToJson(
+          this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise
+    with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise();
+
+  factory LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$Subject$ExerciseFromJson(json);
+
+  LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise$Interaction interaction;
+
+  @override
+  List<Object> get props => [interaction];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$Subject$ExerciseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Notion$Subject with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Notion$Subject();
+
+  factory LoadGauge$Query$Theme$Chapter$Notion$Subject.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$SubjectFromJson(json);
+
+  List<LoadGauge$Query$Theme$Chapter$Notion$Subject$Exercise> exercises;
+
+  @override
+  List<Object> get props => [exercises];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$Notion$SubjectToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Notion with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Notion();
+
+  factory LoadGauge$Query$Theme$Chapter$Notion.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$NotionFromJson(json);
+
+  List<LoadGauge$Query$Theme$Chapter$Notion$Course> courses;
+
+  List<LoadGauge$Query$Theme$Chapter$Notion$Subject> subjects;
+
+  @override
+  List<Object> get props => [courses, subjects];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$NotionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Flashcard$Interaction with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Flashcard$Interaction();
+
+  factory LoadGauge$Query$Theme$Chapter$Flashcard$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$Flashcard$InteractionFromJson(json);
+
+  @JsonKey(
+      unknownEnumValue:
+          LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehension
+              .ARTEMIS_UNKNOWN)
+  LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehension
+      comprehension;
+
+  @override
+  List<Object> get props => [comprehension];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$Flashcard$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Flashcard with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Flashcard();
+
+  factory LoadGauge$Query$Theme$Chapter$Flashcard.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$FlashcardFromJson(json);
+
+  LoadGauge$Query$Theme$Chapter$Flashcard$Interaction interaction;
+
+  @override
+  List<Object> get props => [interaction];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$FlashcardToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Exam$Interaction with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Exam$Interaction();
+
+  factory LoadGauge$Query$Theme$Chapter$Exam$Interaction.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$Exam$InteractionFromJson(json);
+
+  int score;
+
+  int total;
+
+  @override
+  List<Object> get props => [score, total];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$Exam$InteractionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter$Exam with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter$Exam();
+
+  factory LoadGauge$Query$Theme$Chapter$Exam.fromJson(
+          Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$Chapter$ExamFromJson(json);
+
+  LoadGauge$Query$Theme$Chapter$Exam$Interaction interaction;
+
+  @override
+  List<Object> get props => [interaction];
+  Map<String, dynamic> toJson() =>
+      _$LoadGauge$Query$Theme$Chapter$ExamToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme$Chapter with EquatableMixin {
+  LoadGauge$Query$Theme$Chapter();
+
+  factory LoadGauge$Query$Theme$Chapter.fromJson(Map<String, dynamic> json) =>
+      _$LoadGauge$Query$Theme$ChapterFromJson(json);
+
+  String id;
+
+  List<LoadGauge$Query$Theme$Chapter$Notion> notions;
+
+  List<LoadGauge$Query$Theme$Chapter$Flashcard> flashcards;
+
+  List<LoadGauge$Query$Theme$Chapter$Exam> exams;
+
+  @override
+  List<Object> get props => [id, notions, flashcards, exams];
+  Map<String, dynamic> toJson() => _$LoadGauge$Query$Theme$ChapterToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query$Theme with EquatableMixin {
+  LoadGauge$Query$Theme();
+
+  factory LoadGauge$Query$Theme.fromJson(Map<String, dynamic> json) =>
+      _$LoadGauge$Query$ThemeFromJson(json);
+
+  String id;
+
+  List<LoadGauge$Query$Theme$Chapter> chapters;
+
+  @override
+  List<Object> get props => [id, chapters];
+  Map<String, dynamic> toJson() => _$LoadGauge$Query$ThemeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGauge$Query with EquatableMixin {
+  LoadGauge$Query();
+
+  factory LoadGauge$Query.fromJson(Map<String, dynamic> json) =>
+      _$LoadGauge$QueryFromJson(json);
+
+  List<LoadGauge$Query$Theme> listThemes;
+
+  @override
+  List<Object> get props => [listThemes];
+  Map<String, dynamic> toJson() => _$LoadGauge$QueryToJson(this);
+}
+
+enum LoadGauge$Query$Theme$Chapter$Notion$Course$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+enum LoadGauge$Query$Theme$Chapter$Flashcard$Interaction$InteractionComprehension {
+  blur,
+  clear,
+  ARTEMIS_UNKNOWN,
+}
+
+@JsonSerializable(explicitToJson: true)
+class LoadGaugeArguments extends JsonSerializable with EquatableMixin {
+  LoadGaugeArguments({@required this.gradeId, @required this.disciplineId});
+
+  factory LoadGaugeArguments.fromJson(Map<String, dynamic> json) =>
+      _$LoadGaugeArgumentsFromJson(json);
+
+  final String gradeId;
+
+  final String disciplineId;
+
+  @override
+  List<Object> get props => [gradeId, disciplineId];
+  Map<String, dynamic> toJson() => _$LoadGaugeArgumentsToJson(this);
+}
+
+class LoadGaugeQuery extends GraphQLQuery<LoadGauge$Query, LoadGaugeArguments> {
+  LoadGaugeQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'LoadGauge'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'gradeId')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'disciplineId')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'listThemes'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'gradeId'),
+                    value: VariableNode(name: NameNode(value: 'gradeId'))),
+                ArgumentNode(
+                    name: NameNode(value: 'disciplineId'),
+                    value: VariableNode(name: NameNode(value: 'disciplineId')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'chapters'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'id'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'notions'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'courses'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'interaction'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(
+                                                value: 'comprehension'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'subjects'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'exercises'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name:
+                                                NameNode(value: 'interaction'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet:
+                                                SelectionSetNode(selections: [
+                                              FieldNode(
+                                                  name:
+                                                      NameNode(value: 'score'),
+                                                  alias: null,
+                                                  arguments: [],
+                                                  directives: [],
+                                                  selectionSet: null)
+                                            ]))
+                                      ]))
+                                ]))
+                          ])),
+                      FieldNode(
+                          name: NameNode(value: 'flashcards'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'interaction'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'comprehension'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
+                          ])),
+                      FieldNode(
+                          name: NameNode(value: 'exams'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'interaction'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'score'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'total'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'LoadGauge';
+
+  @override
+  final LoadGaugeArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  LoadGauge$Query parse(Map<String, dynamic> json) =>
+      LoadGauge$Query.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
 class LoginWithGoogle$Mutation$JWT with EquatableMixin {
   LoginWithGoogle$Mutation$JWT();
 
@@ -3499,7 +4105,9 @@ class ListDisciplines$Query with EquatableMixin {
   factory ListDisciplines$Query.fromJson(Map<String, dynamic> json) =>
       _$ListDisciplines$QueryFromJson(json);
 
-  List<ListDisciplines$Query$Discipline> listDisciplines;
+  String id;
+
+  String name;
 
   @override
   List<Object> get props => [listDisciplines];
@@ -3511,49 +4119,9 @@ class ListDisciplinesQuery
   ListDisciplinesQuery();
 
   @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'ListDisciplines'),
-        variableDefinitions: [],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'listDisciplines'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'slug'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null)
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'ListDisciplines';
-
-  @override
-  List<Object> get props => [document, operationName];
-  @override
-  ListDisciplines$Query parse(Map<String, dynamic> json) =>
-      ListDisciplines$Query.fromJson(json);
+  List<Object> get props => [id, name, chapters];
+  Map<String, dynamic> toJson() =>
+      _$ListThemesChaptersFromDisciplines$Query$ThemeToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -3627,7 +4195,13 @@ class ReadLessonQuery
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'content'),
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'name'),
                     alias: null,
                     arguments: [],
                     directives: [],

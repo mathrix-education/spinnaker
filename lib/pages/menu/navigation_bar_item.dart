@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/ui/texts/body_bold.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
-class MtxNavigationBarItem implements BottomNavigationBarItem {
-  final bool selected;
+class NavigationBarItem implements BottomNavigationBarItem {
+  /// The text item.
   final String text;
+  /// If the item is selected.
+  final bool selected;
 
-  MtxNavigationBarItem({
-    this.selected,
-    this.text,
-  });
+
+  NavigationBarItem({this.selected, this.text});
 
   @override
   Widget get activeIcon => BodyBold(

@@ -52,7 +52,7 @@ extension ActivitySlug on ActivityType {
   }
 }
 
-class ActivityCard extends StatelessWidget {
+class ActivityContainer extends StatelessWidget {
   /// The activity name.
   final String name;
 
@@ -65,7 +65,7 @@ class ActivityCard extends StatelessWidget {
   /// The interaction .
   final Interaction interaction;
 
-  const ActivityCard({
+  const ActivityContainer({
     @required this.name,
     @required this.premium,
     @required this.activityType,
@@ -149,14 +149,41 @@ class ActivityCard extends StatelessWidget {
   }
 
   String get text {
-    return 'Validé';
+    if (interaction == null) {
+      return '';
+    }
+    if (interaction?.comprehension != null) {
+      return interaction.comprehension == Comprehension.clear ? 'Validé' : 'À revoir';
+    } else if (interaction.score != null && interaction.total != null) {
+      int score = interaction.score;
+      int total = interaction.total;
+      return '$score/$total';
+    }
+    return '';
   }
 
   Color get textColor {
-    return jade;
+    if (interaction == null) {
+      return null;
+    }
+    if (interaction?.comprehension != null) {
+      return interaction.comprehension == Comprehension.clear ? jade : blue;
+    } else if (interaction?.score != null && interaction?.total != null) {
+      return orange;
+    }
+    return null;
   }
 
   Color get backgroundColor {
-    return greenLight2;
+    if (interaction == null) {
+      return null;
+    }
+
+    if (interaction.comprehension != null) {
+      return interaction.comprehension == Comprehension.clear ? greenLight2 : blueLight;
+    } else if (interaction.score != null && interaction.total != null) {
+      return orangeLight;
+    }
+    return null;
   }
 }

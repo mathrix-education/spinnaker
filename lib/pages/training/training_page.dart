@@ -4,7 +4,7 @@ import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
-import 'package:mathrix_education_app/ui/widgets/activity_card.dart';
+import 'package:mathrix_education_app/ui/widgets/activity_container.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 
 class TrainingPage extends StatelessWidget {
@@ -29,7 +29,7 @@ class TrainingPage extends StatelessWidget {
                 title: Headline4(text: sections[index].name),
                 itemList: sections[index].lessons,
                 builder: (ReadTraining$Query$Training$Section$Lesson item) {
-                  return ActivityCard(
+                  return ActivityContainer(
                     name: item.name,
                     activityType: ActivityType.Course,
                     premium: false,

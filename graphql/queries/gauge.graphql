@@ -1,0 +1,33 @@
+query LoadGauge($gradeId: ID!, $disciplineId: ID!){
+  listThemes(gradeId: $gradeId, disciplineId: $disciplineId){
+    id
+    chapters{
+      id
+      notions {
+        courses{
+          interaction {
+            comprehension
+          }
+        }
+        subjects {
+          exercises {
+            interaction {
+              score
+            }
+          }
+        }
+      }
+      flashcards {
+        interaction {
+          comprehension
+        }
+      }
+      exams {
+        interaction {
+          score
+          total
+        }
+      }
+    }
+  }
+}

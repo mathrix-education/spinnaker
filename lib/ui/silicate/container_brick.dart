@@ -1,50 +1,46 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_tex/flutter_tex.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
 import 'package:mathrix_education_app/ui/texts/Headline_3.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
-TeXViewWidget containerBrick(Map<String, dynamic> brick) {
-  String prefix = brick['prefix'];
-  String suffix = brick['suffix'];
-  String variant = brick['variant'];
-  String title = variantTitleMap[variant];
+class ContainerBrick extends StatelessWidget {
+  final Map<String, dynamic> brick;
 
-  Color color = variantColorMap[variant] ?? green;
+  const ContainerBrick({this.brick});
 
-  return TeXViewContainer(
-    style: TeXViewStyle(border: TeXViewBorder.only(left: TeXViewBorderDecoration(borderWidth: 2, borderColor: color))),
-    child: TeXViewColumn(
-      children: [
-        TeXViewDocument(
-          '$prefix $title $suffix',
-          style: TeXViewStyle(contentColor: color, fontStyle: TeXViewFontStyle(fontSize: 18)), // TODO
-        ),
-        // Container(padding: EdgeInsets.only(left: 8), child: SilicateWrapper(wall: brick['wall'])),
-      ],
-    ),
-  );
+  @override
+  Widget build(BuildContext context) {
+    String prefix = brick['prefix'];
+    String suffix = brick['suffix'];
+    String variant = brick['variant'];
+    String title = variantTitleMap[variant];
+
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Headline3(text: '$prefix $title $suffix', color: variantColorMap[variant] ?? green),
+      SilicateWrapper(wall: brick['wall']),
+    ]);
+  }
+
+  static Map<String, String> variantTitleMap = {
+    'corollary': 'Corollaire',
+    'definition': 'Définition',
+    'example': 'Exemple',
+    'demonstration': 'Démonstration',
+    'lemma': 'Lemme',
+    'introduction': 'Introduction',
+    'property': 'Propriété',
+    'proposition': 'Proposition',
+    'law': 'Loi',
+    'remark': 'Remarque',
+    'theorem': 'Théorème',
+    'step': 'Étape',
+    'reciprocal': 'Réciproque',
+    'problematic': 'Problématique',
+    'conclusion': 'Conclusion',
+  };
+
+  static Map<String, Color> variantColorMap = {
+    'definition': blue,
+    'theorem': orange,
+  };
 }
-
-Map<String, String> variantTitleMap = {
-  'corollary': 'Corollaire',
-  'definition': 'Définition',
-  'example': 'Exemple',
-  'demonstration': 'Démonstration',
-  'lemma': 'Lemme',
-  'introduction': 'Introduction',
-  'property': 'Propriété',
-  'proposition': 'Proposition',
-  'law': 'Loi',
-  'remark': 'Remarque',
-  'theorem': 'Théorème',
-  'step': 'Étape',
-  'reciprocal': 'Réciproque',
-  'problematic': 'Problématique',
-  'conclusion': 'Conclusion',
-};
-
-Map<String, Color> variantColorMap = {
-  'definition': blue,
-  'theorem': orange,
-};

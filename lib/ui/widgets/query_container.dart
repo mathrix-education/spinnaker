@@ -33,7 +33,7 @@ class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable
         FetchMore fetchMore,
       }) {
         if (result.hasException) {
-          return Text(result.exception.toString());
+          return Text(result.exception.toString()); // TODO
         }
 
         if (result.loading) {
@@ -45,7 +45,7 @@ class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable
         }
 
         return LoadingBody();
-      },
+      }
     );
   }
 }

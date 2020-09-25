@@ -1,4 +1,5 @@
-import 'package:flutter_tex/flutter_tex.dart';
+import 'package:catex/catex.dart';
+import 'package:flutter/widgets.dart';
 
 class TextBrick extends StatelessWidget {
   final Map<String, dynamic> brick;
