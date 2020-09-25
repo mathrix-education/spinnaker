@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
-import 'package:mathrix_education_app/ui/widgets/discipline_card.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
-import 'package:mathrix_education_app/ui/widgets/skeleton_view.dart';
 import 'package:mathrix_education_app/ui/widgets/skeletons.dart';
 
 class DisciplineTab extends StatefulWidget {

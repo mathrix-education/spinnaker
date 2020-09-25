@@ -22,7 +22,6 @@ class PasswordForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TitleGreen(text: 'Changer de mot de passe'),
-          const SizedBox(height: 16),
           MtxTextFormField(
             label: 'Mot de passe',
             textInputType: TextInputType.visiblePassword,
@@ -31,9 +30,8 @@ class PasswordForm extends StatelessWidget {
             onTextChange: (text) => _validate(),
             validators: passwordValidators,
           ),
-          const SizedBox(height: 20),
           MtxTextFormField(
-            label: 'Mot de passe',
+            label: 'Confirmer le mot de passe',
             textInputType: TextInputType.visiblePassword,
             obscureText: true,
             onTextChange: (text) => _validate(),

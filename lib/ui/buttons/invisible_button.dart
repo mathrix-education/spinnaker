@@ -7,17 +7,22 @@ class InvisibleButton extends StatelessWidget {
   /// The on pressed callback.
   final GestureTapCallback onPressed;
   final Widget child;
+  final MainAxisAlignment mainAxisAlignment;
 
   InvisibleButton({
     this.child,
     this.onPressed,
+    this.mainAxisAlignment = MainAxisAlignment.center,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80,
-      child: child,
+      height: 40,
+      child: Row(
+        mainAxisAlignment: mainAxisAlignment,
+        children: [SizedBox(width: 10),child],
+      ),
     );
   }
 }

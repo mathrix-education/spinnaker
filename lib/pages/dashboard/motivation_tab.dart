@@ -4,8 +4,8 @@ import 'package:mathrix_education_app/pages/dashboard/youtube_dialog.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
-import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 import 'package:mathrix_education_app/ui/widgets/mtx_rounded_widget.dart';
+import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 import 'package:mathrix_education_app/ui/widgets/skeletons.dart';
 
 class MotivationTab extends StatefulWidget {

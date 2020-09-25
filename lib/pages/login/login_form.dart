@@ -5,10 +5,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
 import 'package:mathrix_education_app/core/graphql/queries.graphql.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
-import 'package:mathrix_education_app/ui/buttons/primary_text_button.dart';
+import 'package:mathrix_education_app/ui/buttons/invisible_button.dart';
 import 'package:mathrix_education_app/ui/buttons/progress_button.dart';
 import 'package:mathrix_education_app/ui/texts/underlined.dart';
-import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:mathrix_education_app/ui/variables/validators.dart';
 import 'package:mathrix_education_app/ui/widgets/form_field.dart';
 
@@ -85,9 +84,8 @@ class _LoginFormState extends State<LoginForm> {
               onFieldSubmitted: (s) => _authenticate(context),
               focusNode: passwordFocusNode,
             ),
-            Container(
-              padding: EdgeInsets.only(bottom: 16),
-              alignment: Alignment.centerRight,
+            InvisibleButton(
+              mainAxisAlignment: MainAxisAlignment.end,
               child: GestureDetector(
                 onTap: () => widget.onForgotPasswordTap(),
                 child: Underlined(

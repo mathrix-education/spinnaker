@@ -10,6 +10,9 @@ class TitleGreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Headline4(text: text, color: greenLight);
+    return Container(
+        margin: EdgeInsets.only(bottom: 16),
+    child: Headline4(text: text, color: greenLight
+    ));
   }
 }
