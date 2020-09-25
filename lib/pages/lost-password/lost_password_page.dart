@@ -50,7 +50,7 @@ class _LostPasswordState extends State<LostPasswordPage> {
     if (form.validate()) {
       MutationOptions options = MutationOptions(
         documentNode: ForgotPasswordMutation().document,
-        variables: ForgotPasswordArguments(email: 'jean@g.co').toJson(),
+        variables: ForgotPasswordArguments(email: ' jean@g.co').toJson(),
       );
       final QueryResult result = await _client.mutate(options);
 

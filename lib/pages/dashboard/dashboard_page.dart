@@ -52,6 +52,11 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       );
 
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,11 +83,12 @@ class _DashboardPageState extends State<DashboardPage> {
               size: 40.0,
             ),
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => SettingsDialog(),
-              );
-            },
+              return showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext bc) {
+                    return SettingsDialog();
+                  });
+            }
           ),
         ],
         flexibleSpace: AppBarFlexibleSpace(),
