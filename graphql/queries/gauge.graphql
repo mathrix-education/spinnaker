@@ -1,5 +1,6 @@
 query LoadGauge($gradeId: ID!, $disciplineId: ID!){
   listThemes(gradeId: $gradeId, disciplineId: $disciplineId){
+    id
     chapters{
       id
       notions {

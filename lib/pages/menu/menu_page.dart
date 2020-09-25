@@ -81,13 +81,12 @@ class _MenuPageState extends State<MenuPage> {
             }),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _pageIndex,
-          onTap: (index) {
-            bottomTapped(index);
-          },
+          onTap: bottomTapped,
           items: buildBottomNavBarItems(),
         ));
   }
 
+  /// Callback when the bottom page is tapped.
   void bottomTapped(int index) {
     setState(() {
       _pageIndex = index;
