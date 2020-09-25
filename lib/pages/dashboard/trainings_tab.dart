@@ -5,6 +5,7 @@ import 'package:mathrix_education_app/pages/dashboard/training_card_content.dart
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+import 'package:mathrix_education_app/ui/widgets/skeletons.dart';
 
 class TrainingsTab extends StatefulWidget {
   TrainingsTab({Key key}) : super(key: key);
@@ -17,6 +18,7 @@ class _TrainingsTabState extends State<TrainingsTab> {
   @override
   Widget build(BuildContext context) {
     return QueryContainer(
+      loadingSkeleton: Skeletons(),
       query: ListTrainingsQuery(),
       builder: (ListTrainings$Query data) {
         List<ListTrainings$Query$Training> trainings = data.listTrainings;

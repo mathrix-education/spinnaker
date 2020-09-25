@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' hide JsonSerializable;
 import 'package:mathrix_education_app/ui/layouts/loading_body.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mathrix_education_app/ui/widgets/skeleton_view.dart';
+
+import 'discipline_card.dart';
 
 class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable> extends StatelessWidget {
   /// The query.
@@ -14,38 +17,45 @@ class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable
   /// The widget builder.
   final Widget Function(R response) builder;
 
+  final Widget loadingSkeleton;
+
   /// The fetchPolicy
   final FetchPolicy fetchPolicy;
 
-  QueryContainer({@required this.query, this.variables, @required this.builder, this.fetchPolicy});
+  QueryContainer({
+    @required this.query,
+    this.variables,
+    @required this.builder,
+    this.fetchPolicy,
+    @required this.loadingSkeleton,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Query(
-      options: QueryOptions(
-        documentNode: query.document,
-        variables: variables == null ? {} : variables.toJson(),
-        fetchPolicy: fetchPolicy,
-      ),
-      builder: (
-        QueryResult result, {
-        Future<QueryResult> Function() refetch,
-        FetchMore fetchMore,
-      }) {
-        if (result.hasException) {
-          return Text(result.exception.toString()); // TODO
-        }
+        options: QueryOptions(
+          documentNode: query.document,
+          variables: variables == null ? {} : variables.toJson(),
+          fetchPolicy: fetchPolicy,
+        ),
+        builder: (
+          QueryResult result, {
+          Future<QueryResult> Function() refetch,
+          FetchMore fetchMore,
+        }) {
+          if (result.hasException) {
+            return Text(result.exception.toString()); // TODO
+          }
 
-        if (result.loading) {
-          return LoadingBody();
-        }
+          if (result.loading) {
+            return loadingSkeleton;
+          }
 
-        if (result.data != null) {
-          return builder(query.parse(result.data));
-        }
+          if (result.data != null) {
+            return builder(query.parse(result.data));
+          }
 
-        return LoadingBody();
-      }
-    );
+          return loadingSkeleton;
+        });
   }
 }
