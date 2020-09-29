@@ -50,7 +50,7 @@ class _LostPasswordState extends State<LostPasswordPage> {
     if (form.validate()) {
       MutationOptions options = MutationOptions(
         documentNode: ForgotPasswordMutation().document,
-        variables: ForgotPasswordArguments(email: 'jean@g.co').toJson(),
+        variables: ForgotPasswordArguments(email: ' jean@g.co').toJson(),
       );
       final QueryResult result = await _client.mutate(options);
 
@@ -134,11 +134,7 @@ class _LostPasswordState extends State<LostPasswordPage> {
 
     return StandardPage(
       title: 'Mot de passe perdu',
-      body: Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 32, horizontal: 8),
-        child: isStep2 ? step2 : step1,
-      ),
+      body: isStep2 ? step2 : step1,
     );
   }
 }

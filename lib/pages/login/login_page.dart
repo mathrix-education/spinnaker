@@ -6,8 +6,14 @@ import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/pages/login/login_state.dart';
 import 'package:mathrix_education_app/pages/login/social_section.dart';
-import 'package:mathrix_education_app/pages/login/top_section.dart';
+import 'package:mathrix_education_app/ui/buttons/invisible_button.dart';
+import 'package:mathrix_education_app/ui/layouts/standard_page_no_topbar.dart';
+import 'package:mathrix_education_app/ui/texts/body.dart';
+import 'package:mathrix_education_app/ui/texts/headline_1.dart';
+import 'package:mathrix_education_app/ui/texts/underlined.dart';
+import 'package:mathrix_education_app/ui/variables/colors.dart';
 import 'package:provider/provider.dart';
+
 import 'login_form.dart';
 
 // ignore: must_be_immutable
@@ -19,30 +25,37 @@ class LoginPage extends StatefulWidget with LoginState {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 32, horizontal: 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TopSection(
-              primaryText: widget.primaryText,
-              subtitleText: widget.subtitleText,
-              actionText: widget.actionText,
-              onAction: () => setState(() {
-                widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
-              }),
-            ),
-            LoginForm(
+    return StandardPageNoTopbar(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Headline1(text: widget.primaryText, color: green),
+          LoginForm(
               loginMode: widget.mode,
               onLogin: _finalizeAuthentication,
-              onForgotPasswordTap: () => {
-                Navigator.pushNamed(context, RoutePaths.lostPassword)
-              }
-            ),
-            KeyboardVisibilityProvider(child: SocialSection(onLogin: _finalizeAuthentication)),
-          ],
-        ),
+              onForgotPasswordTap: () => {Navigator.pushNamed(context, RoutePaths.lostPassword)}),
+          KeyboardVisibilityProvider(
+              child: Column(
+            children: [
+              SizedBox(height: 80),
+              SocialSection(onLogin: _finalizeAuthentication),
+              InvisibleButton(
+                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Body(text: widget.subtitleText),
+                  SizedBox(width: 8.0),
+                  GestureDetector(
+                    onTap: () => setState(() {
+                      widget.mode = widget.mode == LoginMode.Login ? LoginMode.Register : LoginMode.Login;
+                    }),
+                    child: Underlined(
+                      text: widget.actionText,
+                    ),
+                  ),
+                ]),
+              ),
+            ],
+          )),
+        ],
       ),
     );
   }

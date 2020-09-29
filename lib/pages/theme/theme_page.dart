@@ -1,4 +1,5 @@
 import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/graphql_client.dart';
@@ -8,8 +9,8 @@ import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/texts/title_green.dart';
-import 'package:mathrix_education_app/ui/widgets/progress_bar.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+import 'package:mathrix_education_app/ui/widgets/skeletons.dart';
 
 class ThemePage extends StatefulWidget {
   /// The discipline id.
@@ -44,9 +45,9 @@ class _ThemePageState extends State<ThemePage> {
     return StandardPage(
       title: widget.disciplineName,
       body: QueryContainer(
+          loadingSkeleton: Skeletons(),
           query: ListThemesChaptersFromDisciplinesQuery(),
-          variables:
-              ListThemesChaptersFromDisciplinesArguments(gradeId: widget.gradeId, disciplineId: widget.disciplineId),
+          variables: ListThemesChaptersFromDisciplinesArguments(gradeId: widget.gradeId, disciplineId: widget.disciplineId),
           builder: (ListThemesChaptersFromDisciplines$Query data) {
             final List<ListThemesChaptersFromDisciplines$Query$Theme> themes = data.listThemes;
 
@@ -65,10 +66,10 @@ class _ThemePageState extends State<ThemePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Headline4(text: chapter.name),
-                        Container(
+                        /*Container(
                           margin: EdgeInsets.only(top: 8.0),
                           child: ProgressBar(value: themeValues['$chapterId-$themeId'] ?? 0),
-                        ),
+                        ),*/
                       ],
                     ),
                   );

@@ -42,14 +42,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 updateSaveStatus(appState);
               }),
             ),
-            SizedBox(height: 16),
             PasswordForm(
               passwordKeyAccount: _passwordFormKey,
               onFormUpdate: () => setState(() {
                 updateSaveStatus(appState);
               }),
             ),
-            SizedBox(height: 16),
             PrimaryTextButton(
               width: double.infinity,
               onPressed: () => _validate(Provider.of<AppState>(context, listen: false)),

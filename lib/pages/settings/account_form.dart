@@ -28,15 +28,13 @@ class AccountForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const TitleGreen(text: 'Compte'),
-            const SizedBox(height: 16),
+            TitleGreen(text: 'Compte'),
             MtxTextFormField(
               label: 'Pseudo',
               attribute: 'username',
               validators: [FormBuilderValidators.required()],
               onTextChange: (text) => _validate(),
             ),
-            const SizedBox(height: 20),
             MtxTextFormField(
               label: 'Email',
               textInputType: TextInputType.emailAddress,

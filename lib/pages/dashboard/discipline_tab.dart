@@ -4,6 +4,7 @@ import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+import 'package:mathrix_education_app/ui/widgets/skeletons.dart';
 
 class DisciplineTab extends StatefulWidget {
   DisciplineTab({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class _DisciplineTabState extends State<DisciplineTab> {
   Widget build(BuildContext context) {
     return QueryContainer(
       query: MeQuery(),
+      loadingSkeleton: Skeletons(),
       builder: (Me$Query data) {
         final Me$Query$User me = data.me;
         final List<Me$Query$User$Grade$Discipline> disciplines = data.me?.grade?.disciplines ?? [];

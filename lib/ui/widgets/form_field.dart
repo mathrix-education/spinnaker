@@ -43,32 +43,35 @@ class MtxTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderTextField(
-      focusNode: focusNode,
-      attribute: attribute,
-      validators: validators ?? [],
-      keyboardType: textInputType,
-      obscureText: obscureText,
-      textInputAction: textInputAction,
-      onFieldSubmitted: onFieldSubmitted,
-      onChanged: (text) {
-        if (onTextChange != null) {
-          onTextChange(text);
-        }
-      },
-      style: TextStyle(color: Colors.black),
-      decoration: InputDecoration(
-        labelText: label,
-        fillColor: Colors.amberAccent,
-        border: new OutlineInputBorder(
-          borderRadius: new BorderRadius.circular(8.0),
-          borderSide: new BorderSide(),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-            color: green,
-            width: 1.0,
+    return SizedBox(
+      height: 90,
+      child: FormBuilderTextField(
+        focusNode: focusNode,
+        attribute: attribute,
+        validators: validators ?? [],
+        keyboardType: textInputType,
+        obscureText: obscureText,
+        textInputAction: textInputAction,
+        onFieldSubmitted: onFieldSubmitted,
+        onChanged: (text) {
+          if (onTextChange != null) {
+            onTextChange(text);
+          }
+        },
+        style: TextStyle(color: Colors.black),
+        decoration: InputDecoration(
+          labelText: label,
+          fillColor: Colors.amberAccent,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(8.0),
+            borderSide: new BorderSide(),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(
+              color: green,
+              width: 1.0,
+            ),
           ),
         ),
       ),

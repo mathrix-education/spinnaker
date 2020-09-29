@@ -4,6 +4,8 @@ import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
+import 'package:mathrix_education_app/ui/widgets/skeletons.dart';
+
 import 'course_tab.dart';
 import 'navigation_bar_item.dart';
 
@@ -49,6 +51,7 @@ class _MenuPageState extends State<MenuPage> {
     return StandardPage(
         title: widget.chapterName,
         body: QueryContainer(
+          loadingSkeleton: Skeletons(),
             query: ReadChaptersInformationsQuery(),
             variables: ReadChaptersInformationsArguments(id: widget.chapterId),
             builder: (ReadChaptersInformations$Query data) {

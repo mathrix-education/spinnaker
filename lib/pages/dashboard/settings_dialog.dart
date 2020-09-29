@@ -7,12 +7,29 @@ import 'package:mathrix_education_app/ui/widgets/mtx_icon.dart';
 import 'package:provider/provider.dart';
 
 class SettingsDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  void logout(BuildContext context) {
     final AppState appState = Provider.of<AppState>(context, listen: false);
     appState.loadGrades();
+
+    appState.logout().then((_) => Navigator.of(context).pushNamedAndRemoveUntil(RoutePaths.authenticate, (_) => false));
+  }
+
+  void editGrade(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => ChangeGradeDialog(),
+    );
+  }
+
+  void openSettings(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.of(context).pushNamed('/settings');
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme.headline2.apply(color: Colors.white);
-    return Dialog(
+    Widget oldDialog = Dialog(
       backgroundColor: green.withOpacity(0.83),
       insetPadding: EdgeInsets.all(0),
       child: Stack(
@@ -31,27 +48,17 @@ class SettingsDialog extends StatelessWidget {
               children: [
                 GestureDetector(
                   child: Text('Changer de classe', style: style),
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (_) => ChangeGradeDialog(),
-                  ),
+                  onTap: () => editGrade(context),
                 ),
                 const SizedBox(height: 32),
                 GestureDetector(
                   child: Text('Paramètres', style: style),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('/settings');
-                  },
+                  onTap: () => openSettings(context),
                 ),
                 const SizedBox(height: 32),
                 Consumer<AppState>(
                   builder: (context, appState, child) {
-                    return GestureDetector(
-                      child: Text('Déconnexion', style: style),
-                      onTap: () => appState.logout().then(
-                          (_) => Navigator.of(context).pushNamedAndRemoveUntil(RoutePaths.authenticate, (_) => false)),
-                    );
+                    return GestureDetector(child: Text('Déconnexion', style: style), onTap: () => logout(context));
                   },
                 ),
               ],
@@ -60,5 +67,34 @@ class SettingsDialog extends StatelessWidget {
         ],
       ),
     );
+
+    Widget newDialog = Container(
+      child: new Wrap(
+        children: <Widget>[
+          new ListTile(
+              leading: new Icon(Icons.account_balance),
+              title: new Text('Changer de classe'),
+              onTap: () {
+                Navigator.of(context).pop();
+                editGrade(context);
+              }),
+          new ListTile(
+              leading: new Icon(Icons.settings),
+              title: new Text('Paramètres'),
+              onTap: () {
+                openSettings(context);
+              }),
+          new ListTile(
+              leading: new Icon(Icons.exit_to_app),
+              title: new Text('Déconnexion'),
+              onTap: () {
+                Navigator.of(context).pop();
+                logout(context);
+              }),
+        ],
+      ),
+    );
+
+    return newDialog;
   }
 }
