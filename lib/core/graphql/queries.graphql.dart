@@ -5010,3 +5010,125 @@ class MeQuery extends GraphQLQuery<Me$Query, JsonSerializable> {
   @override
   Me$Query parse(Map<String, dynamic> json) => Me$Query.fromJson(json);
 }
+
+@JsonSerializable(explicitToJson: true)
+class ListPlans$Query$Plan$PlanPeriod with EquatableMixin {
+  ListPlans$Query$Plan$PlanPeriod();
+
+  factory ListPlans$Query$Plan$PlanPeriod.fromJson(Map<String, dynamic> json) =>
+      _$ListPlans$Query$Plan$PlanPeriodFromJson(json);
+
+  int length;
+
+  @JsonKey(
+      unknownEnumValue:
+          ListPlans$Query$Plan$PlanPeriod$PlanInterval.ARTEMIS_UNKNOWN)
+  ListPlans$Query$Plan$PlanPeriod$PlanInterval unit;
+
+  @override
+  List<Object> get props => [length, unit];
+  Map<String, dynamic> toJson() =>
+      _$ListPlans$Query$Plan$PlanPeriodToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListPlans$Query$Plan with EquatableMixin {
+  ListPlans$Query$Plan();
+
+  factory ListPlans$Query$Plan.fromJson(Map<String, dynamic> json) =>
+      _$ListPlans$Query$PlanFromJson(json);
+
+  String id;
+
+  ListPlans$Query$Plan$PlanPeriod period;
+
+  int price;
+
+  @override
+  List<Object> get props => [id, period, price];
+  Map<String, dynamic> toJson() => _$ListPlans$Query$PlanToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ListPlans$Query with EquatableMixin {
+  ListPlans$Query();
+
+  factory ListPlans$Query.fromJson(Map<String, dynamic> json) =>
+      _$ListPlans$QueryFromJson(json);
+
+  List<ListPlans$Query$Plan> listPlans;
+
+  @override
+  List<Object> get props => [listPlans];
+  Map<String, dynamic> toJson() => _$ListPlans$QueryToJson(this);
+}
+
+enum ListPlans$Query$Plan$PlanPeriod$PlanInterval {
+  day,
+  month,
+  week,
+  year,
+  ARTEMIS_UNKNOWN,
+}
+
+class ListPlansQuery extends GraphQLQuery<ListPlans$Query, JsonSerializable> {
+  ListPlansQuery();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'ListPlans'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'listPlans'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'period'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'length'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'unit'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'price'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'ListPlans';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  ListPlans$Query parse(Map<String, dynamic> json) =>
+      ListPlans$Query.fromJson(json);
+}
