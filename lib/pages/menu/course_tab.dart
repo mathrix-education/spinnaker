@@ -4,11 +4,10 @@ import 'package:mathrix_education_app/core/types/interactions.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_container.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_list.dart';
 
-
 class CourseTab extends StatelessWidget {
   final List<ReadChaptersInformations$Query$Chapter$Notion> notions;
 
-  CourseTab({Key key, this.notions}) : super(key: key);
+  const CourseTab({@required this.notions});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +24,10 @@ class CourseTab extends StatelessWidget {
           if (comprehension == null) {
             convertedComprehension = null;
           } else {
-            convertedComprehension =
-                comprehension == ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction$InteractionComprehension.blur
-                    ? Comprehension.blur
-                    : Comprehension.clear;
+            convertedComprehension = comprehension ==
+                    ReadChaptersInformations$Query$Chapter$Notion$Course$Interaction$InteractionComprehension.blur
+                ? Comprehension.blur
+                : Comprehension.clear;
           }
 
           return ActivityListItem(

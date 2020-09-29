@@ -17,6 +17,7 @@ class QueryContainer<Q extends GraphQLQuery<R, V>, R, V extends JsonSerializable
   /// The widget builder.
   final Widget Function(R response) builder;
 
+  /// The loading skeleton widget.
   final Widget loadingSkeleton;
 
   /// The fetchPolicy
