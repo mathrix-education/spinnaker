@@ -15,7 +15,7 @@ class ExamPrepareTab extends StatelessWidget {
   /// The exams.
   final List<ReadChaptersInformations$Query$Chapter$Exam> exams;
 
-  ExamPrepareTab({@required this.summaries, @required this.flashcards, @required this.exams});
+  const ExamPrepareTab({@required this.summaries, @required this.flashcards, @required this.exams});
 
   @override
   Widget build(BuildContext context) {

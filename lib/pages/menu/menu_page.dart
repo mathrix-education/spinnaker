@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
@@ -51,9 +52,10 @@ class _MenuPageState extends State<MenuPage> {
     return StandardPage(
         title: widget.chapterName,
         body: QueryContainer(
-          loadingSkeleton: Skeletons(),
+            loadingSkeleton: Skeletons(),
             query: ReadChaptersInformationsQuery(),
             variables: ReadChaptersInformationsArguments(id: widget.chapterId),
+            fetchPolicy: FetchPolicy.cacheAndNetwork,
             builder: (ReadChaptersInformations$Query data) {
               ReadChaptersInformations$Query$Chapter chapter = data.readChapter;
               List<ReadChaptersInformations$Query$Chapter$Notion> notions = chapter.notions;
