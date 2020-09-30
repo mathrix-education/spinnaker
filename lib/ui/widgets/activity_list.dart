@@ -4,7 +4,7 @@ import 'package:mathrix_education_app/core/routing/routes.dart';
 import 'package:mathrix_education_app/core/store/session.state.dart';
 import 'package:mathrix_education_app/core/types/interactions.dart';
 import 'package:mathrix_education_app/ui/dialogs/premium_dialog.dart';
-import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
+import 'package:mathrix_education_app/ui/layouts/card_list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/activity_container.dart';
 import 'package:provider/provider.dart';

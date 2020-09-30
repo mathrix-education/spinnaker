@@ -18,7 +18,7 @@ class CardListWithTitle<T> extends StatelessWidget {
 
   const CardListWithTitle({
     this.title,
-    this.builder,
+   @required this.builder,
     this.itemList,
     this.onItemTap,
   });

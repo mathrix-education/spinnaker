@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/ui/widgets/skeleton_view.dart';
+import 'discipline_card.dart';
 
-import 'discipline_card.dart';class Skeletons extends StatelessWidget {
-
-  Skeletons();
+class Skeletons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
