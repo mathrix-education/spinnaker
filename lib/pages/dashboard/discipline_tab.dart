@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
 import 'package:mathrix_education_app/core/routing/routes.dart';
-import 'package:mathrix_education_app/ui/layouts/list_with_title.dart';
+import 'file:///C:/Mathrix/spinnaker/lib/ui/layouts/card_list_with_title_skeleton.dart';
+import 'package:mathrix_education_app/ui/layouts/card_list_with_title.dart';
 import 'package:mathrix_education_app/ui/texts/headline_4.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
 import 'package:mathrix_education_app/ui/widgets/skeletons.dart';

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
+import 'file:///C:/Mathrix/spinnaker/lib/ui/layouts/card_list_with_title_skeleton.dart';
 import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';
-import 'package:mathrix_education_app/ui/widgets/skeletons.dart';
 
 import 'course_tab.dart';
 import 'navigation_bar_item.dart';
@@ -52,7 +52,7 @@ class _MenuPageState extends State<MenuPage> {
     return StandardPage(
         title: widget.chapterName,
         body: QueryContainer(
-            loadingSkeleton: Skeletons(),
+            loadingSkeleton: CardListWithTitleSkeleton(),
             query: ReadChaptersInformationsQuery(),
             variables: ReadChaptersInformationsArguments(id: widget.chapterId),
             fetchPolicy: FetchPolicy.cacheAndNetwork,
