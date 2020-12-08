@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mathrix_education_app/core/graphql/queries.dart';
-import 'file:///C:/Mathrix/spinnaker/lib/ui/layouts/card_list_with_title_skeleton.dart';
+import 'package:mathrix_education_app/ui/layouts/card_list_with_title_skeleton.dart';
 import 'package:mathrix_education_app/pages/menu/exam_prepare_tab.dart';
 import 'package:mathrix_education_app/ui/layouts/standard_page.dart';
 import 'package:mathrix_education_app/ui/widgets/query_container.dart';

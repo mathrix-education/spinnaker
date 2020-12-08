@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:mathrix_education_app/ui/silicate/silicate_wrapper.dart';
-import 'package:mathrix_education_app/ui/texts/Headline_3.dart';
+import 'package:mathrix_education_app/ui/texts/headline_3.dart';
 import 'package:mathrix_education_app/ui/variables/colors.dart';
 
 class ContainerBrick extends StatelessWidget {
