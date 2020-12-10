@@ -33,25 +33,33 @@ class _DashboardPageState extends State<DashboardPage> {
   /// The selected tab index.
   int _selectedIndex = 0;
 
-  Widget _bottomNavigationBar(int selectedIndex) => BottomNavigationBar(
+  Widget _bottomNavigationBar(int selectedIndex, bool withAcademy) {
+    var motivationTab = BottomNavigationBarItem(
+      icon: Icon(Icons.whatshot),
+      title: Text('Motivation'),
+    );
+
+    var academyTab = BottomNavigationBarItem(
+      icon: Icon(Icons.whatshot),
+      title: Text('Cours en direct'),
+    );
+
+    return BottomNavigationBar(
         onTap: (int index) => setState(() => _selectedIndex = index),
         currentIndex: selectedIndex,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.library_books),
             title: Text('Matières'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.whatshot),
-            title: Text('Motivation'),
-          ),
+          withAcademy ? academyTab : motivationTab,
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            title: Text('Formation'),
+            title: Text('Formations'),
           ),
         ],
       );
-
+}
 
 
 
@@ -60,7 +68,9 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _bottomNavigationBar(_selectedIndex),
+      bottomNavigationBar: Consumer<AppState>(builder: (context, appState, child) {
+        return _bottomNavigationBar(_selectedIndex, appState.user.grade.id == '12'); // ID: 12 = Terminale
+    }),
       appBar: AppBar(
         title: Consumer<AppState>(builder: (context, appState, child) {
           String name = appState.user?.username ?? '';

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 class ChangeGradeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (consumerContext, appState, child) {
+      print(appState.listGrades);
       return SimpleDialog(
         title: const Headline4(text: 'Changer de classe', color: green),
         children: appState.listGrades.where((element) => element.id != appState.user?.grade?.id).map((e) {
