@@ -69,7 +69,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Consumer<AppState>(builder: (context, appState, child) {
-        return _bottomNavigationBar(_selectedIndex, appState.user.grade.id == '12'); // ID: 12 = Terminale
+        return _bottomNavigationBar(_selectedIndex, appState.user?.grade.id == '12'); // ID: 12 = Terminale
     }),
       appBar: AppBar(
         title: Consumer<AppState>(builder: (context, appState, child) {
